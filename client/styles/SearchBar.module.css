@@ -1,0 +1,118 @@
+.suggestions {
+  font-size: 1rem;
+  text-align: left;
+  margin-top: 0.6rem;
+}
+
+.link {
+  color: white;
+  border-bottom: 1px solid white;
+  font-size: 0.8rem;
+}
+
+.searchMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.location {
+  background-color: white;
+  height: 3rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.95rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  position: relative;
+  box-shadow: var(--shadow);
+  letter-spacing: 1px;
+}
+
+.arrow {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.dropDown {
+  background-color: #ffffff;
+  position: absolute;
+  top: 3.2rem;
+  left: 0;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  display: none;
+  box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
+  z-index: 100;
+  height: 12rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.p {
+  letter-spacing: 1px;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#span {
+  width: 5.75rem;
+  overflow: hidden;
+  letter-spacing: 0;
+}
+
+.locationIcon {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .searchMain {
+    gap: 0.5rem;
+  }
+
+  .arrow {
+    font-size: 0.6rem;
+  }
+
+  .location {
+    font-size: 0.65rem;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    height: 2.4rem;
+  }
+
+  .locationIcon {
+    font-size: 0.6rem;
+  }
+
+  .dropDown {
+    width: 9rem;
+    top: 2.7rem;
+  }
+
+  #span {
+    width: 3.1rem;
+    font-size: 0.5rem;
+  }
+}
+@media (min-width: 640px) and (max-width:767px) {
+  .dropDown{
+    height: 9.5rem;
+  }
+}
+@media (max-width: 640px) {
+  .searchMain {
+    flex-direction: column;
+  }
+  #span {
+    width: 5rem;
+    font-size: 0.7rem;
+  }
+}

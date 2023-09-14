@@ -1,0 +1,294 @@
+.body {
+    padding: 4rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/bg15.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.profileBox {
+    box-shadow: var(--shadow);
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    gap: 2rem;
+    border-radius: 1rem;
+    background-image: url('/bgd7.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    position: relative;
+}
+
+.profileInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dp {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #dedede;
+}
+
+.name {
+    letter-spacing: 1px;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.phone {
+    letter-spacing: 1px;
+    color: #cdc7c7;
+    font-size: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 90%;
+    gap: 1.5rem;
+    padding: 0.25rem;
+}
+
+.option {
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(219, 214, 214);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.logout {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    padding: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
+    width: 10rem;
+    border-radius: 5px;
+}
+
+.back{
+    background-color: white;
+    color: var(--primary-color);
+    font-size: 1rem;
+    padding: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
+    width: 10rem;
+    border-radius: 5px;
+}
+
+.editProfile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+}
+
+.editProfileImage{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.editProfileImage [type='file']{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.dp{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.dpEdit{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.camera{
+    position: absolute;
+    bottom: 0.35rem;
+    left: 0.5rem;
+    opacity: 0.2;
+    box-shadow: var(--shadow);
+}
+
+.camera{
+    position: absolute;
+    bottom: 0.75rem;
+    left: 1.75rem;
+    opacity: 0.2;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.2;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.editProfileInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.fileInput{
+    cursor: pointer;
+}
+
+.editProfileInfo input{
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+}
+
+/* delete box */
+
+.deleteBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 738px){
+    .profileBox{
+        width: 90%;
+    }
+
+    .editProfile{
+        width: 90%;
+    }
+
+    .editProfileImage{
+        width: 100px;
+        height: 100px;
+    }
+
+    .dpEdit{
+        width: 100px;
+        height: 100px;
+    }
+
+    .camera{
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
+
+    .editProfileInfo input{
+        font-size: 1rem;
+    }
+
+    .btns{
+        font-size: 1rem;
+    }
+
+    .logout{
+        font-size: 1rem;
+    }
+
+    .back{
+        font-size: 1rem;
+    }
+
+    .name{
+        font-size: 1.2rem;
+    }
+
+    .phone{
+        font-size: 0.9rem;
+    }
+
+    .option{
+        font-size: 1rem;
+    }
+
+    .body{
+        padding: 3rem 0 0 0;
+    }
+
+    .profileBox{
+        padding: 1rem;
+    }
+
+    .editProfile{
+        padding: 1rem;
+    }
+
+    .editProfileInfo{
+        padding: 1rem;
+    }
+
+    .btns{
+        gap: 0.5rem;
+    }
+
+    .options{
+        gap: 1rem;
+    }
+
+    .editProfileImage{
+        width: 100px;
+        height: 100px;
+    }
+
+    .dpEdit{
+        width: 100px;
+        height: 100px;
+    }
+
+    .camera{
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
+}

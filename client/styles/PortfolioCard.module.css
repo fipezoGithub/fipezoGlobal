@@ -1,0 +1,17 @@
+.portfolio_card {
+  height: 12rem;
+  width: 17rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .portfolio_card {
+    height: 8rem;
+    width: 11rem;
+    margin-bottom: 0.5rem;
+  }
+}

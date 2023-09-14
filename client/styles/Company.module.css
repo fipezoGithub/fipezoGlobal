@@ -1,0 +1,18 @@
+.company {
+  background-color: #f3f3f3;
+}
+.company_details {
+  display: flex;
+  position: relative;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding-top: 4rem;
+}
+@media (max-width: 738px) {
+  .company_details {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,49 @@
+.addBox {
+  height: 12rem;
+  width: 18rem;
+  border: 1px dashed #686868;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: var(--shadow);
+}
+.addBox [type="file"] {
+  opacity: 0;
+}
+.work {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.plus {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+}
+.warn {
+  color: red;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  font-weight: 500;
+  width: 18rem;
+}
+#warn {
+  bottom: -1.5rem;
+}
+.portfolio {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .input {
+    border: 1px solid #686868;
+    padding: 0.5rem;
+    width: 17.5rem;
+    border-radius: 5px;
+  }

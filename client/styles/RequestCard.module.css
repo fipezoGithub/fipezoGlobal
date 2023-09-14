@@ -1,0 +1,112 @@
+.requestCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    width: 35vw;
+    gap: 0.5rem;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.cardInfo {
+    margin-bottom: 8px;
+    padding: 0.5rem;
+    border: 1px solid lightgray;
+    letter-spacing: 0.5px;
+    box-shadow: 0px 0px 10px 0px rgba(150, 147, 147, 0.2);
+}
+
+.btns{
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.btn{
+    padding: 0.5rem 1rem;
+    width: 10rem;
+}
+
+#accept{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+    border: 1px solid lightgray;
+    color: var(--primary-color);
+}
+
+#accept:hover{
+    background-color: rgb(242, 242, 242);
+}
+
+#decline{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#decline:hover{
+    background-color: rgb(10, 10, 10);
+}
+
+.cardSubTitle{
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.tag{
+    display: flex;
+}
+
+.status{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    padding: 0.5rem 4rem;
+    border-radius: 2rem 1rem;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+#pending{
+    background-color: orangered;
+    color: white;
+}
+
+#accepted{
+    background-color: rgb(51, 199, 51);
+    color: white;
+}
+
+#declined{
+    background-color: rgb(209, 205, 205);
+    color: white;
+}
+
+.accepted{
+    width: 100%;
+}
+
+@media screen and (max-width: 1200px){
+    .requestCard{
+        width: 80vw;
+    }
+}

@@ -1,0 +1,465 @@
+.verification {
+  background-color: white;
+}
+
+.body {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6rem;
+  background-image: url(/bgX.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid rgb(209, 205, 205);
+  padding: 4rem;
+  padding-top: 2rem;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.navigation {
+  position: absolute;
+  top: 0rem;
+  left: 6.75rem;
+  height: 3rem;
+  width: 15rem;
+}
+
+.navRoad {
+  border: 1px solid #33db62;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.navStep {
+  position: absolute;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 1rem;
+  background-color: #33db62;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  top: 1.25rem;
+}
+
+.navStep:nth-child(2) {
+  left: 15.5rem;
+  color: white;
+  background-color: lightgray;
+}
+
+.navStep:nth-child(3) {
+  left: 14rem;
+  top: 4px;
+  color: white;
+  background-color: lightgray;
+  background-color: transparent;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: none;
+}
+
+.navText {
+  color: black;
+  position: absolute;
+  top: 2.5rem;
+  width: 10rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.subTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  color: #7c7c7c;
+}
+
+.dp {
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#cover {
+  height: 60vh;
+  width: 100%;
+  background-color: white;
+  margin-top: 2rem;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.2);
+}
+
+#profile_pic {
+  position: relative;
+  top: -6rem;
+  display: flex;
+  justify-content: center;
+  height: 176.8px;
+  width: 176.8px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid white;
+  box-shadow: var(--shadow);
+}
+
+.uploads {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.upload {
+  text-align: center;
+  width: 13rem;
+}
+
+.box {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #323131;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 15rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.box:hover {
+  background-color: var(--primary-color);
+}
+
+.box input[type="file"] {
+  display: none;
+}
+
+.boxC {
+  display: inline-block;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #323131;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 18rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 2rem;
+    margin-left: 2rem; */
+}
+
+.boxC:hover {
+  background-color: var(--primary-color);
+}
+
+.boxC input[type="file"] {
+  display: none;
+}
+
+.socials {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.social {
+  justify-content: flex-start;
+  /* margin-bottom: 2rem;
+    margin-left: 2rem; */
+  gap: 3rem;
+  cursor: pointer;
+}
+
+.input {
+  border: 1px solid #686868;
+  padding: 0.5rem;
+  width: 17.5rem;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: var(--primary-blue);
+  color: white;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  width: 48%;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #0080ff;
+}
+
+.portfolio {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.addBox {
+  height: 12rem;
+  width: 18rem;
+  border: 1px dashed #686868;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: var(--shadow);
+}
+
+.addBox [type="file"] {
+  opacity: 0;
+}
+
+#profile_pic [type="file"] {
+  opacity: 0;
+}
+
+#cover [type="file"] {
+  opacity: 0;
+}
+
+.plus {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+}
+
+.work {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.profilePicPreview {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.coverPreview {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4rem;
+}
+
+.checkbox {
+  height: 0.85rem;
+  width: 0.85rem;
+  position: relative;
+  top: 1.59px;
+}
+
+.links {
+  color: var(--primary-blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.warn {
+  color: red;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  font-weight: 500;
+  width: 18rem;
+}
+
+.camera {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.2;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+#camera {
+  bottom: 0.95rem;
+  left: 2.2rem;
+  opacity: 1;
+  opacity: 0.2;
+  box-shadow: var(--shadow);
+}
+
+#warn {
+  bottom: -1.5rem;
+}
+
+.exclamation {
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 2.5rem;
+  font-weight: 500;
+  box-shadow: var(--shadow);
+}
+
+.exclamation:hover {
+  color: rgb(0, 213, 255);
+}
+
+.dialogBox {
+  position: fixed;
+  top: 52.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline;
+  box-shadow: var(--shadow);
+}
+
+.err {
+  font-size: 0.8rem;
+  position: absolute;
+  top: 3rem;
+  width: 18rem;
+  color: red;
+  font-weight: 500;
+}
+
+.imageFields {
+  position: relative;
+}
+
+.instruction {
+  color: #686868;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -2rem;
+  right: 0;
+  font-weight: 400;
+  width: 18rem;
+}
+.mandatory {
+  color: #686868;
+  font-size: 0.8rem;
+  font-weight: 400;
+  display: block;
+  margin-top: 0.4rem;
+}
+.mandatory s {
+  text-decoration: none;
+  color: red;
+}
+
+@media (max-width: 738px) {
+  .navigation {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subTitle {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .instruction {
+    font-size: 0.7rem;
+    bottom: -4.2rem;
+  }
+
+  #cover {
+    height: 20vh;
+  }
+
+  #profile_pic {
+    height: 106.8px;
+    width: 106.8px;
+    top: -3.5rem;
+  }
+
+  #camera {
+    bottom: 0.5rem;
+    left: 0.85rem;
+    height: 30px;
+    width: 30px;
+  }
+
+  .camera {
+    bottom: 0.5rem;
+    left: 0.85rem;
+  }
+
+  .uploads {
+    gap: 1rem;
+  }
+
+  .socials {
+    gap: 0;
+  }
+
+  .boxC {
+    margin-bottom: 1rem;
+  }
+
+  .social {
+    margin-bottom: 1rem;
+  }
+}

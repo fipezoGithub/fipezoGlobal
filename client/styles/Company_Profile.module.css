@@ -1,0 +1,292 @@
+.body {
+    padding: 4rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/bg15.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.profileBox {
+    box-shadow: var(--shadow);
+    width: 38rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background-image: url('/bgd7.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: white;
+    position: relative;
+}
+
+.profileInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dp {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #f1f1f1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.name {
+    letter-spacing: 1px;
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    position: relative;
+    bottom: 1rem;
+}
+
+.phone {
+    letter-spacing: 1px;
+    color: #cdc7c7;
+    font-size: 1rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 0.25rem;
+    margin-top: -1rem;
+}
+
+.option {
+    cursor: pointer;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(219, 214, 214);
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.logout {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    padding: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
+    width: 10rem;
+    border-radius: 5px;
+}
+
+.back{
+    background-color: white;
+    color: var(--primary-color);
+    font-size: 1rem;
+    padding: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
+    width: 10rem;
+    border-radius: 5px;
+}
+
+.editProfile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.name{
+    margin-bottom: 1rem;
+}
+
+.editProfileImage{
+    position: relative;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 7.5rem;
+    border: 2px solid #f1f1f1;
+}
+
+.options{
+    margin-bottom: 1rem;
+}
+
+.editProfileImage [type='file']{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.editCoverPicture [type='file']{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.coverPicture{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 10rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.025);
+}
+
+.editCoverPicture{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 10rem;
+    width: 100%;
+    margin-bottom: 4rem;
+    border-radius: 1rem;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.025);
+    position: relative;
+}
+
+.profileImage{
+    position: absolute;
+    top: 7.5rem;
+}
+
+.dp{
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+}
+
+.dpEdit{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.camera{
+    position: absolute;
+    bottom: 0.35rem;
+    left: 0.5rem;
+    opacity: 0.2;
+    box-shadow: var(--shadow);
+}
+
+.camera{
+    position: absolute;
+    bottom: 0.75rem;
+    left: 1.75rem;
+    opacity: 0.2;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.2;
+    border: 2px solid rgb(207, 207, 207);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.editProfileInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.fileInput{
+    cursor: pointer;
+}
+
+.editProfileInfo input{
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.editProfileInfo textarea{
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.15rem;
+    resize: none;
+    height: 8rem;
+}
+
+.deleteBox{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 738px){
+    .profileBox{
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .options{
+        width: 100%;
+    }
+
+    .option{
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .name{
+        font-size: 1.2rem;
+        margin-top: 3rem;
+    }
+
+    .phone{
+        font-size: 0.8rem;
+    }
+
+    .editProfileInfo input{
+        font-size: 1rem;
+    }
+
+    .body {
+        padding: 3rem 0 0 0;
+    }
+}

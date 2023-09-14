@@ -1,0 +1,124 @@
+.points{
+    width: 90vw;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    max-width: 1500px;
+}
+
+.left{
+    display: flex;
+    width: 65%;
+    height: inherit;
+    background-color: var(--primary-color);
+    padding: 2rem;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-bottom: 3rem;
+}
+
+.right{
+    background-image: url(/model.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: inherit;
+    width: 35%;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.2);
+}
+
+.heading{
+    font-size: 3.8rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.text{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.head{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.colorful{
+    color: #9fd9e0;
+    font-style: italic;
+}
+
+.ul > li{
+    margin-bottom: 1rem;
+}
+
+.para{
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+}
+
+.btn{
+    width: 50%;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.btn:hover{
+    background-color: black;
+    color: white;
+}
+
+.icon{
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .heading{
+        font-size: 1rem;
+    }
+
+    .head{
+        font-size: 0.8rem;
+    }
+
+    .para{
+        font-size: 0.8rem;
+    }
+
+    .left{
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .text{
+        width: 100%;
+    }
+
+    .right{
+        display: none;
+    }
+
+    .btn{
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 0.8rem 0;
+    }
+}

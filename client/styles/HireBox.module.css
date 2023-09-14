@@ -1,0 +1,154 @@
+.hireBox {
+  background-color: #f4f4f4;
+  background-color: white;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  height: 43rem;
+  justify-content: space-evenly;
+}
+
+.heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.input {
+  padding: 0.75rem;
+  border: 1px solid lightgray;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  color: black;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.textarea {
+  padding: 0.75rem;
+  resize: none;
+  height: 8.5rem;
+  border: 1px solid lightgray;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  color: black;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+}
+
+.label {
+  font-size: 1.2rem;
+}
+
+.cross {
+  cursor: pointer;
+  display: inline;
+  width: 10px;
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 48%;
+  letter-spacing: 1px;
+}
+
+#btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  top: 2.48rem;
+}
+
+.subField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
+
+.input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+.error {
+  color: red;
+}
+
+@media (max-width: 1080px) {
+  .hireBox {
+    width: 20rem;
+    padding: 0.75rem;
+    height: 31rem;
+  }
+
+  .heading {
+    font-size: 1.2rem;
+  }
+
+  .label {
+    font-size: 0.75rem;
+  }
+
+  .input {
+    font-size: 0.75rem;
+    padding: 0.35rem;
+  }
+
+  .field {
+    width: 45%;
+  }
+
+  #btn {
+    top: 1.35rem;
+  }
+
+  .textarea {
+    height: 6rem;
+  }
+
+  .fields {
+    gap: 0;
+  }
+  .cross {
+    align-self: flex-end;
+  }
+  .field {
+    margin-bottom: 1rem;
+    margin-left: 0.75rem;
+  }
+}

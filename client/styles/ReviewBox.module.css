@@ -1,0 +1,97 @@
+.reviewBox{
+  background-color: white;      
+  /* background: linear-gradient(45deg, var(--primary-blue) 0%, #ffffff 150%); */
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+}
+
+.stars {
+  display: flex;
+  flex-direction: row;
+}
+
+.heading{
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.error{
+  color: red;
+}
+
+.input{
+  padding: 0.75rem;
+  border: 1px solid lightgray;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  color: black;
+  letter-spacing: 1px;
+}
+
+.textarea{
+  padding: 0.75rem;
+  resize: none;
+  height: 10rem;
+  border: 1px solid lightgray;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  color: black;
+  letter-spacing: 1px;
+}
+
+.input:focus, .textarea:focus{
+  outline: none;
+}
+
+.label{
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.cross{
+  cursor: pointer;
+  display: inline;
+  width: 10px;
+}
+
+.btn{
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  font-weight: 500;
+  width: 50%;
+  letter-spacing: 1px;
+}
+
+.inputStars{
+  display: none;
+}
+
+.star{
+  cursor: pointer;
+}
+
+@media (max-width: 1080px){
+  .label{
+    font-size: 0.75rem;
+  }
+
+  .textarea{
+    height: 6.5rem;
+  }
+
+  .heading{
+    font-size: 1.2rem;
+  }
+  .cross{
+    align-self: flex-end;
+  }
+}

@@ -1,0 +1,205 @@
+.footer {
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  max-width: 1640px;
+  margin: auto;
+  color: black;
+  letter-spacing: 0.5px;
+  padding: 2.5rem;
+}
+
+.upper,
+.lower {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about,
+.help,
+.law,
+#socials {
+  display: flex;
+  flex-direction: column;
+  letter-spacing: 1px;
+}
+
+.heading {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.middle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.middleHeading {
+  white-space: nowrap;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.stateBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+  text-transform: capitalize;
+  color: rgb(116, 107, 107);
+}
+.subHeading {
+  cursor: pointer;
+  color: rgb(116, 107, 107);
+  margin-bottom: 1rem;
+}
+
+#subTerm {
+  display: inline-block;
+}
+
+.divider {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: #eaeaea 1px solid;
+}
+
+.logo {
+  font-size: 2.15rem;
+}
+
+.lower {
+  align-items: center;
+}
+
+.copyri8 {
+  font-size: 0.9rem;
+  position: relative;
+  top: 0.3rem;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+}
+
+.social {
+  cursor: pointer;
+  opacity: 0.9;
+  transition: transform 0.3s;
+}
+
+.social:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+.appLogo {
+  transition: transform 0.3s;
+}
+.appLogo:hover {
+  transform: scale(1.2);
+}
+.company {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 32%;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 24%;
+}
+
+.google_play {
+  cursor: pointer;
+}
+
+.app_store {
+  cursor: pointer;
+}
+
+.socials {
+  display: flex;
+  justify-content: flex-start;
+  justify-content: space-evenly;
+  width: 24%;
+}
+
+@media (max-width: 1200px) {
+  .company {
+    width: 38%;
+  }
+
+  .app {
+    width: 30%;
+  }
+
+  .socials {
+    width: 30%;
+  }
+}
+@media (max-width: 639px) {
+  .upper{
+    justify-content: space-between !important;
+  }
+}
+@media (max-width: 768px) {
+  .footer {
+    width: 90vw;
+    padding: 1rem;
+  }
+
+  .upper {
+    font-size: 0.75rem;
+    justify-content: flex-start;
+  }
+  .middleHeading {
+    font-size: 0.65rem;
+  }
+  .middle {
+    font-size: 0.75rem;
+  }
+  .heading {
+    font-size: 0.65rem;
+    width: 8rem;
+  }
+
+  .subHeading {
+    font-size: 0.65rem;
+  }
+
+  .lower {
+    flex-direction: column;
+    height: 16rem;
+    justify-content: space-between;
+  }
+
+  .company {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .app {
+    width: 100%;
+  }
+
+  .socials {
+    width: 100%;
+  }
+
+  .about {
+    margin-bottom: 2.5rem;
+  }
+
+  .law {
+    margin-bottom: 2.5rem;
+  }
+
+  .copyri8 {
+    font-size: 0.75rem;
+  }
+}
