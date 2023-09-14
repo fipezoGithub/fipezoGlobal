@@ -72,6 +72,10 @@ const freelancerSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "companycollection",
     },
+    feeds: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "feedcollection",
+    },
     links: {
       type: Object,
       required: true,

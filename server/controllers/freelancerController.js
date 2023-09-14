@@ -606,6 +606,30 @@ async function getFreelancerByName(req, res) {
     res.status(500);
   }
 }
+// Get Feed of Freelancer
+async function getFeedOfFreelancer(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        }).populate("feeds");
+        if (!user) {
+          res.status(500).send("Not logged in");
+        }
+        res.status(200).json(user.feeds);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 module.exports = {
   registerFreelancer,
   getFreelancerProfile,
@@ -624,4 +648,5 @@ module.exports = {
   getFollowedCompanies,
   followCompany,
   unfollowCompany,
+  getFeedOfFreelancer
 };

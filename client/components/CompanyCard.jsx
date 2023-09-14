@@ -89,7 +89,7 @@ export default function CompanyCard(props) {
           <Image
             src="/advertising-logo.png"
             alt="ad_agency_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 bg-white p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
             width={1000}
             height={1000}
           />
@@ -98,7 +98,7 @@ export default function CompanyCard(props) {
           <Image
             src="/photography-logo.png"
             alt="photography_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 bg-white p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
             width={1000}
             height={1000}
           />
@@ -107,7 +107,7 @@ export default function CompanyCard(props) {
           <Image
             src="/ecom-logo.png"
             alt="eCommerce_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 bg-white p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
             width={1000}
             height={1000}
           />
@@ -116,7 +116,7 @@ export default function CompanyCard(props) {
           <Image
             src="/production_house.png"
             alt="production_house_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 bg-white p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
             width={1000}
             height={1000}
           />
@@ -125,7 +125,7 @@ export default function CompanyCard(props) {
           <Image
             src="/other.png"
             alt="other_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 bg-white p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
             width={1000}
             height={1000}
           />

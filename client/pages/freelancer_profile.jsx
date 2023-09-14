@@ -1,15 +1,16 @@
-import Navbar from '@/components/Navbar';
-import Cover from '@/components/Cover';
-import ProfileBioCard from '@/components/ProfileBioCard';
-import Details from '@/components/Details';
-import React from 'react';
-import styles from '@/styles/Profile.module.css';
-import Footer from '@/components/Footer';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Modal from '@/components/Modal';
-import Link from 'next/link';
-import Head from 'next/head';
+import Navbar from "@/components/Navbar";
+import Cover from "@/components/Cover";
+import ProfileBioCard from "@/components/ProfileBioCard";
+import Details from "@/components/Details";
+import React from "react";
+import styles from "@/styles/Profile.module.css";
+import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Modal from "@/components/Modal";
+import Link from "next/link";
+import Head from "next/head";
+import RandomFeeds from "@/components/RandomFeeds";
 
 function Freelancer_Profile(props) {
   const router = useRouter();
@@ -18,6 +19,7 @@ function Freelancer_Profile(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isFreelancerLoaded, setIsFreelancerLoaded] = useState(false);
   const [clickedImg, setClickedImg] = useState(null);
+  const [feeds, setFeeds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const handleClick = (item, index) => {
@@ -29,7 +31,9 @@ function Freelancer_Profile(props) {
     const totalLength = freelancer.works.length;
     if (currentIndex + 1 >= totalLength) {
       setCurrentIndex(0);
-      const newUrl = `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + freelancer.works[0];
+      const newUrl =
+        `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` +
+        freelancer.works[0];
       setClickedImg(newUrl);
       return;
     }
@@ -37,7 +41,8 @@ function Freelancer_Profile(props) {
     const newUrl = freelancer.works.filter((item) => {
       return freelancer.works.indexOf(item) === newIndex;
     });
-    const newItem = `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + newUrl[0];
+    const newItem =
+      `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + newUrl[0];
     setClickedImg(newItem);
     setCurrentIndex(newIndex);
   };
@@ -46,7 +51,9 @@ function Freelancer_Profile(props) {
     const totalLength = freelancer.works.length;
     if (currentIndex === 0) {
       setCurrentIndex(totalLength - 1);
-      const newUrl = `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + freelancer.works[totalLength - 1];
+      const newUrl =
+        `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` +
+        freelancer.works[totalLength - 1];
       setClickedImg(newUrl);
       return;
     }
@@ -54,45 +61,69 @@ function Freelancer_Profile(props) {
     const newUrl = freelancer.works.filter((item) => {
       return freelancer.works.indexOf(item) === newIndex;
     });
-    const newItem = `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + newUrl[0];
+    const newItem =
+      `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + newUrl[0];
     setClickedImg(newItem);
     setCurrentIndex(newIndex);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).token : null;
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
     if (token) {
       fetch(`${process.env.SERVER_URL}/profile`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        cache:"no-store"
+        cache: "no-store",
       })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           setFreelancer(data);
           setIsFreelancerLoaded(true);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     }
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
     async function fetchReviews() {
       try {
-        const response = await fetch(`${process.env.SERVER_URL}/reviews/${freelancer._id}`);
+        const response = await fetch(
+          `${process.env.SERVER_URL}/reviews/${freelancer._id}`
+        );
         const data = await response.json();
         setReviews(data);
       } catch (error) {
         console.error(error);
       }
     }
-
+    async function getFeeds() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/profile/feed`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          cache: "no-store",
+        });
+        const data = await res.json();
+        console.log(data);
+        setFeeds(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     if (isFreelancerLoaded) {
       fetchReviews();
+      getFeeds();
     }
   }, [freelancer, isFreelancerLoaded]);
 
@@ -101,26 +132,60 @@ function Freelancer_Profile(props) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    router.push('/');
-  }
+    localStorage.removeItem("user");
+    router.push("/");
+  };
 
   return (
     <div className={styles.profile}>
       <Head>
         <title>Fipezo | My Profile</title>
       </Head>
-      <Navbar color='white' checkLoggedIn={checkLoggedIn} user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} />
+      <Navbar
+        color="white"
+        checkLoggedIn={checkLoggedIn}
+        user={props.user}
+        company={props.company}
+        setCompany={props.setCompany}
+        setUser={props.setUser}
+      />
       <Cover coverPicture={freelancer.coverPicture} />
       {/* <div className='w-full'><Link className={styles.btn} style={{width: '100%'}} id={styles.hire} href='/my_requests'>My Requests</Link></div> */}
       <div className={styles.profile_details}>
-        {freelancer.links && <ProfileBioCard freelancer={freelancer} handleClick={handleClick} />}
-        {isFreelancerLoaded && <Details profession={freelancer.profession} works={freelancer.works} reviews={reviews} handleClick={handleClick} />}
+        {freelancer.links && (
+          <ProfileBioCard freelancer={freelancer} handleClick={handleClick} />
+        )}
+        {isFreelancerLoaded && (
+          <Details
+            profession={freelancer.profession}
+            works={freelancer.works}
+            reviews={reviews}
+            handleClick={handleClick}
+          />
+        )}
         <div className={styles.btnBox}>
-          <Link className={styles.btn} style={{width: '100%'}} id={styles.hire} href='/my_requests'>My Requests</Link>
+          <Link
+            className={styles.btn}
+            style={{ width: "100%" }}
+            id={styles.hire}
+            href="/my_requests"
+          >
+            My Requests
+          </Link>
           {/* <div className={styles.btn} id={styles.logout} onClick={handleLogout}>
             Log Out
           </div> */}
+        </div>
+      </div>
+      <div className="flex flex-col">
+        <h2 className="py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold">
+          my feeds
+        </h2>
+        <div className="flex items-center flex-wrap justify-center">
+          {feeds.length !== 0 &&
+            feeds.map((feed, index) => (
+              <RandomFeeds feed={feed} key={index} user={freelancer}  />
+            ))}
         </div>
       </div>
       <div className={styles.footer}>

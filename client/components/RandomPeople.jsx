@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 const RandomPeople = (props) => {
   const [freelancers, setFreelancers] = useState([]);
   const [filterCity, setFilterCity] = useState("");
+  const [loginType, setLoginType] = useState("");
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -17,6 +18,7 @@ const RandomPeople = (props) => {
   }
   useEffect(() => {
     setFilterCity("none");
+    setLoginType(JSON.parse(localStorage.getItem("type")));
   }, []);
 
   useEffect(() => {
@@ -38,9 +40,13 @@ const RandomPeople = (props) => {
   const userFilterer = freelancers.filter((freelancer) => {
     return freelancer._id !== props.user._id;
   });
-  const followingFilters = userFilterer.filter((freelancer) => {
-    return !props.user.following.includes(freelancer._id);
-  });
+  let followingFilters;
+  if (loginType === "freelancer") {
+    followingFilters = userFilterer.filter((freelancer) => {
+      return !props.user.following.includes(freelancer._id);
+    });
+  }
+  followingFilters = userFilterer;
   const shuffleFilter = shuffleArray(followingFilters);
   const locationFilter = shuffleFilter.filter((freelancer) => {
     if (
@@ -105,13 +111,15 @@ const RandomPeople = (props) => {
               " " +
               people.lastname.toLowerCase()}
           </Link>
-          <button
-            type="button"
-            className="p-2 text-sm rounded-xl capitalize bg-[#0095f6] text-white"
-            onClick={() => handelFollow(people._id)}
-          >
-            follow
-          </button>
+          {loginType === "freelancer" && (
+            <button
+              type="button"
+              className="p-2 text-sm rounded-xl capitalize bg-[#0095f6] text-white"
+              onClick={() => handelFollow(people._id)}
+            >
+              follow
+            </button>
+          )}
         </div>
       );
     })

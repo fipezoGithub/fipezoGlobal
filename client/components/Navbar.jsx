@@ -87,7 +87,6 @@ export default function Navbar(props) {
       }
     });
   }, [props.color]);
-  console.log(props);
   return (
     <nav
       className={styles.navbar}
@@ -120,7 +119,7 @@ export default function Navbar(props) {
             </Link>
           </li>
           <li className={styles.navElement}>
-            <Link href={!props.user ? "/register/freelancer" : "/feed"}>
+            <Link href={!props.user ? "/register/freelancer" : "/feed/"}>
               <span id={styles.home}>Feed&nbsp;&nbsp;</span>
             </Link>
           </li>
@@ -401,7 +400,7 @@ export default function Navbar(props) {
             </Link>
           </li>
           <li className={styles.navElement}>
-            <Link href="/feed">
+            <Link href="/feed/">
               <span id={styles.home}>Feed&nbsp;&nbsp;</span>
             </Link>
           </li>

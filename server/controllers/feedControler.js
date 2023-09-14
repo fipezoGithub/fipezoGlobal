@@ -49,7 +49,12 @@ async function addFeed(req, res) {
               love: [],
               date: req.body.date,
             });
-            await feedData.save();
+            const feed = await feedData.save();
+            await freelancerCollection.findByIdAndUpdate(user._id, {
+              $push: {
+                feeds: feed._id,
+              },
+            });
           } else {
             feedData = new feedCollection({
               freelancer: user._id,
@@ -58,7 +63,12 @@ async function addFeed(req, res) {
               love: [],
               date: req.body.date,
             });
-            await feedData.save();
+            const feed = await feedData.save();
+            await freelancerCollection.findByIdAndUpdate(user._id, {
+              $push: {
+                feeds: feed._id,
+              },
+            });
           }
           if (resizedPostData !== undefined) {
             const filePromises = [];
@@ -80,7 +90,7 @@ async function addFeed(req, res) {
     res.status(500).send("Internal server error");
   }
 }
-//Get Feed
+//Get All Feed
 async function getFeed(req, res) {
   try {
     const feeds = await feedCollection.find({}).populate("freelancer");
@@ -123,6 +133,17 @@ async function loveFeed(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//Get Feed By Id
+async function getFeedById(req, res) {
+  const id = req.params.id;
+  try {
+    const feeds = await feedCollection.findById(id).populate("freelancer");
+    res.status(200).json(feeds);
+  } catch (error) {
+    res.status(500).send("Internal server error");
+    console.log(error);
+  }
+}
 //Unlove Feed
 async function unLoveFeed(req, res) {
   try {
@@ -156,9 +177,61 @@ async function unLoveFeed(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//Edit Feed
+async function editFeed(req, res) {
+  const id = req.params.id;
+  const description = req.body.description;
+  try {
+    const feed = await feedCollection
+      .findByIdAndUpdate(id, { description: description })
+      .populate("freelancer");
+    res.status(200).json(feed);
+  } catch (error) {
+    res.status(500).send("Internal server error");
+    console.log(error);
+  }
+}
+//Delete Feed
+async function deleteFeed(req, res) {
+  const id = req.params.id;
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        });
+        if (user) {
+          await feedCollection.findByIdAndDelete(id);
+          await freelancerCollection.updateOne(
+            { _id: authData.user._id },
+            {
+              $pull: {
+                feeds: id,
+              },
+            }
+          );
+          res.send({ message: `delete successfully ${id}` });
+        } else {
+          res.sendStatus(403);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 module.exports = {
   addFeed,
   getFeed,
   loveFeed,
   unLoveFeed,
+  getFeedById,
+  editFeed,
+  deleteFeed,
 };

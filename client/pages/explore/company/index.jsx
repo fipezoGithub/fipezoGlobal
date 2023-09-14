@@ -238,7 +238,7 @@ function Explore(props) {
                   alt="nobody-pic"
                 />
                 <p className={styles.nobodyMainText}>
-                  No freelancers available!
+                  No Companies available!
                 </p>
                 <p className={styles.nobodyText}>
                   Try changing the filters or search for a different city.

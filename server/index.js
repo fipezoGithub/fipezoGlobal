@@ -49,6 +49,7 @@ const {
   getFollowedCompanies,
   followCompany,
   unfollowCompany,
+  getFeedOfFreelancer,
 } = require("./controllers/freelancerController");
 const {
   contactUs,
@@ -94,6 +95,9 @@ const {
   loveFeed,
   unLoveFeed,
   getFeed,
+  getFeedById,
+  editFeed,
+  deleteFeed,
 } = require("./controllers/feedControler");
 const feedPostImage = require("./middlewares/feedPostImage");
 
@@ -135,6 +139,8 @@ app.put("/api/unlove/:feedId", verifyToken, unLoveFeed);
 app.get("/api/freelancer/followers/:id", getFollowers);
 app.get("/api/freelancer/followedcompanies/:id", getFollowedCompanies);
 app.get("/api/freelancer/following/:id", getFollowing);
+app.get("/api/feed/:id", getFeedById);
+app.get("/api/profile/feed", verifyToken, getFeedOfFreelancer);
 app.delete("/api/delete/company/:id", deleteCompanyProfileV);
 app.delete("/api/profile/user/delete", verifyToken, deleteUserProfile);
 app.delete("/api/profile/company/delete", verifyToken, deleteCompanyProfile);
@@ -158,6 +164,8 @@ app.put(
   verifyToken,
   editCompanyProfile
 );
+app.put("/api/edit/feed/:id", editFeed);
+app.delete("/api/delete/feed/:id", verifyToken, deleteFeed);
 app.get("/api/profile", verifyToken, getProfile);
 app.get("/api/hires", verifyToken, getHires);
 app.get("/api/requests", verifyToken, getRequests);
