@@ -83,8 +83,8 @@ const Feedid = (props) => {
         <title>
           {props.data.freelancer.firstname +
             " " +
-            props.data.freelancer.lastname}{" "}
-          on Fipezo:"{props.data.description}"
+            props.data.freelancer.lastname +
+            "on Fipezo Feed"}
         </title>
         <meta name="description" content={props.data.bio}></meta>
         <meta
