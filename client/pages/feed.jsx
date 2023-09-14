@@ -9,12 +9,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const feed = (props) => {
+const Feed = (props) => {
   const [feed, setfeed] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAddFeed, setShowAddFeed] = useState(false);
   const router = useRouter();
-  console.log(props);
   useEffect(() => {
     const getAllFeed = async () => {
       try {
@@ -93,4 +92,4 @@ const feed = (props) => {
   );
 };
 
-export default feed;
+export default Feed;
