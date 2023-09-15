@@ -9,6 +9,7 @@ const { uploadFile, deleteFile } = require("../middlewares/s3");
 const sharp = require("sharp");
 const path = require("path");
 const companyCollection = require("../models/companyModel");
+const { log } = require("console");
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -320,8 +321,53 @@ async function editFreelancerProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//edit cover picture
+async function editFreelancerCoverPicture(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        });
+        if (user) {
+          const resizedCoverPicture = await resizeImage(
+            req.files["coverPicture"][0],
+            2272,
+            1704
+          );
+          const deletePromises = [];
+          deletePromises.push(deleteFile(user.coverPicture));
+          console.log(deletePromises);
+          await Promise.all(deletePromises);
+          const filePromises = [];
+          filePromises.push(uploadFile(resizedCoverPicture));
+          console.log(filePromises);
+          await Promise.all(filePromises);
+          const updatedUser = await freelancerCollection.findByIdAndUpdate(
+            user._id,
+            {
+              coverPicture: resizedCoverPicture.filename,
+            }
+          );
+          await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
+          await unlinkFile(resizedCoverPicture.path);
+          res.status(200).json(updatedUser);
+        } else {
+          res.status(404).send("Not logged in");
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
 // delete profile
-
 async function deleteFreelancerProfile(req, res) {
   try {
     const id = req.params.id;
@@ -616,9 +662,11 @@ async function getFeedOfFreelancer(req, res) {
       if (err && !freelancerData) {
         return;
       } else {
-        const user = await freelancerCollection.findOne({
-          _id: authData.user._id,
-        }).populate("feeds");
+        const user = await freelancerCollection
+          .findOne({
+            _id: authData.user._id,
+          })
+          .populate("feeds");
         if (!user) {
           res.status(500).send("Not logged in");
         }
@@ -648,5 +696,6 @@ module.exports = {
   getFollowedCompanies,
   followCompany,
   unfollowCompany,
-  getFeedOfFreelancer
+  getFeedOfFreelancer,
+  editFreelancerCoverPicture,
 };

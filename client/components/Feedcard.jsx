@@ -22,7 +22,7 @@ const Feedcard = (props) => {
       setIsImage(true);
     }
     setUrl(window.location.origin + "/feed/" + props.feed._id);
-    if (props.feed.love.includes(props.user._id)) {
+    if (props.feed.love.includes(props.user?._id || props.company?._id)) {
       setLove(true);
     }
   }, []);
@@ -69,7 +69,7 @@ const Feedcard = (props) => {
     }
   };
   return (
-    <div className="flex flex-col gap-4 w-96 lg:w-[30rem] border border-neutral-500 m-4 px-2 py-4 shadow rounded-md">
+    <div className="flex flex-col gap-4 w-[21rem] lg:w-[30rem] border border-neutral-500 m-4 px-2 py-4 shadow rounded-md">
       <div className="flex items-center gap-4">
         <div>
           <Image
@@ -94,7 +94,7 @@ const Feedcard = (props) => {
         <p className="text-lg">{props.feed.description}</p>
       </div>
       <Link
-        className="self-center border border-neutral-500 p-2"
+        className="self-center border border-neutral-500 p-2 w-full"
         href={`/feed/${props.feed._id}`}
       >
         {isImage === true ? (
@@ -108,10 +108,10 @@ const Feedcard = (props) => {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="">
+          <div className="w-full">
             <ReactPlayer
               controls={true}
-              width={window.innerWidth < 640 ? `350px` : `450px`}
+              width={`100%`}
               height={window.innerWidth < 640 ? `350px` : `450px`}
               url={props.feed.postData}
             />

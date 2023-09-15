@@ -34,16 +34,16 @@
   bottom: -1.5rem;
 }
 .portfolio {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 2rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-  .input {
-    border: 1px solid #686868;
-    padding: 0.5rem;
-    width: 17.5rem;
-    border-radius: 5px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.input {
+  border: 1px solid #686868;
+  padding: 0.5rem;
+  width: 17.5rem;
+  border-radius: 5px;
+}

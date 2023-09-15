@@ -146,7 +146,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1080px){
   .label {
     font-size: 0.75rem;
   }

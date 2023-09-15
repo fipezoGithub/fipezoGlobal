@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import RandomFeeds from "@/components/RandomFeeds";
 import RandomPeople from "@/components/RandomPeople";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -40,9 +41,9 @@ const Feed = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="flex items-center justify-center pt-10 mr-0 lg:mr-20">
-        {loginType === "freelancer" && (
-          <div className="flex items-center gap-4 w-[30rem]">
+      <div className="flex items-center justify-center pt-14 lg:pt-10 mr-0 lg:mr-20">
+        {loginType === "freelancer" ? (
+          <div className="flex items-center gap-4 w-[21rem] lg:w-[30rem]">
             <div>
               <Image
                 src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.profilePicture}`}
@@ -60,15 +61,22 @@ const Feed = (props) => {
                 setShowAddFeed(true);
               }}
             >
-              <p className="capitalize text-[#85868a] px-4">create feed</p>
+              <p className="capitalize text-[#85868a] px-4">create post</p>
             </div>
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <p className="pt-4 text-center">
+              You have to logged in as "Freelancer" in order to create a feed{" "}
+              <Link href="/register/freelancer" className="font-bold text-cyan-500">Register now!</Link>
+            </p>
           </div>
         )}
       </div>
       {showAddFeed === true && (
         <AddFeed user={props.user} setShowAddFeed={setShowAddFeed} />
       )}
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-center lg:justify-between mt-8">
         <div className="flex-col items-center hidden lg:flex">
           <h2 className="text-xl font-bold capitalize">
             {loginType === "freelancer"

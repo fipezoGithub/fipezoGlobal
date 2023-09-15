@@ -18,7 +18,7 @@ const RandomFeeds = (props) => {
       setIsImage(true);
     }
     setUrl(window.location.origin + "/feed/" + props.feed._id);
-    if (props.feed.love.includes(props.user._id)) {
+    if (props.feed.love.includes(props.user?._id || props.company?._id)) {
       setLove(true);
     }
   }, []);
@@ -98,7 +98,7 @@ const RandomFeeds = (props) => {
       <p className="text-neutral-600">{date}</p>
       <div>
         <div className="text-[2rem] flex items-center gap-4">
-        {love === false ? (
+          {love === false ? (
             <button type="button" onClick={followFeed}>
               <AiOutlineHeart />
             </button>

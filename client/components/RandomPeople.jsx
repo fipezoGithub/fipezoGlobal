@@ -37,9 +37,13 @@ const RandomPeople = (props) => {
 
     fetchFreelancer();
   }, []);
-  const userFilterer = freelancers.filter((freelancer) => {
-    return freelancer._id !== props.user._id;
-  });
+  let userFilterer;
+  if (loginType === "freelancer") {
+    userFilterer = freelancers.filter((freelancer) => {
+      return freelancer._id !== props.user._id;
+    });
+  }
+  userFilterer = freelancers;
   let followingFilters;
   if (loginType === "freelancer") {
     followingFilters = userFilterer.filter((freelancer) => {

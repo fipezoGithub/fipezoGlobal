@@ -15,7 +15,11 @@
   --shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
   --primary-blue: #00aaff;
 }
-
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
 body {
   color: rgb(var(--foreground-rgb));
   margin: 0;

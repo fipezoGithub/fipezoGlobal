@@ -1,298 +1,298 @@
 .bio {
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 100vw;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding-bottom: 3rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-bottom: 3rem;
 }
 
 .heading {
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 3rem;
-    padding-bottom: 0.55rem;
-    color: var(--primary-color);
-    text-align: center;
-    letter-spacing: 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 3rem;
+  padding-bottom: 0.55rem;
+  color: var(--primary-color);
+  text-align: center;
+  letter-spacing: 5px;
 }
 
 .subHeading {
-    font-size: 1.5rem;
-    color: rgb(123, 123, 123);
+  font-size: 1.5rem;
+  color: rgb(123, 123, 123);
 }
 
 .picturesNText {
-    display: flex;
-    margin-top: 2rem;
-    justify-content: center;
-    gap: 13rem;
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+  gap: 13rem;
 }
 
 .fade {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pictures {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-    gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  gap: 3rem;
 }
 
 .Text {
-    margin-top: 3rem;
-    background-color: #f3eae5;
-    height: 35rem;
-    width: 47%;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  margin-top: 3rem;
+  background-color: #f3eae5;
+  height: 35rem;
+  width: 47%;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-#location{
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+#location {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .details {
-    font-size: 0.65rem;
-    color: rgb(62, 57, 57);
-    width: 70%;
-    margin: auto;
+  font-size: 0.65rem;
+  color: rgb(62, 57, 57);
+  width: 70%;
+  margin: auto;
 }
 
 #photographer {
-    position: absolute;
-    left: -11.5rem;
-    top: 10rem;
-    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.2);
+  position: absolute;
+  left: -11.5rem;
+  top: 10rem;
+  box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.2);
 }
 
 #cinematographer {
-    position: absolute;
-    left: -6.5rem;
-    top: 20rem;
-    box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.2);
+  position: absolute;
+  left: -6.5rem;
+  top: 20rem;
+  box-shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.2);
 }
 
 .boxtext {
-    font-size: 1.8rem;
-    font-weight: 500;
-    letter-spacing: 5px;
-    color: var(--primary-color);
-    padding: 2.5rem;
-    padding-left: 5rem;
-    text-align: left;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: var(--primary-color);
+  padding: 2.5rem;
+  padding-left: 5rem;
+  text-align: left;
 }
 
 .button {
-    padding: 0.75rem 1.05rem;
-    border-radius: 0.5rem;
-    border: none;
-    background-color: #f3eae5;
-    color: black;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  padding: 0.75rem 1.05rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f3eae5;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .button:hover .location {
-    color: red;
+  color: red;
 }
 
 .location {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background-color: white;
-    border-radius: 5px;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .span {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 .boxheading {
-    font-size: 2rem;
-    font-weight: 700;
-    padding: 3rem;
-    padding-bottom: 0.55rem;
-    color: var(--primary-color);
-    text-align: center;
-    letter-spacing: 3px;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 3rem;
+  padding-bottom: 0.55rem;
+  color: var(--primary-color);
+  text-align: center;
+  letter-spacing: 3px;
 }
 
 .boxsubheading {
-    font-size: 0.9rem;
-    color: rgb(125, 125, 125);
-    width: 45%;
-    margin: 1rem auto;
-    word-spacing: 1px;
+  font-size: 0.9rem;
+  color: rgb(125, 125, 125);
+  width: 45%;
+  margin: 1rem auto;
+  word-spacing: 1px;
 }
 
-#head{
-    font-size: 2.8rem;
+#head {
+  font-size: 2.8rem;
 }
 
-@media (max-width: 1300px){
-    .picturesNText{
-        flex-direction: column;
-        gap: 2.5rem;
-        align-items: center;
-    }
+@media (max-width: 1300px) {
+  .picturesNText {
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+  }
 
-    .boxtext{
-        text-align: center;
-    }
+  .boxtext {
+    text-align: center;
+  }
 
-    #head{
-        font-size: 2.5rem;
-    }
+  #head {
+    font-size: 2.5rem;
+  }
 
-    .subHeading{
-        font-size: 1.2rem;
-    }
+  .subHeading {
+    font-size: 1.2rem;
+  }
 
-    .pictures{
-        width: 50%;
-        gap: 2rem;
-    }
+  .pictures {
+    width: 50%;
+    gap: 2rem;
+  }
 
-    .Text{
-        width: 80%;
-    }
+  .Text {
+    width: 80%;
+  }
 
-    #photographer{
-        left: -5rem;
-        top: 10rem;
-    }
+  #photographer {
+    left: -5rem;
+    top: 10rem;
+  }
 
-    #cinematographer{
-        left: -1.5rem;
-        top: 20rem;
-    }
+  #cinematographer {
+    left: -1.5rem;
+    top: 20rem;
+  }
 
-    .heading{
-        padding: 1rem;
-    }
+  .heading {
+    padding: 1rem;
+  }
 
-    .boxheading{
-        padding: 1rem;
-        font-size: 1.5rem;
-    }
+  .boxheading {
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
 
-    .subHeading{
-        width: 50%;
-    }
+  .subHeading {
+    width: 50%;
+  }
 }
 
-@media (max-width: 1100px){
-    .picturesNText{
-        gap: 1.5rem;
-    }
+@media (max-width: 1100px) {
+  .picturesNText {
+    gap: 1.5rem;
+  }
 
-    .images{
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-    }
+  .images {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
 
-    #head{
-        font-size: 1.5rem;
-    }
+  #head {
+    font-size: 1.5rem;
+  }
 
-    .subHeading{
-        font-size: 1rem;
-    }
+  .subHeading {
+    font-size: 1rem;
+  }
 
-    .Text{
-        height: auto;
-        padding-bottom: 2rem;
-        width: 90%;
-    }
+  .Text {
+    height: auto;
+    padding-bottom: 2rem;
+    width: 90%;
+  }
 
-    .pictures{
-        width: 60%;
-        gap: 1rem;
-    }
+  .pictures {
+    width: 60%;
+    gap: 1rem;
+  }
 
-    #photographer{
-        position: static;
-    }
+  #photographer {
+    position: static;
+  }
 
-    #cinematographer{
-        display: none;
-    }
+  #cinematographer {
+    display: none;
+  }
 
-    .boxheading{
-        font-size: 1.2rem;
-    }
+  .boxheading {
+    font-size: 1.2rem;
+  }
 
-    .subHeading{
-        font-size: 0.8rem;
-        width: 60%;
-    }
+  .subHeading {
+    font-size: 0.8rem;
+    width: 60%;
+  }
 }
 
 @media (max-width: 768px) {
-    .bio{
-        padding-bottom: 0;
-    }
+  .bio {
+    padding-bottom: 0;
+  }
 
-    .picturesNText{
-        gap: 1rem;
-    }
+  .picturesNText {
+    gap: 1rem;
+  }
 
-    .images{
-        flex-direction: column;
-        align-items: center;
-    }
+  .images {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .pictures{
-        width: 80%;
-        gap: 0.75rem;
-    }
+  .pictures {
+    width: 80%;
+    gap: 0.75rem;
+  }
 
-    .subHeading{
-        font-size: 0.8rem;
-    }
+  .subHeading {
+    font-size: 0.8rem;
+  }
 
-    #head{
-        font-size: 1.25rem;
-    }
+  #head {
+    font-size: 1.25rem;
+  }
 
-    .boxheading{
-        font-size: 1rem;
-    }
+  .boxheading {
+    font-size: 1rem;
+  }
 
-    .subHeading{
-        font-size: 0.75rem;
-        width: 80%;
-    }
+  .subHeading {
+    font-size: 0.75rem;
+    width: 80%;
+  }
 
-    .container{
-        display: flex;
-        justify-content: center;
-    }
+  .container {
+    display: flex;
+    justify-content: center;
+  }
 
-    .boxsubheading{
-        width: 75%;
-        margin: 1rem 0;
-    }
+  .boxsubheading {
+    width: 75%;
+    margin: 1rem 0;
+  }
 
-    .boxtext{
-        font-size: 1.5rem;
-        padding: 1.5rem;
-        padding-left: 2.5rem;
-    }
+  .boxtext {
+    font-size: 1.5rem;
+    padding: 1.5rem;
+    padding-left: 2.5rem;
+  }
 }

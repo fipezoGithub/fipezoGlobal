@@ -50,6 +50,7 @@ const {
   followCompany,
   unfollowCompany,
   getFeedOfFreelancer,
+  editFreelancerCoverPicture,
 } = require("./controllers/freelancerController");
 const {
   contactUs,
@@ -130,6 +131,12 @@ app.get("/api/contact/messages", verifyToken, fetchContactUs);
 app.get("/api/feeds", getFeed);
 app.delete("/api/delete/freelancer/:id", deleteFreelancerProfile);
 app.put("/api/edit/freelancer/:id", verifyToken, editFreelancerProfile);
+app.put(
+  "/api/update/freelancer/cover",
+  upload,
+  verifyToken,
+  editFreelancerCoverPicture
+);
 app.put("/api/follow/freelancer", verifyToken, followProfile);
 app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
 app.put("/api/follow/company", verifyToken, followCompany);

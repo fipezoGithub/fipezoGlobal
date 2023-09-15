@@ -55,7 +55,7 @@ export default function Navbar(props) {
     } else {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
-    setLogInType(localStorage.getItem("type"));
+    setLogInType(JSON.parse(localStorage.getItem("type")));
   }, []);
 
   const handleLogout = () => {
@@ -87,6 +87,7 @@ export default function Navbar(props) {
       }
     });
   }, [props.color]);
+  console.log(props.user);
   return (
     <nav
       className={styles.navbar}
@@ -118,11 +119,13 @@ export default function Navbar(props) {
               <span id={styles.home}>Home&nbsp;&nbsp;</span>
             </Link>
           </li>
-          <li className={styles.navElement}>
-            <Link href={!props.user ? "/register/freelancer" : "/feed/"}>
-              <span id={styles.home}>Feed&nbsp;&nbsp;</span>
-            </Link>
-          </li>
+          {logInType === "freelancer" && (
+            <li className={styles.navElement}>
+              <Link href={"/feed/"}>
+                <span id={styles.home}>Feed&nbsp;&nbsp;</span>
+              </Link>
+            </li>
+          )}
           <li
             className={styles.navElement}
             onClick={() => {
@@ -399,11 +402,13 @@ export default function Navbar(props) {
               <span id={styles.home}>Home&nbsp;&nbsp;</span>
             </Link>
           </li>
-          <li className={styles.navElement}>
-            <Link href="/feed/">
-              <span id={styles.home}>Feed&nbsp;&nbsp;</span>
-            </Link>
-          </li>
+          {logInType === "freelancer" && (
+            <li className={styles.navElement}>
+              <Link href={"/feed/"}>
+                <span id={styles.home}>Feed&nbsp;&nbsp;</span>
+              </Link>
+            </li>
+          )}
           <li
             className={styles.navElement}
             onClick={() => {
@@ -574,12 +579,12 @@ export default function Navbar(props) {
                 <p className={styles.number}>
                   {props.user ? props.user.phone : ""}
                 </p>
-                {logInType === "freelancer" && (
+                {props.user.uid && (
                   <Link className={styles.btn} href={`/freelancer_profile`}>
                     My Profile
                   </Link>
                 )}
-                {logInType === "user" && (
+                {!props.user.uid && (
                   <Link className={styles.btn} href="/user_profile">
                     My Profile
                   </Link>
