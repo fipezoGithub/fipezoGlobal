@@ -66,10 +66,10 @@ const Feed = (props) => {
           </div>
         ) : (
           <div className="flex items-center">
-            <p className="pt-4 text-center">
+            {/* <p className="pt-4 text-center">
               You have to logged in as "Freelancer" in order to create a feed{" "}
               <Link href="/register/freelancer" className="font-bold text-cyan-500">Register now!</Link>
-            </p>
+            </p> */}
           </div>
         )}
       </div>
