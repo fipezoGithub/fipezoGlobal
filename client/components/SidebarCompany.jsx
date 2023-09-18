@@ -223,12 +223,14 @@ class SidebarCompany extends React.Component {
                 <option value="Bengaluru">Bengaluru</option>
                 <option value="Bhopal">Bhopal</option>
                 <option value="Bhubaneswar">Bhubaneswar</option>
+                <option value="Burdwan">Burdwan</option>
                 <option value="Chandigarh">Chandigarh</option>
                 <option value="Chennai">Chennai</option>
                 <option value="Coimbatore">Coimbatore</option>
                 <option value="Dehradun">Dehradun</option>
                 <option value="Delhi">Delhi</option>
                 <option value="Dhanbad">Dhanbad</option>
+                <option value="Durgapur">Durgapur</option>
                 <option value="Faridabad">Faridabad</option>
                 <option value="Ghaziabad">Ghaziabad</option>
                 <option value="Guwahati">Guwahati</option>
@@ -259,6 +261,7 @@ class SidebarCompany extends React.Component {
                 <option value="Raipur">Raipur</option>
                 <option value="Rajkot">Rajkot</option>
                 <option value="Ranchi">Ranchi</option>
+                <option value="Siliguri">Siliguri</option>
                 <option value="Surat">Surat</option>
                 <option value="Thane">Thane</option>
                 <option value="Thiruvananthapuram">Thiruvananthapuram</option>

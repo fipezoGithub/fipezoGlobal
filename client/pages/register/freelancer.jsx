@@ -700,6 +700,9 @@ class Freelancer extends React.Component {
                         <option className={styles.option} value="Bhubaneswar">
                           Bhubaneswar
                         </option>
+                        <option className={styles.option} value="Burdwan">
+                          Burdwan
+                        </option>
                         <option className={styles.option} value="Chandigarh">
                           Chandigarh
                         </option>
@@ -717,6 +720,9 @@ class Freelancer extends React.Component {
                         </option>
                         <option className={styles.option} value="Dhanbad">
                           Dhanbad
+                        </option>
+                        <option className={styles.option} value="Durgapur">
+                          Durgapur
                         </option>
                         <option className={styles.option} value="Faridabad">
                           Faridabad
@@ -807,6 +813,9 @@ class Freelancer extends React.Component {
                         </option>
                         <option className={styles.option} value="Ranchi">
                           Ranchi
+                        </option>
+                        <option className={styles.option} value="Siliguri">
+                          Siliguri
                         </option>
                         <option className={styles.option} value="Surat">
                           Surat

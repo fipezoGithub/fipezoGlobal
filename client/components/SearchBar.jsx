@@ -41,7 +41,11 @@ class SearchBar extends React.Component {
               className={styles.locationIcon}
               style={{ color: "red" }}
             />{" "}
-            <span id={styles.span} onClick={this.toggle} className="cursor-pointer">
+            <span
+              id={styles.span}
+              onClick={this.toggle}
+              className="cursor-pointer"
+            >
               {this.state.cityname}
             </span>
             <IoIosArrowDown className={styles.arrow} onClick={this.toggle} />
@@ -87,6 +91,12 @@ class SearchBar extends React.Component {
               </p>
               <p
                 className={styles.p}
+                onClick={() => this.changeCity("Burdwan")}
+              >
+                Burdwan
+              </p>
+              <p
+                className={styles.p}
                 onClick={() => this.changeCity("Chandigarh")}
               >
                 Chandigarh
@@ -112,7 +122,18 @@ class SearchBar extends React.Component {
               <p className={styles.p} onClick={() => this.changeCity("Delhi")}>
                 Delhi
               </p>
-              <p className={styles.p} onClick={() => this.changeCity("Dhanbad")}>Dhanbad</p>
+              <p
+                className={styles.p}
+                onClick={() => this.changeCity("Dhanbad")}
+              >
+                Dhanbad
+              </p>
+              <p
+                className={styles.p}
+                onClick={() => this.changeCity("Durgapur")}
+              >
+                Durgapur
+              </p>
               <p
                 className={styles.p}
                 onClick={() => this.changeCity("Faridabad")}
@@ -250,6 +271,12 @@ class SearchBar extends React.Component {
               </p>
               <p className={styles.p} onClick={() => this.changeCity("Ranchi")}>
                 Ranchi
+              </p>
+              <p
+                className={styles.p}
+                onClick={() => this.changeCity("Siliguri")}
+              >
+                Siliguri
               </p>
               <p className={styles.p} onClick={() => this.changeCity("Surat")}>
                 Surat

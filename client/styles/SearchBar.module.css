@@ -94,6 +94,7 @@
 
   .dropDown {
     top: 2.7rem;
+    height: 6.5rem;
   }
 
   #span {
@@ -101,14 +102,13 @@
     font-size: 0.65rem;
   }
 }
-@media (min-width: 640px) {
-  .dropDown{
-    height: 6.5rem;
-  }
-}
+
 @media (max-width: 640px) {
   .searchMain {
     flex-direction: column;
+  }
+  .dropDown {
+    height: 6.5rem;
   }
   #span {
     width: 5rem;

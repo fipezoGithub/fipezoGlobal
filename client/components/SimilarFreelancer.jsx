@@ -3,7 +3,7 @@ import ProfileCard from "./ProfileCard";
 
 const SimilarFreelancer = (props) => {
   const [freelancers, setFreelancers] = useState([]);
-  const [rateSort, setRateSort] = useState("10100");
+  const [rateSort, setRateSort] = useState("50000");
   useEffect(() => {
     async function fetchFreelancer() {
       try {

@@ -28,7 +28,7 @@ function Explore(props) {
   const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [rateSort, setRateSort] = useState("10100");
+  const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
   const [threeStars, setThreeStars] = useState(false);
   const [noOfPages, setNoOfPages] = useState(0);
