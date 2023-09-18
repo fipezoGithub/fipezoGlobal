@@ -49,7 +49,7 @@ const Feed = (props) => {
                 src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.profilePicture}`}
                 width={600}
                 height={600}
-                className="h-12 w-12 rounded-full object-fill"
+                className="h-12 w-12 rounded-full object-cover"
               />
             </div>
             <div
@@ -74,7 +74,7 @@ const Feed = (props) => {
         )}
       </div>
       {showAddFeed === true && (
-        <AddFeed user={props.user} setShowAddFeed={setShowAddFeed} />
+        <AddFeed user={props.user} setShowAddFeed={setShowAddFeed} setfeed={setfeed} />
       )}
       <div className="flex justify-center lg:justify-between mt-8">
         <div className="flex-col items-center hidden lg:flex">
@@ -85,7 +85,7 @@ const Feed = (props) => {
           </h2>
           <RandomPeople user={props.user} />
         </div>
-        <div className="flex flex-col items-center gap-8 overflow-hidden overflow-y-scroll h-screen no-scrollbar">
+        <div className="flex flex-col items-center gap-8 overflow-hidden overflow-y-scroll sm:h-screen no-scrollbar">
           {feed.length > 0 &&
             feed
               .slice(0)

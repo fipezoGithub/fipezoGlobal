@@ -65,6 +65,7 @@ const AddFeed = (props) => {
       const save = await res.json();
       if (save) {
         router.push("/");
+        props.setFeed((prev) => [...prev, save]);
       }
     } catch (error) {
       console.log(error);
@@ -197,7 +198,7 @@ const AddFeed = (props) => {
           style={
             postData === ""
               ? { backgroundColor: "rgb(115 115 115)" }
-              : { backgroundColor: "rgb(59 130 246)",color: "white"}
+              : { backgroundColor: "rgb(59 130 246)", color: "white" }
           }
         >
           create post

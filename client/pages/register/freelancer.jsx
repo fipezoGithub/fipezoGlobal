@@ -377,9 +377,12 @@ class Freelancer extends React.Component {
         data.append("works[]", this.state.works[6]);
         data.append("works[]", this.state.works[7]);
         data.append("links", JSON.stringify(this.state.links));
+        data.append(
+          "pictureStyle",
+          JSON.stringify({ coverPicture: "center", profilePicture: "center" })
+        );
         data.append("termsAndConditions", this.state.termsAndConditions);
         data.append("verified", false);
-        console.log(data);
         const response = await fetch(
           `${process.env.SERVER_URL}/register/freelancer`,
           {

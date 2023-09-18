@@ -146,7 +146,9 @@
     font-size: 0.6rem;
     padding: 0.85rem 0.85rem;
   }
-
+  .p {
+    display: none;
+  }
   .image {
     width: 75%;
     height: 75%;

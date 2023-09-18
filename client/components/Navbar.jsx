@@ -87,7 +87,6 @@ export default function Navbar(props) {
       }
     });
   }, [props.color]);
-  console.log(props.user);
   return (
     <nav
       className={styles.navbar}
@@ -107,7 +106,7 @@ export default function Navbar(props) {
           <RiMenu3Fill size={"2em"} />
         </button>
       </div>
-      <div className={styles.right}>
+      <div className={styles.right+ " hidden md:block"}>
         <div className={styles.left + " sm:hidden"}>
           <Link href="/">
             <i className={styles.fipezo}>Fipezo</i>
@@ -383,7 +382,7 @@ export default function Navbar(props) {
         </ul>
       </div>
       <div
-        className={styles.right + " px-2 py-1 text-white sm:hidden"}
+        className={styles.right + " px-2 py-1 text-white md:hidden"}
         ref={sideNavRef}
       >
         <div className="md:hidden absolute top-[1%] right-[2%] z-[1100]">

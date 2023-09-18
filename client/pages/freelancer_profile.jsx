@@ -19,6 +19,7 @@ function Freelancer_Profile(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isFreelancerLoaded, setIsFreelancerLoaded] = useState(false);
   const [clickedImg, setClickedImg] = useState(null);
+  const [picturePosition, setPicturePosition] = useState();
   const [feeds, setFeeds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
 
@@ -26,7 +27,6 @@ function Freelancer_Profile(props) {
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
-
   const handelRotationRight = () => {
     const totalLength = freelancer.works.length;
     if (currentIndex + 1 >= totalLength) {
@@ -82,6 +82,7 @@ function Freelancer_Profile(props) {
         .then((res) => res.json())
         .then((data) => {
           setFreelancer(data);
+          setPicturePosition(JSON.parse(data.pictureStyle));
           setIsFreelancerLoaded(true);
         })
         .catch((error) => {
@@ -115,7 +116,6 @@ function Freelancer_Profile(props) {
           cache: "no-store",
         });
         const data = await res.json();
-        console.log(data);
         setFeeds(data);
       } catch (error) {
         console.log(error);
@@ -149,11 +149,19 @@ function Freelancer_Profile(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <Cover coverPicture={freelancer.coverPicture} />
+      <Cover
+        coverPicture={freelancer.coverPicture}
+        user={props.user}
+        position={picturePosition}
+      />
       {/* <div className='w-full'><Link className={styles.btn} style={{width: '100%'}} id={styles.hire} href='/my_requests'>My Requests</Link></div> */}
       <div className={styles.profile_details}>
         {freelancer.links && (
-          <ProfileBioCard freelancer={freelancer} handleClick={handleClick} />
+          <ProfileBioCard
+            freelancer={freelancer}
+            handleClick={handleClick}
+            user={props.user}
+          />
         )}
         {isFreelancerLoaded && (
           <Details
@@ -184,7 +192,13 @@ function Freelancer_Profile(props) {
         <div className="flex items-center flex-wrap justify-center">
           {feeds.length !== 0 &&
             feeds.map((feed, index) => (
-              <RandomFeeds feed={feed} key={index} user={freelancer}  />
+              <RandomFeeds
+                feed={feed}
+                key={index}
+                user={freelancer}
+                height={"12.5rem"}
+                editDelete={true}
+              />
             ))}
         </div>
       </div>

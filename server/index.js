@@ -51,6 +51,7 @@ const {
   unfollowCompany,
   getFeedOfFreelancer,
   editFreelancerCoverPicture,
+  editFreelancerProfilePicture,
 } = require("./controllers/freelancerController");
 const {
   contactUs,
@@ -136,6 +137,12 @@ app.put(
   upload,
   verifyToken,
   editFreelancerCoverPicture
+);
+app.put(
+  "/api/update/freelancer/profile-picture",
+  upload,
+  verifyToken,
+  editFreelancerProfilePicture
 );
 app.put("/api/follow/freelancer", verifyToken, followProfile);
 app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);

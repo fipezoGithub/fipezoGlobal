@@ -94,7 +94,8 @@ function ProfileBioCard(props) {
           className="whitespace-nowrap capitalize"
           style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
         >
-          {props.freelancer.firstname.toLowerCase()} {props.freelancer.lastname.toLowerCase()}
+          {props.freelancer.firstname.toLowerCase()}{" "}
+          {props.freelancer.lastname.toLowerCase()}
         </span>{" "}
         <span className={styles.con}>
           <Image
@@ -152,7 +153,7 @@ function ProfileBioCard(props) {
       {props.copied && (
         <div className={styles.copy}>URL copied to clipboard!</div>
       )}
-      {
+      {props.user?._id !== props.freelancer._id && (
         <div className="w-full flex items-center justify-center">
           <button
             type="button"
@@ -162,7 +163,7 @@ function ProfileBioCard(props) {
             {isFollowed === false ? "follow" : "unfollow"}
           </button>
         </div>
-      }
+      )}
       <div className="flex gap-4 my-4">
         <div
           className="flex flex-col items-center cursor-pointer"

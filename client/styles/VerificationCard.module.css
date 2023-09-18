@@ -144,3 +144,7 @@
 #delete{
     background-color: #f52625;
 }
+
+@media (max-width:640px) {
+    
+}

@@ -6,6 +6,7 @@ import { FaRegShareSquare, FaShareSquare } from "react-icons/fa";
 import { RWebShare } from "react-web-share";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 const RandomFeeds = (props) => {
   const [isImage, setIsImage] = useState(false);
@@ -64,10 +65,46 @@ const RandomFeeds = (props) => {
       console.log(error);
     }
   };
+  const handelDelete = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/delete/feed/${props.feed._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const del = await res.json();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div className="flex flex-col gap-4 w-80 border m-4 px-2 py-4 shadow-md rounded-lg">
+    <div className="flex flex-col relative gap-4 w-80 border m-4 px-2 py-4 shadow-md rounded-lg">
+      <div className="absolute top-0 right-0 pl-2 py-1 group">
+        <div className="hidden group-hover:flex flex-col items-center bg-white absolute right-0">
+          {/* <button type="button" className="px-4 py-2">edit</button> */}
+          <button
+            type="button"
+            className="px-4 py-2 capitalize"
+            onClick={handelDelete}
+          >
+            delete
+          </button>
+        </div>
+        <button className="" type="button">
+          <BsThreeDotsVertical size={"1.5em"} />
+        </button>
+      </div>
       <Link
-        className="self-center border border-neutral-500 p-2"
+        className="self-center border border-neutral-500 p-2 mr-4"
         href={`/feed/${props.feed._id}`}
       >
         {isImage === true ? (
@@ -78,7 +115,9 @@ const RandomFeeds = (props) => {
             blurDataURL="/loadImg.gif"
             placeholder="blur"
             alt="feed_img"
-            className="h-full w-full object-cover"
+            className={`w-full object-cover ${
+              props.height ? "h-[12.5rem]" : "h-full"
+            }`}
           />
         ) : (
           <div className="">
@@ -93,7 +132,7 @@ const RandomFeeds = (props) => {
         )}
       </Link>
       <div>
-        <p className="text-lg">{props.feed.description}</p>
+        <p className="text-lg truncate">{props.feed.description}</p>
       </div>
       <p className="text-neutral-600">{date}</p>
       <div>

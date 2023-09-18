@@ -10,6 +10,7 @@ const sharp = require("sharp");
 const path = require("path");
 const companyCollection = require("../models/companyModel");
 const { log } = require("console");
+const { request } = require("http");
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -114,6 +115,7 @@ async function registerFreelancer(req, res) {
         aadhaarCard: resizedAadhaarCard.filename,
         panCard: resizedPanCard.filename,
         works: worksToStore,
+        pictureStyle: req.body.pictureStyle,
         links: req.body.links,
         rating: 0,
         reviewCount: 0,
@@ -335,27 +337,40 @@ async function editFreelancerCoverPicture(req, res) {
           _id: authData.user._id,
         });
         if (user) {
-          const resizedCoverPicture = await resizeImage(
-            req.files["coverPicture"][0],
-            2272,
-            1704
-          );
-          const deletePromises = [];
-          deletePromises.push(deleteFile(user.coverPicture));
-          console.log(deletePromises);
-          await Promise.all(deletePromises);
-          const filePromises = [];
-          filePromises.push(uploadFile(resizedCoverPicture));
-          console.log(filePromises);
-          await Promise.all(filePromises);
-          const updatedUser = await freelancerCollection.findByIdAndUpdate(
-            user._id,
-            {
-              coverPicture: resizedCoverPicture.filename,
-            }
-          );
-          await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
-          await unlinkFile(resizedCoverPicture.path);
+          let updatedUser;
+          if (req.body.coverPicture) {
+            const resizedCoverPicture = await resizeImage(
+              req.files["coverPicture"][0],
+              2272,
+              1704
+            );
+            const deletePromises = [];
+            deletePromises.push(deleteFile(user.coverPicture));
+            await Promise.all(deletePromises);
+            const filePromises = [];
+            filePromises.push(uploadFile(resizedCoverPicture));
+            await Promise.all(filePromises);
+            updatedUser = await freelancerCollection.findByIdAndUpdate(
+              user._id,
+              {
+                coverPicture: resizedCoverPicture.filename,
+              }
+            );
+            await freelancerCollection.findByIdAndUpdate(user._id, {
+              pictureStyle: req.body.pictureStyle,
+            });
+            await unlinkFile(
+              "uploads/" + req.files["coverPicture"][0].filename
+            );
+            await unlinkFile(resizedCoverPicture.path);
+          } else {
+            updatedUser = await freelancerCollection.findByIdAndUpdate(
+              user._id,
+              {
+                pictureStyle: req.body.pictureStyle,
+              }
+            );
+          }
           res.status(200).json(updatedUser);
         } else {
           res.status(404).send("Not logged in");
@@ -367,6 +382,57 @@ async function editFreelancerCoverPicture(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
+//edit profile picture
+async function editFreelancerProfilePicture(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        });
+        if (user) {
+          const resizedProfilePicture = await resizeImage(
+            req.files["profilePicture"][0],
+            2272,
+            1704
+          );
+          const deletePromises = [];
+          deletePromises.push(deleteFile(user.profilePicture));
+          await Promise.all(deletePromises);
+          const filePromises = [];
+          filePromises.push(uploadFile(resizedProfilePicture));
+          await Promise.all(filePromises);
+          const updatedUser = await freelancerCollection.findByIdAndUpdate(
+            user._id,
+            {
+              profilePicture: resizedProfilePicture.filename,
+            }
+          );
+          await freelancerCollection.findByIdAndUpdate(user._id, {
+            pictureStyle: req.body.pictureStyle,
+          });
+          await unlinkFile(
+            "uploads/" + req.files["profilePicture"][0].filename
+          );
+          await unlinkFile(resizedProfilePicture.path);
+          res.status(200).json(updatedUser);
+        } else {
+          res.status(404).send("Not logged in");
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 // delete profile
 async function deleteFreelancerProfile(req, res) {
   try {
@@ -698,4 +764,5 @@ module.exports = {
   unfollowCompany,
   getFeedOfFreelancer,
   editFreelancerCoverPicture,
+  editFreelancerProfilePicture,
 };

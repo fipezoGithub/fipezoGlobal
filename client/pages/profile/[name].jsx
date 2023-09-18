@@ -226,7 +226,10 @@ export default function Name(props) {
           setCompany={props.setCompany}
           setUser={props.setUser}
         />
-        <Cover coverPicture={props.data.coverPicture} />
+        <Cover
+          coverPicture={props.data.coverPicture}
+          position={JSON.parse(props.data.pictureStyle)}
+        />
         {logInType !== "freelancer" && (
           <div className={styles.btnBox2}>
             {!loggedIn && (
@@ -374,7 +377,10 @@ export default function Name(props) {
               .join(" ")}
           </h1>
           <div className={styles.cards}>
-            <SimilarFreelancer profession={props.data.profession} location={props.data.location} />
+            <SimilarFreelancer
+              profession={props.data.profession}
+              location={props.data.location}
+            />
           </div>
         </div>
         <div className={styles.footer}>

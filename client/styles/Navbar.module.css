@@ -248,6 +248,7 @@
     width: auto;
     padding-right: 1rem;
     margin-right: 0.4rem;
+    transition: transform 0.4s;
   }
 
   .navigations {

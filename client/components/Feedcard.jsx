@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import ReactPlayer from "react-player";
 import { FaRegShareSquare, FaShareSquare } from "react-icons/fa";
@@ -12,6 +12,7 @@ const Feedcard = (props) => {
   const [url, setUrl] = useState("");
   const [love, setLove] = useState(false);
   const router = useRouter();
+  const descRef = useRef();
   const profession = props.feed.freelancer.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -69,7 +70,7 @@ const Feedcard = (props) => {
     }
   };
   return (
-    <div className="flex flex-col gap-4 w-[21rem] lg:w-[30rem] border border-neutral-500 m-4 px-2 py-4 shadow rounded-md">
+    <div className="flex flex-col gap-4 w-[21rem] lg:w-[30rem] border m-4 px-2 py-4 shadow rounded-md">
       <div className="flex items-center gap-4">
         <div>
           <Image
@@ -91,7 +92,19 @@ const Feedcard = (props) => {
         </div>
       </div>
       <div>
-        <p className="text-lg">{props.feed.description}</p>
+        <p className="text-lg truncate" ref={descRef}>
+          {props.feed.description}{" "}
+        </p>
+        <button
+          type="button"
+          className="text-cyan-600 font-medium capitalize"
+          onClick={(e) => {
+            descRef.current.classList.remove("truncate");
+            e.target.classList.add("hidden");
+          }}
+        >
+          see more
+        </button>
       </div>
       <Link
         className="self-center border border-neutral-500 p-2 w-full"
