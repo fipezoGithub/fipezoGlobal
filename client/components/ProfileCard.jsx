@@ -17,6 +17,8 @@ export default function ProfileCard(props) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
   const [display, setDisplay] = useState("none");
+  const position = JSON.parse(props.profile.pictureStyle);
+  console.log(position);
   return (
     <Link
       className={styles.profileCard}
@@ -24,9 +26,13 @@ export default function ProfileCard(props) {
       target="_blank"
     >
       <div className={styles.cover + " relative overflow-hidden"}>
-        <img
+        <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}`}
           alt="cover picture"
+          // width={2000}
+          // height={2000}
+          fill={true}
+          style={{ objectPosition: position.coverPicture }}
           className="w-full h-24 absolute top-0 object-cover"
         />
         {props.profile.location && (
@@ -68,7 +74,8 @@ export default function ProfileCard(props) {
           className="w-22 truncate capitalize"
           style={{ maxWidth: "11rem", letterSpacing: "0" }}
         >
-          {props.profile.firstname.toLowerCase()} {props.profile.lastname.toLowerCase()}
+          {props.profile.firstname.toLowerCase()}{" "}
+          {props.profile.lastname.toLowerCase()}
         </span>
         <Image
           className={styles.blueTick}

@@ -47,6 +47,7 @@ async function addFeed(req, res) {
               description: req.body.description,
               postData: resizedPostData.filename,
               love: [],
+              share: [],
               date: req.body.date,
             });
             const feed = await feedData.save();
@@ -133,11 +134,46 @@ async function loveFeed(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+// Share Feed
+async function shareFeed(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        });
+        if (user) {
+          await feedCollection.updateOne(
+            { _id: req.params.feedId },
+            {
+              $push: {
+                share: user._id,
+              },
+            }
+          );
+          res.send({ message: `share successfully ${req.params.feedId}` });
+        } else {
+          res.sendStatus(403);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 //Get Feed By Id
 async function getFeedById(req, res) {
   const id = req.params.id;
   try {
-    const feeds = await feedCollection.findById(id).populate("freelancer");
+    const feeds = await feedCollection
+      .findOne({ _id: id })
+      .populate("freelancer");
     res.status(200).json(feeds);
   } catch (error) {
     res.status(500).send("Internal server error");
@@ -234,4 +270,5 @@ module.exports = {
   getFeedById,
   editFeed,
   deleteFeed,
+  shareFeed,
 };

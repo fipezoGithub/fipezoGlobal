@@ -6,11 +6,13 @@ import { FaRegShareSquare, FaShareSquare } from "react-icons/fa";
 import { RWebShare } from "react-web-share";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { BiCommentDetail } from "react-icons/bi";
 
 const Feedcard = (props) => {
   const [isImage, setIsImage] = useState(false);
   const [url, setUrl] = useState("");
   const [love, setLove] = useState(false);
+  const [shareCount, setShareCount] = useState(0);
   const router = useRouter();
   const descRef = useRef();
   const profession = props.feed.freelancer.profession
@@ -65,6 +67,28 @@ const Feedcard = (props) => {
       );
       const love = await res.json();
       setLove(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const countShare = async (e) => {
+    // e.preventDefault();
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/share/count/${props.feed._id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const love = await res.json();
+      setShareCount(props.feed.share.length + 1);
+      props.setFetchData(true);
     } catch (error) {
       console.log(error);
     }
@@ -137,10 +161,16 @@ const Feedcard = (props) => {
           {love === false ? (
             <button type="button" onClick={followFeed}>
               <AiOutlineHeart />
+              <p className="text-sm text-neutral-500">
+                {props.feed.love.length}
+              </p>
             </button>
           ) : (
             <button type="button" onClick={unfollowFeed}>
               <AiFillHeart color="#ff3040" />
+              <p className="text-sm text-neutral-500">
+                {props.feed.love.length}
+              </p>
             </button>
           )}
           <RWebShare
@@ -154,11 +184,21 @@ const Feedcard = (props) => {
               url: url,
               title: "Fipezo",
             }}
+            onClick={countShare}
           >
-            <button className="text-[2rem] flex items-center gap-4">
+            <button className="text-[2rem]">
               <FaRegShareSquare />
+              <p className="text-sm text-neutral-500">
+                {props.feed.share.length}
+              </p>
             </button>
           </RWebShare>
+          <Link href={`/feed/${props.feed._id}`} className="text-[2rem]">
+            <BiCommentDetail />
+            <p className="text-sm text-neutral-500 text-center">
+              {props.feed.comment.length}
+            </p>
+          </Link>
         </div>
       </div>
     </div>

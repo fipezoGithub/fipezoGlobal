@@ -17,6 +17,14 @@ const feedSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "freelancercollection",
     },
+    share: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+    },
+    comment: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "commentcollection",
+    },
     date: {
       type: Date,
       required: true,

@@ -7,6 +7,7 @@ import { RWebShare } from "react-web-share";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { BiCommentDetail } from "react-icons/bi";
 
 const RandomFeeds = (props) => {
   const [isImage, setIsImage] = useState(false);
@@ -140,10 +141,16 @@ const RandomFeeds = (props) => {
           {love === false ? (
             <button type="button" onClick={followFeed}>
               <AiOutlineHeart />
+              <p className="text-sm text-neutral-500">
+                {props.feed.love.length}
+              </p>
             </button>
           ) : (
             <button type="button" onClick={unfollowFeed}>
               <AiFillHeart color="#ff3040" />
+              <p className="text-sm text-neutral-500">
+                {props.feed.love.length}
+              </p>
             </button>
           )}
           <RWebShare
@@ -158,10 +165,19 @@ const RandomFeeds = (props) => {
               title: "Fipezo",
             }}
           >
-            <button className="text-[2rem] flex items-center gap-4">
+            <button className="text-[2rem] items-center gap-4">
               <FaRegShareSquare />
+              <p className="text-sm text-neutral-500">
+                {props.feed.share.length}
+              </p>
             </button>
           </RWebShare>
+          <Link href={`/feed/${props.feed._id}`} className="text-[2rem]">
+            <BiCommentDetail />
+            <p className="text-sm text-neutral-500 text-center">
+              {props.feed.comment.length}
+            </p>
+          </Link>
         </div>
       </div>
       <p></p>

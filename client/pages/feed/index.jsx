@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import RandomFeeds from "@/components/RandomFeeds";
 import RandomPeople from "@/components/RandomPeople";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -15,6 +14,7 @@ const Feed = (props) => {
   const [loading, setLoading] = useState(false);
   const [showAddFeed, setShowAddFeed] = useState(false);
   const [loginType, setLoginType] = useState("");
+  const [fetchData, setFetchData] = useState(false);
   const router = useRouter();
   useEffect(() => {
     const getAllFeed = async () => {
@@ -23,6 +23,7 @@ const Feed = (props) => {
         const res = await fetch(`${process.env.SERVER_URL}/feeds`);
         const feeds = await res.json();
         setfeed(feeds);
+        setFetchData(false);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -30,7 +31,7 @@ const Feed = (props) => {
     };
     getAllFeed();
     setLoginType(JSON.parse(localStorage.getItem("type")));
-  }, []);
+  }, [fetchData === true]);
   return loading === true ? (
     <Loading message={"While Loading your feeds"} />
   ) : (
@@ -74,7 +75,11 @@ const Feed = (props) => {
         )}
       </div>
       {showAddFeed === true && (
-        <AddFeed user={props.user} setShowAddFeed={setShowAddFeed} setfeed={setfeed} />
+        <AddFeed
+          user={props.user}
+          setShowAddFeed={setShowAddFeed}
+          setfeed={setfeed}
+        />
       )}
       <div className="flex justify-center lg:justify-between mt-8">
         <div className="flex-col items-center hidden lg:flex">
@@ -91,7 +96,12 @@ const Feed = (props) => {
               .slice(0)
               .reverse()
               .map((post, index) => (
-                <Feedcard feed={post} key={index} user={props.user} />
+                <Feedcard
+                  feed={post}
+                  key={index}
+                  user={props.user}
+                  setFetchData={setFetchData}
+                />
               ))}
         </div>
         <div className="flex-col items-center hidden lg:flex">

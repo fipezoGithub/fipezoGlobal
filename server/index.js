@@ -100,8 +100,15 @@ const {
   getFeedById,
   editFeed,
   deleteFeed,
+  shareFeed,
 } = require("./controllers/feedControler");
 const feedPostImage = require("./middlewares/feedPostImage");
+const {
+  addComment,
+  editComment,
+  deleteComment,
+  getCommentsOfPost,
+} = require("./controllers/commentController");
 
 // Setting up the routes
 app.post("/api/signup", signupController);
@@ -150,6 +157,7 @@ app.put("/api/follow/company", verifyToken, followCompany);
 app.put("/api/unfollow/company", verifyToken, unfollowCompany);
 app.put("/api/love/:feedId", verifyToken, loveFeed);
 app.put("/api/unlove/:feedId", verifyToken, unLoveFeed);
+app.put("/api/share/count/:feedId", verifyToken, shareFeed);
 app.get("/api/freelancer/followers/:id", getFollowers);
 app.get("/api/freelancer/followedcompanies/:id", getFollowedCompanies);
 app.get("/api/freelancer/following/:id", getFollowing);
@@ -183,6 +191,10 @@ app.delete("/api/delete/feed/:id", verifyToken, deleteFeed);
 app.get("/api/profile", verifyToken, getProfile);
 app.get("/api/hires", verifyToken, getHires);
 app.get("/api/requests", verifyToken, getRequests);
+app.get("/api/feed/comment/list/:feedId", getCommentsOfPost);
+app.post("/api/feed/comment", verifyToken, addComment);
+app.put("/api/feed/comment/edit/:commentId", verifyToken, editComment);
+app.delete("/api/feed/comment/delete/:commentId", verifyToken, deleteComment);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

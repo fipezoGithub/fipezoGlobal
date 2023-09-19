@@ -19,7 +19,8 @@ function Cover(props) {
         src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.coverPicture}`}
         // width={4500}
         // height={2270}
-        layout="fill"
+        // layout="fill"
+        fill={true}
         blurDataURL="/loadImg.gif"
         placeholder="blur"
         alt="cover picture"

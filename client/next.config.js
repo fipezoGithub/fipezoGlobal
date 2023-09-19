@@ -10,6 +10,7 @@ const nextConfig = {
       "fipezo-website",
       "fipezo-bucket.s3.ap-south-1.amazonaws.com",
     ],
+    unoptimized: true,
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
