@@ -4,7 +4,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { comment } from "postcss";
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -41,7 +40,6 @@ const Feedid = (props) => {
           `${process.env.SERVER_URL}/feed/comment/list/${router.query.feedid}`
         );
         const data = await res.json();
-        console.log(data);
         setComments(data);
       } catch (error) {
         console.log(error);
@@ -122,6 +120,7 @@ const Feedid = (props) => {
       });
       const newComment = await res.json();
       setComments((prevData) => [...prevData, newComment]);
+      setDescription("");
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +140,7 @@ const Feedid = (props) => {
           },
         }
       );
-      const del = await res.json();
+      setComments([]);
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +152,7 @@ const Feedid = (props) => {
           {props.data.freelancer.firstname +
             " " +
             props.data.freelancer.lastname +
-            "on Fipezo Feed"}
+            " on Fipezo Feed"}
         </title>
         <meta name="description" content={props.data.bio}></meta>
         <meta
@@ -185,7 +184,7 @@ const Feedid = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="flex flex-col gap-4 px-8 pt-16 shadow rounded-md">
+      <div className="flex flex-col gap-4 px-4 md:px-8 pt-16 shadow rounded-md">
         <div className="flex items-center gap-4">
           <div>
             <Image
@@ -277,7 +276,7 @@ const Feedid = (props) => {
                 alt="profile picture"
                 width={600}
                 height={600}
-                className="h-12 w-12 rounded-full object-fill"
+                className="h-8 md:h-12 w-8 md:w-12 rounded-full object-fill"
               />
             </div>
             <div>
@@ -301,7 +300,7 @@ const Feedid = (props) => {
           {comments.length !== 0 ? (
             comments.map((comment, index) => (
               <div
-                className="flex relative items-center border-b py-4 w-[65%] px-4 border-neutral-500 self-center gap-12 group"
+                className="flex relative items-center border-b py-4 w-full md:w-[65%] md:px-4 border-neutral-500 self-center gap-2 md:gap-12 group"
                 key={index}
               >
                 <div className="absolute top-0 right-0">
@@ -321,11 +320,11 @@ const Feedid = (props) => {
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${comment.freelancer.profilePicture}`}
                     width={600}
                     height={600}
-                    className="h-12 w-12 rounded-full object-fill"
+                    className="h-8 md:h-12 w-8 md:w-12 rounded-full object-fill"
                   />{" "}
                   <Link
                     href={`/profile/${comment.freelancer.uid}`}
-                    className="capitalize font-medium"
+                    className="capitalize font-medium text-xs md:text-base"
                   >
                     {comment.freelancer.firstname.toLowerCase() +
                       " " +
@@ -333,8 +332,8 @@ const Feedid = (props) => {
                   </Link>
                 </div>
                 <div>
-                  <p className="text-xl">{comment.description}</p>
-                  <p className="text-neutral-500 text-sm">
+                  <p className="text-base md:text-xl">{comment.description}</p>
+                  <p className="text-neutral-500 text-xs md:text-sm">
                     {comment.date.slice(0, 10).split("-").reverse().join("/")}
                   </p>
                 </div>

@@ -894,6 +894,12 @@ class Freelancer extends React.Component {
                         >
                           Drone Operator
                         </option>
+                        <option
+                          className={styles.option}
+                          value="graphics_designer"
+                        >
+                          Graphics Designer
+                        </option>
                         <option className={styles.option} value="influencer">
                           Influencer
                         </option>
@@ -1104,7 +1110,8 @@ class Freelancer extends React.Component {
                       this.state.profession === "video_editor" ||
                       this.state.profession === "album_designer" ||
                       this.state.profession === "video_editor" ||
-                      this.state.profession === "album_designer") && (
+                      this.state.profession === "album_designer" ||
+                      this.state.profession === "graphics_designer") && (
                       <div className={styles.inputField} id={styles.equipment}>
                         <label htmlFor="fimiliarSoft" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Software

@@ -19,12 +19,12 @@ function Explore(props) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSideBar, setShowSideBar] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [showphotography, setShowPhotography] = useState(true);
+  const [showphotography, setShowPhotography] = useState(false);
   const [showECommerce, setShowECommerce] = useState(false);
   const [showProductionHouse, setShowProductionHouse] = useState(false);
   const [showAdvertisingAgency, setShowAdvertisingAgency] = useState(false);
   const [showPhotographyInstitute, setShowPhotographyInstitute] =
-    useState(false);
+    useState(true);
   const [showOther, setShowOther] = useState(false);
 
   const increPage = (e) => {
@@ -58,7 +58,6 @@ function Explore(props) {
             { cache: "no-store" }
           );
           const data = await response.json();
-          console.log(data);
           setCompanies(data);
           if (window.innerWidth < 640) {
             setNoOfPages(Math.ceil(data.length / 10));

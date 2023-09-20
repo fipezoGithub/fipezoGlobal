@@ -37,20 +37,13 @@ const RandomPeople = (props) => {
 
     fetchFreelancer();
   }, []);
-  let userFilterer;
-  if (loginType === "freelancer") {
-    userFilterer = freelancers.filter((freelancer) => {
-      return freelancer._id !== props.user._id;
-    });
-  }
-  userFilterer = freelancers;
-  let followingFilters;
-  if (loginType === "freelancer") {
-    followingFilters = userFilterer.filter((freelancer) => {
-      return !props.user.following.includes(freelancer._id);
-    });
-  }
-  followingFilters = userFilterer;
+
+  const userFilterer = freelancers.filter((freelancer) => {
+    return freelancer._id !== props.user._id;
+  });
+  const followingFilters = userFilterer.filter((freelancer) => {
+    return !props.user.following.includes(freelancer._id);
+  });
   const shuffleFilter = shuffleArray(followingFilters);
   const locationFilter = shuffleFilter.filter((freelancer) => {
     if (

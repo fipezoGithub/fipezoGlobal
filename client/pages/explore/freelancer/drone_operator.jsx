@@ -27,6 +27,7 @@ function Explore(props) {
   const [showDj, setShowDj] = useState(false);
   const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(false);
+  const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -114,7 +115,8 @@ function Explore(props) {
       !showWebDeveloper &&
       !showDj &&
       !showDancer &&
-      !showInfluencer
+      !showInfluencer &&
+      !showGraphicsDesigner
     ) {
       return true;
     }
@@ -131,7 +133,8 @@ function Explore(props) {
       showWebDeveloper &&
       showDj &&
       showDancer &&
-      showInfluencer
+      showInfluencer &&
+      showGraphicsDesigner
     ) {
       return (
         freelancer.profession === "photographer" ||
@@ -146,7 +149,8 @@ function Explore(props) {
         freelancer.profession === "web_developer" ||
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer"
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "graphics_designer"
       );
     }
     if (showPhotographers && showCinematographers) {
@@ -221,6 +225,12 @@ function Explore(props) {
         freelancer.profession === "influencer"
       );
     }
+    if (showPhotographers && showGraphicsDesigner) {
+      return (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "graphics_designer"
+      );
+    }
     if (showCinematographers && showDroneOperators) {
       return (
         freelancer.profession === "cinematographer" ||
@@ -287,6 +297,12 @@ function Explore(props) {
         freelancer.profession === "influencer"
       );
     }
+    if (showCinematographers && showGraphicsDesigner) {
+      return (
+        freelancer.profession === "cinematographer" ||
+        freelancer.profession === "graphics_designer"
+      );
+    }
     if (showPhotographers) {
       return freelancer.profession === "photographer";
     }
@@ -325,6 +341,9 @@ function Explore(props) {
     }
     if (showInfluencer) {
       return freelancer.profession === "influencer";
+    }
+    if (showGraphicsDesigner) {
+      return freelancer.profession === "graphics_designer";
     }
     return true;
   });
@@ -371,7 +390,7 @@ function Explore(props) {
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers
+  const final = displayedFreelancers;
   return isLoading === true ? (
     <Loading message={"Drone Operator is loading"} />
   ) : (
@@ -394,7 +413,7 @@ function Explore(props) {
             <button
               type="button"
               onClick={handelFilter}
-              className="sm:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md"
+              className="md:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md"
             >
               <BiFilter size={"2em"} />
               Filters
@@ -417,6 +436,7 @@ function Explore(props) {
               setShowDj={setShowDj}
               setShowDancer={setShowDancer}
               setShowInfluencer={setShowInfluencer}
+              setShowGraphicsDesigner={setShowGraphicsDesigner}
               setSearchQuery={setSearchQuery}
               showPhotographers={showPhotographers}
               showCinematographers={showCinematographers}
@@ -431,6 +451,7 @@ function Explore(props) {
               showDj={showDj}
               showDancer={showDancer}
               showInfluencer={showInfluencer}
+              showGraphicsDesigner={showGraphicsDesigner}
               searchQuery={searchQuery}
               setRateSort={setRateSort}
               rateSort={rateSort}

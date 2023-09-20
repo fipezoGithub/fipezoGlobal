@@ -25,9 +25,9 @@ function Explore(props) {
   const [showAnchor, setShowAnchor] = useState(false);
   const [showWebDeveloper, setShowWebDeveloper] = useState(false);
   const [showDj, setShowDj] = useState(false);
-  const [showDancer, setShowDancer] = useState(true);
+  const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(false);
-  const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
+  const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -68,7 +68,7 @@ function Explore(props) {
           );
           const data = await response.json();
           setFreelancers(data);
-          if (window.innerWidth < 640) {
+          if (window.innerWidth <= 640) {
             setNoOfPages(Math.ceil(data.length / 10));
           } else {
             setNoOfPages(Math.ceil(data.length / 12));
@@ -380,7 +380,7 @@ function Explore(props) {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth <= 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
     } else {
       setNoOfPages(Math.ceil(finalFiltered.length / 12));
@@ -392,11 +392,11 @@ function Explore(props) {
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Dancer is loading"} />
+    <Loading message={"Freelancer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Dancers</title>
+        <title>Fipezo | Explore Freelancers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -436,6 +436,7 @@ function Explore(props) {
               setShowDj={setShowDj}
               setShowDancer={setShowDancer}
               setShowInfluencer={setShowInfluencer}
+              showGraphicsDesigner={showGraphicsDesigner}
               setShowGraphicsDesigner={setShowGraphicsDesigner}
               setSearchQuery={setSearchQuery}
               showPhotographers={showPhotographers}
@@ -451,7 +452,6 @@ function Explore(props) {
               showDj={showDj}
               showDancer={showDancer}
               showInfluencer={showInfluencer}
-              showGraphicsDesigner={showGraphicsDesigner}
               searchQuery={searchQuery}
               setRateSort={setRateSort}
               rateSort={rateSort}
@@ -466,7 +466,12 @@ function Explore(props) {
         <div className={styles.main}>
           {final.length === 0 ? (
             <div className={styles.empty}>
-              <Image src="/nobody.webp" width={500} height={500} />
+              <Image
+                src="/nobody.webp"
+                width={500}
+                height={500}
+                alt="nobody-pic"
+              />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>
                 Try changing the filters or search for a different city.

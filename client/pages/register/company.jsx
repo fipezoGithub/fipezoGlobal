@@ -641,6 +641,12 @@ class Company extends React.Component {
                         </option>
                         <option
                           className={styles.option}
+                          value="photography_institute"
+                        >
+                          Photography Institute
+                        </option>
+                        <option
+                          className={styles.option}
                           value="advertising_agency"
                         >
                           Advertising agency

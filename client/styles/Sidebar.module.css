@@ -185,6 +185,7 @@
     z-index: 51;
     border-radius: 0.7rem;
     border: 1px solid #00aaff;
+    width: 45%;
   }
   .title {
     font-size: 0.7rem;
@@ -196,10 +197,10 @@
     font-size: 0.7rem;
   }
   .slider {
-    width: 12rem;
+    width: 8rem;
   }
   #optionx {
-    width: 6rem;
+    width: 8rem;
   }
   .select {
     font-size: 0.7rem;

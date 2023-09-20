@@ -14,6 +14,7 @@ class SearchBoxCompany extends React.Component {
         "ECommerce",
         "Advertising Agency",
         "Production House",
+        "Photography Institute",
         "Other",
       ],
       searchTerm: "",
@@ -47,12 +48,15 @@ class SearchBoxCompany extends React.Component {
     ) {
       event.preventDefault();
       let value = filteredOptions[0];
-      if (value === "Photographer") value = "photographer";
-      else if (value === "Cinematographer") value = "cinematographer";
-      else if (value === "Drone Operator") value = "drone_operator";
-      else if (value === "Photo Editor") value = "photo_editor";
-      else if (value === "Video Editor") value = "video_editor";
-      Router.push(`/explore/freelancer/${value}`);
+      if (value === "Photography") value = "photography";
+      else if (value === "ECommerce") value = "eCommerce";
+      else if (value === "Production House") value = "production_house";
+      else if (value === "Advertising Agency") value = "advertising_agency";
+      else if (value === "Production House") value = "production_house";
+      else if (value === "Photography Institute")
+        value = "photography_institute";
+      else if (value === "Other") value = "other";
+      Router.push(`/explore/company/${value}`);
     }
   };
 
@@ -64,20 +68,15 @@ class SearchBoxCompany extends React.Component {
 
     if (filteredOptions.length > 0 && searchTerm !== "") {
       let value = filteredOptions[0];
-      if (value === "Photographer") value = "photographer";
-      else if (value === "Cinematographer") value = "cinematographer";
-      else if (value === "Drone Operator") value = "drone_operator";
-      else if (value === "Photo Editor") value = "photo_editor";
-      else if (value === "Video Editor") value = "video_editor";
-      else if (value === "Album Designer") value = "album_designer";
-      else if (value === "Model") value = "model";
-      else if (value === "Makeup Artist") value = "makeup_artist";
-      else if (value === "Anchor") value = "anchor";
-      else if (value === "Web Developer") value = "web_developer";
-      else if (value === "DJ") value = "dj";
-      else if (value === "Dancer") value = "dancer";
-      else if (value === "Influencer") value = "influencer";
-      Router.push(`/explore/freelancer/${value}`);
+      if (value === "Photography") value = "photography";
+      else if (value === "ECommerce") value = "eCommerce";
+      else if (value === "Production House") value = "production_house";
+      else if (value === "Advertising Agency") value = "advertising_agency";
+      else if (value === "Production House") value = "production_house";
+      else if (value === "Photography Institute")
+        value = "photography_institute";
+      else if (value === "Other") value = "other";
+      Router.push(`/explore/company/${value}`);
     }
   };
 
@@ -114,11 +113,15 @@ class SearchBoxCompany extends React.Component {
                 filteredOptions.slice(0, 3).map((option, index) => {
                   let value = option;
                   if (value === "Photography") value = "photography";
-                  else if (value === "ECommerce")
-                    value = "eCommerce";
-                  else if (value === "Production House") value = "production_house";
-                  else if (value === "Advertising Agency") value = "advertising_agency";
-                  else if (value === "Production House") value = "production_house";
+                  else if (value === "ECommerce") value = "eCommerce";
+                  else if (value === "Production House")
+                    value = "production_house";
+                  else if (value === "Advertising Agency")
+                    value = "advertising_agency";
+                  else if (value === "Production House")
+                    value = "production_house";
+                  else if (value === "Photography Institute")
+                    value = "photography_institute";
                   else if (value === "Other") value = "other";
                   return (
                     <Link

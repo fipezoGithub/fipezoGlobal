@@ -54,11 +54,17 @@ const Companyname = (props) => {
     setLoggedIn(val);
   };
   const handleClick = (item, index) => {
+    if (!item.includes("works[]")) {
+      return;
+    }
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
   const handelRotationRight = () => {
-    if (currentIndex === null) {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
       return;
     }
     const totalLength = props.data.works.length;
@@ -81,7 +87,10 @@ const Companyname = (props) => {
   };
 
   const handelRotationLeft = () => {
-    if (currentIndex === null) {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
       return;
     }
     const totalLength = props.data.works.length;

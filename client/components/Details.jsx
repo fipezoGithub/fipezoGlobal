@@ -53,7 +53,8 @@ function Details(props) {
                   props.profession === "model" ||
                   props.profession === "makeup_artist" ||
                   props.profession === "album_designer" ||
-                  props.profession === "web_developer") && (
+                  props.profession === "web_developer" ||
+                  props.profession === "graphics_designer") && (
                   <PortfolioCard
                     key={index}
                     i={index}

@@ -13,7 +13,6 @@ async function addComment(req, res) {
       if (err || !freelancerData) {
         return;
       } else {
-        console.log(req.body);
         const feed = await feedCollection.findById(req.body.feedId);
         if (!feed) {
           res.status(404).send("No feed found");
@@ -24,10 +23,13 @@ async function addComment(req, res) {
             feed: feed._id,
             date: req.body.date,
           });
-          const comment = await commentData.save();
+          const newcomment = await commentData.save();
           await feedCollection.findByIdAndUpdate(feed._id, {
-            $push: { comment: comment._id },
+            $push: { comment: newcomment._id },
           });
+          const comment = await commentCollection
+            .findById(newcomment._id)
+            .populate("freelancer");
           res.status(201).json(comment);
         }
       }

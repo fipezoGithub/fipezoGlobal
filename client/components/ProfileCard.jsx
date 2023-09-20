@@ -164,6 +164,15 @@ export default function ProfileCard(props) {
             height={200}
           />
         )}
+        {profession === "Graphics Designer" && (
+          <Image
+            src="/graphics-designer.jpeg"
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt="dj-logo"
+            width={200}
+            height={200}
+          />
+        )}
         <h4>{profession}</h4>
         <div className={styles.rate}>
           <p className="whitespace-nowrap">Rs.{props.profile.rate} / Day</p>

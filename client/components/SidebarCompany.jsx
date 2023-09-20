@@ -130,6 +130,24 @@ class SidebarCompany extends React.Component {
                   className={styles.checkbox}
                   type="checkbox"
                   onChange={(e) => {
+                    this.props.setShowPhotographyInstitute(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="photography_institute"
+                  checked={this.props.showPhotographyInstitute}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="photography_institute"
+                >
+                  Photography Institute
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
                     this.props.setShowProductionHouse(e.target.checked);
                     this.props.setCurrentPage(1);
                   }}

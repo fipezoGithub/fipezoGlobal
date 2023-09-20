@@ -38,10 +38,19 @@ export default function Name(props) {
   const [showDialogBox, setShowDialogBox] = useState(false);
   const [showReviewDialogBox, setShowReviewDialogBox] = useState(false);
   const handleClick = (item, index) => {
+    if (!item.includes("works[]")) {
+      return;
+    }
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
   const handelRotationRight = () => {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
+      return;
+    }
     if (currentIndex === null) {
       return;
     }
@@ -65,6 +74,12 @@ export default function Name(props) {
   };
 
   const handelRotationLeft = () => {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
+      return;
+    }
     if (currentIndex === null) {
       return;
     }

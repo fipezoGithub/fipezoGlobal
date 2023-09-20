@@ -171,9 +171,7 @@ async function shareFeed(req, res) {
 async function getFeedById(req, res) {
   const id = req.params.id;
   try {
-    const feeds = await feedCollection
-      .findOne({ _id: id })
-      .populate("freelancer");
+    const feeds = await feedCollection.findById(id).populate("freelancer");
     res.status(200).json(feeds);
   } catch (error) {
     res.status(500).send("Internal server error");

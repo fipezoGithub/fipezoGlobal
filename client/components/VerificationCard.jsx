@@ -43,7 +43,7 @@ function VerificationCard(props) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   }
-  // const links = JSON.parse(props.profile.links);
+  const links = JSON.parse(props.profile.links);
 
   const handleDelete = async () => {
     try {
@@ -125,7 +125,7 @@ function VerificationCard(props) {
         <div
           className={styles.cover}
           style={{
-            backgroundImage: `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture})`,
+            backgroundImage: `url("https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}")`,
           }}
         ></div>
         <div className={styles.profileImg}>
@@ -136,45 +136,53 @@ function VerificationCard(props) {
             }}
           ></div>
         </div>
-        {/* <div className={styles.socials}>
-          <Link href={links.facebook} target="_black">
-            <Image
-              className={styles.social}
-              src="/facebook.png"
-              width="160"
-              height="160"
-              alt="facebook"
-            />
-          </Link>
-          <Link href={links.instagram} target="_black">
-            <Image
-              className={styles.social}
-              src="/instagramC.png"
-              width="160"
-              height="160"
-              alt="instagram"
-            />
-          </Link>
-          <Link href={links.twitter} target="_black">
-            <Image
-              className={styles.social}
-              src="/twitterC.png"
-              width="160"
-              height="160"
-              alt="twitter"
-            />
-          </Link>
-          <Link href={links.youtube} target="_black">
-            <Image
-              className={styles.social}
-              src="/youtube.png"
-              width="160"
-              height="160"
-              alt="youtube"
-            />
-          </Link>
-        </div> */}
-        <div className={styles.fields}>
+        <div className={styles.socials}>
+          {links.facebook && (
+            <Link href={links.facebook} target="_black">
+              <Image
+                className={styles.social}
+                src="/facebook.png"
+                width="160"
+                height="160"
+                alt="facebook"
+              />
+            </Link>
+          )}
+          {links.instagram && (
+            <Link href={links.instagram} target="_black">
+              <Image
+                className={styles.social}
+                src="/instagramC.png"
+                width="160"
+                height="160"
+                alt="instagram"
+              />
+            </Link>
+          )}
+          {links.twitter && (
+            <Link href={links.twitter} target="_black">
+              <Image
+                className={styles.social}
+                src="/twitterC.png"
+                width="160"
+                height="160"
+                alt="twitter"
+              />
+            </Link>
+          )}
+          {links.youtube && (
+            <Link href={links.youtube} target="_black">
+              <Image
+                className={styles.social}
+                src="/youtube.png"
+                width="160"
+                height="160"
+                alt="youtube"
+              />
+            </Link>
+          )}
+        </div>
+        <div className={styles.fields + " no-scrollbar"}>
           {props.profile.firstname && (
             <div className={styles.field + " capitalize"}>
               <h1>
@@ -236,9 +244,15 @@ function VerificationCard(props) {
             </div>
           )}
         </div>
-        <div className={styles.cards}>
+        <div className={styles.cards + " no-scrollbar"}>
           {props.profile.aadhaarCard && (
-            <div className={styles.card} onClick={() => setScreen(aadhaarCard)}>
+            <div
+              className={styles.card}
+              onClick={() => {
+                console.log(aadhaarCard);
+                setScreen(aadhaarCard);
+              }}
+            >
               <h1>Aadhaar Card</h1>
             </div>
           )}
@@ -273,8 +287,14 @@ function VerificationCard(props) {
           )}
         </div>
         {props.profile.works && (
-          <div className={styles.works}>
-            <div className={styles.work} onClick={() => setScreen(work1)}>
+          <div className={styles.works + " no-scrollbar"}>
+            <div
+              className={styles.work}
+              onClick={() => {
+                console.log(work1);
+                setScreen(work1);
+              }}
+            >
               <h1>Work 1</h1>
             </div>
             <div className={styles.work} onClick={() => setScreen(work2)}>
@@ -305,7 +325,7 @@ function VerificationCard(props) {
         <div
           className={styles.screen}
           style={{
-            backgroundImage: `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${screen})`,
+            backgroundImage: `url("https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${screen}")`,
           }}
         ></div>
         <div className={styles.btns}>

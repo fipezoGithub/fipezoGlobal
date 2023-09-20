@@ -24,10 +24,19 @@ function Freelancer_Profile(props) {
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const handleClick = (item, index) => {
+    if (!item.includes("works[]")) {
+      return;
+    }
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
   const handelRotationRight = () => {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
+      return;
+    }
     const totalLength = freelancer.works.length;
     if (currentIndex + 1 >= totalLength) {
       setCurrentIndex(0);
@@ -48,6 +57,12 @@ function Freelancer_Profile(props) {
   };
 
   const handelRotationLeft = () => {
+    if (
+      currentIndex === null ||
+      !props.data.works.map((work) => work.includes("works[]"))
+    ) {
+      return;
+    }
     const totalLength = freelancer.works.length;
     if (currentIndex === 0) {
       setCurrentIndex(totalLength - 1);

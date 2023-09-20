@@ -23,6 +23,8 @@ function Explore(props) {
   const [showECommerce, setShowECommerce] = useState(false);
   const [showProductionHouse, setShowProductionHouse] = useState(false);
   const [showAdvertisingAgency, setShowAdvertisingAgency] = useState(false);
+  const [showPhotographyInstitute, setShowPhotographyInstitute] =
+    useState(false);
   const [showOther, setShowOther] = useState(false);
 
   const increPage = (e) => {
@@ -56,7 +58,6 @@ function Explore(props) {
             { cache: "no-store" }
           );
           const data = await response.json();
-          console.log(data);
           setCompanies(data);
           if (window.innerWidth < 640) {
             setNoOfPages(Math.ceil(data.length / 10));
@@ -96,6 +97,7 @@ function Explore(props) {
       !showECommerce &&
       !showProductionHouse &&
       !showAdvertisingAgency &&
+      !showPhotographyInstitute &&
       !showOther
     ) {
       return true;
@@ -105,6 +107,7 @@ function Explore(props) {
       showECommerce &&
       showProductionHouse &&
       showAdvertisingAgency &&
+      showPhotographyInstitute &&
       showOther
     ) {
       return (
@@ -112,6 +115,7 @@ function Explore(props) {
         freelancer.companytype === "eCommerce" ||
         freelancer.companytype === "production_house" ||
         freelancer.companytype === "advertising_agency" ||
+        freelancer.companytype === "photography_institute" ||
         freelancer.companytype === "other"
       );
     }
@@ -151,6 +155,9 @@ function Explore(props) {
     }
     if (showAdvertisingAgency) {
       return freelancer.companytype === "advertising_agency";
+    }
+    if (showPhotographyInstitute) {
+      return freelancer.companytype === "photography_institute";
     }
     if (showOther) {
       return freelancer.companytype === "other";
@@ -223,6 +230,8 @@ function Explore(props) {
                 setShowPhotography={setShowPhotography}
                 showProductionHouse={showProductionHouse}
                 setShowProductionHouse={setShowProductionHouse}
+                showPhotographyInstitute={showPhotographyInstitute}
+                setShowPhotographyInstitute={setShowPhotographyInstitute}
                 showOther={showOther}
                 setShowOther={setShowOther}
               />
@@ -237,9 +246,7 @@ function Explore(props) {
                   height={500}
                   alt="nobody-pic"
                 />
-                <p className={styles.nobodyMainText}>
-                  No Companies available!
-                </p>
+                <p className={styles.nobodyMainText}>No Companies available!</p>
                 <p className={styles.nobodyText}>
                   Try changing the filters or search for a different city.
                 </p>

@@ -114,7 +114,11 @@
     font-size: 25px;
   }
 }
-
+@media (min-width: 768px) {
+  .sidebar{
+    width: auto;
+  }
+}
 @media (max-width: 738px){
   .body {
     flex-direction: column;
