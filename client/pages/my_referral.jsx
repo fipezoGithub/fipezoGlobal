@@ -110,7 +110,7 @@ const My_referral = (props) => {
           </h3>
         ) : (
           <h3 className="flex flex-col items-center gap-2 text-lg text-center">
-            looks like you don't have any referal code yet
+            looks like you don'&quot;t have any referal code yet
             <button
               type="button"
               onClick={generateReferCode}
