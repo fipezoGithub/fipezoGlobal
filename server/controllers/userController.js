@@ -15,6 +15,7 @@ const { uploadFile } = require("../middlewares/s3");
 const sharp = require("sharp");
 const path = require("path");
 const reviewCollection = require("../models/reviewModel");
+const referCollection = require("../models/referModel");
 let otpTimer;
 
 // signup
@@ -338,6 +339,7 @@ async function deleteUserProfile(req, res) {
         res.sendStatus(403);
         return;
       } else {
+        await referCollection.deleteOne({ _id: userData.createdReferalId });
         await userCollection.deleteOne({ _id: authData.user._id });
         res.send("User Deleted");
       }

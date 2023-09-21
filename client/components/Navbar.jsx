@@ -106,7 +106,7 @@ export default function Navbar(props) {
           <RiMenu3Fill size={"2em"} />
         </button>
       </div>
-      <div className={styles.right+ " hidden md:block"}>
+      <div className={styles.right + " hidden md:block"}>
         <div className={styles.left + " sm:hidden"}>
           <Link href="/">
             <i className={styles.fipezo}>Fipezo</i>
@@ -296,6 +296,11 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/freelancer_profile`}>
                     My Profile
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/my_referral`}>
+                    My Referals
                   </Link>
                 )}
                 {!props.user.uid && (
@@ -581,6 +586,11 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/freelancer_profile`}>
                     My Profile
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/my_referral`}>
+                    My Referals
                   </Link>
                 )}
                 {!props.user.uid && (

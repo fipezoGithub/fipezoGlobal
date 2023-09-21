@@ -9,6 +9,7 @@ const { uploadFile, deleteFile } = require("../middlewares/s3");
 const sharp = require("sharp");
 const path = require("path");
 const companyCollection = require("../models/companyModel");
+const referCollection = require("../models/referModel");
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -57,7 +58,14 @@ async function registerFreelancer(req, res) {
     //     req.files['works[]']?.map((file) => resizeImage(file, 1200, 900))
     //   );
     // }
-
+    let referalUID;
+    if (req.body.usedReferalId) {
+      referalUID = await referCollection.findOne({
+        referUid: req.body.usedReferalId,
+      });
+    } else {
+      referalUID = null;
+    }
     let worksToStore = [];
     if (
       req.body.profession === "photographer" ||
@@ -112,12 +120,31 @@ async function registerFreelancer(req, res) {
       rating: 0,
       reviewCount: 0,
       reviews: [],
+      joinByRefaralId: [],
+      createdReferalId: null,
+      usedReferalId: referalUID,
       termsAndConditions: req.body.termsAndConditions,
       featured: false,
       verified: false,
     });
-    await freelancerData.save();
-
+    const newFreelancer = await freelancerData.save();
+    const referID = await new referCollection({
+      referUid:
+        req.body.firstname.toUpperCase().slice(0, 3) +
+        req.body.phone.toString(8).slice(0, 3),
+      createdFreelancer: newFreelancer._id,
+    }).save();
+    await freelancerCollection.findByIdAndUpdate(newFreelancer._id, {
+      createdReferalId: referID._id,
+    });
+    if (req.body.usedReferalId) {
+      await freelancerCollection.updateOne(
+        {
+          createdReferalId: req.body.usedReferalId,
+        },
+        { $push: { joinByRefaralId: newFreelancer._id } }
+      );
+    }
     const filePromises = [];
     filePromises.push(uploadFile(resizedProfilePicture));
     filePromises.push(uploadFile(resizedCoverPicture));
@@ -446,7 +473,8 @@ async function deleteFreelancerProfile(req, res) {
     });
 
     await Promise.all(filePromises);
-
+    const freelancer = await freelancerCollection.findById(id);
+    await referCollection.deleteOne({ _id: freelancer.createdReferalId });
     await freelancerCollection.deleteOne({ _id: id });
     res.json({ id: id });
   } catch (error) {

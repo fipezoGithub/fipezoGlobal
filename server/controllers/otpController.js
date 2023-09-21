@@ -4,6 +4,7 @@ const companyCollection = require("../models/companyModel");
 const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
 const otpCollection = require("../models/otpModel");
+const referCollection = require("../models/referModel");
 
 // verify freelancer phone
 
@@ -111,10 +112,21 @@ async function otpSignupController(req, res) {
         lastname: req.body.lastname,
         phone: req.body.phone,
         profilePicture: null,
+        createdReferalId: null,
       });
 
       const user = await userData.save();
-
+      const referID = await new referCollection({
+        referUid:
+          req.body.firstname.toUpperCase().slice(0, 3) +
+          req.body.phone.toString(8).slice(0, 3),
+        // createdFreelancer: "",
+        createdUser: user._id,
+        // acceptedFreelancer: "",
+      }).save();
+      await userCollection.findByIdAndUpdate(user._id, {
+        createdReferalId: referID._id,
+      });
       jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
         if (err) {
           console.log(err);

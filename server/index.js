@@ -109,6 +109,11 @@ const {
   deleteComment,
   getCommentsOfPost,
 } = require("./controllers/commentController");
+const {
+  generateReferCode,
+  getReferCodeByUser,
+  getReferCodeByFreelancer,
+} = require("./controllers/referControler");
 
 // Setting up the routes
 app.post("/api/signup", signupController);
@@ -195,6 +200,9 @@ app.get("/api/feed/comment/list/:feedId", getCommentsOfPost);
 app.post("/api/feed/comment", verifyToken, addComment);
 app.put("/api/feed/comment/edit/:commentId", verifyToken, editComment);
 app.delete("/api/feed/comment/delete/:commentId", verifyToken, deleteComment);
+app.post("/api/generaterefer", verifyToken, generateReferCode);
+app.get("/api/getrefer/user", verifyToken, getReferCodeByUser);
+app.get("/api/getrefer/freelancer", verifyToken, getReferCodeByFreelancer);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

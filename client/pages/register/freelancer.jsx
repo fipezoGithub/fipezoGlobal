@@ -33,11 +33,13 @@ class Freelancer extends React.Component {
       panCard: null,
       works: [],
       links: { instagram: "", facebook: "", twitter: "", youtube: "" },
+      usedReferalId: "",
       termsAndConditions: true,
       error: false,
       form: false,
       phoneError: false,
       worksError: false,
+      referError: false,
       addharError: false,
       panError: false,
       profilePicError: false,
@@ -122,7 +124,13 @@ class Freelancer extends React.Component {
         return;
       }
     }
-
+    if (
+      this.state.usedReferalId.length > 0 &&
+      this.state.usedReferalId.length < 6
+    ) {
+      this.setState({ referError: true });
+      return;
+    }
     if (this.state.location === "" && this.state.currentPage === 4) {
       this.setState({ error: true });
       return;
@@ -381,6 +389,7 @@ class Freelancer extends React.Component {
           "pictureStyle",
           JSON.stringify({ coverPicture: "center", profilePicture: "center" })
         );
+        data.append("usedReferalId", this.state.usedReferalId);
         data.append("termsAndConditions", this.state.termsAndConditions);
         data.append("verified", false);
         const response = await fetch(
@@ -660,6 +669,30 @@ class Freelancer extends React.Component {
                         }
                         value={this.state.otp}
                       />
+                    </div>
+                  )}
+                  {this.state.currentPage === 4 && (
+                    <div>
+                      <h2 className={styles.label}>
+                        Have you any referal code
+                      </h2>
+                      <div>
+                        <input
+                          type="text"
+                          className={styles.input}
+                          onChange={(e) => {
+                            this.setState({ usedReferalId: e.target.value });
+                          }}
+                          onKeyDown={this.handleEnterKeyPress}
+                          value={this.state.usedReferalId}
+                          placeholder="Put your referal code here (Optional)"
+                        />
+                        {this.state.referError === true && (
+                          <p className={styles.error}>
+                            Invalid Referal Code. It should be 6 digit.
+                          </p>
+                        )}
+                      </div>
                     </div>
                   )}
                   {this.state.currentPage === 4 && (

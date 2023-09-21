@@ -99,6 +99,20 @@ const freelancerSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    createdReferalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "refercollection",
+      default: null,
+    },
+    joinByRefaralId: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+    },
+    usedReferalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "refercollection",
+      default: null,
+    },
     verified: {
       type: Boolean,
       required: true,

@@ -194,6 +194,9 @@ function User_profile(props) {
               <p className={style.option} onClick={() => setEditProfile(true)}>
                 Edit Profile
               </p>
+              <Link className={style.option} href="/my_referral">
+                My Referal
+              </Link>
               <p
                 className={style.option}
                 onClick={() => setShowDeleteBox(true)}

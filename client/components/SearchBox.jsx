@@ -23,6 +23,7 @@ class SearchBox extends React.Component {
         "DJ",
         "Dancer",
         "Influencer",
+        "Graphics Designer",
       ],
       searchTerm: "",
     };
@@ -68,6 +69,7 @@ class SearchBox extends React.Component {
       else if (value === "DJ") value = "dj";
       else if (value === "Dancer") value = "dancer";
       else if (value === "Influencer") value = "influencer";
+      else if (value === "Graphics Designer") value = "graphics_designer";
       Router.push(`/explore/freelancer/${value}`);
     }
   };
@@ -93,6 +95,7 @@ class SearchBox extends React.Component {
       else if (value === "DJ") value = "dj";
       else if (value === "Dancer") value = "dancer";
       else if (value === "Influencer") value = "influencer";
+      else if (value === "Graphics Designer") value = "graphics_designer";
       Router.push(`/explore/freelancer/${value}`);
     }
   };
@@ -146,6 +149,8 @@ class SearchBox extends React.Component {
                     else if (value === "DJ") value = "dj";
                     else if (value === "Dancer") value = "dancer";
                     else if (value === "Influencer") value = "influencer";
+                    else if (value === "Graphics Designer")
+                      value = "graphics_designer";
                     return (
                       <Link
                         href={`/explore/freelancer/${value}`}
@@ -175,6 +180,7 @@ class SearchBox extends React.Component {
                     else if (value === "DJ") value = "dj";
                     else if (value === "Dancer") value = "dancer";
                     else if (value === "Influencer") value = "influencer";
+                    else if (value === "Graphics Designer") value = "graphics_designer";
                     return (
                       <Link
                         href={`/explore/freelancer/${value}`}
