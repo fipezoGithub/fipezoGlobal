@@ -15,6 +15,7 @@ const RandomFeeds = (props) => {
   const router = useRouter();
   const [love, setLove] = useState(false);
   const date = props.feed.date.slice(0, 10).split("-").reverse().join("/");
+  console.log(props);
   useEffect(() => {
     if (props.feed.postData.includes("postData-")) {
       setIsImage(true);
@@ -41,6 +42,7 @@ const RandomFeeds = (props) => {
       );
       const love = await res.json();
       setLove(true);
+      props.setFetchData(true);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +64,7 @@ const RandomFeeds = (props) => {
       );
       const love = await res.json();
       setLove(false);
+      props.setFetchData(true);
     } catch (error) {
       console.log(error);
     }
@@ -82,28 +85,30 @@ const RandomFeeds = (props) => {
         }
       );
       const del = await res.json();
-      router.push("/");
+      props.setFetchData(true);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <div className="flex flex-col relative gap-4 w-80 border m-4 px-2 py-4 shadow-md rounded-lg">
-      <div className="absolute top-0 right-0 pl-2 py-1 group">
-        <div className="hidden group-hover:flex flex-col items-center bg-white absolute right-0">
-          {/* <button type="button" className="px-4 py-2">edit</button> */}
-          <button
-            type="button"
-            className="px-4 py-2 capitalize"
-            onClick={handelDelete}
-          >
-            delete
+      {props.feed.freelancer._id === props.user._id && (
+        <div className="absolute top-0 right-0 pl-2 py-1 group">
+          <div className="hidden group-hover:flex flex-col items-center bg-white absolute right-0">
+            <button
+              type="button"
+              className="px-4 py-2 capitalize"
+              onClick={handelDelete}
+            >
+              delete
+            </button>
+          </div>
+
+          <button className="" type="button">
+            <BsThreeDotsVertical size={"1.5em"} />
           </button>
         </div>
-        <button className="" type="button">
-          <BsThreeDotsVertical size={"1.5em"} />
-        </button>
-      </div>
+      )}
       <Link
         className="self-center border border-neutral-500 p-2 mr-4"
         href={`/feed/${props.feed._id}`}
@@ -117,7 +122,7 @@ const RandomFeeds = (props) => {
             placeholder="blur"
             alt="feed_img"
             className={`w-full object-cover ${
-              props.height ? "h-[12.5rem]" : "h-full"
+              props.height ? "h-[12.5rem]" : "h-[12.5rem]"
             }`}
           />
         ) : (

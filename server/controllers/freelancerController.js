@@ -203,7 +203,7 @@ async function registerFreelancer(req, res) {
       res.json({ token });
     });
   } catch (error) {
-    console.error(error);
+    console.error(error.stack);
     res.status(500).send("Internal server error");
   }
 }
@@ -357,7 +357,7 @@ async function editFreelancerCoverPicture(req, res) {
         });
         if (user) {
           let updatedUser;
-          if (req.body.coverPicture) {
+          if (req.files["coverPicture"]) {
             const resizedCoverPicture = await resizeImage(
               req.files["coverPicture"][0],
               2272,

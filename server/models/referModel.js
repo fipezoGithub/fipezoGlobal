@@ -8,13 +8,11 @@ const referSchema = new mongoose.Schema({
   createdFreelancer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "freelancercollection",
-    unique: true,
     default: null,
   },
   createdUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "usercollection",
-    unique: true,
     default: null,
   },
   acceptedFreelancer: {

@@ -5,6 +5,7 @@ import { ImCross } from "react-icons/im";
 const FollowerFollowingModal = (props) => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   const [isFollowingActive, setIsFollowingActive] = useState(
     props.showModalAs === "following" ? true : false
   );
@@ -78,36 +79,45 @@ const FollowerFollowingModal = (props) => {
         <div className="flex flex-col items-center gap-4 w-full overflow-hidden overflow-y-scroll py-2 no-scrollbar">
           {isFollowingActive === true &&
             (following.length > 0 ? (
-              following.map((item, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer flex items-center gap-2 justify-between w-full"
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.profilePicture}`}
-                    width={50}
-                    height={50}
-                    alt="pro-pic-dp"
-                    className="rounded-full object-cover h-12 w-12"
-                  />
-                  <p
-                    className="capitalize font-medium text-lg"
-                    onClick={() => {
-                      router.push(`/profile/${item.uid}`);
-                      props.setShowFollowingFollowerBox(false);
-                    }}
+              following.map((item, index) => {
+                if (props.user.following.includes(item._id)) {
+                  props.setIsFollowed(true);
+                }
+                return (
+                  <div
+                    key={index}
+                    className="cursor-pointer flex items-center gap-2 justify-between w-full"
                   >
-                    {item.firstname} {item.lastname}
-                  </p>
-                  <button
-                    type="button"
-                    className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                    onClick={() => props.handelFollow()}
-                  >
-                    {props.isFollowed === false ? "follow" : "unfollow"}
-                  </button>
-                </div>
-              ))
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.profilePicture}`}
+                      width={50}
+                      height={50}
+                      alt="pro-pic-dp"
+                      className="rounded-full object-cover h-12 w-12"
+                    />
+                    <p
+                      className="capitalize font-medium text-lg"
+                      onClick={() => {
+                        router.push(`/profile/${item.uid}`);
+                        props.setShowFollowingFollowerBox(false);
+                      }}
+                    >
+                      {item.firstname} {item.lastname}
+                    </p>
+                    {props.user._id !== item._id && (
+                      <button
+                        type="button"
+                        className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
+                        onClick={() => props.handelFollow()}
+                      >
+                        {props.user.following.includes(item._id)
+                          ? "unfollow"
+                          : "follow"}
+                      </button>
+                    )}
+                  </div>
+                );
+              })
             ) : (
               <div className="flex flex-col gap-4">
                 <img
@@ -120,36 +130,47 @@ const FollowerFollowingModal = (props) => {
             ))}
           {isFollowingActive === false &&
             (followers.length > 0 ? (
-              followers.map((item, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer flex items-center gap-2 justify-between w-full"
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.profilePicture}`}
-                    width={50}
-                    height={50}
-                    alt="pro-pic-dp"
-                    className="rounded-full object-cover h-12 w-12"
-                  />
-                  <p
-                    className="capitalize font-medium text-lg"
-                    onClick={() => {
-                      router.push(`/profile/${item.uid}`);
-                      props.setShowFollowingFollowerBox(false);
-                    }}
+              followers.map((item, index) => {
+                if (props.user.following.includes(item._id)) {
+                  props.setIsFollowed(true);
+                }
+                return (
+                  <div
+                    key={index}
+                    className={`cursor-pointer flex items-center gap-2 ${
+                      props.user._id !== item._id ? "justify-between" : " "
+                    } w-full`}
                   >
-                    {item.firstname} {item.lastname}
-                  </p>
-                  <button
-                    type="button"
-                    className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                    onClick={() => props.handelFollow()}
-                  >
-                    {props.isFollowed === false ? "follow" : "unfollow"}
-                  </button>
-                </div>
-              ))
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.profilePicture}`}
+                      width={50}
+                      height={50}
+                      alt="pro-pic-dp"
+                      className="rounded-full object-cover h-12 w-12"
+                    />
+                    <p
+                      className="capitalize font-medium text-lg"
+                      onClick={() => {
+                        router.push(`/profile/${item.uid}`);
+                        props.setShowFollowingFollowerBox(false);
+                      }}
+                    >
+                      {item.firstname} {item.lastname}
+                    </p>
+                    {props.user._id !== item._id && (
+                      <button
+                        type="button"
+                        className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
+                        onClick={() => props.handelFollow()}
+                      >
+                        {props.user.following.includes(item._id)
+                          ? "unfollow"
+                          : "follow"}
+                      </button>
+                    )}
+                  </div>
+                );
+              })
             ) : (
               <div className="flex flex-col gap-4">
                 <img

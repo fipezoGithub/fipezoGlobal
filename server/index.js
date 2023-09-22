@@ -80,8 +80,10 @@ const app = express();
 
 // Setting up the middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(
+  express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 })
+);
+app.use(express.json({ limit: "10mb", extended: true }));
 app.use(cors());
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
@@ -89,8 +91,6 @@ const upload = require("./middlewares/storage");
 const userProfilePic = require("./middlewares/userProfilePic");
 const companyUpload = require("./middlewares/companyUpload");
 const companyEditUpload = require("./middlewares/companyEditUpload");
-const { get } = require("mongoose");
-const userCollection = require("./models/userModel");
 const { getFileStream } = require("./middlewares/s3");
 const {
   addFeed,

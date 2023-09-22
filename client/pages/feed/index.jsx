@@ -90,7 +90,7 @@ const Feed = (props) => {
           </h2>
           <RandomPeople user={props.user} />
         </div>
-        <div className="flex flex-col items-center gap-8 overflow-hidden overflow-y-scroll sm:h-screen no-scrollbar">
+        <div className="flex flex-col items-center gap-8">
           {feed.length > 0 &&
             feed
               .slice(0)
@@ -110,7 +110,7 @@ const Feed = (props) => {
             feed
               .slice(0, 2)
               .map((post, index) => (
-                <RandomFeeds feed={post} key={index} user={props.user} />
+                <RandomFeeds feed={post} key={index} user={props.user} setFetchData={setFetchData} />
               ))}
         </div>
       </div>

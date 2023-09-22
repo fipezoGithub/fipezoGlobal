@@ -2,295 +2,301 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
     <loc>http://localhost:3001/about_us</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/app_store</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/careers</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/company_profile</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/contact</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/contact_panel</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/contact_soon</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/data_protection</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/faqs</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/freelancer_profile</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/google_play</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/guides_and_reviews</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/login</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/my_hires</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://localhost:3001/my_referral</loc>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/my_requests</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/privacy_and_policy</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/signup</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/terms_and_conditions</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/user_profile</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/verification</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/company/[companyname]</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/feed/index</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/feed/[feedid]</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/profile/[name]</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/register/company</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/register/freelancer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/advertising_agency</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/eCommerce</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/index</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/other</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/photography</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/photography_institute</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/company/production_house</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/album_designer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/anchor</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/cinematographer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/dancer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/dj</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/drone_operator</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/graphics_designer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/index</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/influencer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/makeup_artist</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/model</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/photographer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/photo_editor</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/video_editor</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:3001/explore/freelancer/web_developer</loc>
-    <lastmod>2023-09-21T04:29:06.201Z</lastmod>
+    <lastmod>2023-09-22T04:30:11.040Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

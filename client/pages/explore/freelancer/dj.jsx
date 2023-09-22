@@ -421,6 +421,7 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
+            setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
               setShowCinematographers={setShowCinematographers}

@@ -462,9 +462,12 @@ class Sidebar extends React.Component {
                 id="locations"
                 value={this.state.cityname}
                 className={styles.select}
-                onChange={() =>
-                  this.changeCity(document.getElementById("locations").value)
-                }
+                onChange={() => {
+                  this.changeCity(document.getElementById("locations").value);
+                  if (window.innerWidth < 640) {
+                    this.props.setShowSideBar(false);
+                  }
+                }}
               >
                 <option disabled value="city" id={styles.selected}>
                   {this.state.cityname}

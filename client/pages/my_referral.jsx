@@ -35,6 +35,7 @@ const My_referral = (props) => {
           }
         );
         const referalCode = await res.json();
+        console.log(referalCode);
         setReferCode(referalCode);
       }
     }
@@ -122,7 +123,8 @@ const My_referral = (props) => {
         )}
         <div>
           <h3 className="text-center text-lg">
-            Your successful refer is {referCode.acceptedFreelancer?.length}
+            Your successful refer is{" "}
+            {referCode ? referCode.acceptedFreelancer?.length : `0`}
           </h3>
         </div>
       </div>

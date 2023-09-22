@@ -13,7 +13,6 @@ const UpdateProfileAndCover = (props) => {
   const [coverPicture, setCoverPicture] = useState("");
   const router = useRouter();
   useEffect(() => {
-    console.log(props);
     setPosition(props.position);
   }, []);
   const handleProfileImageChange = (e) => {
@@ -75,7 +74,7 @@ const UpdateProfileAndCover = (props) => {
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     const data = new FormData();
-    if (profilePicture !== "") {
+    if (profilePicture !== "" && coverPicture === "") {
       data.append("profilePicture", profilePicture);
       data.append(
         "pictureStyle",
@@ -93,8 +92,8 @@ const UpdateProfileAndCover = (props) => {
       );
       const result = await response.json();
       console.log(result);
-      router.push("/");
-    } else if (coverPicture !== "") {
+      router.push(`/freelancer_profile`);
+    } else if (coverPicture !== "" && profilePicture === "") {
       data.append("coverPicture", coverPicture);
       data.append(
         "pictureStyle",
@@ -112,7 +111,7 @@ const UpdateProfileAndCover = (props) => {
       );
       const result = await response.json();
       console.log(result);
-      router.push("/");
+      router.push(`/freelancer_profile`);
     } else if (profilePicture === "" && coverPicture === "") {
       data.append(
         "pictureStyle",
@@ -130,7 +129,7 @@ const UpdateProfileAndCover = (props) => {
       );
       const result = await response.json();
       console.log(result);
-      router.push("/");
+      router.push(`/freelancer_profile`);
     }
   };
   return (

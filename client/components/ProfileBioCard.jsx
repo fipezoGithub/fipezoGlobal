@@ -81,8 +81,8 @@ function ProfileBioCard(props) {
       <div className={styles.profile_pic + " overflow-hidden cursor-pointer"}>
         <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.freelancer.profilePicture}`}
-          width={500}
-          height={500}
+          width={900}
+          height={900}
           alt="profile picture"
           blurDataURL="/loadImg.gif"
           placeholder="blur"
@@ -288,8 +288,11 @@ function ProfileBioCard(props) {
       {showFollowingFollowerBox === true && (
         <FollowerFollowingModal
           setShowFollowingFollowerBox={setShowFollowingFollowerBox}
+          user={props.user}
+          freelancer={props.freelancer}
           userId={props.freelancer._id}
           isFollowed={isFollowed}
+          setIsFollowed={setIsFollowed}
           showModalAs={showModalAs}
           handelFollow={handelFollow}
         />
