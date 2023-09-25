@@ -40,16 +40,20 @@ async function registerFreelancer(req, res) {
       2272,
       1704
     );
-    const resizedAadhaarCard = await resizeImage(
-      req.files["aadhaarCard"][0],
-      2272,
-      1704
-    );
-    const resizedPanCard = await resizeImage(
-      req.files["panCard"][0],
-      2272,
-      1704
-    );
+    let resizedAadhaarCard;
+    if (req.files["aadhaarCard"]) {
+      console.log(req.files["aadhaarCard"]);
+      resizedAadhaarCard = await resizeImage(
+        req.files["aadhaarCard"][0],
+        2272,
+        1704
+      );
+    }
+    let resizedPanCard;
+    if (req.files["panCard"]) {
+      console.log(req.files["panCard"]);
+      resizedPanCard = await resizeImage(req.files["panCard"][0], 2272, 1704);
+    }
 
     let resizedWorks = [];
 
@@ -72,6 +76,7 @@ async function registerFreelancer(req, res) {
       req.body.profession === "photo_editor" ||
       req.body.profession === "model" ||
       req.body.profession === "makeup_artist" ||
+      req.body.profession === "mehendi_artist" ||
       req.body.profession === "album_designer" ||
       req.body.profession === "web_developer" ||
       req.body.profession === "graphics_designer"
@@ -112,8 +117,8 @@ async function registerFreelancer(req, res) {
       following: [],
       profilePicture: resizedProfilePicture.filename,
       coverPicture: resizedCoverPicture.filename,
-      aadhaarCard: resizedAadhaarCard.filename,
-      panCard: resizedPanCard.filename,
+      aadhaarCard: resizedAadhaarCard?.filename || null,
+      panCard: resizedPanCard?.filename || null,
       works: worksToStore,
       pictureStyle: req.body.pictureStyle,
       links: req.body.links,
@@ -131,7 +136,7 @@ async function registerFreelancer(req, res) {
     const referID = await new referCollection({
       referUid:
         req.body.firstname.toUpperCase().slice(0, 3) +
-        req.body.phone.toString(8).slice(0, 3),
+        parseInt(req.body.phone).toString(16).slice(0, 3),
       createdFreelancer: newFreelancer._id,
     }).save();
     await freelancerCollection.findByIdAndUpdate(newFreelancer._id, {
@@ -148,8 +153,12 @@ async function registerFreelancer(req, res) {
     const filePromises = [];
     filePromises.push(uploadFile(resizedProfilePicture));
     filePromises.push(uploadFile(resizedCoverPicture));
-    filePromises.push(uploadFile(resizedAadhaarCard));
-    filePromises.push(uploadFile(resizedPanCard));
+    if (req.files["aadhaarCard"]) {
+      filePromises.push(uploadFile(resizedAadhaarCard));
+    }
+    if (req.files["panCard"]) {
+      filePromises.push(uploadFile(resizedPanCard));
+    }
 
     if (
       req.body.profession === "photographer" ||
@@ -157,6 +166,7 @@ async function registerFreelancer(req, res) {
       req.body.profession === "photo_editor" ||
       req.body.profession === "model" ||
       req.body.profession === "makeup_artist" ||
+      req.body.profession === "mehendi_artist" ||
       req.body.profession === "album_designer" ||
       req.body.profession === "anchor" ||
       req.body.profession === "web_developer" ||
@@ -174,12 +184,20 @@ async function registerFreelancer(req, res) {
 
     await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
     await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
-    await unlinkFile("uploads/" + req.files["aadhaarCard"][0].filename);
-    await unlinkFile("uploads/" + req.files["panCard"][0].filename);
+    if (req.files["aadhaarCard"]) {
+      await unlinkFile("uploads/" + req.files["aadhaarCard"][0].filename);
+    }
+    if (req.files["panCard"]) {
+      await unlinkFile("uploads/" + req.files["panCard"][0].filename);
+    }
     await unlinkFile(resizedProfilePicture.path);
     await unlinkFile(resizedCoverPicture.path);
-    await unlinkFile(resizedAadhaarCard.path);
-    await unlinkFile(resizedPanCard.path);
+    if (req.files["aadhaarCard"]) {
+      await unlinkFile(resizedAadhaarCard.path);
+    }
+    if (req.files["panCard"]) {
+      await unlinkFile(resizedPanCard.path);
+    }
 
     // if (req.body.profession === 'photographer' || req.body.profession === 'drone_operator') {
     //   req.files['works[]'].forEach(file => {
@@ -465,8 +483,12 @@ async function deleteFreelancerProfile(req, res) {
     const filePromises = [];
     filePromises.push(deleteFile(user.profilePicture));
     filePromises.push(deleteFile(user.coverPicture));
-    filePromises.push(deleteFile(user.aadhaarCard));
-    filePromises.push(deleteFile(user.panCard));
+    if (user.aadhaarCard) {
+      filePromises.push(deleteFile(user.aadhaarCard));
+    }
+    if (user.panCard) {
+      filePromises.push(deleteFile(user.panCard));
+    }
 
     user.works.forEach((file) => {
       filePromises.push(deleteFile(file));

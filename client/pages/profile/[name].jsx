@@ -65,7 +65,9 @@ export default function Name(props) {
     }
     const newIndex = currentIndex + 1;
     const newUrl = props.data.works.filter((item) => {
-      return props.data.works.indexOf(item) === newIndex;
+      if (item.includes("works[]")) {
+        return props.data.works.indexOf(item) === newIndex;
+      }
     });
     const newItem =
       `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + newUrl[0];

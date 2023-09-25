@@ -15,7 +15,7 @@ function Terms_And_Conditions(props) {
       <div className={styles.main}>
         <div className={styles.body}>
           <div className={styles.termsNConditions_form} style={{ height: '88.3vh' }}>
-            <Link className='block flex justify-end' href='/'><Image src='/cross.png' height={28} width={28} alt='cross' ></Image></Link>
+            <Link className='flex justify-end' href='/'><Image src='/cross.png' height={28} width={28} alt='cross' ></Image></Link>
             <h1 className={styles.heading}>Terms & Conditions for Fipezo - Freelance Platform</h1>
             <p className={styles.para}>Welcome to Fipezo, a freelance platform connecting skilled freelancers with clients seeking their services. These Terms & Conditions govern your use of the Fipezo website and all related services provided by Fipezo. By accessing or using our Website and Services, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please do not use the Website or our Services.
 

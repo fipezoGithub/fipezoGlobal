@@ -15,7 +15,7 @@ function About_Us(props) {
       <div className={styles.main}>
         <div className={styles.body}>
           <div className={styles.termsNConditions_form} style={{ height: '88.3vh' }}>
-          <Link className='block flex justify-end' href='/'><Image src='/cross.png' height={28} width={28} alt='cross' ></Image></Link>
+          <Link className='flex justify-end' href='/'><Image src='/cross.png' height={28} width={28} alt='cross' ></Image></Link>
             <h1 className={styles.heading}>Welcome to Fipezo - Empowering Freelancers Worldwide!</h1>
             <Image src='/aboutUs.webp' width='500' height='500' alt='about_us' />
             <p className={`mt-8 ${styles.para}`}>At Fipezo, we believe that freelancers are the backbone of a dynamic and innovative economy. Our platform is designed to provide a seamless and empowering experience for talented freelancers like you, connecting you with exciting opportunities and helping you thrive in the gig economy.

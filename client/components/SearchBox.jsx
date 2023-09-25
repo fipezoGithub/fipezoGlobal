@@ -24,6 +24,7 @@ class SearchBox extends React.Component {
         "Dancer",
         "Influencer",
         "Graphics Designer",
+        "Mehendi Artist",
       ],
       searchTerm: "",
     };
@@ -64,6 +65,7 @@ class SearchBox extends React.Component {
       else if (value === "Album Designer") value = "album_designer";
       else if (value === "Model") value = "model";
       else if (value === "Makeup Artist") value = "makeup_artist";
+      else if (value === "Mehendi Artist") value = "mehendi_artist";
       else if (value === "Anchor") value = "anchor";
       else if (value === "Web Developer") value = "web_developer";
       else if (value === "DJ") value = "dj";
@@ -90,6 +92,7 @@ class SearchBox extends React.Component {
       else if (value === "Album Designer") value = "album_designer";
       else if (value === "Model") value = "model";
       else if (value === "Makeup Artist") value = "makeup_artist";
+      else if (value === "Mehendi Artist") value = "mehendi_artist";
       else if (value === "Anchor") value = "anchor";
       else if (value === "Web Developer") value = "web_developer";
       else if (value === "DJ") value = "dj";
@@ -144,6 +147,8 @@ class SearchBox extends React.Component {
                       value = "album_designer";
                     else if (value === "Model") value = "model";
                     else if (value === "Makeup Artist") value = "makeup_artist";
+                    else if (value === "Mehendi Artist")
+                      value = "mehendi_artist";
                     else if (value === "Anchor") value = "anchor";
                     else if (value === "Web Developer") value = "web_developer";
                     else if (value === "DJ") value = "dj";
@@ -175,12 +180,15 @@ class SearchBox extends React.Component {
                       value = "album_designer";
                     else if (value === "Model") value = "model";
                     else if (value === "Makeup Artist") value = "makeup_artist";
+                    else if (value === "Mehendi Artist")
+                      value = "mehendi_artist";
                     else if (value === "Anchor") value = "anchor";
                     else if (value === "Web Developer") value = "web_developer";
                     else if (value === "DJ") value = "dj";
                     else if (value === "Dancer") value = "dancer";
                     else if (value === "Influencer") value = "influencer";
-                    else if (value === "Graphics Designer") value = "graphics_designer";
+                    else if (value === "Graphics Designer")
+                      value = "graphics_designer";
                     return (
                       <Link
                         href={`/explore/freelancer/${value}`}

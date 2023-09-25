@@ -18,8 +18,10 @@ const Modal = ({
           className="image h-full overflow-hidden"
           style={{ backgroundImage: `url(${clickedImg})` }}
         >
-          <img
+          <Image
             src={`${clickedImg}`}
+            layout="fill"
+            objectFit="contain"
             alt="portfolio-img"
             className="w-auto h-full shadow-[3px_5px_7px_rgba(0,_0,_0,_0.5)] object-contain"
           />

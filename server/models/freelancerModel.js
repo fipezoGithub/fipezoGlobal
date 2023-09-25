@@ -50,11 +50,9 @@ const freelancerSchema = new mongoose.Schema(
     },
     aadhaarCard: {
       type: String,
-      required: true,
     },
     panCard: {
       type: String,
-      required: true,
     },
     works: {
       type: [String],

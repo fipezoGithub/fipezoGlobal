@@ -256,7 +256,6 @@ function Verification(props) {
               className={styles.upload}
               onChange={(e) => handleImageChange(e, 6)}
               accept="image/jpeg,image/png"
-              required
             />
             &nbsp;&nbsp;&nbsp;&nbsp;
             {images[6] && <AiFillFile style={{ color: "#ffffff" }} />}
@@ -269,9 +268,6 @@ function Verification(props) {
               </p>
             )}
           </label>
-          <span className={styles.mandatory}>
-            <s>*</s> This field is mandatory
-          </span>
         </div>
         <div className="flex flex-col md:block gap-1">
           <label className={styles.box}>
@@ -282,7 +278,6 @@ function Verification(props) {
               className={styles.upload}
               onChange={(e) => handleImageChange(e, 7)}
               accept="image/jpeg,image/png"
-              required
             />
             &nbsp;&nbsp;&nbsp;&nbsp;
             {images[7] && <AiFillFile style={{ color: "#ffffff" }} />}
@@ -295,9 +290,6 @@ function Verification(props) {
               </p>
             )}
           </label>
-          <span className={styles.mandatory}>
-            <s>*</s> This field is mandatory
-          </span>
         </div>
       </div>
       <div className={styles.socials}>
@@ -374,7 +366,8 @@ function Verification(props) {
         props.profession === "makeup_artist" ||
         props.profession === "album_designer" ||
         props.profession === "web_developer" ||
-        props.profession === "graphics_designer") && (
+        props.profession === "graphics_designer" ||
+        props.profession === "mehendi_artist") && (
         <div className={styles.portfolio}>
           <div
             className={styles.addBox}

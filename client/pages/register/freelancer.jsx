@@ -323,28 +323,28 @@ class Freelancer extends React.Component {
       });
       return;
     }
-    if (this.state.aadhaarCard === null) {
-      this.setState({ addharError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 2),
-          false,
-          ...this.state.warns.slice(3),
-        ],
-      });
-      return;
-    }
-    if (this.state.panCard === null) {
-      this.setState({ panError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 3),
-          false,
-          ...this.state.warns.slice(4),
-        ],
-      });
-      return;
-    }
+    // if (this.state.aadhaarCard === null) {
+    //   this.setState({ addharError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 2),
+    //       false,
+    //       ...this.state.warns.slice(3),
+    //     ],
+    //   });
+    //   return;
+    // }
+    // if (this.state.panCard === null) {
+    //   this.setState({ panError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 3),
+    //       false,
+    //       ...this.state.warns.slice(4),
+    //     ],
+    //   });
+    //   return;
+    // }
     if (c > 0) return;
     this.setState({ isLoading: true });
     const postData = async () => {
@@ -939,6 +939,12 @@ class Freelancer extends React.Component {
                         <option className={styles.option} value="makeup_artist">
                           Makeup Artist
                         </option>
+                        <option
+                          className={styles.option}
+                          value="mehendi_artist"
+                        >
+                          Mehendi Artist
+                        </option>
                         <option className={styles.option} value="model">
                           Model
                         </option>
@@ -1091,7 +1097,8 @@ class Freelancer extends React.Component {
                     )}
                   {!this.state.form &&
                     this.state.currentPage === 8 &&
-                    this.state.profession === "makeup_artist" && (
+                    (this.state.profession === "makeup_artist" ||
+                      this.state.profession === "mehendi_artist") && (
                       <div className={styles.inputField} id={styles.equipment}>
                         <label htmlFor="products" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Products Use

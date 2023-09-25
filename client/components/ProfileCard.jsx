@@ -18,7 +18,6 @@ export default function ProfileCard(props) {
     .join(" ");
   const [display, setDisplay] = useState("none");
   const position = JSON.parse(props.profile.pictureStyle);
-  console.log(position);
   return (
     <Link
       className={styles.profileCard}
@@ -150,7 +149,7 @@ export default function ProfileCard(props) {
           <Image
             src="/Dancer.png"
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dj-logo"
+            alt="dancer-logo"
             width={200}
             height={200}
           />
@@ -159,7 +158,7 @@ export default function ProfileCard(props) {
           <Image
             src="/Influencer.fipezo.png"
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dj-logo"
+            alt="influencer-logo"
             width={200}
             height={200}
           />
@@ -168,7 +167,16 @@ export default function ProfileCard(props) {
           <Image
             src="/graphics-designer.jpeg"
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dj-logo"
+            alt="graphics-designer-logo"
+            width={200}
+            height={200}
+          />
+        )}
+        {profession === "Mehendi Artist" && (
+          <Image
+            src="/mehendi-artist-logo.png"
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt="mehendi-artist-logo"
             width={200}
             height={200}
           />
