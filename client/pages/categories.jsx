@@ -16,7 +16,7 @@ export default function Categories(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="flex flex-col items-center pt-12 mx-6">
+      {/* <div className="flex flex-col items-center pt-12 mx-6">
         <div className="flex items-center justify-between gap-4 mb-8">
           <Image src="/photographer-cat-page.png" width={450} height={250} />
           <div className="flex flex-col justify-center gap-2">
@@ -465,7 +465,7 @@ export default function Categories(props) {
           </div>
           <Image src="/web-developer-cat-logo.png" width={450} height={250} />
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );
