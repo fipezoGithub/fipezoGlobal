@@ -12,6 +12,8 @@ function Signup(props) {
   const [otpForm, setOtpForm] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const [signupFailed, setSignupFailed] = useState(false);
   const [otpFailed, setOtpFailed] = useState(false);
@@ -53,6 +55,8 @@ function Signup(props) {
             phone: storedPhone,
             firstname: storedFirstname,
             lastname: storedLastname,
+            email: email,
+            password: password,
             type: "user",
           }),
         });
@@ -81,6 +85,8 @@ function Signup(props) {
           body: JSON.stringify({
             firstname: firstname,
             lastname: lastname,
+            email: email,
+            password: password,
             phone: phone,
             profilePicture: null,
             type: "user",
@@ -160,6 +166,46 @@ function Signup(props) {
                       setOtpFailed(false);
                     }}
                     maxLength={13}
+                  />{" "}
+                  <br />
+                </div>
+              </div>
+              <div className={styles.name + " mt-6"}>
+                <div className={styles.inputLabels}>
+                  <label htmlFor="email" className={styles.labels}>
+                    Email -{" "}
+                  </label>
+                  <input
+                    className={styles.inputs}
+                    type="email"
+                    value={email}
+                    placeholder="Enter Your email id"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setSignupFailed(false);
+                      setOtpFailed(false);
+                    }}
+                    id="email"
+                    name="email"
+                  />{" "}
+                  <br />
+                </div>
+                <div className={styles.inputLabels}>
+                  <label htmlFor="password" className={styles.labels}>
+                    Password -{" "}
+                  </label>
+                  <input
+                    className={styles.inputs}
+                    type="password"
+                    value={password}
+                    placeholder="Enter Your password"
+                    id="password"
+                    name="password"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setSignupFailed(false);
+                      setOtpFailed(false);
+                    }}
                   />{" "}
                   <br />
                 </div>

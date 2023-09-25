@@ -142,7 +142,88 @@ const loginController = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+//Forget Password
+async function forgetController(req, res) {
+  const phone = req.body.phone;
+  const type = req.body.type;
+  try {
+    let user;
+    if (type === "user") user = await userCollection.findOne({ phone: phone });
+    else if (type === "freelancer")
+      user = await freelancerCollection.findOne({ phone: phone });
+    else if (type === "company")
+      user = await companyCollection.findOne({ companyphone: phone });
 
+    if (!user) {
+      return res.sendStatus(403);
+    }
+    const existingOtpData = await otpCollection.findOne({ phone: phone });
+
+    if (existingOtpData) {
+      clearTimeout(otpTimer);
+      await otpCollection.deleteOne({ phone: phone });
+    }
+    const code = Math.floor(100000 + Math.random() * 900000);
+
+    const otpData = new otpCollection({
+      phone: phone,
+      otp: code,
+      type: type,
+    });
+
+    await otpData.save();
+
+    sendTextMessage(
+      phone,
+      `You are requesting for change your password.Your code is ${code} valid for 2mins. Do not share this with anyone. -Team Fipezo`
+    );
+
+    otpTimer = setTimeout(async () => {
+      try {
+        await otpCollection.deleteOne({ phone: phone });
+      } catch (error) {
+        console.error("Error deleting OTP:", error);
+      }
+    }, 120000);
+
+    res.status(200).json({ phone: phone, type: type });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+async function emailLoginController(req, res) {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const type = req.body.type;
+    let user;
+    if (type === "user") user = await userCollection.findOne({ email: email });
+    else if (type === "freelancer")
+      user = await freelancerCollection.findOne({ email: email });
+    else if (type === "company")
+      user = await companyCollection.findOne({ companyemail: email });
+
+    if (!user) {
+      return res.sendStatus(403);
+    } else {
+      if (await user.matchPassword(password)) {
+        jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
+          if (err) {
+            console.log(err);
+            return res.sendStatus(403);
+          }
+          res.json({ token });
+        });
+      } else {
+        return res.status(404).json({ message: "Password is incorrect" });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 //profile Data
 
 async function getUserProfile(req, res) {
@@ -268,6 +349,54 @@ async function editUserProfile(req, res) {
   }
 }
 
+async function updateUserPassword(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const userData = await userCollection.findOne({ _id: authData.user._id });
+      if (err && !userData) {
+        return;
+      } else {
+        const user = await userCollection.findOne({ _id: authData.user._id });
+        let updatedAuthData;
+        if (user) {
+          await userCollection.updateOne(
+            { _id: authData.user._id },
+            {
+              $set: {
+                password: req.body.password,
+              },
+            }
+          );
+
+          updatedAuthData = {
+            ...authData,
+            user: {
+              ...authData.user,
+              password: req.body.password,
+            },
+          };
+
+          const review = await reviewCollection.find({
+            user: updatedAuthData.user._id,
+          });
+          review.forEach(async (element) => {
+            await reviewCollection.findByIdAndUpdate(element._id, {
+              userDetails: updatedAuthData.user,
+            });
+          });
+          const updatedToken = jwt.sign(updatedAuthData, secret);
+
+          res.send({ user: updatedAuthData, token: updatedToken });
+        } else {
+          res.sendStatus(403);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 const getProfile = async (req, res) => {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
@@ -371,4 +500,7 @@ module.exports = {
   getProfile,
   getNavbar,
   deleteUserProfile,
+  emailLoginController,
+  forgetController,
+  updateUserPassword,
 };

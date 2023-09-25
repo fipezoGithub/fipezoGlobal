@@ -52,6 +52,7 @@ function Details(props) {
                   props.profession === "photo_editor" ||
                   props.profession === "model" ||
                   props.profession === "makeup_artist" ||
+                  props.profession === "mehendi_artist" ||
                   props.profession === "album_designer" ||
                   props.profession === "web_developer" ||
                   props.profession === "graphics_designer") && (

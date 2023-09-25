@@ -12,12 +12,16 @@ const {
   getProfile,
   getNavbar,
   deleteUserProfile,
+  emailLoginController,
+  forgetController,
+  updateUserPassword,
 } = require("./controllers/userController");
 const {
   otpController,
   otpSignupController,
   VerifyFreelancerPhone,
   VerifyCompanyPhone,
+  forgetOTPController,
 } = require("./controllers/otpController");
 const {
   registerCompany,
@@ -118,8 +122,11 @@ const {
 // Setting up the routes
 app.post("/api/signup", signupController);
 app.post("/api/login", loginController);
+app.post("/api/email/login", emailLoginController);
 app.post("/api/otp", otpController);
 app.post("/api/otp/signup", otpSignupController);
+app.post("/api/otp/forget-password/", forgetController);
+app.post("/api/forget-password/submitotp", forgetOTPController);
 app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
 app.post("/api/register/company", companyUpload, verifyToken, registerCompany);
 app.post("/api/login/company", getCompanyProfile);
@@ -185,6 +192,12 @@ app.get("/api/reviews/:id", getReviews);
 app.post("/api/add/hire", verifyToken, addHire);
 app.post("/api/notify", notifyEmail);
 app.put("/api/profile/user/edit", userProfilePic, verifyToken, editUserProfile);
+app.put(
+  "/api/profile/user/password/change",
+  userProfilePic,
+  verifyToken,
+  updateUserPassword
+);
 app.put(
   "/api/profile/company/edit",
   companyEditUpload,

@@ -12,6 +12,8 @@ export default function Login(props) {
   const [phone, setPhone] = useState("");
   const [type, setType] = useState("user");
   const [otpForm, setOtpForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const [loginFailed, setLoginFailed] = useState(false);
   const [otpFailed, setOtpFailed] = useState(false);
@@ -65,7 +67,37 @@ export default function Login(props) {
 
     postData();
   };
-
+  function handelLoginEmail(e) {
+    e.preventDefault();
+    async function postData() {
+      try {
+        const response = await fetch(`${process.env.SERVER_URL}/email/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            type: type,
+          }),
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data.message) {
+          setLoginFailed(true);
+        } else {
+          localStorage.setItem("user", JSON.stringify(data));
+          localStorage.setItem("type", JSON.stringify(type));
+          router.push("/");
+        }
+      } catch (error) {
+        setLoginFailed(true);
+        console.error(error);
+      }
+    }
+    postData();
+  }
   function handleSubmit(e) {
     e.preventDefault();
     async function postData() {
@@ -148,6 +180,55 @@ export default function Login(props) {
                 </option>
               </select>
             </label>
+            {type === "user" && (
+              <div className="flex flex-col gap-4 mt-4 items-center">
+                <div className="flex flex-col md:flex-row gap-1 items-center text-lg">
+                  <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
+                    <label htmlFor="email" className="p-1 capitalize">
+                      email
+                    </label>
+                    <input
+                      type="email"
+                      name=""
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="focus:outline-none text-white bg-transparent border-b border-b-[#878787] p-1"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
+                    <label htmlFor="password" className="p-1 capitalize">
+                      password
+                    </label>
+                    <input
+                      type="password"
+                      name=""
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter your password"
+                      className="focus:outline-none text-white bg-transparent border-b border-b-[#878787] p-1"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className={styles.btn}
+                    onClick={handelLoginEmail}
+                  >
+                    Login
+                  </button>
+                </div>
+                <Link
+                  href="/forget_password"
+                  className="text-sm text-cyan-500 font-semibold tracking-wide"
+                >
+                  Forget password!
+                </Link>
+              </div>
+            )}
             <div id={styles.phone}>
               <div className={styles.countryCode}>+91</div>
               <input
