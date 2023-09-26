@@ -407,7 +407,31 @@ async function getCompanyByName(req, res) {
     res.status(500);
   }
 }
-
+//Update company password
+async function updateCompanyPassword(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const userData = await companyCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !userData) {
+        return;
+      } else {
+        const user = await companyCollection.findById(userData._id);
+        if (user) {
+          user.password = req.body.password;
+          const updatedUser = await user.save();
+          res.send({ user: updatedUser });
+        } else {
+          res.sendStatus(403);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 module.exports = {
   registerCompany,
   editCompanyProfile,
@@ -419,4 +443,5 @@ module.exports = {
   getCompanyProfiles,
   getCompanyProfileByUID,
   getCompanyByName,
+  updateCompanyPassword,
 };

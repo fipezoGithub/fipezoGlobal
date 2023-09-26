@@ -356,37 +356,21 @@ async function updateUserPassword(req, res) {
       if (err && !userData) {
         return;
       } else {
-        const user = await userCollection.findOne({ _id: authData.user._id });
-        let updatedAuthData;
+        const user = await userCollection.findById(userData._id);
         if (user) {
-          await userCollection.updateOne(
-            { _id: authData.user._id },
-            {
-              $set: {
-                password: req.body.password,
-              },
-            }
-          );
-
-          updatedAuthData = {
-            ...authData,
-            user: {
-              ...authData.user,
-              password: req.body.password,
-            },
-          };
+          user.password = req.body.password;
+          const updatedUser = await user.save();
 
           const review = await reviewCollection.find({
-            user: updatedAuthData.user._id,
+            user: updatedUser._id,
           });
           review.forEach(async (element) => {
             await reviewCollection.findByIdAndUpdate(element._id, {
-              userDetails: updatedAuthData.user,
+              userDetails: updatedUser,
             });
           });
-          const updatedToken = jwt.sign(updatedAuthData, secret);
 
-          res.send({ user: updatedAuthData, token: updatedToken });
+          res.send({ user: updatedUser });
         } else {
           res.sendStatus(403);
         }

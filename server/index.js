@@ -34,6 +34,7 @@ const {
   getCompanyProfiles,
   getCompanyProfileByUID,
   getCompanyByName,
+  updateCompanyPassword,
 } = require("./controllers/companyController");
 const {
   registerFreelancer,
@@ -56,6 +57,7 @@ const {
   getFeedOfFreelancer,
   editFreelancerCoverPicture,
   editFreelancerProfilePicture,
+  updateFreelancerPassword,
 } = require("./controllers/freelancerController");
 const {
   contactUs,
@@ -197,6 +199,16 @@ app.put(
   userProfilePic,
   verifyToken,
   updateUserPassword
+);
+app.put(
+  "/api/profile/company/password/change",
+  verifyToken,
+  updateCompanyPassword
+);
+app.put(
+  "/api/profile/freelancer/password/change",
+  verifyToken,
+  updateFreelancerPassword
 );
 app.put(
   "/api/profile/company/edit",

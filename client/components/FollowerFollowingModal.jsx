@@ -80,7 +80,7 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === true &&
             (following.length > 0 ? (
               following.map((item, index) => {
-                if (props.user.following.includes(item._id)) {
+                if (props.user.following?.includes(item._id)) {
                   props.setIsFollowed(true);
                 }
                 return (
@@ -110,7 +110,7 @@ const FollowerFollowingModal = (props) => {
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                         onClick={() => props.handelFollow()}
                       >
-                        {props.user.following.includes(item._id)
+                        {props.user.following?.includes(item._id)
                           ? "unfollow"
                           : "follow"}
                       </button>
@@ -131,7 +131,7 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === false &&
             (followers.length > 0 ? (
               followers.map((item, index) => {
-                if (props.user.following.includes(item._id)) {
+                if (props.user.following?.includes(item._id)) {
                   props.setIsFollowed(true);
                 }
                 return (
@@ -163,7 +163,7 @@ const FollowerFollowingModal = (props) => {
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                         onClick={() => props.handelFollow()}
                       >
-                        {props.user.following.includes(item._id)
+                        {props.user.following?.includes(item._id)
                           ? "unfollow"
                           : "follow"}
                       </button>

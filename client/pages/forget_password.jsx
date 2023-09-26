@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
@@ -60,7 +61,7 @@ const Forget_password = (props) => {
       if (password === conPassword) {
         if (type === "user") {
           const res = await fetch(
-            `${process.env.SERVER_URL}profile/user/password/change`,
+            `${process.env.SERVER_URL}/profile/user/password/change`,
             {
               method: "PUT",
               headers: {
@@ -71,7 +72,35 @@ const Forget_password = (props) => {
             }
           );
           const data = await res.json();
-          router.navigate("/");
+          router.push("/");
+        } else if (type === "company") {
+          const res = await fetch(
+            `${process.env.SERVER_URL}/profile/company/password/change`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ password: password }),
+            }
+          );
+          const data = await res.json();
+          router.push("/");
+        } else if (type === "freelancer") {
+          const res = await fetch(
+            `${process.env.SERVER_URL}/profile/freelancer/password/change`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ password: password }),
+            }
+          );
+          const data = await res.json();
+          router.push("/");
         }
       }
     } catch (error) {
@@ -84,7 +113,7 @@ const Forget_password = (props) => {
         <title>Fipezo | Forget Password</title>
         <meta
           name="description"
-          content="Welcome to our secure login page, where you can safely access your account with confidence. At Fipezo, we prioritize your security and convenience, ensuring that your personal information remains protected."
+          content="Welcome to our forget password page, where you can safely access your account with confidence. At Fipezo, we prioritize your security and convenience, ensuring that your personal information remains protected."
         />
       </Head>
       <Navbar
@@ -94,111 +123,117 @@ const Forget_password = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="pt-16 flex flex-col items-center">
-        <label htmlFor="accType" className="flex gap-2 text-lg relative">
-          <p className="p-2">Log in As</p>
-          <select
-            className="bg-[--primary-color] text-base border border-[rgb(129,_124,_124)] p-2 rounded-2xl text-white"
-            id="accType"
-            name="type"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value="user">User</option>
-            <option value="freelancer">Freelancer</option>
-            <option value="company">Company</option>
-          </select>
-        </label>
-        <div className="flex items-center flex-col gap-2 mt-4">
-          <div className="flex items-center gap-2">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="tel"
-              id="phone"
-              maxLength={10}
-              pattern="[0-9]{10}"
-              placeholder="Enter your phone number"
-              value={phone}
-              className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <div>
-            <button
-              type="button"
-              onClick={handelOTP}
-              className="capitalize px-2 py-1 rounded-xl"
+      <div className="pt-16 flex items-center w-full justify-center bg-[url('/forget-password-background.jpg')] bg-no-repeat bg-cover">
+        <div className="flex flex-col items-center bg-black text-white rounded-2xl px-4 md:px-10 py-4 md:py-5 h-full">
+          <h2 className="font-bold text-2xl mb-4">Forget Password</h2>
+          <label htmlFor="accType" className="flex gap-2 text-lg relative">
+            <p className="p-2">Log in As</p>
+            <select
+              className="bg-[--primary-color] text-base border border-[rgb(129,_124,_124)] p-2 rounded-2xl text-white"
+              id="accType"
+              name="type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             >
-              send OTP
-            </button>
-          </div>
-        </div>
-        {showOTP === true && (
-          <div className="flex items-center flex-col gap-2">
+              <option value="user">User</option>
+              <option value="freelancer">Freelancer</option>
+              <option value="company">Company</option>
+            </select>
+          </label>
+          <div className="flex items-center flex-col gap-2 mt-4">
             <div className="flex items-center gap-2">
-              <label htmlFor="otpforget">Enter OTP</label>
+              <label htmlFor="phone">Phone</label>
               <input
-                type="text"
-                name=""
-                id="otpforget"
-                placeholder="Enter otp here"
-                value={otp}
+                type="tel"
+                id="phone"
+                maxLength={10}
+                pattern="[0-9]{10}"
+                placeholder="Enter your phone number"
+                value={phone}
                 className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-                onChange={(e) => setOTP(e.target.value)}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
-            <button
-              type="button"
-              onClick={submitOTP}
-              className="capitalize px-2 py-1 rounded-xl"
-            >
-              submit
-            </button>
-          </div>
-        )}
-        {passwordBox === true && (
-          <div className="flex items-center flex-col">
-            <div className="flex items-center gap-2">
-              <div className="flex flex-col">
-                <label htmlFor="password" className="ml-2">
-                  New password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  minLength={8}
-                  maxLength={15}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your new passoword"
-                  className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="conpassword" className="ml-2">
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  id="conpassword"
-                  minLength={8}
-                  maxLength={15}
-                  value={conPassword}
-                  onChange={(e) => setConPassword(e.target.value)}
-                  placeholder="Confirm your passoword"
-                  className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-                />
-              </div>
+            <div>
+              <button
+                type="button"
+                onClick={handelOTP}
+                className="capitalize px-2 py-1 rounded-md bg-white text-black"
+              >
+                send OTP
+              </button>
             </div>
-            <button
-              type="button"
-              className="capitalize px-2 py-1 rounded-xl"
-              onClick={changePassword}
-            >
-              submit
-            </button>
           </div>
-        )}
+          {showOTP === true && (
+            <div className="flex items-center flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <label htmlFor="otpforget">Enter OTP</label>
+                <input
+                  type="text"
+                  name=""
+                  id="otpforget"
+                  placeholder="Enter otp here"
+                  value={otp}
+                  className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
+                  onChange={(e) => setOTP(e.target.value)}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={submitOTP}
+                className="capitalize px-2 py-1 rounded-md bg-white text-black"
+              >
+                submit
+              </button>
+            </div>
+          )}
+          {passwordBox === true && (
+            <div className="flex items-center flex-col">
+              <div className="flex items-center gap-2">
+                <div className="flex flex-col">
+                  <label htmlFor="password" className="ml-2">
+                    New password
+                  </label>
+                  <input
+                    type="password"
+                    id="password"
+                    minLength={8}
+                    maxLength={15}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your new passoword"
+                    className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="conpassword" className="ml-2">
+                    Confirm password
+                  </label>
+                  <input
+                    type="password"
+                    id="conpassword"
+                    minLength={8}
+                    maxLength={15}
+                    value={conPassword}
+                    onChange={(e) => setConPassword(e.target.value)}
+                    placeholder="Confirm your passoword"
+                    className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                className="capitalize px-2 py-1 rounded-md bg-white text-black"
+                onClick={changePassword}
+              >
+                submit
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="relative hidden md:block">
+          <Image src="/Forgot password-amico.png" width={600} height={600} />
+        </div>
       </div>
       <Footer />
     </>

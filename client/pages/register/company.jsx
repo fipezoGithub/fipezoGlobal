@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import React from "react";
+import React, { useRef } from "react";
 import styles from "../../styles/Freelancer.module.css";
 import Image from "next/image";
 import Footer from "@/components/Footer";
@@ -10,6 +10,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Loading from "@/components/Loading";
 import ReactWhatsapp from "react-whatsapp";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 class Company extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class Company extends React.Component {
       links: { instagram: "", facebook: "", twitter: "", youtube: "" },
       works: [],
       termsAndConditions: true,
+      passowordInputType: "password",
       error: false,
       form: false,
       phoneError: false,
@@ -61,8 +63,8 @@ class Company extends React.Component {
       timerId: null,
       isLoading: false,
     };
+    this.passwordRef = React.createRef();
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.count === 0 && prevState.currentPage <= 3) {
       clearInterval(this.state.timerId);
@@ -1191,21 +1193,48 @@ class Company extends React.Component {
                         <label htmlFor="password" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Password :
                         </label>
-                        <input
-                          type="password"
-                          className={styles.input}
-                          placeholder="Enter password"
-                          name="password"
-                          required
-                          onKeyDown={this.handleEnterKeyPress}
-                          onChange={(event) =>
-                            this.setState({
-                              password: event.target.value,
-                              error: false,
-                            })
-                          }
-                          value={this.state.password}
-                        />
+                        <div className="flex border-b border-b-[#878787] items-center justify-between">
+                          <input
+                            type="password"
+                            className="focus:outline-none text-white bg-transparent p-1"
+                            placeholder="Enter password"
+                            name="password"
+                            minLength={8}
+                            maxLength={15}
+                            ref={this.passwordRef}
+                            required
+                            onKeyDown={this.handleEnterKeyPress}
+                            onChange={(event) =>
+                              this.setState({
+                                password: event.target.value,
+                                error: false,
+                              })
+                            }
+                            value={this.state.password}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (
+                                this.passwordRef.current.type === "password"
+                              ) {
+                                this.passwordRef.current.type = "text";
+                                this.setState({ passowordInputType: "text" });
+                              } else {
+                                this.passwordRef.current.type = "password";
+                                this.setState({
+                                  passowordInputType: "password",
+                                });
+                              }
+                            }}
+                          >
+                            {this.state.passowordInputType === "password" ? (
+                              <AiFillEye />
+                            ) : (
+                              <AiFillEyeInvisible />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </>
                   )}

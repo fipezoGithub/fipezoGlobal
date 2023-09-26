@@ -110,6 +110,8 @@ async function registerFreelancer(req, res) {
       phone: req.body.phone,
       location: req.body.location,
       profession: req.body.profession,
+      email: req.body.email,
+      password: req.body.password,
       rate: req.body.rate,
       bio: req.body.bio,
       equipments: req.body.equipments,
@@ -786,6 +788,31 @@ async function getFeedOfFreelancer(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//Update freelancer password
+async function updateFreelancerPassword(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const userData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !userData) {
+        return;
+      } else {
+        const user = await freelancerCollection.findById(userData._id);
+        if (user) {
+          user.password = req.body.password;
+          const updatedUser = await user.save();
+          res.send({ user: updatedUser });
+        } else {
+          res.sendStatus(403);
+        }
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 module.exports = {
   registerFreelancer,
   getFreelancerProfile,
@@ -807,4 +834,5 @@ module.exports = {
   getFeedOfFreelancer,
   editFreelancerCoverPicture,
   editFreelancerProfilePicture,
+  updateFreelancerPassword,
 };
