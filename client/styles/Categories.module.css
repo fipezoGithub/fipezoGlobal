@@ -55,10 +55,11 @@
   .category:nth-child(4) {
     display: none;
   }
-  .image{
+  .image {
     height: 40px;
   }
-  .minText{
+  .minText {
     font-size: 0.7rem;
+    text-align: center;
   }
 }

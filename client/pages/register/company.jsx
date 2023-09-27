@@ -44,6 +44,8 @@ class Company extends React.Component {
       works: [],
       termsAndConditions: true,
       passowordInputType: "password",
+      passwordError: false,
+      pincodeError: false,
       error: false,
       form: false,
       phoneError: false,
@@ -124,8 +126,20 @@ class Company extends React.Component {
       return;
     }
 
-    if (this.state.companyaddress === "" && this.state.currentPage === 5) {
+    if (
+      (this.state.companyaddress.address === "" ||
+        this.state.companyaddress.pincode === "") &&
+      this.state.currentPage === 5
+    ) {
       this.setState({ error: true });
+      return;
+    }
+    if (
+      (this.state.companyaddress.pincode.length > 6 ||
+        this.state.companyaddress.pincode.length < 6) &&
+      this.state.currentPage === 5
+    ) {
+      this.setState({ pincodeError: true });
       return;
     }
     if (
@@ -133,6 +147,15 @@ class Company extends React.Component {
       this.state.currentPage === 6
     ) {
       this.setState({ error: true });
+      return;
+    }
+    if (
+      (this.state.password === "" ||
+        this.state.password.length > 15 ||
+        this.state.password.length < 8) &&
+      this.state.currentPage === 6
+    ) {
+      this.setState({ passwordError: true });
       return;
     }
     if (this.state.position === "" && this.state.currentPage === 7) {
@@ -1133,21 +1156,28 @@ class Company extends React.Component {
                           </div>
                         </div>
                         <div className="flex items-center justify-between gap-4">
-                          <input
-                            type="number"
-                            placeholder="Enter pincode"
-                            className={styles.input}
-                            onKeyDown={this.handleEnterKeyPress}
-                            onChange={(event) =>
-                              this.setState({
-                                companyaddress: {
-                                  ...this.state.companyaddress,
-                                  pincode: event.target.value,
-                                },
-                              })
-                            }
-                            value={this.state.companyaddress.pincode}
-                          />
+                          <div>
+                            <input
+                              type="number"
+                              placeholder="Enter pincode"
+                              className={styles.input}
+                              onKeyDown={this.handleEnterKeyPress}
+                              onChange={(event) =>
+                                this.setState({
+                                  companyaddress: {
+                                    ...this.state.companyaddress,
+                                    pincode: event.target.value,
+                                  },
+                                })
+                              }
+                              value={this.state.companyaddress.pincode}
+                            />
+                            {this.state.pincodeError && (
+                              <p className={styles.error}>
+                                Pincode must be 6 numeric characters
+                              </p>
+                            )}
+                          </div>
                           <input
                             type="text"
                             placeholder="Enter Landmark (Optional)"
@@ -1235,6 +1265,12 @@ class Company extends React.Component {
                             )}
                           </button>
                         </div>
+                        {this.state.passwordError && (
+                          <p className={styles.error}>
+                            Password should not be empty and password must be
+                            contains minimum 8 characters
+                          </p>
+                        )}
                       </div>
                     </>
                   )}

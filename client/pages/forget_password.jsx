@@ -140,56 +140,60 @@ const Forget_password = (props) => {
               <option value="company">Company</option>
             </select>
           </label>
-          <div className="flex items-center flex-col gap-2 mt-4">
-            <div className="flex items-center gap-2">
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                maxLength={10}
-                pattern="[0-9]{10}"
-                placeholder="Enter your phone number"
-                value={phone}
-                className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div>
-              <button
-                type="button"
-                onClick={handelOTP}
-                className="capitalize px-2 py-1 rounded-md bg-white text-black"
-              >
-                send OTP
-              </button>
-            </div>
-          </div>
-          {showOTP === true && (
-            <div className="flex items-center flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <label htmlFor="otpforget">Enter OTP</label>
-                <input
-                  type="text"
-                  name=""
-                  id="otpforget"
-                  placeholder="Enter otp here"
-                  value={otp}
-                  className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
-                  onChange={(e) => setOTP(e.target.value)}
-                />
+          {passwordBox === false && (
+            <>
+              <div className="flex items-center flex-col gap-2 mt-4">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="phone">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    maxLength={10}
+                    pattern="[0-9]{10}"
+                    placeholder="Enter your phone number"
+                    value={phone}
+                    className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    onClick={handelOTP}
+                    className="capitalize px-2 py-1 rounded-md bg-white text-black"
+                  >
+                    send OTP
+                  </button>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={submitOTP}
-                className="capitalize px-2 py-1 rounded-md bg-white text-black"
-              >
-                submit
-              </button>
-            </div>
+              {showOTP === true && (
+                <div className="flex items-center flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <label htmlFor="otpforget">Enter OTP</label>
+                    <input
+                      type="text"
+                      name=""
+                      id="otpforget"
+                      placeholder="Enter otp here"
+                      value={otp}
+                      className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
+                      onChange={(e) => setOTP(e.target.value)}
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={submitOTP}
+                    className="capitalize px-2 py-1 rounded-md bg-white text-black"
+                  >
+                    submit
+                  </button>
+                </div>
+              )}
+            </>
           )}
           {passwordBox === true && (
-            <div className="flex items-center flex-col">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center flex-col mt-4 gap-2">
+              <div className="flex items-center gap-2 flex-col md:flex-row">
                 <div className="flex flex-col">
                   <label htmlFor="password" className="ml-2">
                     New password

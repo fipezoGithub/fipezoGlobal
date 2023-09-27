@@ -6,16 +6,10 @@ import { useState } from "react";
 export default function Categories() {
   const [categories, setCategories] = useState([
     "photographer",
-    "cinematographer",
     "model",
     "photo_editor",
     "video_editor",
     "anchor",
-    "web_developer",
-    "makeup_artist",
-    "mehendi_artist",
-    "album_designer",
-    "drone_operator",
     "dancer",
     "dj",
     "influencer",
@@ -48,24 +42,6 @@ export default function Categories() {
               alt="photographer logo"
             />
           )}
-          {item === "cinematographer" && (
-            <Image
-              src="/cinematographer-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="cinematographer logo"
-            />
-          )}
-          {item === "album_designer" && (
-            <Image
-              src="/album-designer-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="album designer logo"
-            />
-          )}
           {item === "anchor" && (
             <Image
               src="/anchor-cat.png"
@@ -93,15 +69,6 @@ export default function Categories() {
               alt="dj logo"
             />
           )}
-          {item === "drone_operator" && (
-            <Image
-              src="/drone-operator-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="drone operator logo"
-            />
-          )}
           {item === "influencer" && (
             <Image
               src="/influencer-cat.png"
@@ -109,33 +76,6 @@ export default function Categories() {
               height={75}
               className={styles.image}
               alt="influencer logo"
-            />
-          )}
-          {item === "makeup_artist" && (
-            <Image
-              src="/Makeup-artist-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="makeup artist logo"
-            />
-          )}
-          {item === "mehendi_artist" && (
-            <Image
-              src="/Mehendi-artist-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="mehendi artist logo"
-            />
-          )}
-          {item === "web_developer" && (
-            <Image
-              src="/web-developer-cat.png"
-              width={75}
-              height={75}
-              className={styles.image}
-              alt="web developer logo"
             />
           )}
           {item === "photo_editor" && (
@@ -168,29 +108,11 @@ export default function Categories() {
           {item === "photographer" && (
             <p className={styles.minText}>Photographer</p>
           )}
-          {item === "cinematographer" && (
-            <p className={styles.minText}>Cinematographer</p>
-          )}
-          {item === "album_designer" && (
-            <p className={styles.minText}>Album Designer</p>
-          )}
           {item === "anchor" && <p className={styles.minText}>Anchor</p>}
           {item === "dancer" && <p className={styles.minText}>Dancer</p>}
           {item === "dj" && <p className={styles.minText}>DJ</p>}
-          {item === "drone_operator" && (
-            <p className={styles.minText}>Drone Operator</p>
-          )}
           {item === "influencer" && (
             <p className={styles.minText}>Influencer</p>
-          )}
-          {item === "makeup_artist" && (
-            <p className={styles.minText}>Makeup Artist</p>
-          )}
-          {item === "mehendi_artist" && (
-            <p className={styles.minText}>Mehendi Artist</p>
-          )}
-          {item === "web_developer" && (
-            <p className={styles.minText}>Web Developer</p>
           )}
           {item === "photo_editor" && (
             <p className={styles.minText}>Photo Editor</p>

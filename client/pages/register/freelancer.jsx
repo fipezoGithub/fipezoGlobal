@@ -10,6 +10,7 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactWhatsapp from "react-whatsapp/dist";
 import Loading from "@/components/Loading";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 class Freelancer extends React.Component {
   constructor(props) {
@@ -21,6 +22,8 @@ class Freelancer extends React.Component {
       firstName: "",
       lastName: "",
       phone: "",
+      email: "",
+      password: "",
       otp: "",
       location: "Kolkata",
       profession: "photographer",
@@ -35,9 +38,11 @@ class Freelancer extends React.Component {
       links: { instagram: "", facebook: "", twitter: "", youtube: "" },
       usedReferalId: "",
       termsAndConditions: true,
+      passowordInputType: "password",
       error: false,
       form: false,
       phoneError: false,
+      passwordError: false,
       worksError: false,
       referError: false,
       addharError: false,
@@ -66,6 +71,7 @@ class Freelancer extends React.Component {
       timerId: null,
       isLoading: false,
     };
+    this.passwordRef = React.createRef();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -140,21 +146,34 @@ class Freelancer extends React.Component {
       this.setState({ error: true });
       return;
     }
-
-    if (this.state.rate === "" && this.state.currentPage === 6) {
+    if (
+      (this.state.email === "" || this.state.password === "") &&
+      this.state.currentPage === 6
+    ) {
+      this.setState({ error: true });
+      return;
+    }
+    if (
+      (this.state.password.length < 8 || this.state.password.length > 15) &&
+      this.state.currentPage === 6
+    ) {
+      this.setState({ passwordError: true });
+      return;
+    }
+    if (this.state.rate === "" && this.state.currentPage === 7) {
       this.setState({ error: true });
       return;
     }
 
     if (
       (this.state.bio.length > 300 || this.state.bio.length < 50) &&
-      this.state.currentPage === 7
+      this.state.currentPage === 8
     ) {
       this.setState({ textareaError: true });
       return;
     }
 
-    if (this.state.bio === "" && this.state.currentPage === 7) {
+    if (this.state.bio === "" && this.state.currentPage === 8) {
       this.setState({ error: true });
       return;
     }
@@ -162,18 +181,18 @@ class Freelancer extends React.Component {
     if (
       (this.state?.equipments?.length > 300 ||
         this.state.equipments.length < 50) &&
-      this.state.currentPage === 8
+      this.state.currentPage === 9
     ) {
       this.setState({ textareaError: true });
       return;
     }
 
-    if (this.state.equipments === "" && this.state.currentPage === 8) {
+    if (this.state.equipments === "" && this.state.currentPage === 9) {
       this.setState({ error: true });
       return;
     }
 
-    if (this.state.currentPage === 8) {
+    if (this.state.currentPage === 9) {
       this.setState({ error: false });
       this.setState({ form: true });
       return;
@@ -205,11 +224,11 @@ class Freelancer extends React.Component {
   };
 
   increPage = () => {
-    if (this.state.currentPage === 8) {
+    if (this.state.currentPage === 9) {
       return;
     }
 
-    if (this.state.currentPage === 7) {
+    if (this.state.currentPage === 8) {
       this.setState({ btn: "Submit" });
     }
 
@@ -367,6 +386,8 @@ class Freelancer extends React.Component {
         data.append("phone", this.state.phone);
         data.append("location", this.state.location);
         data.append("profession", this.state.profession);
+        data.append("email", this.state.email);
+        data.append("password", this.state.password);
         data.append("rate", this.state.rate);
         data.append("bio", this.state.bio);
         data.append("equipments", this.state.equipments);
@@ -964,6 +985,85 @@ class Freelancer extends React.Component {
                     </div>
                   )}
                   {this.state.currentPage === 6 && (
+                    <>
+                      <div className={styles.inputField} id={styles.otp}>
+                        <label htmlFor="email" className={styles.label}>
+                          <span style={{ color: "white" }}>* </span>Email :
+                        </label>
+                        <input
+                          type="email"
+                          className={styles.input}
+                          placeholder="Enter Company's email address"
+                          name="email"
+                          required
+                          onKeyDown={this.handleEnterKeyPress}
+                          onChange={(event) =>
+                            this.setState({
+                              email: event.target.value,
+                              error: false,
+                            })
+                          }
+                          value={this.state.email}
+                        />
+                      </div>
+                      <div className={styles.inputField} id={styles.otp}>
+                        <label htmlFor="password" className={styles.label}>
+                          <span style={{ color: "white" }}>* </span>Password :
+                        </label>
+                        <div>
+                          <div className="flex border-b border-b-[#878787] items-center justify-between">
+                            <input
+                              type="password"
+                              className="focus:outline-none text-white bg-transparent p-1"
+                              placeholder="Enter password"
+                              name="password"
+                              minLength={8}
+                              maxLength={15}
+                              ref={this.passwordRef}
+                              required
+                              onKeyDown={this.handleEnterKeyPress}
+                              onChange={(event) =>
+                                this.setState({
+                                  password: event.target.value,
+                                  error: false,
+                                })
+                              }
+                              value={this.state.password}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (
+                                  this.passwordRef.current.type === "password"
+                                ) {
+                                  this.passwordRef.current.type = "text";
+                                  this.setState({ passowordInputType: "text" });
+                                } else {
+                                  this.passwordRef.current.type = "password";
+                                  this.setState({
+                                    passowordInputType: "password",
+                                  });
+                                }
+                              }}
+                            >
+                              {this.state.passowordInputType === "password" ? (
+                                <AiFillEye />
+                              ) : (
+                                <AiFillEyeInvisible />
+                              )}
+                            </button>
+                          </div>
+                          {this.state.passwordError && (
+                            <p className={styles.error}>
+                              Password should not be empty and password must be
+                              contains minimum 8 characters
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {this.state.currentPage === 7 && (
                     <div className={styles.inputField} id={styles.rate}>
                       <label htmlFor="rate" className={styles.label}>
                         <span style={{ color: "white" }}>* </span>What is your
@@ -1023,19 +1123,19 @@ class Freelancer extends React.Component {
                       characters.
                     </p>
                   )}
-                  {this.state.currentPage === 7 &&
+                  {this.state.currentPage === 8 &&
                     this.state.bio.length < 50 &&
                     !this.state.textareaError && (
                       <p>No of characters left: {50 - this.state.bio.length}</p>
                     )}
-                  {this.state.currentPage === 7 &&
+                  {this.state.currentPage === 8 &&
                     this.state.bio.length > 300 &&
                     !this.state.textareaError && (
                       <p>
                         No of characters excceded: {this.state.bio.length - 300}
                       </p>
                     )}
-                  {this.state.currentPage === 7 && (
+                  {this.state.currentPage === 8 && (
                     <div className={styles.inputField} id={styles.bio}>
                       <label htmlFor="bio" className={styles.label}>
                         <span style={{ color: "white" }}>* </span>Bio :
@@ -1054,7 +1154,7 @@ class Freelancer extends React.Component {
                       ></textarea>
                     </div>
                   )}
-                  {this.state.currentPage === 8 &&
+                  {this.state.currentPage === 9 &&
                     this.state?.equipments?.length < 50 &&
                     !this.state.textareaError && (
                       <p>
@@ -1062,7 +1162,7 @@ class Freelancer extends React.Component {
                         {50 - this.state?.equipments?.length}
                       </p>
                     )}
-                  {this.state.currentPage === 8 &&
+                  {this.state.currentPage === 9 &&
                     this.state?.equipments?.length > 300 &&
                     !this.state.textareaError && (
                       <p>
@@ -1071,7 +1171,7 @@ class Freelancer extends React.Component {
                       </p>
                     )}
                   {!this.state.form &&
-                    this.state.currentPage === 8 &&
+                    this.state.currentPage === 9 &&
                     (this.state.profession === "photographer" ||
                       this.state.profession === "cinematographer" ||
                       this.state.profession === "drone_operator" ||
@@ -1096,7 +1196,7 @@ class Freelancer extends React.Component {
                       </div>
                     )}
                   {!this.state.form &&
-                    this.state.currentPage === 8 &&
+                    this.state.currentPage === 9 &&
                     (this.state.profession === "makeup_artist" ||
                       this.state.profession === "mehendi_artist") && (
                       <div className={styles.inputField} id={styles.equipment}>
@@ -1119,7 +1219,7 @@ class Freelancer extends React.Component {
                       </div>
                     )}
                   {!this.state.form &&
-                    this.state.currentPage === 8 &&
+                    this.state.currentPage === 9 &&
                     (this.state.profession === "model" ||
                       this.state.profession === "anchor" ||
                       this.state.profession === "dj" ||
@@ -1145,7 +1245,7 @@ class Freelancer extends React.Component {
                       </div>
                     )}
                   {!this.state.form &&
-                    this.state.currentPage === 8 &&
+                    this.state.currentPage === 9 &&
                     (this.state.profession === "photo_editor" ||
                       this.state.profession === "video_editor" ||
                       this.state.profession === "album_designer" ||
@@ -1172,7 +1272,7 @@ class Freelancer extends React.Component {
                       </div>
                     )}
                   {!this.state.form &&
-                    this.state.currentPage === 8 &&
+                    this.state.currentPage === 9 &&
                     this.state.profession === "web_developer" && (
                       <div className={styles.inputField} id={styles.equipment}>
                         <label htmlFor="fimiliarSoft" className={styles.label}>
@@ -1199,7 +1299,7 @@ class Freelancer extends React.Component {
                         <button
                           className={styles.backBtn}
                           type="button"
-                          onClick={() => this.decreProgress(14.25)}
+                          onClick={() => this.decreProgress(11.11)}
                         >
                           Back
                         </button>
@@ -1208,7 +1308,7 @@ class Freelancer extends React.Component {
                         <button
                           className={styles.NextBtn}
                           type="button"
-                          onClick={() => this.increProgress(14.25)}
+                          onClick={() => this.increProgress(11.11)}
                         >
                           {this.state.btn}
                         </button>
