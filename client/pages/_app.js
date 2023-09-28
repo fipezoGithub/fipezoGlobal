@@ -4,7 +4,7 @@ import Head from "next/head";
 import Script from "next/script";
 import Loading from "@/components/Loading";
 import { Router } from "next/router";
-import { SessionProvider } from "next-auth/react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -66,20 +66,20 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
   return (
-    <div>
-      <Head>
-        <title>Fipezo | Hire Freelancers in your City</title>
-        <meta
-          name="description"
-          content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#1f1c1c" />
-        <link rel="canonical" href="https://fipezo.com/" />
-      </Head>
+    <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
       <div>
-        {loading === false ? (
-          <SessionProvider session={pageProps.session}>
+        <Head>
+          <title>Fipezo | Hire Freelancers in your City</title>
+          <meta
+            name="description"
+            content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="theme-color" content="#1f1c1c" />
+          <link rel="canonical" href="https://fipezo.com/" />
+        </Head>
+        <div>
+          {loading === false ? (
             <Component
               {...pageProps}
               user={user}
@@ -87,37 +87,36 @@ export default function App({ Component, pageProps }) {
               setCompany={setCompany}
               setUser={setUser}
             />
-          </SessionProvider>
-        ) : (
-          <Loading message={"While Loading your data"} />
-        )}
-      </div>
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-BK5CPZ5W66"
-      ></Script>
-      <Script id="google-script">
-        {`window.dataLayer = window.dataLayer || [];
+          ) : (
+            <Loading message={"While Loading your data"} />
+          )}
+        </div>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-BK5CPZ5W66"
+        ></Script>
+        <Script id="google-script">
+          {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-BK5CPZ5W66');`}
-      </Script>
-      <Script type="text/javascript" id="ms-clarity">
-        {`(function(c,l,a,r,i,t,y){
+        </Script>
+        <Script type="text/javascript" id="ms-clarity">
+          {`(function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "irbdme1e1g");`}
-      </Script>
-      <Script id="google-tag-manager" strategy="afterInteractive">
-        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        </Script>
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WCFD7FM5');`}
-      </Script>
-      <Script id="hotjar" strategy="afterInteractive">
-        {`(function(h,o,t,j,a,r){
+        </Script>
+        <Script id="hotjar" strategy="afterInteractive">
+          {`(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:3644814,hjsv:6};
         a=o.getElementsByTagName('head')[0];
@@ -125,7 +124,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
-      </Script>
-    </div>
+        </Script>
+      </div>
+    </GoogleOAuthProvider>
   );
 }

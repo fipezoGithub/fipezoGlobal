@@ -8,7 +8,6 @@ class Header extends React.Component {
     this.state = {
       texts: [
         "Photographer",
-        "Cinematographer",
         "Model",
         "Anchor",
         "Dancer",

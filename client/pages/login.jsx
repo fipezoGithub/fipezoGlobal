@@ -6,11 +6,13 @@ import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import Head from "next/head";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 import { MdMarkEmailUnread } from "react-icons/md";
-import { BsTelephoneInboundFill } from "react-icons/bs";
 import { IoPhonePortrait } from "react-icons/io5";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login";
+import { FaFacebookSquare } from "react-icons/fa";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
@@ -19,19 +21,72 @@ export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showLogEmail, setShowLogEmail] = useState("");
+  const [googleToken, setGoogleToken] = useState("");
   const [passowordInputType, setPasswordInputType] = useState("password");
   const router = useRouter();
   const [loginFailed, setLoginFailed] = useState(false);
   const [otpFailed, setOtpFailed] = useState(false);
   const [count, setCount] = useState(120);
   const [timerId, setTimerId] = useState(null);
-  const { data: session } = useSession();
   const passwordRef = useRef();
   useEffect(() => {
     if (count === 0) {
       clearInterval(timerId);
     }
   }, [count]);
+  useEffect(() => {
+    async function getGoogleData() {
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleToken.access_token}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${googleToken.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+        const googleData = await res.json();
+        const response = await fetch(
+          `${process.env.SERVER_URL}/email/login/social`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: googleData.email,
+              type: type,
+            }),
+          }
+        );
+        if (response.status === 403) {
+          setLoginFailed(true);
+          if (type === "user") {
+            router.push("/signup");
+          } else if (type === "freelancer") {
+            router.push("/register/freelancer");
+          } else if (type === "company") {
+            router.push("/register/company");
+          }
+        }
+        const data = await response.json();
+        if (data.message) {
+          setLoginFailed(true);
+        } else {
+          localStorage.setItem("user", JSON.stringify(data));
+          localStorage.setItem("type", JSON.stringify(type));
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (googleToken) {
+      getGoogleData();
+    }
+  }, [googleToken]);
 
   const startCountdown = () => {
     setCount(120);
@@ -90,7 +145,6 @@ export default function Login(props) {
           }),
         });
         const data = await response.json();
-        console.log(data);
         if (data.message) {
           setLoginFailed(true);
         } else {
@@ -130,7 +184,56 @@ export default function Login(props) {
     postData();
     startCountdown();
   }
-
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setGoogleToken(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+  const responseFacebook = async (response) => {
+    console.log(response);
+    // Login failed
+    if (response.status === "unknown") {
+      alert("Login failed!");
+      setLogin(false);
+      return false;
+    }
+    const res = await fetch(`${process.env.SERVER_URL}/email/login/social`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: response.email,
+        type: type,
+      }),
+    });
+    if (res.status === 403) {
+      setLoginFailed(true);
+      if (type === "user") {
+        router.push("/signup");
+      } else if (type === "freelancer") {
+        router.push("/register/freelancer");
+      } else if (type === "company") {
+        router.push("/register/company");
+      }
+    }
+    const data = await res.json();
+    if (data.message) {
+      setLoginFailed(true);
+    } else {
+      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("type", JSON.stringify(type));
+      router.push("/");
+    }
+    // console.log(response);
+    // if (response.accessToken) {
+    //   setLogin(true);
+    // } else {
+    //   setLogin(false);
+    // }
+  };
+  const logOut = () => {
+    googleLogout();
+  };
   return (
     <div className={styles.login}>
       <Head>
@@ -148,9 +251,6 @@ export default function Login(props) {
           setCompany={props.setCompany}
           setUser={props.setUser}
         />
-      </div>
-      <div className="fixed z-[2000]">
-        {/* <button onClick={() => signIn("google")}>Sign in</button> */}
       </div>
       {!otpForm && (
         <div className={styles.body}>
@@ -277,12 +377,6 @@ export default function Login(props) {
                 </div>
               </form>
             )}
-            {/* {type !== "freelancer" && (
-              <p className="flex w-full items-center gap-2">
-                <hr className="w-full border-neutral-500" />
-                OR <hr className="w-full border-neutral-500" />
-              </p>
-            )} */}
             {showLogEmail === false && (
               <form
                 className="flex flex-col items-center gap-4"
@@ -316,6 +410,34 @@ export default function Login(props) {
                 </div>
               </form>
             )}
+            <p className="flex w-full items-center gap-2">
+              <hr className="w-full border-neutral-500" />
+              OR <hr className="w-full border-neutral-500" />
+            </p>
+            <div className="flex flex-col items-center gap-3">
+              <h3 className="text-lg">Log in with social</h3>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => login()}
+                  className="border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                >
+                  <FcGoogle />
+                </button>
+                <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
+                  <FacebookLogin
+                    appId={process.env.FB_APP_ID}
+                    autoLoad={true}
+                    fields="name,email,picture"
+                    scope="public_profile,email"
+                    textButton=""
+                    cssClass=""
+                    isMobile={false}
+                    callback={responseFacebook}
+                    icon={<FaFacebookSquare color="#0866ff" />}
+                  />
+                </button>
+              </div>
+            </div>
             <div className={styles.lower}>
               {type === "user" && (
                 <p className={`${styles.signup}`}>

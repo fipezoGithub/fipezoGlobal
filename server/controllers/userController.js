@@ -142,6 +142,67 @@ const loginController = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+
+async function emailLoginController(req, res) {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const type = req.body.type;
+    let user;
+    if (type === "user") user = await userCollection.findOne({ email: email });
+    else if (type === "freelancer")
+      user = await freelancerCollection.findOne({ email: email });
+    else if (type === "company")
+      user = await companyCollection.findOne({ companyemail: email });
+
+    if (!user) {
+      return res.sendStatus(403);
+    } else {
+      if (await user.matchPassword(password)) {
+        jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
+          if (err) {
+            console.log(err);
+            return res.sendStatus(403);
+          }
+          res.json({ token });
+        });
+      } else {
+        return res.status(404).json({ message: "Password is incorrect" });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+async function googleLoginController(req, res) {
+  try {
+    const email = req.body.email;
+    const type = req.body.type;
+    let user;
+    if (type === "user") user = await userCollection.findOne({ email: email });
+    else if (type === "freelancer")
+      user = await freelancerCollection.findOne({ email: email });
+    else if (type === "company")
+      user = await companyCollection.findOne({ companyemail: email });
+
+    if (!user) {
+      return res.sendStatus(403);
+    } else {
+      jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
+        if (err) {
+          console.log(err);
+          return res.sendStatus(403);
+        }
+        res.json({ token });
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 //Forget Password
 async function forgetController(req, res) {
   const phone = req.body.phone;
@@ -192,38 +253,7 @@ async function forgetController(req, res) {
     res.status(500).send("Internal server error");
   }
 }
-async function emailLoginController(req, res) {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
-    const type = req.body.type;
-    let user;
-    if (type === "user") user = await userCollection.findOne({ email: email });
-    else if (type === "freelancer")
-      user = await freelancerCollection.findOne({ email: email });
-    else if (type === "company")
-      user = await companyCollection.findOne({ companyemail: email });
 
-    if (!user) {
-      return res.sendStatus(403);
-    } else {
-      if (await user.matchPassword(password)) {
-        jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
-          if (err) {
-            console.log(err);
-            return res.sendStatus(403);
-          }
-          res.json({ token });
-        });
-      } else {
-        return res.status(404).json({ message: "Password is incorrect" });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
-  }
-}
 //profile Data
 
 async function getUserProfile(req, res) {
@@ -487,4 +517,5 @@ module.exports = {
   emailLoginController,
   forgetController,
   updateUserPassword,
+  googleLoginController
 };

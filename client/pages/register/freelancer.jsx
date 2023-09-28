@@ -10,7 +10,11 @@ import Head from "next/head";
 import Link from "next/link";
 import ReactWhatsapp from "react-whatsapp/dist";
 import Loading from "@/components/Loading";
+import FacebookLogin from "react-facebook-login";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookSquare } from "react-icons/fa";
+import { useGoogleLogin } from "@react-oauth/google";
 
 class Freelancer extends React.Component {
   constructor(props) {
@@ -522,14 +526,21 @@ class Freelancer extends React.Component {
       });
     }
   };
-
+  handelGoogleFbResponse = (val, i) => {
+    if (i === 1) {
+      this.setState({ firstName: val });
+    } else if (i === 2) {
+      this.setState({ lastName: val });
+    } else if (i === 3) {
+      this.setState({ email: val });
+    }
+  };
   handleEnterKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       this.increProgress(14.25);
     }
   };
-
   render() {
     return (
       <>
@@ -1358,6 +1369,9 @@ class Freelancer extends React.Component {
                     />
                   )}
                 </form>
+                {this.state.currentPage === 1 && (
+                  <GoogleFacebookLogin get={this.handelGoogleFbResponse} />
+                )}
                 {this.state.currentPage === 1 ||
                 this.state.currentPage === 2 ||
                 this.state.currentPage === 3 ? (
@@ -1435,5 +1449,71 @@ class Freelancer extends React.Component {
     );
   }
 }
-
 export default Freelancer;
+export const GoogleFacebookLogin = (props) => {
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      fetch(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${codeResponse.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          props.get(data.given_name, 1);
+          props.get(data.family_name, 2);
+          props.get(data.email, 3);
+        });
+    },
+    onError: (error) => console.log(error),
+  });
+
+  const responseFacebook = async (response) => {
+    console.log(response);
+    if (response.status === "unknown") {
+      return;
+    }
+    props.get(response.name.split(" ")[0], 1);
+    props.get(response.name.split(" ")[1], 2);
+    props.get(response.email, 3);
+  };
+  return (
+    <>
+      <p className="flex w-full items-center gap-2 mt-3">
+        <hr className="w-full border-neutral-500" />
+        OR <hr className="w-full border-neutral-500" />
+      </p>
+      <div className="flex flex-col items-center gap-3">
+        <h3 className="text-lg">Auto fill up by social</h3>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={login}
+            className="border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+          >
+            <FcGoogle />
+          </button>
+          <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
+            <FacebookLogin
+              appId={process.env.FB_APP_ID}
+              autoLoad={true}
+              fields="name,email,picture"
+              scope="public_profile,email"
+              textButton=""
+              cssClass=""
+              isMobile={false}
+              callback={responseFacebook}
+              icon={<FaFacebookSquare color="#0866ff" />}
+            />
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};

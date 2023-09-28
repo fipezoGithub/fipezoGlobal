@@ -6,6 +6,10 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login";
+import { FaFacebookSquare } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 function Signup(props) {
   const [phone, setPhone] = useState("");
@@ -104,7 +108,41 @@ function Signup(props) {
     postData();
     startCountdown();
   }
-
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      setSignupFailed(false);
+      console.log(codeResponse);
+      fetch(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${codeResponse.access_token}`,
+            Accept: "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setFirstname(data.given_name);
+          setLastname(data.family_name);
+          setEmail(data.email);
+        });
+    },
+    onError: (error) => setSignupFailed(true),
+  });
+  const responseFacebook = async (response) => {
+    console.log(response);
+    setSignupFailed(false);
+    if (response.status === "unknown") {
+      setSignupFailed(true);
+      return;
+    }
+    setFirstname(response.name.split(" ")[0]);
+    setLastname(response.name.split(" ")[1]);
+    setEmail(response.email);
+  };
   return (
     <div className={styles.signup}>
       <Head>
@@ -144,6 +182,7 @@ function Signup(props) {
                       setSignupFailed(false);
                       setOtpFailed(false);
                     }}
+                    value={firstname}
                     id={styles.firstname}
                     name="firstname"
                     maxLength={13}
@@ -160,6 +199,7 @@ function Signup(props) {
                     placeholder="Enter Your lastname"
                     id={styles.lastname}
                     name="lastname"
+                    value={lastname}
                     onChange={(e) => {
                       setLastname(e.target.value);
                       setSignupFailed(false);
@@ -223,6 +263,7 @@ function Signup(props) {
                     id={styles.number}
                     placeholder="Enter Your Phone no."
                     name="phone"
+                    value={phone}
                     onChange={(e) => {
                       setPhone(e.target.value);
                       setSignupFailed(false);
@@ -233,10 +274,38 @@ function Signup(props) {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="py-4">
               <button type="submit" className={styles.btn}>
                 Submit
               </button>
+            </div>
+            <p className="flex w-full items-center gap-2">
+              <hr className="w-full border-neutral-500" />
+              OR <hr className="w-full border-neutral-500" />
+            </p>
+            <div className="flex flex-col items-center gap-3">
+              <h3 className="text-lg">Auto fill up by social</h3>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => login()}
+                  className="border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                >
+                  <FcGoogle />
+                </button>
+                <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
+                  <FacebookLogin
+                    appId={process.env.FB_APP_ID}
+                    autoLoad={true}
+                    fields="name,email,picture"
+                    scope="public_profile,email"
+                    textButton=""
+                    cssClass=""
+                    isMobile={false}
+                    callback={responseFacebook}
+                    icon={<FaFacebookSquare color="#0866ff" />}
+                  />
+                </button>
+              </div>
             </div>
             <div className={styles.lower}>
               <Link href="/login" className={`${styles.login}`}>

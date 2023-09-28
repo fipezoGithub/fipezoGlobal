@@ -15,6 +15,7 @@ const {
   emailLoginController,
   forgetController,
   updateUserPassword,
+  googleLoginController,
 } = require("./controllers/userController");
 const {
   otpController,
@@ -125,6 +126,7 @@ const {
 app.post("/api/signup", signupController);
 app.post("/api/login", loginController);
 app.post("/api/email/login", emailLoginController);
+app.post("/api/email/login/social", googleLoginController);
 app.post("/api/otp", otpController);
 app.post("/api/otp/signup", otpSignupController);
 app.post("/api/otp/forget-password/", forgetController);

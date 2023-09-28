@@ -21,6 +21,8 @@ const nextConfig = {
   env: {
     CAPTCHA_SITE_KEY: process.env.CAPTCHA_SITE_KEY,
     SERVER_URL: process.env.SERVER_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    FB_APP_ID: process.env.FB_APP_ID,
   },
 };
 
