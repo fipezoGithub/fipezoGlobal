@@ -2,10 +2,9 @@ import styles from "../styles/Footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { AiTwotoneHeart } from "react-icons/ai";
 
-function Footer() {
+function Footer(props) {
   const router = useRouter();
   const handleStates = (state) => {
     localStorage.setItem("city", state);
@@ -78,12 +77,9 @@ function Footer() {
           </Link>
         </ul>
         <ul className={styles.law}>
-          <li className={styles.heading}>Register as a</li>
-          <Link className={styles.subHeading} href="/register/freelancer">
-            Freelancer
-          </Link>
-          <Link className={styles.subHeading} href="/register/company">
-            Company
+          <li className={styles.heading}>Useful Links</li>
+          <Link className={styles.subHeading} href="/referandearn">
+            Refer and Earn
           </Link>
         </ul>
         <ul id={styles.socials}>

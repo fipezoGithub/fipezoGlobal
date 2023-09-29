@@ -295,7 +295,7 @@ function Signup(props) {
                 <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
                   <FacebookLogin
                     appId={process.env.FB_APP_ID}
-                    autoLoad={true}
+                    autoLoad={false}
                     fields="name,email,picture"
                     scope="public_profile,email"
                     textButton=""
