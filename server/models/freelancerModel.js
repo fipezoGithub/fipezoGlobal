@@ -119,6 +119,16 @@ const freelancerSchema = new mongoose.Schema(
       ref: "refercollection",
       default: null,
     },
+    appliedJob: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "jobscollection",
+      default: [],
+    },
+    hiredJob: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "jobscollection",
+      default: [],
+    },
     verified: {
       type: Boolean,
       required: true,

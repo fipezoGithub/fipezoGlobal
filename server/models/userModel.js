@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema(
       ref: "refercollection",
       default: null,
     },
+    joinByRefaralId: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+      default: [],
+    },
   },
   {
     timestamps: true,

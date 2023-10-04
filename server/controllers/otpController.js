@@ -121,10 +121,8 @@ async function otpSignupController(req, res) {
       const referID = await new referCollection({
         referUid:
           req.body.firstname.toUpperCase().slice(0, 3) +
-          req.body.phone.toString(8).slice(0, 3),
-        // createdFreelancer: "",
+          parseInt(req.body.phone).toString(16).slice(0, 3),
         createdUser: user._id,
-        // acceptedFreelancer: "",
       }).save();
       await userCollection.findByIdAndUpdate(user._id, {
         createdReferalId: referID._id,

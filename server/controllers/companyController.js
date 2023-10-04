@@ -432,6 +432,10 @@ async function updateCompanyPassword(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//Get posted job of company
+async function getPostedJobofCommpany(req, res) {
+  jwt.verify()
+}
 module.exports = {
   registerCompany,
   editCompanyProfile,

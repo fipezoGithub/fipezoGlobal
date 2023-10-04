@@ -10,6 +10,7 @@ const sharp = require("sharp");
 const path = require("path");
 const companyCollection = require("../models/companyModel");
 const referCollection = require("../models/referModel");
+const jobsCollection = require("../models/jobsModel");
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -42,7 +43,6 @@ async function registerFreelancer(req, res) {
     );
     let resizedAadhaarCard;
     if (req.files["aadhaarCard"]) {
-      console.log(req.files["aadhaarCard"]);
       resizedAadhaarCard = await resizeImage(
         req.files["aadhaarCard"][0],
         2272,
@@ -51,7 +51,6 @@ async function registerFreelancer(req, res) {
     }
     let resizedPanCard;
     if (req.files["panCard"]) {
-      console.log(req.files["panCard"]);
       resizedPanCard = await resizeImage(req.files["panCard"][0], 2272, 1704);
     }
 
@@ -64,9 +63,10 @@ async function registerFreelancer(req, res) {
     // }
     let referalUID;
     if (req.body.usedReferalId) {
-      referalUID = await referCollection.findOne({
+      const referal = await referCollection.findOne({
         referUid: req.body.usedReferalId,
       });
+      referalUID = referal._id;
     } else {
       referalUID = null;
     }
@@ -145,12 +145,22 @@ async function registerFreelancer(req, res) {
       createdReferalId: referID._id,
     });
     if (req.body.usedReferalId) {
-      await freelancerCollection.updateOne(
-        {
-          createdReferalId: req.body.usedReferalId,
-        },
-        { $push: { joinByRefaralId: newFreelancer._id } }
-      );
+      const freelancer = await freelancerCollection.find({
+        createdReferalId: referalUID,
+      });
+      const user = await userCollection.find({ createdReferalId: referalUID });
+      await referCollection.findByIdAndUpdate(referalUID, {
+        acceptedFreelancer: newFreelancer._id,
+      });
+      if (user) {
+        await userCollection.findByIdAndUpdate(user._id, {
+          $push: { joinByRefaralId: newFreelancer._id },
+        });
+      } else if (freelancer) {
+        await freelancerCollection.findByIdAndUpdate(freelancer._id, {
+          $push: { joinByRefaralId: newFreelancer._id },
+        });
+      }
     }
     const filePromises = [];
     filePromises.push(uploadFile(resizedProfilePicture));
@@ -497,8 +507,23 @@ async function deleteFreelancerProfile(req, res) {
     });
 
     await Promise.all(filePromises);
-    const freelancer = await freelancerCollection.findById(id);
-    await referCollection.deleteOne({ _id: freelancer.createdReferalId });
+    await referCollection.deleteOne({ _id: user.createdReferalId });
+    if (user.usedReferalId) {
+      const joinRefer = await referCollection.findByIdAndUpdate(
+        user.usedReferalId,
+        { $pull: { acceptedFreelancer: id } }
+      );
+      if (joinRefer.createdUser) {
+        await userCollection.findByIdAndUpdate(joinRefer.createdUser, {
+          $pull: { joinByRefaralId: user._id },
+        });
+      } else if (joinRefer.createdFreelancer) {
+        await freelancerCollection.findByIdAndUpdate(
+          joinRefer.createdFreelancer,
+          { $pull: { joinByRefaralId: user._id } }
+        );
+      }
+    }
     await freelancerCollection.deleteOne({ _id: id });
     res.json({ id: id });
   } catch (error) {
@@ -813,6 +838,24 @@ async function updateFreelancerPassword(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+//Get jobs of freelancer
+async function getJobsOfUser(req, res) {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+    const freelancer = await freelancerCollection.findById(authData.user._id);
+    if (err || !freelancer) {
+      res.status(404).send("Freelancer not found");
+    } else {
+      const jobs = await jobsCollection.find({
+        appliedFreelancer: freelancer._id,
+      });
+      if (!jobs) {
+        res.status(404).send("Job not found");
+      } else {
+        res.status(200).json(jobs);
+      }
+    }
+  });
+}
 module.exports = {
   registerFreelancer,
   getFreelancerProfile,
@@ -835,4 +878,5 @@ module.exports = {
   editFreelancerCoverPicture,
   editFreelancerProfilePicture,
   updateFreelancerPassword,
+  getJobsOfUser,
 };

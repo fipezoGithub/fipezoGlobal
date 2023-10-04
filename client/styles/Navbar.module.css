@@ -4,6 +4,7 @@
   flex-direction: row;
   align-items: center;
   position: fixed;
+  top: 0%;
   width: 100vw;
   justify-content: space-between;
   background-position: center;
@@ -305,7 +306,7 @@
     width: 100%;
     border-bottom: 1px dashed;
   }
-  .btn{
+  .btn {
     font-size: 1rem;
     line-height: 1.1rem;
   }

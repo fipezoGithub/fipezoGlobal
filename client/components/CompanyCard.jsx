@@ -15,7 +15,6 @@ export default function CompanyCard(props) {
   useEffect(() => {
     const companyLoc = JSON.parse(props.profile.companyaddress);
     setCity(companyLoc.city);
-    console.log(companyLoc);
   }, []);
 
   return (
@@ -81,15 +80,12 @@ export default function CompanyCard(props) {
       <p className={`w-full ${styles.bio} break-words max-w-xs`}>
         {props.profile.bio}
       </p>
-      <div className={styles.category + " px-2"}>
-        {/* {type === "photo" && <ImCamera className={styles.logo} />}
-        {type === "Photo Editor" && <TbPhotoEdit className={styles.logo} />}
-        {type === "Cinematographer" && <FaVideo className={styles.logo} />} */}
+      <div className={styles.category}>
         {type === "Advertising Agency" && (
           <Image
             src="/advertising-logo.png"
             alt="ad_agency_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-20"}
             width={1000}
             height={1000}
           />
@@ -98,7 +94,7 @@ export default function CompanyCard(props) {
           <Image
             src="/photography-logo.png"
             alt="photography_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-20"}
             width={1000}
             height={1000}
           />
@@ -107,7 +103,7 @@ export default function CompanyCard(props) {
           <Image
             src="/ecom-logo.png"
             alt="eCommerce_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-20"}
             width={1000}
             height={1000}
           />
@@ -116,7 +112,7 @@ export default function CompanyCard(props) {
           <Image
             src="/production_house.png"
             alt="production_house_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-20"}
             width={1000}
             height={1000}
           />
@@ -125,7 +121,7 @@ export default function CompanyCard(props) {
           <Image
             src="/other.png"
             alt="other_logo"
-            className={styles.logo + " w-[1.5rem] md:w-12 p-1"}
+            className={styles.logo + " w-[1.5rem] md:w-20"}
             width={1000}
             height={1000}
           />

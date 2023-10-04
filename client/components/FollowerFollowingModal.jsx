@@ -80,7 +80,7 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === true &&
             (following.length > 0 ? (
               following.map((item, index) => {
-                if (props.user.following?.includes(item._id)) {
+                if (props.user?.following?.includes(item._id)) {
                   props.setIsFollowed(true);
                 }
                 return (
@@ -104,13 +104,13 @@ const FollowerFollowingModal = (props) => {
                     >
                       {item.firstname} {item.lastname}
                     </p>
-                    {props.user._id !== item._id && (
+                    {props.user?._id !== item._id && (
                       <button
                         type="button"
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                         onClick={() => props.handelFollow()}
                       >
-                        {props.user.following?.includes(item._id)
+                        {props.user?.following?.includes(item._id)
                           ? "unfollow"
                           : "follow"}
                       </button>
@@ -131,14 +131,14 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === false &&
             (followers.length > 0 ? (
               followers.map((item, index) => {
-                if (props.user.following?.includes(item._id)) {
+                if (props.user?.following?.includes(item._id)) {
                   props.setIsFollowed(true);
                 }
                 return (
                   <div
                     key={index}
                     className={`cursor-pointer flex items-center gap-2 ${
-                      props.user._id !== item._id ? "justify-between" : " "
+                      props.user?._id !== item._id ? "justify-between" : " "
                     } w-full`}
                   >
                     <Image
@@ -157,13 +157,13 @@ const FollowerFollowingModal = (props) => {
                     >
                       {item.firstname} {item.lastname}
                     </p>
-                    {props.user._id !== item._id && (
+                    {props.user?._id !== item._id && (
                       <button
                         type="button"
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                         onClick={() => props.handelFollow()}
                       >
-                        {props.user.following?.includes(item._id)
+                        {props.user?.following?.includes(item._id)
                           ? "unfollow"
                           : "follow"}
                       </button>

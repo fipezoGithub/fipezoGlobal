@@ -53,6 +53,11 @@ const companySchema = new mongoose.Schema(
       required: true,
       default: null,
     },
+    jobPosted: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "jobscollection",
+      default: [],
+    },
     incorporationCertificate: {
       type: String,
       required: true,

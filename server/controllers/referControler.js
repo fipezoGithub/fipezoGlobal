@@ -16,19 +16,22 @@ async function generateReferCode(req, res) {
           const referID = await new referCollection({
             referUid:
               freelancer.firstname.toUpperCase().slice(0, 3) +
-              freelancer.phone.toString(8).slice(0, 3),
+              parseInt(freelancer.phone).toString(16).slice(0, 3),
             createdFreelancer: freelancer._id,
           }).save();
+          await freelancerCollection.findByIdAndUpdate(freelancer._id, {
+            createdReferalId: referID._id,
+          });
           res.status(201).json(referID);
         } else {
           const user = await userCollection.findById(authData.user._id);
           const referID = await new referCollection({
             referUid:
               user.firstname.toUpperCase().slice(0, 3) +
-              user.phone.toString(8).slice(0, 3),
+              parseInt(user.phone).toString(16).slice(0, 3),
             createdUser: user._id,
           }).save();
-          userCollection.findByIdAndUpdate(user._id, {
+          await userCollection.findByIdAndUpdate(user._id, {
             createdReferalId: referID._id,
           });
           res.status(201).json(referID.populate("createdUser"));

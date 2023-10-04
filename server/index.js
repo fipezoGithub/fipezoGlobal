@@ -17,6 +17,7 @@ const {
   updateUserPassword,
   googleLoginController,
 } = require("./controllers/userController");
+
 const {
   otpController,
   otpSignupController,
@@ -24,6 +25,7 @@ const {
   VerifyCompanyPhone,
   forgetOTPController,
 } = require("./controllers/otpController");
+
 const {
   registerCompany,
   editCompanyProfile,
@@ -37,6 +39,7 @@ const {
   getCompanyByName,
   updateCompanyPassword,
 } = require("./controllers/companyController");
+
 const {
   registerFreelancer,
   getFreelancerProfile,
@@ -59,12 +62,15 @@ const {
   editFreelancerCoverPicture,
   editFreelancerProfilePicture,
   updateFreelancerPassword,
+  getJobsOfUser,
 } = require("./controllers/freelancerController");
+
 const {
   contactUs,
   fetchContactUs,
   notifyEmail,
 } = require("./controllers/contactController");
+
 const {
   addHire,
   getHires,
@@ -73,12 +79,14 @@ const {
   deleteRequest,
   acceptRequest,
 } = require("./controllers/hireController");
+
 const jwt = require("jsonwebtoken");
 const {
   addReview,
   getReviews,
   updateReviews,
 } = require("./controllers/reviewController");
+
 const secret = process.env.JWT_SECRET;
 const verifyToken = require("./middlewares/verification");
 
@@ -109,6 +117,7 @@ const {
   deleteFeed,
   shareFeed,
 } = require("./controllers/feedControler");
+
 const feedPostImage = require("./middlewares/feedPostImage");
 const {
   addComment,
@@ -116,45 +125,94 @@ const {
   deleteComment,
   getCommentsOfPost,
 } = require("./controllers/commentController");
+
 const {
   generateReferCode,
   getReferCodeByUser,
   getReferCodeByFreelancer,
 } = require("./controllers/referControler");
 
+const {
+  createJob,
+  applyJob,
+  editJobDetails,
+  deleteJob,
+  getJobById,
+  getJobByProfession,
+} = require("./controllers/jobController");
+
 // Setting up the routes
+
+//Usercontroller Routes
 app.post("/api/signup", signupController);
 app.post("/api/login", loginController);
+app.get("/api/profile/user", verifyToken, getUserProfile);
+app.put("/api/profile/user/edit", userProfilePic, verifyToken, editUserProfile);
+app.get("/api/profile", verifyToken, getProfile);
+app.get("/api/navbar", verifyToken, getNavbar);
+app.delete("/api/profile/user/delete", verifyToken, deleteUserProfile);
 app.post("/api/email/login", emailLoginController);
+app.post("/api/otp/forget-password/", forgetController);
+app.put(
+  "/api/profile/user/password/change",
+  userProfilePic,
+  verifyToken,
+  updateUserPassword
+);
 app.post("/api/email/login/social", googleLoginController);
+
+//Otpcontroller Routes
 app.post("/api/otp", otpController);
 app.post("/api/otp/signup", otpSignupController);
-app.post("/api/otp/forget-password/", forgetController);
-app.post("/api/forget-password/submitotp", forgetOTPController);
-app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
-app.post("/api/register/company", companyUpload, verifyToken, registerCompany);
-app.post("/api/login/company", getCompanyProfile);
-app.get("/api/profiles/verified/companies", getCompanyProfiles);
 app.post("/api/verify/freelancer/phone", VerifyFreelancerPhone);
 app.post("/api/verify/company/phone", VerifyCompanyPhone);
-app.get("/api/profile/freelancer/:uid", getFreelancerProfile);
+app.post("/api/forget-password/submitotp", forgetOTPController);
+
+//CompanyController Routes
+app.post("/api/register/company", companyUpload, verifyToken, registerCompany);
+app.put(
+  "/api/profile/company/edit",
+  companyEditUpload,
+  verifyToken,
+  editCompanyProfile
+);
+app.delete("/api/profile/company/delete", verifyToken, deleteCompanyProfile);
+app.get("/api/profiles/unverified/company", verifyToken, getUnCompanyProfiles);
+app.delete("/api/delete/company/:id", deleteCompanyProfileV);
+app.put("/api/verify/company/:id", verifyCompanyProfile);
+app.post("/api/login/company", getCompanyProfile);
+app.get("/api/profiles/verified/companies", getCompanyProfiles);
 app.get("/api/profile/company/:uid", getCompanyProfileByUID);
-app.get("/api/freelancer/profile-details/:id", getProfileByID);
-app.post("/api/freelancer/search", getFreelancerByName);
 app.post("/api/company/search", getCompanyByName);
+app.put(
+  "/api/profile/company/password/change",
+  verifyToken,
+  updateCompanyPassword
+);
+
+//FreelancerController Routes
+app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
+app.get("/api/profile/freelancer/:uid", getFreelancerProfile);
 app.get("/api/profiles/verified/freelancer", getFreelancerProfiles);
-app.get("/api/profiles/featured/freelancer", getFeaturedFreelancerProfiles);
-app.post("/api/feed/add", feedPostImage, verifyToken, addFeed);
 app.get(
   "/api/profiles/unverified/freelancer",
   verifyToken,
   getUnFreelancerProfiles
 );
-app.get("/api/profiles/unverified/company", verifyToken, getUnCompanyProfiles);
-app.get("/api/contact/messages", verifyToken, fetchContactUs);
-app.get("/api/feeds", getFeed);
 app.delete("/api/delete/freelancer/:id", deleteFreelancerProfile);
+app.put("/api/verify/freelancer/:id", verifyFreelancerProfile);
+app.get("/api/profiles/featured/freelancer", getFeaturedFreelancerProfiles);
 app.put("/api/edit/freelancer/:id", verifyToken, editFreelancerProfile);
+app.put("/api/follow/freelancer", verifyToken, followProfile);
+app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
+app.get("/api/freelancer/followers/:id", getFollowers);
+app.get("/api/freelancer/following/:id", getFollowing);
+app.get("/api/freelancer/profile-details/:id", getProfileByID);
+app.post("/api/freelancer/search", getFreelancerByName);
+app.get("/api/freelancer/followedcompanies/:id", getFollowedCompanies);
+app.put("/api/follow/company", verifyToken, followCompany);
+app.put("/api/unfollow/company", verifyToken, unfollowCompany);
+app.get("/api/profile/feed", verifyToken, getFeedOfFreelancer);
 app.put(
   "/api/update/freelancer/cover",
   upload,
@@ -167,69 +225,59 @@ app.put(
   verifyToken,
   editFreelancerProfilePicture
 );
-app.put("/api/follow/freelancer", verifyToken, followProfile);
-app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
-app.put("/api/follow/company", verifyToken, followCompany);
-app.put("/api/unfollow/company", verifyToken, unfollowCompany);
-app.put("/api/love/:feedId", verifyToken, loveFeed);
-app.put("/api/unlove/:feedId", verifyToken, unLoveFeed);
-app.put("/api/share/count/:feedId", verifyToken, shareFeed);
-app.get("/api/freelancer/followers/:id", getFollowers);
-app.get("/api/freelancer/followedcompanies/:id", getFollowedCompanies);
-app.get("/api/freelancer/following/:id", getFollowing);
-app.get("/api/feed/:id", getFeedById);
-app.get("/api/profile/feed", verifyToken, getFeedOfFreelancer);
-app.delete("/api/delete/company/:id", deleteCompanyProfileV);
-app.delete("/api/profile/user/delete", verifyToken, deleteUserProfile);
-app.delete("/api/profile/company/delete", verifyToken, deleteCompanyProfile);
-app.delete("/api/delete/request/:id", verifyToken, deleteRequest);
-app.put("/api/accept/request/:id", verifyToken, acceptRequest);
-app.put("/api/cancel/request/:id", verifyToken, cancelRequest);
-app.put("/api/verify/freelancer/:id", verifyFreelancerProfile);
-app.put("/api/verify/company/:id", verifyCompanyProfile);
-app.post("/api/contact", contactUs);
-app.get("/api/profile/user", verifyToken, getUserProfile);
-app.get("/api/navbar", verifyToken, getNavbar);
-app.post("/api/add/review", verifyToken, addReview);
-app.put("/api/edit/reviews/:id", verifyToken, updateReviews);
-app.get("/api/reviews/:id", getReviews);
-app.post("/api/add/hire", verifyToken, addHire);
-app.post("/api/notify", notifyEmail);
-app.put("/api/profile/user/edit", userProfilePic, verifyToken, editUserProfile);
-app.put(
-  "/api/profile/user/password/change",
-  userProfilePic,
-  verifyToken,
-  updateUserPassword
-);
-app.put(
-  "/api/profile/company/password/change",
-  verifyToken,
-  updateCompanyPassword
-);
 app.put(
   "/api/profile/freelancer/password/change",
   verifyToken,
   updateFreelancerPassword
 );
-app.put(
-  "/api/profile/company/edit",
-  companyEditUpload,
-  verifyToken,
-  editCompanyProfile
-);
-app.put("/api/edit/feed/:id", editFeed);
-app.delete("/api/delete/feed/:id", verifyToken, deleteFeed);
-app.get("/api/profile", verifyToken, getProfile);
+app.get("/api/freelancer/jobs", verifyToken, getJobsOfUser);
+
+//Contactcontroller routes
+app.post("/api/contact", contactUs);
+app.get("/api/contact/messages", verifyToken, fetchContactUs);
+app.post("/api/notify", notifyEmail);
+
+//HireController Routes
+app.post("/api/add/hire", verifyToken, addHire);
 app.get("/api/hires", verifyToken, getHires);
 app.get("/api/requests", verifyToken, getRequests);
+app.delete("/api/delete/request/:id", verifyToken, deleteRequest);
+app.put("/api/accept/request/:id", verifyToken, acceptRequest);
+app.put("/api/cancel/request/:id", verifyToken, cancelRequest);
+
+//ReviewController Routes
+app.post("/api/add/review", verifyToken, addReview);
+app.put("/api/edit/reviews/:id", verifyToken, updateReviews);
+app.get("/api/reviews/:id", getReviews);
+
+//FeedController Routes
+app.post("/api/feed/add", feedPostImage, verifyToken, addFeed);
+app.get("/api/feeds", getFeed);
+app.put("/api/love/:feedId", verifyToken, loveFeed);
+app.put("/api/unlove/:feedId", verifyToken, unLoveFeed);
+app.get("/api/feed/:id", getFeedById);
+app.put("/api/edit/feed/:id", editFeed);
+app.delete("/api/delete/feed/:id", verifyToken, deleteFeed);
+app.put("/api/share/count/:feedId", verifyToken, shareFeed);
+
+//CommentController Routes
 app.get("/api/feed/comment/list/:feedId", getCommentsOfPost);
 app.post("/api/feed/comment", verifyToken, addComment);
 app.put("/api/feed/comment/edit/:commentId", verifyToken, editComment);
 app.delete("/api/feed/comment/delete/:commentId", verifyToken, deleteComment);
+
+//ReferControler Routes
 app.post("/api/generaterefer", verifyToken, generateReferCode);
 app.get("/api/getrefer/user", verifyToken, getReferCodeByUser);
 app.get("/api/getrefer/freelancer", verifyToken, getReferCodeByFreelancer);
+
+//JobController Routes
+app.post("/api/create-job/", verifyToken, createJob);
+app.post("/api/job/apply", verifyToken, applyJob);
+app.put("/api/job/edit/:jobId", verifyToken, editJobDetails);
+app.delete("/api/job/delete/:jobId", verifyToken, deleteJob);
+app.get("/api/job/get/:jobId", getJobById);
+app.get("/api/job/profession/:profession", getJobByProfession);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

@@ -25,7 +25,7 @@ const Referandearn = (props) => {
           setUser={props.setUser}
         />
       </div>
-      <div className="h-80 w-full relative pt-8 flex items-center justify-center">
+      <div className="h-80 w-full relative mt-16 flex items-center justify-center">
         <Image
           src="/refer-friend.jpg"
           layout="fill"
