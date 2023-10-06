@@ -222,12 +222,6 @@ export default function Login(props) {
       localStorage.setItem("type", JSON.stringify(type));
       router.push("/");
     }
-    // console.log(response);
-    // if (response.accessToken) {
-    //   setLogin(true);
-    // } else {
-    //   setLogin(false);
-    // }
   };
   const logOut = () => {
     googleLogout();

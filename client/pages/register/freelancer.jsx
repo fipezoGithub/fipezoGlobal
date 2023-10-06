@@ -1004,7 +1004,7 @@ class Freelancer extends React.Component {
                         <input
                           type="email"
                           className={styles.input}
-                          placeholder="Enter Company's email address"
+                          placeholder="Enter your email address"
                           name="email"
                           required
                           onKeyDown={this.handleEnterKeyPress}

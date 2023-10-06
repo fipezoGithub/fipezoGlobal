@@ -32,7 +32,7 @@ export default function Featured() {
         </p>
       )}
       <div className={styles.cards}>
-        {freelancers.map((freelancer, index) => {
+        {freelancers.slice(0,8).map((freelancer, index) => {
           return <ProfileCard key={index} profile={freelancer} />;
         })}
       </div>

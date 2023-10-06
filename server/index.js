@@ -139,6 +139,8 @@ const {
   deleteJob,
   getJobById,
   getJobByProfession,
+  getAllJob,
+  getPostedJobsOfUser,
 } = require("./controllers/jobController");
 
 // Setting up the routes
@@ -276,7 +278,9 @@ app.post("/api/create-job/", verifyToken, createJob);
 app.post("/api/job/apply", verifyToken, applyJob);
 app.put("/api/job/edit/:jobId", verifyToken, editJobDetails);
 app.delete("/api/job/delete/:jobId", verifyToken, deleteJob);
+app.get("/api/job/user", verifyToken, getPostedJobsOfUser);
 app.get("/api/job/get/:jobId", getJobById);
+app.get("/api/job/get/", getAllJob);
 app.get("/api/job/profession/:profession", getJobByProfession);
 
 app.get("/api/images/:key", async (req, res) => {

@@ -119,11 +119,11 @@ export default function Navbar(props) {
             </Link>
           </li>
 
-          {/* <li className={styles.navElement}>
+          <li className={styles.navElement}>
             <Link href="/jobs">
               <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
             </Link>
-          </li> */}
+          </li>
 
           {logInType === "freelancer" && (
             <li className={styles.navElement}>
@@ -381,7 +381,7 @@ export default function Navbar(props) {
                 >
                   My Profile
                 </Link>
-                <Link className={styles.btn} href="posted-jobs">
+                <Link className={styles.btn} href="/posted-jobs">
                   My Jobs
                 </Link>
                 <button
@@ -416,11 +416,11 @@ export default function Navbar(props) {
               <span id={styles.home}>Home&nbsp;&nbsp;</span>
             </Link>
           </li>
-          {/* <li className={styles.navElement}>
+          <li className={styles.navElement}>
             <Link href="/jobs">
               <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
             </Link>
-          </li> */}
+          </li>
           {logInType === "freelancer" && (
             <li className={styles.navElement}>
               <Link href={"/feed/"}>
@@ -678,6 +678,9 @@ export default function Navbar(props) {
                   href={`/company/${props.company.uid}`}
                 >
                   My Profile
+                </Link>
+                <Link className={styles.btn} href="/posted-jobs">
+                  My Jobs
                 </Link>
                 <button
                   className={styles.btn}

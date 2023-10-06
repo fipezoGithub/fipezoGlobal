@@ -114,9 +114,9 @@ function ProfileBioCard(props) {
             </div>
           )}
         </span>
-        <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
-        &nbsp;
         <span className={styles.location + " mr-2"}>
+          <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
+          &nbsp;
           {props.freelancer.location}
         </span>
         <div className="flex items-center gap-2">

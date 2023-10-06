@@ -282,7 +282,7 @@ export default function Name(props) {
                 <ReviewBox
                   handleReviewBox={handleReviewBox}
                   appendReview={appendReview}
-                  freelancer={freelancer}
+                  freelancer={props.data}
                   setShowReviewDialogBox={setShowReviewDialogBox}
                 />
               </div>
@@ -291,7 +291,7 @@ export default function Name(props) {
               <div id={styles.boxContainer2}>
                 <HireBox
                   handleHireBox={handleHireBox}
-                  freelancer={freelancer}
+                  freelancer={props.data}
                   user={user}
                   setShowDialogBox={setShowDialogBox}
                 />

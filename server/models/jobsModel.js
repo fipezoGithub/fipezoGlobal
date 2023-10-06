@@ -45,10 +45,6 @@ const jobsSchema = new mongoose.Schema(
       ref: "freelancercollection",
       default: [],
     },
-    daysAvailableForHire: {
-      type: Number,
-      required: true,
-    },
   },
   { timestamps: true }
 );

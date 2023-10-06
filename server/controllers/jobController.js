@@ -14,10 +14,10 @@ async function createJob(req, res) {
         date: req.body.date,
         title: req.body.title,
         profession: req.body.profession,
+        description: req.body.description,
         vacancy: req.body.vacancy,
         location: req.body.location,
         budget: req.body.budget,
-        daysAvailableForHire: req.body.daysAvailableForHire,
         createdCompany: company._id,
       });
       await newJob.save();
@@ -73,6 +73,7 @@ async function editJobDetails(req, res) {
             date: req.body.date || job.date,
             title: req.body.title || job.title,
             profession: req.body.profession || job.profession,
+            description: req.body.description || job.description,
             vacancy: req.body.vacancy || job.vacancy,
             location: req.body.location || job.location,
             budget: req.body.budget || job.budget,
@@ -82,6 +83,21 @@ async function editJobDetails(req, res) {
         );
         res.status(200).json(modifiedJob);
       }
+    }
+  });
+}
+
+async function getPostedJobsOfUser(req, res) {
+  jwt.verify(req.token, secret, async function (err, authData) {
+    const user = await companyCollection.findById(authData.user._id);
+    if (err || !user) {
+      res.status(404).send("Not logged in");
+    } else {
+      const jobs = await jobsCollection
+        .find({ createdCompany: user._id })
+        .populate("createdCompany")
+        .exec();
+      res.status(200).json(jobs);
     }
   });
 }
@@ -117,6 +133,19 @@ async function deleteJob(req, res) {
   });
 }
 
+async function getAllJob(req, res) {
+  try {
+    const jobs = await jobsCollection
+      .find({})
+      .populate("createdCompany")
+      .exec();
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Internal Server Error" });
+  }
+}
+
 async function getJobById(req, res) {
   try {
     const job = await jobsCollection.findById(req.params.jobId);
@@ -146,4 +175,6 @@ module.exports = {
   deleteJob,
   getJobById,
   getJobByProfession,
+  getAllJob,
+  getPostedJobsOfUser,
 };

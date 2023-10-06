@@ -1,33 +1,296 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const Createjob = () => {
+const Createjob = (props) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [budget, setBudget] = useState(500);
+  const [vacancy, setVacancy] = useState(1);
+  const [location, setLocation] = useState("Kolkata");
+  const [profession, setProfession] = useState("album_designer");
+  const [requiredDate, setRequiredDate] = useState([]);
+  const dateInputRef = useRef();
+
+  const handelPostJob = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/create-job/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          location,
+          profession,
+          budget,
+          daysAvailableForHire: 2,
+          vacancy,
+          date: requiredDate,
+        }),
+      });
+      const newJob = await res.json();
+      props.setJobs([]);
+      props.setShowCreateBox(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div>
-      <h3>Post your requirement</h3>
-      <form action="">
-        <div>
-          <div>
-            <label htmlFor="title">title</label>
-            <input type="text" placeholder="enter job title" id="title" />
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full h-full bg-[#00000042] z-[1100]">
+      <div className="relative flex flex-col items-center gap-4 backdrop-blur px-4 py-2 bg-white rounded-lg">
+        <div className="absolute top-1 right-1">
+          <button
+            type="button"
+            className="text-3xl"
+            onClick={() => props.setShowCreateBox(false)}
+          >
+            <IoIosCloseCircleOutline />
+          </button>
+        </div>
+        <h3 className="lg:text-xl font-bold">Post your requirement</h3>
+        <form
+          action=""
+          className="flex flex-col items-start gap-6"
+          onSubmit={handelPostJob}
+        >
+          <div className="flex items-start flex-col">
+            <label htmlFor="title" className="lg:text-xl capitalize">
+              title
+            </label>
+            <input
+              type="text"
+              placeholder="enter job title"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+            />
           </div>
-          <div>
-            <label htmlFor="budget">Budget</label>
+          <div className="flex items-start flex-col">
+            <label htmlFor="description" className="lg:text-xl capitalize">
+              description
+            </label>
+            <textarea
+              name=""
+              id="description"
+              cols="30"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="add description about your requirement"
+              rows="5"
+              className="w-full placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+            ></textarea>
+          </div>
+          <div className="flex items-start flex-col">
+            <label htmlFor="budget" className="lg:text-xl capitalize">
+              Budget
+            </label>
             <input
               type="number"
               placeholder="enter the amount you offer"
               id="budget"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
             />
           </div>
-          <div>
-            <label htmlFor="vacancy">Vacancy For</label>
+          <div className="flex items-start flex-col">
+            <label htmlFor="vacancy" className="lg:text-xl capitalize">
+              Vacancy For
+            </label>
             <input
               type="number"
               placeholder="enter the vacancy number"
               id="vacancy"
+              value={vacancy}
+              onChange={(e) => setVacancy(e.target.value)}
+              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
             />
           </div>
-        </div>
-      </form>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-start flex-col">
+              <label htmlFor="location" className="lg:text-xl capitalize">
+                location
+              </label>
+              <select
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              >
+                <option disabled value="city">
+                  kolkata
+                </option>
+                <option value="Agra">Agra</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Amritsar">Amritsar</option>
+                <option value="Aurangabad">Aurangabad</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Bhubaneswar">Bhubaneswar</option>
+                <option value="Burdwan">Burdwan</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Coimbatore">Coimbatore</option>
+                <option value="Dehradun">Dehradun</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Dhanbad">Dhanbad</option>
+                <option value="Durgapur">Durgapur</option>
+                <option value="Faridabad">Faridabad</option>
+                <option value="Ghaziabad">Ghaziabad</option>
+                <option value="Guwahati">Guwahati</option>
+                <option value="Gwalior">Gwalior</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Indore">Indore</option>
+                <option value="Jaipur">Jaipur</option>
+                <option value="Jamshedpur">Jamshedpur</option>
+                <option value="Jodhpur">Jodhpur</option>
+                <option value="Kanpur">Kanpur</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Lucknow">Lucknow</option>
+                <option value="Ludhiana">Ludhiana</option>
+                <option value="Madurai">Madurai</option>
+                <option value="Mangaluru">Mangaluru</option>
+                <option value="Meerut">Meerut</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Mysuru">Mysuru</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Nashik">Nashik</option>
+                <option value="New Delhi">New Delhi</option>
+                <option value="Navi Mumbai">Navi Mumbai</option>
+                <option value="Patna">Patna</option>
+                <option value="Prayagraj">Prayagraj</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Pune">Pune</option>
+                <option value="Raipur">Raipur</option>
+                <option value="Rajkot">Rajkot</option>
+                <option value="Ranchi">Ranchi</option>
+                <option value="Siliguri">Siliguri</option>
+                <option value="Surat">Surat</option>
+                <option value="Thane">Thane</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Udaipur">Udaipur</option>
+                <option value="Vadodara">Vadodara</option>
+                <option value="Varanasi">Varanasi</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Visakhapatnam">Visakhapatnam</option>
+                <option value="Warangal">Warangal</option>
+              </select>
+            </div>
+            <div className="flex items-start flex-col">
+              <label htmlFor="profession" className="lg:text-xl capitalize">
+                profession
+              </label>
+              <select
+                id="profession"
+                className="capitalize"
+                value={profession}
+                onChange={(e) => setProfession(e.target.value)}
+              >
+                <option disabled value="profession" className="capitalize">
+                  photography
+                </option>
+                <option value="album_designer" className="capitalize">
+                  album designer
+                </option>
+                <option value="anchor" className="capitalize">
+                  anchor
+                </option>
+                <option value="cinematographer" className="capitalize">
+                  cinematographer
+                </option>
+                <option value="dancer" className="capitalize">
+                  dancer
+                </option>
+                <option value="dj" className="capitalize">
+                  dj
+                </option>
+                <option value="drone_operater" className="capitalize">
+                  drone operater
+                </option>
+                <option value="graphics_designer">graphics designer</option>
+                <option value="influencer" className="capitalize">
+                  influencer
+                </option>
+                <option value="makeup_artist" className="capitalize">
+                  makeup artist
+                </option>
+                <option value="mehendi_artist" className="capitalize">
+                  mehendi artist
+                </option>
+                <option value="model" className="capitalize">
+                  model
+                </option>
+                <option value="photographer" className="capitalize">
+                  photographer
+                </option>
+                <option value="photo_editor" className="capitalize">
+                  photo editor
+                </option>
+                <option value="video_editor" className="capitalize">
+                  video editor
+                </option>
+                <option value="web_developer" className="capitalize">
+                  web developer
+                </option>
+              </select>
+            </div>
+          </div>
+          <div className="flex items-start flex-col">
+            <label htmlFor="requiredDate" className="lg:text-xl capitalize">
+              requirement date
+            </label>
+            <div className="flex items-center flex-wrap" ref={dateInputRef}>
+              <input
+                type="date"
+                id="requiredDate"
+                onChange={(e) =>
+                  setRequiredDate((prev) => [...prev, e.target.value])
+                }
+                className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+              />
+              <button
+                className="text-xl"
+                type="button"
+                onClick={(e) => {
+                  let input = document.createElement("input");
+                  input.setAttribute("type", "date");
+                  input.setAttribute(
+                    "className",
+                    "bg-transparent outline-none px-2 py-1 focus:border-b"
+                  );
+                  input.addEventListener("change", (e) => {
+                    setRequiredDate((prev) => [...prev, e.target.value]);
+                  });
+                  dateInputRef.current.insertBefore(
+                    input,
+                    dateInputRef.current.children[
+                      dateInputRef.current.children.length - 1
+                    ]
+                  );
+                }}
+              >
+                <AiOutlinePlus />
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center w-full justify-center">
+            <button
+              type="submit"
+              className="px-2 py-1 capitalize font-bold lg:text-xl bg-[#338ef4] text-white rounded-lg"
+            >
+              submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
