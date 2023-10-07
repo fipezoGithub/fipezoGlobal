@@ -28,7 +28,7 @@ export default function Jobs(props) {
           </p>
         </div>
         <div className="flex items-start justify-center w-full mt-4 relative">
-          <Jobfilter />
+          {/* <Jobfilter /> */}
           <div className="flex flex-col items-center w-auto lg:w-1/2">
             <h1 className="text-center font-bold text-lg lg:text-2xl mb-4 flex flex-col items-center">
               {props.data.length} Jobs
