@@ -26,6 +26,14 @@ const jobsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    venue: {
+      type: String,
+      required: true,
+    },
+    dueDate: {
+      type: String,
+      required: true,
+    },
     budget: {
       type: Number,
       required: true,

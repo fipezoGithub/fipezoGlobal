@@ -8,12 +8,25 @@ const Createjob = (props) => {
   const [budget, setBudget] = useState(500);
   const [vacancy, setVacancy] = useState(1);
   const [location, setLocation] = useState("Kolkata");
+  const [venue, setVenue] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [profession, setProfession] = useState("album_designer");
   const [requiredDate, setRequiredDate] = useState([]);
+  const [warn, setWarn] = useState(false);
   const dateInputRef = useRef();
 
   const handelPostJob = async (e) => {
     e.preventDefault();
+    if (
+      title === "" ||
+      description === "" ||
+      venue == "" ||
+      dueDate == "" ||
+      requiredDate.length === 0
+    ) {
+      setWarn(true);
+      return;
+    }
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -28,10 +41,11 @@ const Createjob = (props) => {
           title,
           description,
           location,
+          venue,
           profession,
           budget,
-          daysAvailableForHire: 2,
           vacancy,
+          dueDate,
           date: requiredDate,
         }),
       });
@@ -43,8 +57,8 @@ const Createjob = (props) => {
     }
   };
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-full h-full bg-[#00000042] z-[1100]">
-      <div className="relative flex flex-col items-center gap-4 backdrop-blur px-4 py-2 bg-white rounded-lg">
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex lg:justify-center lg:items-center w-full h-full bg-[#00000042] z-[1100]">
+      <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1">
         <div className="absolute top-1 right-1">
           <button
             type="button"
@@ -60,7 +74,12 @@ const Createjob = (props) => {
           className="flex flex-col items-start gap-6"
           onSubmit={handelPostJob}
         >
-          <div className="flex items-start flex-col">
+          {warn && (
+            <p className="text-red-500 text-center w-full lg:text-lg">
+              Please fill up all fields
+            </p>
+          )}
+          <div className="flex items-start flex-col w-full">
             <label htmlFor="title" className="lg:text-xl capitalize">
               title
             </label>
@@ -69,11 +88,14 @@ const Createjob = (props) => {
               placeholder="enter job title"
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+              onChange={(e) => {
+                setWarn(false);
+                setTitle(e.target.value);
+              }}
+              className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
             />
           </div>
-          <div className="flex items-start flex-col">
+          <div className="flex items-start flex-col w-full">
             <label htmlFor="description" className="lg:text-xl capitalize">
               description
             </label>
@@ -82,39 +104,57 @@ const Createjob = (props) => {
               id="description"
               cols="30"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setWarn(false);
+                setDescription(e.target.value);
+              }}
               placeholder="add description about your requirement"
               rows="5"
-              className="w-full placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+              className="w-full placeholder:capitalize bg-transparent outline-none py-1 focus:border-b h-20 lg:h-auto"
             ></textarea>
           </div>
-          <div className="flex items-start flex-col">
-            <label htmlFor="budget" className="lg:text-xl capitalize">
-              Budget
-            </label>
-            <input
-              type="number"
-              placeholder="enter the amount you offer"
-              id="budget"
-              value={budget}
-              onChange={(e) => setBudget(e.target.value)}
-              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
-            />
+          <div className="flex items-center justify-between gap-4 flex-wrap lg:flex-nowrap">
+            <div className="flex items-start flex-col">
+              <label htmlFor="budget" className="lg:text-xl capitalize">
+                Budget
+              </label>
+              <input
+                type="number"
+                placeholder="enter the amount you offer"
+                id="budget"
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+                className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+              />
+            </div>
+            <div className="flex items-start flex-col">
+              <label htmlFor="vacancy" className="lg:text-xl capitalize">
+                Vacancy For
+              </label>
+              <input
+                type="number"
+                placeholder="enter the vacancy number"
+                id="vacancy"
+                value={vacancy}
+                onChange={(e) => setVacancy(e.target.value)}
+                className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+              />
+            </div>
+            <div className="flex items-start flex-col">
+              <label htmlFor="vacancy" className="lg:text-xl capitalize">
+                Venue {`(location)`}
+              </label>
+              <input
+                type="text"
+                placeholder="enter the venue location of event"
+                id="vacancy"
+                value={venue}
+                onChange={(e) => setVenue(e.target.value)}
+                className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+              />
+            </div>
           </div>
-          <div className="flex items-start flex-col">
-            <label htmlFor="vacancy" className="lg:text-xl capitalize">
-              Vacancy For
-            </label>
-            <input
-              type="number"
-              placeholder="enter the vacancy number"
-              id="vacancy"
-              value={vacancy}
-              onChange={(e) => setVacancy(e.target.value)}
-              className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
-            />
-          </div>
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-4 w-full flex-wrap lg:flex-nowrap">
             <div className="flex items-start flex-col">
               <label htmlFor="location" className="lg:text-xl capitalize">
                 location
@@ -242,19 +282,33 @@ const Createjob = (props) => {
                 </option>
               </select>
             </div>
+            <div className="flex items-start flex-col">
+              <label htmlFor="dueDate" className="lg:text-xl capitalize">
+                last date for apply
+              </label>
+              <input
+                type="date"
+                placeholder="enter the amount you offer"
+                id="dueDate"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+              />
+            </div>
           </div>
           <div className="flex items-start flex-col">
             <label htmlFor="requiredDate" className="lg:text-xl capitalize">
-              requirement date
+              requirement dates
             </label>
             <div className="flex items-center flex-wrap" ref={dateInputRef}>
               <input
                 type="date"
                 id="requiredDate"
-                onChange={(e) =>
-                  setRequiredDate((prev) => [...prev, e.target.value])
-                }
-                className="placeholder:capitalize bg-transparent outline-none px-2 py-1 focus:border-b"
+                onChange={(e) => {
+                  setWarn(false);
+                  setRequiredDate((prev) => [...prev, e.target.value]);
+                }}
+                className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
               />
               <button
                 className="text-xl"
@@ -267,6 +321,7 @@ const Createjob = (props) => {
                     "bg-transparent outline-none px-2 py-1 focus:border-b"
                   );
                   input.addEventListener("change", (e) => {
+                    setWarn(false);
                     setRequiredDate((prev) => [...prev, e.target.value]);
                   });
                   dateInputRef.current.insertBefore(

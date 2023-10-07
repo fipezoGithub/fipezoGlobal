@@ -382,7 +382,7 @@ export default function Navbar(props) {
                   My Profile
                 </Link>
                 <Link className={styles.btn} href="/posted-jobs">
-                  My Jobs
+                  My Job Posts
                 </Link>
                 <button
                   className={styles.btn}
@@ -680,7 +680,7 @@ export default function Navbar(props) {
                   My Profile
                 </Link>
                 <Link className={styles.btn} href="/posted-jobs">
-                  My Jobs
+                  My Job Posts
                 </Link>
                 <button
                   className={styles.btn}

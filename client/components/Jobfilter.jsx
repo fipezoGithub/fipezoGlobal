@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "../styles/Jobfilter.module.css";
+import { BiFilter } from "react-icons/bi";
 const Jobfilter = () => {
   return (
-    <div className="flex flex-col items-start gap-4 px-4">
-      <h3 className="capitalize font-bold text-lg lg:text-2xl">filter</h3>
-      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg">
+    <div className="absolute lg:static flex flex-col items-start gap-4 px-4">
+      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg mt-16 shadow-xl">
+        <h3 className="capitalize font-bold text-lg lg:text-2xl w-full flex items-center justify-center">
+          <BiFilter /> filter
+        </h3>
         <div>
           <div className="flex items-center gap-1">
             <input type="checkbox" name="" id="open" className="w-4 h-4" />

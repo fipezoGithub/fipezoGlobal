@@ -12,11 +12,13 @@ async function createJob(req, res) {
     } else {
       const newJob = new jobsCollection({
         date: req.body.date,
+        dueDate: req.body.dueDate,
         title: req.body.title,
         profession: req.body.profession,
         description: req.body.description,
         vacancy: req.body.vacancy,
         location: req.body.location,
+        venue: req.body.venue,
         budget: req.body.budget,
         createdCompany: company._id,
       });
@@ -77,8 +79,8 @@ async function editJobDetails(req, res) {
             vacancy: req.body.vacancy || job.vacancy,
             location: req.body.location || job.location,
             budget: req.body.budget || job.budget,
-            daysAvailableForHire:
-              req.body.daysAvailableForHire || job.daysAvailableForHire,
+            dueDate: req.body.dueDate || job.dueDate,
+            venue: req.body.venue || job.venue,
           }
         );
         res.status(200).json(modifiedJob);
@@ -96,6 +98,7 @@ async function getPostedJobsOfUser(req, res) {
       const jobs = await jobsCollection
         .find({ createdCompany: user._id })
         .populate("createdCompany")
+        .populate("appliedFreelancers")
         .exec();
       res.status(200).json(jobs);
     }
@@ -138,6 +141,7 @@ async function getAllJob(req, res) {
     const jobs = await jobsCollection
       .find({})
       .populate("createdCompany")
+      .populate("appliedFreelancers")
       .exec();
     res.status(200).json(jobs);
   } catch (error) {

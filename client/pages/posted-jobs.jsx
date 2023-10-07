@@ -20,7 +20,6 @@ const PostedJobs = (props) => {
           },
         });
         const job = await res.json();
-        console.log(job);
         setJobs(job);
       } catch (error) {
         console.log(error);
@@ -40,13 +39,21 @@ const PostedJobs = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16 relative">
+      <div className="mt-16 relative flex flex-col items-center justify-center">
         <h1 className="text-center font-bold text-lg lg:text-2xl mb-4">
           My Jobs
         </h1>
-        <div className="flex flex-col items-center gap-8 w-full">
+        <div className="flex flex-col items-center gap-8 lg:w-2/3">
           {jobs.length > 0 ? (
-            jobs.map((it, index) => <Jobcard job={it} key={index} />)
+            jobs.map((it, index) => (
+              <Jobcard
+                job={it}
+                key={index}
+                setJobs={setJobs}
+                company={props.company}
+                user={props.user}
+              />
+            ))
           ) : (
             <p>none found</p>
           )}
@@ -54,11 +61,11 @@ const PostedJobs = (props) => {
 
         <button
           type="button"
-          className="fixed top-28 right-9 flex items-center bg-[#338ef4] capitalize px-4 py-2 text-white font-semibold lg:text-lg rounded-md"
+          className="fixed top-28 right-1 lg:right-9 flex items-center bg-[#338ef4] capitalize px-2 lg:px-4 py-1 lg:py-2 text-white font-semibold lg:text-lg rounded-md"
           onClick={() => setShowCreateBox(true)}
         >
           create job
-          <BiBookAdd size={"3em"} color="white" />
+          <BiBookAdd color="white" className="w-6 lg:w-12 h-6 lg:h-12" />
         </button>
       </div>
       {showCreateBox && (
