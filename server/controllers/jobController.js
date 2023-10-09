@@ -99,6 +99,7 @@ async function getPostedJobsOfUser(req, res) {
         .find({ createdCompany: user._id })
         .populate("createdCompany")
         .populate("appliedFreelancers")
+        .populate("hiredFreelancers")
         .exec();
       res.status(200).json(jobs);
     }
@@ -162,14 +163,66 @@ async function getJobById(req, res) {
 
 async function getJobByProfession(req, res) {
   try {
-    const jobs = await jobsCollection.find({
-      profession: req.params.profession,
-    });
+    const jobs = await jobsCollection
+      .find({
+        profession: req.params.profession,
+      })
+      .populate("createdCompany")
+      .populate("appliedFreelancers")
+      .populate("hiredFreelancers")
+      .exec();
     res.status(200).json(jobs);
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: "Job not found" });
   }
+}
+
+async function hiredFreelancers(req, res) {
+  jwt.verify(req.token, secret, async (err, authData) => {
+    const company = await companyCollection.findById(authData.user._id);
+    if (err || !company) {
+      res.status(404).json({ message: "Not logged in" });
+    } else {
+      const job = await jobsCollection.findById(req.body.jobId);
+      if (!job) {
+        res.status(404).json({ message: "No job found" });
+      } else {
+        const updatedJob = await jobsCollection.findByIdAndUpdate(
+          req.body.jobId,
+          {
+            $push: { hiredFreelancers: req.body.userId },
+          }
+        );
+        await freelancerCollection.findByIdAndUpdate(req.body.userId, {
+          $push: { hiredJob: updatedJob._id },
+        });
+        res.status(200).json(updatedJob);
+      }
+    }
+  });
+}
+
+async function rejectFreelancers(req, res) {
+  jwt.verify(req.token, secret, async (err, authData) => {
+    const company = await companyCollection.findById(authData.user._id);
+    if (err || !company) {
+      res.status(404).json({ message: "Not logged in" });
+    } else {
+      const job = await jobsCollection.findById(req.body.jobId);
+      if (!job) {
+        res.status(404).json({ message: "No job found" });
+      } else {
+        const updatedJob = await jobsCollection.findByIdAndUpdate(
+          req.body.jobId,
+          {
+            $push: { rejectedFreelancers: req.body.userId },
+          }
+        );
+        res.status(200).json(updatedJob);
+      }
+    }
+  });
 }
 
 module.exports = {
@@ -181,4 +234,6 @@ module.exports = {
   getJobByProfession,
   getAllJob,
   getPostedJobsOfUser,
+  hiredFreelancers,
+  rejectFreelancers,
 };

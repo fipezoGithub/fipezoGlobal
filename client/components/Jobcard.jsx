@@ -8,6 +8,7 @@ import Link from "next/link";
 import { AiFillProfile } from "react-icons/ai";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaPlaceOfWorship } from "react-icons/fa";
+import { useRouter } from "next/router";
 const Jobcard = ({ job, setJobs, company, user }) => {
   const [loginType, setLoginType] = useState("");
   const [title, setTitle] = useState("");
@@ -19,9 +20,12 @@ const Jobcard = ({ job, setJobs, company, user }) => {
   const [dueDate, setDueDate] = useState("");
   const [showModifyBox, setShowModifyBox] = useState(false);
   const [jobProfession, setJobProfession] = useState("album_designer");
-  const [requiredDate, setRequiredDate] = useState([]);
+  const [requiredDate, setRequiredDate] = useState("");
+  const [hiredFreelancers, setHiredFreelancers] = useState([]);
+  const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
   const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     setTitle(job.title);
     setDescription(job.description);
@@ -38,6 +42,8 @@ const Jobcard = ({ job, setJobs, company, user }) => {
         setIsApplied(true);
       }
     });
+    setHiredFreelancers(job.hiredFreelancers);
+    setRejectedFreelancers(job.rejectedFreelancers);
   }, []);
 
   const deleteJob = async () => {
@@ -124,6 +130,51 @@ const Jobcard = ({ job, setJobs, company, user }) => {
       console.log(error);
     }
   };
+
+  const hireFreelancer = async (userid) => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/job/hire`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ jobId: job._id, userId: userid }),
+      });
+      const data = await res.json();
+      if (data) {
+        setJobs([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const rejectFreelancer = async (userid) => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/job/hire`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ jobId: job._id, userId: userid }),
+      });
+      const data = await res.json();
+      if (data) {
+        setJobs([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const profession = job.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -173,9 +224,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
             date
           </div>
           <div className="flex items-center flex-col gap-2">
-            {job.date.map((d, i) => (
-              <p key={i}>{d.split("-").reverse().join("-")}</p>
-            ))}
+            <p>{requiredDate?.split("-").reverse().join("-")}</p>
           </div>
         </div>
         <div className="flex flex-col items-start lg:text-lg">
@@ -237,85 +286,114 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           </div>
         </>
       )}
-      {company?._id === job.createdCompany._id && (
-        <>
-          <hr className="h-[1px] w-full bg-neutral-400" />
-          <div className="flex flex-col items-start gap-4">
-            <h4 className="capitalize font-bold lg:text-xl">
-              applicant freelancers
-            </h4>
-            <ol className="flex flex-col items-start w-full">
-              {job.appliedFreelancers.length > 0 &&
-                job.appliedFreelancers.map((freelancer, index) => (
-                  <li
-                    key={index}
-                    className="list-decimal flex items-center gap-4 justify-between w-full"
-                  >
-                    <p className="font-bold text-sm lg:text-lg">{index + 1}.</p>
-                    <Image
-                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${freelancer.profilePicture}`}
-                      width={40}
-                      height={40}
-                      alt="pro-pic"
-                      className="rounded-full w-8 lg:w-10 h-8 lg:h-10"
-                    />
-                    <Link
-                      className="capitalize hover:font-bold text-xs lg:text-base"
-                      href={`/profile/${freelancer.uid}`}
-                    >
-                      {freelancer.firstname.toLowerCase() +
-                        " " +
-                        freelancer.lastname.toLowerCase()}
-                    </Link>
-                    <a
-                      href={`tel:${freelancer.phone}`}
-                      className="hover:text-cyan-500 text-xs lg:text-base"
-                    >
-                      {freelancer.phone}
-                    </a>
-                    <div className="flex flex-col lg:flex-row items-center gap-4">
-                      <button
-                        className="capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base"
-                        type="button"
+      {router.asPath === "/posted-jobs" &&
+        company?._id === job.createdCompany._id && (
+          <>
+            <hr className="h-[1px] w-full bg-neutral-400" />
+            <div className="flex flex-col items-start gap-4">
+              <h4 className="capitalize font-bold lg:text-xl">
+                applicant freelancers
+              </h4>
+              <ol className="flex flex-col items-start w-full">
+                {job.appliedFreelancers.length > 0 &&
+                  job.appliedFreelancers.map((freelancer, index) => {
+                    const hired = hiredFreelancers?.some((hire) => {
+                      if (hire._id === freelancer._id) {
+                        return true;
+                      }
+                    });
+                    const rejected = rejectedFreelancers?.some((hire) => {
+                      if (hire._id === freelancer._id) {
+                        return true;
+                      }
+                    });
+                    return (
+                      <li
+                        key={index}
+                        className="w-full flex flex-col lg:flex-row items-start lg:items-center gap-4 justify-between"
                       >
-                        hired
-                      </button>
-                      <button
-                        className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
-                        type="button"
-                      >
-                        reject
-                      </button>
-                    </div>
-                    {/* <div className="flex items-center justify-between">
-                    </div> */}
-                  </li>
-                ))}
-            </ol>
-          </div>
-        </>
-      )}
-      {company?._id === job.createdCompany._id && (
-        <>
-          <hr className="h-[1px] w-full bg-neutral-400" />
-          <div className="self-end flex items-center gap-4">
-            <button
-              type="button"
-              className="bg-[#338ef4] capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
-              onClick={() => setShowModifyBox(true)}
-            >
-              modify
-            </button>
-            <button
-              type="button"
-              className="bg-[#df3c3c] capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
-              onClick={deleteJob}
-            >
-              delete
-            </button>
-          </div>
-        </>
-      )}
+                        <div className="flex items-center gap-4 justify-between">
+                          <p className="font-bold text-sm lg:text-lg">
+                            {index + 1}.
+                          </p>
+                          <Image
+                            src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${freelancer.profilePicture}`}
+                            width={40}
+                            height={40}
+                            alt="pro-pic"
+                            className="rounded-full w-8 lg:w-10 h-8 lg:h-10"
+                          />
+                          <Link
+                            className="capitalize hover:font-bold text-xs lg:text-base"
+                            href={`/profile/${freelancer.uid}`}
+                          >
+                            {freelancer.firstname.toLowerCase() +
+                              " " +
+                              freelancer.lastname.toLowerCase()}
+                          </Link>
+                          <a
+                            href={`tel:${freelancer.phone}`}
+                            className="hover:text-cyan-500 text-xs lg:text-base"
+                          >
+                            {freelancer.phone}
+                          </a>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          {rejected === false && (
+                            <button
+                              className="capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base"
+                              type="button"
+                              onClick={() => hireFreelancer(freelancer._id)}
+                              disabled={hired === true ? true : false}
+                            >
+                              {hired === true ? "hired" : "hire"}
+                            </button>
+                          )}
+                          {hired === false && (
+                            <button
+                              className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
+                              type="button"
+                              onClick={() => rejectFreelancer(freelancer._id)}
+                              disabled={rejected === true ? true : false}
+                            >
+                              reject
+                              {rejectedFreelancers.map((it) =>
+                                it._id === freelancer._id
+                                  ? "rejected"
+                                  : "reject"
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ol>
+            </div>
+          </>
+        )}
+      {router.asPath === "/posted-jobs" &&
+        company?._id === job.createdCompany._id && (
+          <>
+            <hr className="h-[1px] w-full bg-neutral-400" />
+            <div className="self-end flex items-center gap-4">
+              <button
+                type="button"
+                className="bg-[#338ef4] capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
+                onClick={() => setShowModifyBox(true)}
+              >
+                modify
+              </button>
+              <button
+                type="button"
+                className="bg-[#df3c3c] capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
+                onClick={deleteJob}
+              >
+                delete
+              </button>
+            </div>
+          </>
+        )}
       {showModifyBox === true && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex lg:justify-center lg:items-center w-full h-full bg-[#00000042] z-[1100]">
           <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1 overflow-y-visible">
@@ -565,19 +643,16 @@ const Jobcard = ({ job, setJobs, company, user }) => {
                   requirement dates
                 </label>
                 <div className="flex items-center flex-wrap">
-                  {job.date.map((date, ind) => (
-                    <input
-                      type="date"
-                      id="requiredDate"
-                      value={date}
-                      key={ind}
-                      onChange={(e) => {
-                        setWarn(false);
-                        setRequiredDate((prev) => (prev[ind] = e.target.value));
-                      }}
-                      className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
-                    />
-                  ))}
+                  <input
+                    type="date"
+                    id="requiredDate"
+                    value={requiredDate}
+                    onChange={(e) => {
+                      setWarn(false);
+                      setRequiredDate(e.target.value);
+                    }}
+                    className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+                  />
                 </div>
               </div>
               <div className="flex items-center w-full justify-center">

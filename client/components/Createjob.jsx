@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
+import React, { useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const Createjob = (props) => {
@@ -11,9 +10,8 @@ const Createjob = (props) => {
   const [venue, setVenue] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [profession, setProfession] = useState("album_designer");
-  const [requiredDate, setRequiredDate] = useState([]);
+  const [requiredDate, setRequiredDate] = useState("");
   const [warn, setWarn] = useState(false);
-  const dateInputRef = useRef();
 
   const handelPostJob = async (e) => {
     e.preventDefault();
@@ -288,11 +286,10 @@ const Createjob = (props) => {
               </label>
               <input
                 type="date"
-                placeholder="enter the amount you offer"
                 id="dueDate"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+                className="placeholder:capitalize outline-none py-1 focus:border-b"
               />
             </div>
           </div>
@@ -300,41 +297,15 @@ const Createjob = (props) => {
             <label htmlFor="requiredDate" className="lg:text-xl capitalize">
               requirement dates
             </label>
-            <div className="flex items-center flex-wrap" ref={dateInputRef}>
-              <input
-                type="date"
-                id="requiredDate"
-                onChange={(e) => {
-                  setWarn(false);
-                  setRequiredDate((prev) => [...prev, e.target.value]);
-                }}
-                className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
-              />
-              <button
-                className="text-xl"
-                type="button"
-                onClick={(e) => {
-                  let input = document.createElement("input");
-                  input.setAttribute("type", "date");
-                  input.setAttribute(
-                    "className",
-                    "bg-transparent outline-none px-2 py-1 focus:border-b"
-                  );
-                  input.addEventListener("change", (e) => {
-                    setWarn(false);
-                    setRequiredDate((prev) => [...prev, e.target.value]);
-                  });
-                  dateInputRef.current.insertBefore(
-                    input,
-                    dateInputRef.current.children[
-                      dateInputRef.current.children.length - 1
-                    ]
-                  );
-                }}
-              >
-                <AiOutlinePlus />
-              </button>
-            </div>
+            <input
+              type="date"
+              id="requiredDate"
+              onChange={(e) => {
+                setWarn(false);
+                setRequiredDate(e.target.value);
+              }}
+              className="placeholder:capitalize outline-none py-1 focus:border-b"
+            />
           </div>
           <div className="flex items-center w-full justify-center">
             <button

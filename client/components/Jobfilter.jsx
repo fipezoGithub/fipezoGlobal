@@ -3,8 +3,8 @@ import styles from "../styles/Jobfilter.module.css";
 import { BiFilter } from "react-icons/bi";
 const Jobfilter = () => {
   return (
-    <div className="absolute lg:static flex flex-col items-start gap-4 px-4">
-      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg mt-16 shadow-xl">
+    <div className="absolute right-1 lg:static flex flex-col items-start gap-4 lg:px-4 z-[1100] bg-white lg:bg-transparent">
+      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg lg:mt-16 shadow-xl">
         <h3 className="capitalize font-bold text-lg lg:text-2xl w-full flex items-center justify-center">
           <BiFilter /> filter
         </h3>

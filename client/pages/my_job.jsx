@@ -1,38 +1,28 @@
-import Createjob from "@/components/Createjob";
 import Footer from "@/components/Footer";
 import Jobcard from "@/components/Jobcard";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { BiBookAdd } from "react-icons/bi";
-const PostedJobs = (props) => {
-  const [showCreateBox, setShowCreateBox] = useState(false);
+
+const MyJob = (props) => {
+  const [user, setUser] = useState(props.user);
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
-    const token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-    async function fetchJob() {
-      try {
-        const res = await fetch(`${process.env.SERVER_URL}/job/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const job = await res.json();
-        setJobs(job);
-      } catch (error) {
-        console.log(error);
-      }
+    async function getJobs(profession) {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/job/profession/${profession}`
+      );
+      const jobs = await res.json();
+      setJobs(jobs);
     }
-    fetchJob();
-  }, [jobs.length <= 0]);
+    getJobs(user.profession);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Fipezo | Posted Job</title>
+        <title>Fipezo | My Jobs</title>
       </Head>
       <Navbar
         user={props.user}
@@ -66,22 +56,10 @@ const PostedJobs = (props) => {
             </div>
           )}
         </div>
-
-        <button
-          type="button"
-          className="fixed top-28 right-1 lg:right-9 flex items-center bg-[#338ef4] capitalize px-2 lg:px-4 py-1 lg:py-2 text-white font-semibold lg:text-lg rounded-md"
-          onClick={() => setShowCreateBox(true)}
-        >
-          create job
-          <BiBookAdd color="white" className="w-6 lg:w-12 h-6 lg:h-12" />
-        </button>
       </div>
-      {showCreateBox && (
-        <Createjob setShowCreateBox={setShowCreateBox} setJobs={setJobs} />
-      )}
       <Footer />
     </>
   );
 };
 
-export default PostedJobs;
+export default MyJob;

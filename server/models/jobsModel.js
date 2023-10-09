@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const jobsSchema = new mongoose.Schema(
   {
     date: {
-      type: [String],
+      type: String,
       required: true,
     },
     title: {
@@ -49,6 +49,11 @@ const jobsSchema = new mongoose.Schema(
       default: [],
     },
     hiredFreelancers: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+      default: [],
+    },
+    rejectedFreelancers: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "freelancercollection",
       default: [],
