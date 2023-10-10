@@ -21,7 +21,7 @@ const PostedJobs = (props) => {
           },
         });
         const job = await res.json();
-        setJobs(job);
+        setJobs(job.reverse());
       } catch (error) {
         console.log(error);
       }

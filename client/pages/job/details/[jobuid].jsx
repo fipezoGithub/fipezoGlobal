@@ -33,7 +33,8 @@ const Jobuid = (props) => {
       }
     });
   }, []);
-  const applyJob = async () => {
+  const applyJob = async (e) => {
+    e.target.disabled = true;
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;

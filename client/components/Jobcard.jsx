@@ -269,18 +269,20 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           })}
         </p>
       </div>
-      <>
-        <hr className="h-[1px] w-full bg-neutral-400" />
-        <div className="self-end">
-          <Link
-            href={`/job/details/${job.uid}`}
-            type="button"
-            className="border border-[#338ef4] text-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 font-semibold lg:text-xl rounded-md"
-          >
-            view details
-          </Link>
-        </div>
-      </>
+      {router.asPath !== "/posted-jobs" && (
+        <>
+          <hr className="h-[1px] w-full bg-neutral-400" />
+          <div className="self-end">
+            <Link
+              href={`/job/details/${job.uid}`}
+              type="button"
+              className="border border-[#338ef4] text-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 font-semibold lg:text-xl rounded-md"
+            >
+              view details
+            </Link>
+          </div>
+        </>
+      )}
       {router.asPath === "/posted-jobs" &&
         company?._id === job.createdCompany._id && (
           <>
