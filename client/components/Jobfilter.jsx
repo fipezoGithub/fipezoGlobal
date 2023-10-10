@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/Jobfilter.module.css";
 import { BiFilter } from "react-icons/bi";
-const Jobfilter = () => {
+const Jobfilter = (props) => {
   return (
     <div className="absolute right-1 lg:static flex flex-col items-start gap-4 lg:px-4 z-[1100] bg-white lg:bg-transparent">
       <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg lg:mt-16 shadow-xl">
@@ -10,7 +10,14 @@ const Jobfilter = () => {
         </h3>
         <div>
           <div className="flex items-center gap-1">
-            <input type="checkbox" name="" id="open" className="w-4 h-4" />
+            <input
+              type="checkbox"
+              name=""
+              id="open"
+              className="w-4 h-4"
+              onChange={(e) => props.setShowOpenJob(e.target.checked)}
+              value={props.showOpenJob}
+            />
             <label
               htmlFor="open"
               className="cursor-pointer lg:text-xl capitalize"
@@ -19,7 +26,14 @@ const Jobfilter = () => {
             </label>
           </div>
           <div className="flex items-center gap-1">
-            <input type="checkbox" name="" id="close" className="w-4 h-4" />
+            <input
+              type="checkbox"
+              name=""
+              id="close"
+              className="w-4 h-4"
+              onChange={(e) => props.setShowClosedJob(e.target.checked)}
+              value={props.showClosedJob}
+            />
             <label
               htmlFor="close"
               className="cursor-pointer lg:text-xl capitalize"
@@ -37,11 +51,15 @@ const Jobfilter = () => {
             Budget
           </label>
           <div className="w-full">
-            <p className="font-bold lg:text-lg capitalize">amount</p>
+            <p className="font-bold lg:text-lg capitalize">
+              ₹ {props.budgetSort}
+            </p>
             <input
               type="range"
               name=""
               id="budget"
+              value={props.budgetSort}
+              onChange={(e) => props.setBudgetSort(e.target.value)}
               min={1000}
               max={50000}
               step={500}
@@ -57,7 +75,11 @@ const Jobfilter = () => {
           >
             location
           </label>
-          <select id="location">
+          <select
+            id="location"
+            value={props.filterCity}
+            onChange={(e) => props.setFilterCity(e.target.value)}
+          >
             <option disabled value="city">
               kolkata
             </option>
@@ -128,7 +150,15 @@ const Jobfilter = () => {
           </label>
           <div className="h-48 overflow-hidden overflow-y-scroll snap-y">
             <div className={"snap-center flex items-center gap-1"}>
-              <input id="album_designer" type="checkbox" className="w-4 h-4" />
+              <input
+                id="album_designer"
+                type="checkbox"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowAlbumDesign(e.target.checked);
+                }}
+                checked={props.showAlbumDesign}
+              />
               <label
                 className={
                   "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
@@ -139,7 +169,15 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="anchor" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="anchor"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowAnchor(e.target.checked);
+                }}
+                checked={props.showAnchor}
+              />
               <label
                 className={
                   "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
@@ -150,10 +188,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="cinematographer" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="cinematographer"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowCinematographers(e.target.checked);
+                }}
+                checked={props.showCinematographers}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="cinematographer"
               >
@@ -161,10 +207,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="dancer" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="dancer"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowDancer(e.target.checked);
+                }}
+                checked={props.showDancer}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="dancer"
               >
@@ -172,7 +226,15 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="dj" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="dj"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowDj(e.target.checked);
+                }}
+                checked={props.showDj}
+              />
               <label
                 className={
                   " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
@@ -183,10 +245,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="drone_operator" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="drone_operator"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowDroneOperators(e.target.checked);
+                }}
+                checked={props.showDroneOperators}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="drone_operator"
               >
@@ -198,10 +268,14 @@ const Jobfilter = () => {
                 type="checkbox"
                 id="graphics_designer"
                 className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowGraphicsDesigner(e.target.checked);
+                }}
+                checked={props.showGraphicsDesigner}
               />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="graphics_designer"
               >
@@ -209,10 +283,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="influencer" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="influencer"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowInfluencer(e.target.checked);
+                }}
+                checked={props.showInfluencer}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="influencer"
               >
@@ -220,10 +302,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="makeup_artist" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="makeup_artist"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowMakeupArtist(e.target.checked);
+                }}
+                checked={props.showMakeupArtist}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="makeup_artist"
               >
@@ -231,10 +321,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="mehendi_artist" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="mehendi_artist"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowMehendiArtist(e.target.checked);
+                }}
+                checked={props.showMehendiArtist}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="mehendi_artist"
               >
@@ -242,10 +340,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="model" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="model"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowModel(e.target.checked);
+                }}
+                checked={props.showModel}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="model"
               >
@@ -253,10 +359,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="photographer" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="photographer"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowPhotographers(e.target.checked);
+                }}
+                checked={props.showPhotographers}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="photographer"
               >
@@ -264,10 +378,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="photo_editor" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="photo_editor"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowPhotoEditor(e.target.checked);
+                }}
+                checked={props.showPhotoEditor}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="photo_editor"
               >
@@ -275,10 +397,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="video_editor" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="video_editor"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowVideoEditor(e.target.checked);
+                }}
+                checked={props.showVideoEditor}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="video_editor"
               >
@@ -286,10 +416,18 @@ const Jobfilter = () => {
               </label>
             </div>
             <div className={"snap-center flex items-center gap-1"}>
-              <input type="checkbox" id="web_developer" className="w-4 h-4" />
+              <input
+                type="checkbox"
+                id="web_developer"
+                className="w-4 h-4"
+                onChange={(e) => {
+                  props.setShowWebDeveloper(e.target.checked);
+                }}
+                checked={props.showWebDeveloper}
+              />
               <label
                 className={
-                  " cursor-pointer lg:text-xl capitalize whitespace-nowrap"
+                  "cursor-pointer lg:text-xl capitalize whitespace-nowrap"
                 }
                 htmlFor="web_developer"
               >

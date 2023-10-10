@@ -120,7 +120,7 @@ export default function Navbar(props) {
           </li>
 
           <li className={styles.navElement}>
-            <Link href="/jobs">
+            <Link href="/job">
               <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
@@ -422,7 +422,7 @@ export default function Navbar(props) {
             </Link>
           </li>
           <li className={styles.navElement}>
-            <Link href="/jobs">
+            <Link href="/job">
               <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>

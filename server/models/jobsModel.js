@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const jobsSchema = new mongoose.Schema(
   {
+    uid: {
+      type: String,
+      required: true,
+    },
     date: {
       type: String,
       required: true,
@@ -37,6 +41,16 @@ const jobsSchema = new mongoose.Schema(
     budget: {
       type: Number,
       required: true,
+    },
+    eventTime: {
+      type: Object,
+    },
+    eventType: {
+      type: String,
+    },
+    viewCount: {
+      type: Number,
+      default: 0,
     },
     createdCompany: {
       type: mongoose.Schema.Types.ObjectId,

@@ -49,9 +49,11 @@ function Explore(props) {
     window.innerWidth > 640 && setShowSideBar(true);
     setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
+  
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const decrePage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
@@ -373,6 +375,7 @@ function Explore(props) {
     }
     return false;
   });
+
   const locationFilter = filtered.filter((freelancer) => {
     if (
       filterCity === "none" &&
@@ -383,6 +386,7 @@ function Explore(props) {
       return true;
     return false;
   });
+
   const finalFiltered = locationFilter.filter((freelancer) => {
     if (!fourStars && !threeStars) {
       return true;
@@ -398,6 +402,7 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+
   useEffect(() => {
     if (window.innerWidth <= 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -405,6 +410,7 @@ function Explore(props) {
       setNoOfPages(Math.ceil(finalFiltered.length / 12));
     }
   }, [finalFiltered]);
+
   const pages = noOfPages;
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;

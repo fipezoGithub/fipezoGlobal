@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 const MyJob = (props) => {
   const [user, setUser] = useState(props.user);
   const [jobs, setJobs] = useState([]);
+  
   useEffect(() => {
     async function getJobs(profession) {
       const res = await fetch(

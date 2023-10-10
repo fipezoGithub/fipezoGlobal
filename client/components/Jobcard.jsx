@@ -158,7 +158,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     try {
-      const res = await fetch(`${process.env.SERVER_URL}/job/hire`, {
+      const res = await fetch(`${process.env.SERVER_URL}/job/reject`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -269,23 +269,18 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           })}
         </p>
       </div>
-      {loginType !== "company" && (
-        <>
-          <hr className="h-[1px] w-full bg-neutral-400" />
-          <div className="self-end">
-            <button
-              type="button"
-              className="bg-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
-              disabled={
-                loginType !== "freelancer" && isApplied === false ? true : false
-              }
-              onClick={applyJob}
-            >
-              {isApplied === false ? "apply" : "applied"}
-            </button>
-          </div>
-        </>
-      )}
+      <>
+        <hr className="h-[1px] w-full bg-neutral-400" />
+        <div className="self-end">
+          <Link
+            href={`/job/details/${job.uid}`}
+            type="button"
+            className="border border-[#338ef4] text-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 font-semibold lg:text-xl rounded-md"
+          >
+            view details
+          </Link>
+        </div>
+      </>
       {router.asPath === "/posted-jobs" &&
         company?._id === job.createdCompany._id && (
           <>
@@ -294,7 +289,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
               <h4 className="capitalize font-bold lg:text-xl">
                 applicant freelancers
               </h4>
-              <ol className="flex flex-col items-start w-full">
+              <ol className="flex flex-col items-start w-full gap-4">
                 {job.appliedFreelancers.length > 0 &&
                   job.appliedFreelancers.map((freelancer, index) => {
                     const hired = hiredFreelancers?.some((hire) => {
@@ -302,8 +297,8 @@ const Jobcard = ({ job, setJobs, company, user }) => {
                         return true;
                       }
                     });
-                    const rejected = rejectedFreelancers?.some((hire) => {
-                      if (hire._id === freelancer._id) {
+                    const rejected = rejectedFreelancers?.some((reject) => {
+                      if (reject === freelancer._id) {
                         return true;
                       }
                     });
@@ -356,12 +351,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
                               onClick={() => rejectFreelancer(freelancer._id)}
                               disabled={rejected === true ? true : false}
                             >
-                              reject
-                              {rejectedFreelancers.map((it) =>
-                                it._id === freelancer._id
-                                  ? "rejected"
-                                  : "reject"
-                              )}
+                              {rejected === true ? "rejected" : "reject"}
                             </button>
                           )}
                         </div>

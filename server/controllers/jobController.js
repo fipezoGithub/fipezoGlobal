@@ -11,6 +11,9 @@ async function createJob(req, res) {
       res.status(404).json({ message: "Not logged in" });
     } else {
       const newJob = new jobsCollection({
+        uid: `${req.body.title.split(" ").join("-")}-job-at-${
+          company.companyname
+        }-${company._id}`,
         date: req.body.date,
         dueDate: req.body.dueDate,
         title: req.body.title,
@@ -20,6 +23,8 @@ async function createJob(req, res) {
         location: req.body.location,
         venue: req.body.venue,
         budget: req.body.budget,
+        eventTime: req.body.eventTime,
+        eventType: req.body.eventType,
         createdCompany: company._id,
       });
       await newJob.save();
@@ -153,7 +158,11 @@ async function getAllJob(req, res) {
 
 async function getJobById(req, res) {
   try {
-    const job = await jobsCollection.findById(req.params.jobId);
+    const job = await jobsCollection
+      .findOne({ uid: req.params.uid })
+      .populate("createdCompany")
+      .populate("appliedFreelancers")
+      .exec();
     res.status(200).json(job);
   } catch (error) {
     console.log(error);

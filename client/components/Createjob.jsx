@@ -11,6 +11,8 @@ const Createjob = (props) => {
   const [dueDate, setDueDate] = useState("");
   const [profession, setProfession] = useState("album_designer");
   const [requiredDate, setRequiredDate] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [eventTime, setEventTime] = useState({ startTime: "", endTime: "" });
   const [warn, setWarn] = useState(false);
 
   const handelPostJob = async (e) => {
@@ -18,8 +20,8 @@ const Createjob = (props) => {
     if (
       title === "" ||
       description === "" ||
-      venue == "" ||
-      dueDate == "" ||
+      venue === "" ||
+      dueDate === "" ||
       requiredDate.length === 0
     ) {
       setWarn(true);
@@ -45,6 +47,11 @@ const Createjob = (props) => {
           vacancy,
           dueDate,
           date: requiredDate,
+          eventType,
+          eventTime: JSON.stringify({
+            startTime: eventTime.startTime,
+            endTime: eventTime.endTime,
+          }),
         }),
       });
       const newJob = await res.json();
@@ -293,19 +300,59 @@ const Createjob = (props) => {
               />
             </div>
           </div>
-          <div className="flex items-start flex-col">
-            <label htmlFor="requiredDate" className="lg:text-xl capitalize">
-              requirement dates
-            </label>
-            <input
-              type="date"
-              id="requiredDate"
-              onChange={(e) => {
-                setWarn(false);
-                setRequiredDate(e.target.value);
-              }}
-              className="placeholder:capitalize outline-none py-1 focus:border-b"
-            />
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-start flex-col">
+              <label htmlFor="requiredDate" className="lg:text-xl capitalize">
+                requirement dates
+              </label>
+              <input
+                type="date"
+                id="requiredDate"
+                onChange={(e) => {
+                  setWarn(false);
+                  setRequiredDate(e.target.value);
+                }}
+                className="placeholder:capitalize outline-none py-1 focus:border-b"
+              />
+            </div>
+            <div className="flex items-start flex-col">
+              <label className="lg:text-xl capitalize">
+                event Date{" "}
+                <span className="text-neutral-500">{"(optional)"}</span>
+              </label>
+              <div className="flex items-center justify-between gap-4">
+                <input
+                  type="time"
+                  value={eventTime.startTime}
+                  onChange={(e) =>
+                    setEventTime({ ...eventTime, startTime: e.target.value })
+                  }
+                  className="placeholder:capitalize outline-none py-1 focus:border-b"
+                />
+                <input
+                  type="time"
+                  value={eventTime.endTime}
+                  onChange={(e) =>
+                    setEventTime({ ...eventTime, endTime: e.target.value })
+                  }
+                  className="placeholder:capitalize outline-none py-1 focus:border-b"
+                />
+              </div>
+            </div>
+            <div className="flex items-start flex-col">
+              <label htmlFor="eventType" className="lg:text-xl capitalize">
+                event type{" "}
+                <span className="text-neutral-500">{"(optional)"}</span>
+              </label>
+              <input
+                type="text"
+                id="eventType"
+                placeholder="enter event type"
+                className="placeholder:capitalize outline-none py-1 focus:border-b"
+                value={eventType}
+                onChange={(e) => setEventType(e.target.value)}
+              />
+            </div>
           </div>
           <div className="flex items-center w-full justify-center">
             <button

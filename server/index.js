@@ -283,7 +283,7 @@ app.put("/api/job/hire", verifyToken, hiredFreelancers);
 app.put("/api/job/reject", verifyToken, rejectFreelancers);
 app.delete("/api/job/delete/:jobId", verifyToken, deleteJob);
 app.get("/api/job/user", verifyToken, getPostedJobsOfUser);
-app.get("/api/job/get/:jobId", getJobById);
+app.get("/api/job/get/:uid", getJobById);
 app.get("/api/job/get/", getAllJob);
 app.get("/api/job/profession/:profession", getJobByProfession);
 
