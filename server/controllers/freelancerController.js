@@ -315,6 +315,7 @@ async function getUnFreelancerProfiles(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //edit profile
 async function editFreelancerProfile(req, res) {
   try {
@@ -372,6 +373,7 @@ async function editFreelancerProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //edit cover picture
 async function editFreelancerCoverPicture(req, res) {
   try {
@@ -813,6 +815,7 @@ async function getFeedOfFreelancer(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //Update freelancer password
 async function updateFreelancerPassword(req, res) {
   try {
@@ -838,6 +841,7 @@ async function updateFreelancerPassword(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //Get jobs of freelancer
 async function getJobsOfUser(req, res) {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
@@ -845,9 +849,12 @@ async function getJobsOfUser(req, res) {
     if (err || !freelancer) {
       res.status(404).send("Freelancer not found");
     } else {
-      const jobs = await jobsCollection.find({
-        appliedFreelancer: freelancer._id,
-      });
+      const jobs = await jobsCollection
+        .find({
+          appliedFreelancers: freelancer._id,
+        })
+        .populate("createdCompany")
+        .exec();
       if (!jobs) {
         res.status(404).send("Job not found");
       } else {
@@ -856,6 +863,7 @@ async function getJobsOfUser(req, res) {
     }
   });
 }
+
 module.exports = {
   registerFreelancer,
   getFreelancerProfile,

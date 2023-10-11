@@ -234,6 +234,23 @@ async function rejectFreelancers(req, res) {
   });
 }
 
+async function jobViewCount(req, res) {
+  try {
+    const job = await jobsCollection.findById(req.params.jobId);
+    if (!job) {
+      res.status(404).json({ message: "Job not found" });
+    } else {
+      await jobsCollection.findByIdAndUpdate(job._id, {
+        viewCount: job.viewCount + 1,
+      });
+      res.status(200).json(job);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Job not found" });
+  }
+}
+
 module.exports = {
   createJob,
   applyJob,
@@ -245,4 +262,5 @@ module.exports = {
   getPostedJobsOfUser,
   hiredFreelancers,
   rejectFreelancers,
+  jobViewCount,
 };

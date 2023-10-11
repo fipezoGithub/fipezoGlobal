@@ -32,7 +32,7 @@ export default function Jobs(props) {
   const [showOpenJob, setShowOpenJob] = useState(false);
   const [showClosedJob, setShowClosedJob] = useState(false);
   const [budgetSort, setBudgetSort] = useState("50000");
-  const [filterCity, setFilterCity] = useState("");
+  const [filterCity, setFilterCity] = useState("Kolkata");
 
   useEffect(() => {
     window.innerWidth > 640 && setShowSideBar(true);

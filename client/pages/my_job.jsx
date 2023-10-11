@@ -7,17 +7,33 @@ import React, { useEffect, useState } from "react";
 
 const MyJob = (props) => {
   const [user, setUser] = useState(props.user);
-  const [jobs, setJobs] = useState([]);
-  
+  const [recommendedJob, setRecommendedJob] = useState([]);
+  const [appliedJob, setAppliedJob] = useState([]);
+  const [showRecommendedJob, setShowRecommendedJob] = useState(true);
+  const [showAppliedJob, setShowAppliedJob] = useState(false);
+
   useEffect(() => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
     async function getJobs(profession) {
       const res = await fetch(
         `${process.env.SERVER_URL}/job/profession/${profession}`
       );
       const jobs = await res.json();
-      setJobs(jobs);
+      setRecommendedJob(jobs);
+    }
+    async function getApplied() {
+      const res = await fetch(`${process.env.SERVER_URL}/freelancer/jobs`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const jobs = await res.json();
+      setAppliedJob(jobs);
     }
     getJobs(user.profession);
+    getApplied();
   }, []);
 
   return (
@@ -35,28 +51,84 @@ const MyJob = (props) => {
         <h1 className="text-center font-bold text-lg lg:text-2xl mb-4">
           My Jobs
         </h1>
-        <div className="flex flex-col items-center gap-8 lg:w-2/3">
-          {jobs.length > 0 ? (
-            jobs.map((it, index) => (
-              <Jobcard
-                job={it}
-                key={index}
-                setJobs={setJobs}
-                company={props.company}
-                user={props.user}
-              />
-            ))
-          ) : (
-            <div>
-              <Image
-                src="/no-job-found.png"
-                width={400}
-                height={400}
-                alt="No job found"
-              />
-            </div>
-          )}
-        </div>
+        <nav className="my-8">
+          <ul className="flex items-center gap-4">
+            <li className="group flex flex-col items-center">
+              <button
+                type="button"
+                className="capitalize text-lg lg:text-2xl font-medium"
+                onClick={() => {
+                  setShowAppliedJob(false);
+                  setShowRecommendedJob(true);
+                }}
+              >
+                recommended jobs
+              </button>
+              <span className="bg-black transition-all w-0 group-hover:w-full h-px duration-500"></span>
+            </li>
+            <li className="group flex flex-col items-center">
+              <button
+                type="button"
+                className="capitalize text-lg lg:text-2xl font-medium"
+                onClick={() => {
+                  setShowRecommendedJob(false);
+                  setShowAppliedJob(true);
+                }}
+              >
+                applied jobs
+              </button>
+              <span className="bg-black transition-all w-0 group-hover:w-full h-px duration-500"></span>
+            </li>
+          </ul>
+        </nav>
+        {showRecommendedJob === true && (
+          <div className="flex flex-col items-center gap-8 lg:w-2/3">
+            {recommendedJob.length > 0 ? (
+              recommendedJob.map((it, index) => (
+                <Jobcard
+                  job={it}
+                  key={index}
+                  setJobs={setRecommendedJob}
+                  company={props.company}
+                  user={props.user}
+                />
+              ))
+            ) : (
+              <div>
+                <Image
+                  src="/no-job-found.png"
+                  width={400}
+                  height={400}
+                  alt="No job found"
+                />
+              </div>
+            )}
+          </div>
+        )}
+        {showAppliedJob === true && (
+          <div className="flex flex-col items-center gap-8 lg:w-2/3">
+            {appliedJob.length > 0 ? (
+              appliedJob.map((it, index) => (
+                <Jobcard
+                  job={it}
+                  key={index}
+                  setJobs={setAppliedJob}
+                  company={props.company}
+                  user={props.user}
+                />
+              ))
+            ) : (
+              <div>
+                <Image
+                  src="/no-job-found.png"
+                  width={400}
+                  height={400}
+                  alt="No job found"
+                />
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <Footer />
     </>

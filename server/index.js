@@ -143,6 +143,7 @@ const {
   getPostedJobsOfUser,
   hiredFreelancers,
   rejectFreelancers,
+  jobViewCount,
 } = require("./controllers/jobController");
 
 // Setting up the routes
@@ -279,6 +280,7 @@ app.get("/api/getrefer/freelancer", verifyToken, getReferCodeByFreelancer);
 app.post("/api/create-job/", verifyToken, createJob);
 app.post("/api/job/apply", verifyToken, applyJob);
 app.put("/api/job/edit/:jobId", verifyToken, editJobDetails);
+app.put("/api/job/view/:jobId", jobViewCount);
 app.put("/api/job/hire", verifyToken, hiredFreelancers);
 app.put("/api/job/reject", verifyToken, rejectFreelancers);
 app.delete("/api/job/delete/:jobId", verifyToken, deleteJob);

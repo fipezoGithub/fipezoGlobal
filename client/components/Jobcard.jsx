@@ -25,6 +25,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
   const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
   const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
+  console.log(job);
   const router = useRouter();
   useEffect(() => {
     setTitle(job.title);
@@ -174,6 +175,19 @@ const Jobcard = ({ job, setJobs, company, user }) => {
       console.log(error);
     }
   };
+  const viewCount = async (jobid) => {
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/job/view/${jobid}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const profession = job.profession
     .split("_")
@@ -269,13 +283,37 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           })}
         </p>
       </div>
+      {router.asPath === "/my_job" && (
+        <div className="flex flex-col items-start lg:text-lg gap-2">
+          <h2 className="capitalize font-bold lg:text-xl">
+            application status
+          </h2>
+          {job.hiredFreelancers.includes(user._id) && (
+            <p className="lg:text-xl capitalize px-2 py-1 bg-green-500 text-white rounded-md">
+              hired
+            </p>
+          )}
+          {job.rejectedFreelancers.includes(user._id) && (
+            <p className="lg:text-xl capitalize px-2 py-1 bg-red-500 text-white rounded-md">
+              rejected
+            </p>
+          )}
+          {!job.hiredFreelancers.includes(user._id) &&
+            !job.rejectedFreelancers.includes(user._id) && (
+              <p className="lg:text-xl capitalize px-2 py-1 bg-blue-600 text-white rounded-md">
+                pending
+              </p>
+            )}
+        </div>
+      )}
       {router.asPath !== "/posted-jobs" && (
         <>
           <hr className="h-[1px] w-full bg-neutral-400" />
-          <div className="self-end">
+          <div className="flex items-center justify-between w-full">
+            <p className="text-neutral-400">{job.viewCount} views</p>
             <Link
               href={`/job/details/${job.uid}`}
-              type="button"
+              onClick={() => viewCount(job._id)}
               className="border border-[#338ef4] text-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 font-semibold lg:text-xl rounded-md"
             >
               view details

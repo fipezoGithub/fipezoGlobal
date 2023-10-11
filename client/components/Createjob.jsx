@@ -63,7 +63,7 @@ const Createjob = (props) => {
   };
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex lg:justify-center lg:items-center w-full h-full bg-[#00000042] z-[1100]">
-      <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1">
+      <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1 overflow-y-scroll">
         <div className="absolute top-1 right-1">
           <button
             type="button"
@@ -300,7 +300,7 @@ const Createjob = (props) => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-between w-full flex-wrap lg:flex-nowrap">
             <div className="flex items-start flex-col">
               <label htmlFor="requiredDate" className="lg:text-xl capitalize">
                 requirement dates

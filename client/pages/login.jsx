@@ -16,7 +16,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
-  const [type, setType] = useState("user");
+  const [type, setType] = useState("");
   const [otpForm, setOtpForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -258,26 +258,56 @@ export default function Login(props) {
             )}
             <label htmlFor="accType" className={styles.accLabel}>
               <p className={styles.label}>Log in As</p>
-              <select
-                className={styles.accType}
-                id="accType"
-                name="type"
-                onChange={(e) => {
-                  setType(e.target.value);
-                  setLoginFailed(false);
-                  setOtpFailed(false);
-                }}
-              >
-                <option value="user" className={styles.opts}>
-                  User
-                </option>
-                <option value="freelancer" className={styles.opts}>
-                  Freelancer
-                </option>
-                <option value="company" className={styles.opts}>
-                  Company
-                </option>
-              </select>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    id="user"
+                    name="logintype"
+                    value="user"
+                    onChange={(e) => {
+                      setType(e.target.value);
+                      setLoginFailed(false);
+                      setOtpFailed(false);
+                    }}
+                  />
+                  <label htmlFor="user" className="lg:text-lg capitalize">
+                    user
+                  </label>
+                </div>
+                <div className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    id="freelancer"
+                    name="logintype"
+                    value="freelancer"
+                    onChange={(e) => {
+                      setType(e.target.value);
+                      setLoginFailed(false);
+                      setOtpFailed(false);
+                    }}
+                  />
+                  <label htmlFor="freelancer" className="lg:text-lg capitalize">
+                    freelancer
+                  </label>
+                </div>
+                <div className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    id="company"
+                    name="logintype"
+                    value="company"
+                    onChange={(e) => {
+                      setType(e.target.value);
+                      setLoginFailed(false);
+                      setOtpFailed(false);
+                    }}
+                  />
+                  <label htmlFor="company" className="lg:text-lg capitalize">
+                    company
+                  </label>
+                </div>
+              </div>
             </label>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 my-2">
               <button
