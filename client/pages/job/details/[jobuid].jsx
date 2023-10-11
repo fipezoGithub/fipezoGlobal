@@ -6,7 +6,12 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { AiFillProfile } from "react-icons/ai";
 import { BiBriefcase, BiTimeFive } from "react-icons/bi";
-import { BsCash, BsPostageHeart, BsStopCircle } from "react-icons/bs";
+import {
+  BsCash,
+  BsFillShareFill,
+  BsPostageHeart,
+  BsStopCircle,
+} from "react-icons/bs";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { GrGroup } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
@@ -15,6 +20,7 @@ import {
   MdOutlineNotStarted,
   MdOutlinePeopleAlt,
 } from "react-icons/md";
+import { RWebShare } from "react-web-share";
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/job/get/${ctx.query.jobuid}`
@@ -209,31 +215,54 @@ const Jobuid = (props) => {
                 <p className="capitalize">{props.data.eventType}</p>
               </div>
             )}
-            {props.data.eventTime && (
-              <div className="flex flex-col items-start lg:text-lg">
-                <div className="flex items-center gap-1 capitalize">
-                  <BiTimeFive />
-                  event time
-                </div>
-                <div className="flex items-center gap-4">
-                  <div>
-                    <h4 className="capitalize">start time</h4>
-                    <p>{JSON.parse(props.data?.eventTime)?.startTime}</p>
+            {JSON.parse(props.data?.eventTime)?.startTime &&
+              JSON.parse(props.data?.eventTime)?.endTime && (
+                <div className="flex flex-col items-start lg:text-lg">
+                  <div className="flex items-center gap-1 capitalize">
+                    <BiTimeFive />
+                    event time
                   </div>
-                  <div>
-                    <h4 className="capitalize">end time</h4>
-                    <p>{JSON.parse(props.data?.eventTime)?.endTime}</p>
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <h4 className="capitalize">start time</h4>
+                      <p>{JSON.parse(props.data?.eventTime)?.startTime}</p>
+                    </div>
+                    <div>
+                      <h4 className="capitalize">end time</h4>
+                      <p>{JSON.parse(props.data?.eventTime)?.endTime}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
-          <div className="flex flex-col items-start lg:text-lg">
-            <div className="flex items-center gap-1 capitalize">
-              <MdOutlinePeopleAlt />
-              applicants
+          <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col items-start lg:text-lg">
+              <div className="flex items-center gap-1 capitalize">
+                <MdOutlinePeopleAlt />
+                applicants
+              </div>
+              <p className="">{props.data.appliedFreelancers.length}</p>
             </div>
-            <p className="">{props.data.appliedFreelancers.length}</p>
+            <div>
+              <RWebShare
+                data={{
+                  text:
+                    "Share job details of " +
+                    props.data.title +
+                    " on your social media!",
+                  url:
+                    window.location.origin + "/job/details/" + props.data.uid,
+                  title: "Fipezo",
+                }}
+              >
+                <button
+                  type="button"
+                  className="w-12 h-12 flex items-center justify-center hover:bg-neutral-300 px-2 py-1 rounded-full"
+                >
+                  <BsFillShareFill style={{ color: "blue" }} />
+                </button>
+              </RWebShare>
+            </div>
           </div>
           <div className="flex flex-col items-start lg:text-lg">
             <div className="flex items-center gap-1 capitalize">
@@ -275,7 +304,7 @@ const Jobuid = (props) => {
               </div>
             </>
           )}
-          {loginType !== "company" && (
+          {loginType && loginType !== "company" && (
             <>
               <hr className="h-[1px] w-full bg-neutral-400" />
               <div className="self-center">

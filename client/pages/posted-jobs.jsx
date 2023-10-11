@@ -4,10 +4,10 @@ import Jobcard from "@/components/Jobcard";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
 const PostedJobs = (props) => {
-  const [showCreateBox, setShowCreateBox] = useState(false);
   const [jobs, setJobs] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem("user")
@@ -67,18 +67,14 @@ const PostedJobs = (props) => {
           )}
         </div>
 
-        <button
-          type="button"
+        <Link
+          href="/job/create"
           className="fixed top-28 right-1 lg:right-9 flex items-center bg-[#338ef4] capitalize px-2 lg:px-4 py-1 lg:py-2 text-white font-semibold lg:text-lg rounded-md"
-          onClick={() => setShowCreateBox(true)}
         >
           create job
           <BiBookAdd color="white" className="w-6 lg:w-12 h-6 lg:h-12" />
-        </button>
+        </Link>
       </div>
-      {showCreateBox && (
-        <Createjob setShowCreateBox={setShowCreateBox} setJobs={setJobs} />
-      )}
       <Footer />
     </>
   );
