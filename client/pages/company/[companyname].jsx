@@ -24,6 +24,7 @@ const Companyname = (props) => {
   const [clickedImg, setClickedImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
   const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -44,15 +45,18 @@ const Companyname = (props) => {
         });
     }
   }, []);
+
   useEffect(() => {
     setLogInType(JSON.parse(localStorage.getItem("type")));
     if (props.user !== null && props.user?.uid === uid) {
       router.push("/freelancer_profile");
     }
   }, [props.user]);
+
   const checkLoggedIn = (val) => {
     setLoggedIn(val);
   };
+
   const handleClick = (item, index) => {
     if (!item.includes("works[]")) {
       return;
@@ -60,6 +64,7 @@ const Companyname = (props) => {
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
+
   const handelRotationRight = () => {
     if (
       currentIndex === null ||
@@ -111,6 +116,7 @@ const Companyname = (props) => {
     setClickedImg(newItem);
     setCurrentIndex(newIndex);
   };
+
   const copyURL = () => {
     const currentURL = window.location.origin + router.asPath;
     navigator.clipboard
@@ -125,6 +131,7 @@ const Companyname = (props) => {
         console.error("Failed to copy URL:", error);
       });
   };
+
   return (
     <>
       <Head>

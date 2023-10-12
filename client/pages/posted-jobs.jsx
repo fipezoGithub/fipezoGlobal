@@ -68,7 +68,7 @@ const PostedJobs = (props) => {
         </div>
 
         <Link
-          href="/job/create"
+          href="/jobs/create"
           className="fixed top-28 right-1 lg:right-9 flex items-center bg-[#338ef4] capitalize px-2 lg:px-4 py-1 lg:py-2 text-white font-semibold lg:text-lg rounded-md"
         >
           create job

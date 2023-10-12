@@ -69,28 +69,6 @@ const Jobcard = ({ job, setJobs, company, user }) => {
     }
   };
 
-  const applyJob = async () => {
-    const token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-    try {
-      const res = await fetch(`${process.env.SERVER_URL}/job/apply`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ jobid: job._id }),
-      });
-      const data = await res.json();
-      if (data) {
-        setIsApplied(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const updateJob = async (e) => {
     e.preventDefault();
     if (
@@ -175,6 +153,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
       console.log(error);
     }
   };
+
   const viewCount = async (jobid) => {
     try {
       const res = await fetch(`${process.env.SERVER_URL}/job/view/${jobid}`, {
@@ -202,7 +181,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
     <div className="flex flex-col items-start border rounded-lg shadow-md p-4 gap-3 lg:w-full relative">
       <div className="p-1 lg:p-2 border border-red-600 flex items-center gap-2 text-red-600">
         <BsStopCircle />
-        {Final_Result} days left
+        {Final_Result > 0 ? `${Final_Result} days left` : `Expired`}
       </div>
       <div className="flex items-start gap-4 justify-between w-full">
         <div className="flex flex-col">
@@ -312,7 +291,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           <div className="flex items-center justify-between w-full">
             <p className="text-neutral-400">{job.viewCount} views</p>
             <Link
-              href={`/job/details/${job.uid}`}
+              href={`/jobs/details/${job.uid}`}
               onClick={() => viewCount(job._id)}
               className="border border-[#338ef4] text-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 font-semibold lg:text-xl rounded-md"
             >

@@ -31,8 +31,10 @@ export const getServerSideProps = async (ctx) => {
 const Jobuid = (props) => {
   const [loginType, setLoginType] = useState("");
   const [isApplied, setIsApplied] = useState(false);
+  const [url, setUrl] = useState("");
   useEffect(() => {
     setLoginType(JSON.parse(localStorage.getItem("type")));
+    setUrl(window.location.origin + "/jobs/details/" + props.data.uid);
     props.data.appliedFreelancers.forEach((element) => {
       if (props.user?._id === element._id) {
         setIsApplied(true);
@@ -139,7 +141,7 @@ const Jobuid = (props) => {
         <div className="flex flex-col items-start p-8 gap-3 relative border lg:w-2/3">
           <div className="p-1 lg:p-2 border border-red-600 flex items-center gap-2 text-red-600">
             <BsStopCircle />
-            {Final_Result} days left
+            {Final_Result > 0 ? `${Final_Result} days left` : `Expired`}
           </div>
           <div className="flex items-start gap-4 justify-between w-full">
             <div className="flex flex-col">
@@ -250,8 +252,7 @@ const Jobuid = (props) => {
                     "Share job details of " +
                     props.data.title +
                     " on your social media!",
-                  url:
-                    window.location.origin + "/job/details/" + props.data.uid,
+                  url: url,
                   title: "Fipezo",
                 }}
               >
@@ -299,7 +300,7 @@ const Jobuid = (props) => {
                   href="/login"
                   className="bg-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
                 >
-                  apply
+                  apply now
                 </Link>
               </div>
             </>
@@ -311,7 +312,9 @@ const Jobuid = (props) => {
                 <button
                   type="button"
                   className="bg-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
-                  disabled={isApplied === false ? false : true}
+                  disabled={
+                    Final_Result > 0 && isApplied === false ? false : true
+                  }
                   onClick={applyJob}
                 >
                   {isApplied === false ? "apply now" : "applied"}
