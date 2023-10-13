@@ -324,7 +324,7 @@ function Verification(props) {
       </div>
       <div className={styles.socials}>
         <label className={styles.social}>
-          Facebook : <br />
+          <span className="text-red-600">*</span>Facebook : <br />
           <input
             type="url"
             className={styles.input}
@@ -338,7 +338,7 @@ function Verification(props) {
           />
         </label>
         <label className={styles.social}>
-          Instagram : <br />
+          <span className="text-red-600">*</span>Instagram : <br />
           <input
             type="url"
             className={styles.input}
@@ -362,7 +362,6 @@ function Verification(props) {
               setLinks({ ...links, twitter: e.target.value });
             }}
             value={links.twitter}
-            required
           />
         </label>
         <label className={styles.social}>
@@ -376,7 +375,6 @@ function Verification(props) {
               setLinks({ ...links, youtube: e.target.value });
             }}
             value={links.youtube}
-            required
           />
         </label>
       </div>

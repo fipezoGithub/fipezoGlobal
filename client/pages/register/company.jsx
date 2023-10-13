@@ -294,50 +294,50 @@ class Company extends React.Component {
       });
       return;
     }
-    if (this.state.panCard === null) {
-      this.setState({ panError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 2),
-          false,
-          ...this.state.warns.slice(3),
-        ],
-      });
-      return;
-    }
-    if (this.state.incorporationCertificate === null) {
-      this.setState({ incorporationCertificateError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 3),
-          false,
-          ...this.state.warns.slice(4),
-        ],
-      });
-      return;
-    }
-    if (this.state.msmeCertificate === null) {
-      this.setState({ msmeCertificateError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 4),
-          false,
-          ...this.state.warns.slice(5),
-        ],
-      });
-      return;
-    }
-    if (this.state.tradeLiecence === null) {
-      this.setState({ tradeLiecenceError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 5),
-          false,
-          ...this.state.warns.slice(6),
-        ],
-      });
-      return;
-    }
+    // if (this.state.panCard === null) {
+    //   this.setState({ panError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 2),
+    //       false,
+    //       ...this.state.warns.slice(3),
+    //     ],
+    //   });
+    //   return;
+    // }
+    // if (this.state.incorporationCertificate === null) {
+    //   this.setState({ incorporationCertificateError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 3),
+    //       false,
+    //       ...this.state.warns.slice(4),
+    //     ],
+    //   });
+    //   return;
+    // }
+    // if (this.state.msmeCertificate === null) {
+    //   this.setState({ msmeCertificateError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 4),
+    //       false,
+    //       ...this.state.warns.slice(5),
+    //     ],
+    //   });
+    //   return;
+    // }
+    // if (this.state.tradeLiecence === null) {
+    //   this.setState({ tradeLiecenceError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 5),
+    //       false,
+    //       ...this.state.warns.slice(6),
+    //     ],
+    //   });
+    //   return;
+    // }
     if (this.state.works.length < 4) {
       this.setState({ worksError: true });
       c++;

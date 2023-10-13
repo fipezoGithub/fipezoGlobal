@@ -29,6 +29,7 @@ export default function Jobs(props) {
   const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
+  const [showAllJob, setShowAllJob] = useState(true);
   const [showOpenJob, setShowOpenJob] = useState(false);
   const [showClosedJob, setShowClosedJob] = useState(false);
   const [budgetSort, setBudgetSort] = useState("50000");
@@ -48,8 +49,10 @@ export default function Jobs(props) {
     var Final_Result = Result.toFixed(0);
     if (showClosedJob) {
       return Final_Result < 0;
+    } else if (showOpenJob) {
+      return Final_Result > 0;
     }
-    return Final_Result > 0;
+    return Final_Result;
   });
 
   const filtered = fstFilter.filter((job) => {

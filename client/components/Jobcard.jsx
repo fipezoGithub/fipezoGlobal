@@ -25,8 +25,8 @@ const Jobcard = ({ job, setJobs, company, user }) => {
   const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
   const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
-  console.log(job);
   const router = useRouter();
+  
   useEffect(() => {
     setTitle(job.title);
     setDescription(job.description);

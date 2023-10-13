@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { auth } from "@/scripts/firebase";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +42,7 @@ const Jobuid = (props) => {
       }
     });
   }, []);
+
   const applyJob = async (e) => {
     e.target.disabled = true;
     const token = localStorage.getItem("user")
@@ -63,6 +65,7 @@ const Jobuid = (props) => {
       console.log(error);
     }
   };
+  
   const profession = props.data.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))

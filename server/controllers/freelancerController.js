@@ -54,13 +54,6 @@ async function registerFreelancer(req, res) {
       resizedPanCard = await resizeImage(req.files["panCard"][0], 2272, 1704);
     }
 
-    let resizedWorks = [];
-
-    // if (req.body.profession === 'photographer' || req.body.profession === 'drone_operator') {
-    //   resizedWorks = await Promise.all(
-    //     req.files['works[]']?.map((file) => resizeImage(file, 1200, 900))
-    //   );
-    // }
     let referalUID;
     if (req.body.usedReferalId) {
       const referal = await referCollection.findOne({
@@ -317,6 +310,55 @@ async function getUnFreelancerProfiles(req, res) {
 }
 
 //edit profile
+// async function editFreelancerProfile(req, res) {
+//   try {
+//     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+//       const freelancerData = await freelancerCollection.findOne({
+//         _id: authData.user._id,
+//       });
+//       if (err && !freelancerData) {
+//         return;
+//       } else {
+//         const user = await freelancerCollection.findOne({
+//           _id: authData.user._id,
+//         });
+//         let updatedAuthData;
+//         if (user) {
+//           if (!req.body.profilePicture) {
+//             // const resizedProfilePicture = await resizeImage(req.file, 200, 200);
+//             await freelancerCollection.updateOne(
+//               { _id: authData.user._id },
+//               {
+//                 $set: {
+//                   bio: req.body.bio,
+//                   equipments: req.body.equipments,
+//                 },
+//               }
+//             );
+
+//             updatedAuthData = {
+//               ...authData,
+//               user: {
+//                 ...authData.user,
+//                 bio: req.body.bio,
+//                 equipments: req.body.equipments,
+//               },
+//             };
+//           }
+//           const updatedToken = jwt.sign(updatedAuthData, secret);
+
+//           res.send({ freelancer: updatedAuthData, token: updatedToken });
+//         } else {
+//           res.sendStatus(403);
+//         }
+//       }
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal server error");
+//   }
+// }
+
 async function editFreelancerProfile(req, res) {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
@@ -326,46 +368,71 @@ async function editFreelancerProfile(req, res) {
       if (err && !freelancerData) {
         return;
       } else {
-        const user = await freelancerCollection.findOne({
-          _id: authData.user._id,
-        });
-        let updatedAuthData;
-        if (user) {
-          if (!req.body.profilePicture) {
-            // const resizedProfilePicture = await resizeImage(req.file, 200, 200);
-            await freelancerCollection.updateOne(
-              { _id: authData.user._id },
-              {
-                $set: {
-                  bio: req.body.bio,
-                  equipments: req.body.equipments,
-                },
-              }
-            );
-
-            // const filePromises = [];
-            // filePromises.push(uploadFile(resizedProfilePicture));
-
-            // await Promise.all(filePromises);
-
-            // await unlinkFile("uploads/" + req.file.filename);
-            // await unlinkFile(resizedProfilePicture.path);
-
-            updatedAuthData = {
-              ...authData,
-              user: {
-                ...authData.user,
-                bio: req.body.bio,
-                equipments: req.body.equipments,
-              },
-            };
-          }
-          const updatedToken = jwt.sign(updatedAuthData, secret);
-
-          res.send({ freelancer: updatedAuthData, token: updatedToken });
-        } else {
-          res.sendStatus(403);
+        const deletePromises = [];
+        const filePromises = [];
+        let resizedProfilePicture;
+        if (req.files && req.files["profilePicture"]) {
+          resizedProfilePicture = await resizeImage(
+            req.files["profilePicture"][0],
+            2272,
+            1704
+          );
+          deletePromises.push(deleteFile(user.profilePicture));
+          filePromises.push(uploadFile(resizedProfilePicture));
         }
+        let resizedCoverPicture;
+        if (req.files && req.files["coverPicture"]) {
+          resizedCoverPicture = await resizeImage(
+            req.files["coverPicture"][0],
+            2272,
+            1704
+          );
+          deletePromises.push(deleteFile(user.coverPicture));
+          filePromises.push(uploadFile(resizedCoverPicture));
+        }
+
+        await Promise.all(deletePromises);
+        await Promise.all(filePromises);
+        freelancerData.location = req.body.location || freelancerData.location;
+        freelancerData.email = req.body.email || freelancerData.email;
+        freelancerData.password = req.body.password || freelancerData.password;
+        freelancerData.rate = req.body.rate || freelancerData.rate;
+        freelancerData.bio = req.body.bio || freelancerData.bio;
+        freelancerData.equipments =
+          req.body.equipments || freelancerData.equipments;
+        freelancerData.profilePicture =
+          resizedProfilePicture?.filename || freelancerData.profilePicture;
+        freelancerData.coverPicture =
+          resizedCoverPicture?.filename || freelancerData.coverPicture;
+
+        const updatedUser = await freelancerData.save();
+        // const updatedUser = await freelancerCollection.findByIdAndUpdate(
+        //   freelancerData._id,
+        //   {
+        //     location: req.body.location || freelancerData.location,
+        //     email: req.body.email || freelancerData.email,
+        //     password: req.body.password || freelancerData.password,
+        //     rate: req.body.rate || freelancerData.rate,
+        //     bio: req.body.bio || freelancerData.bio,
+        //     equipments: req.body.equipments || freelancerData.equipments,
+        //     profilePicture:
+        //       resizedProfilePicture?.filename || freelancerData.profilePicture,
+        //     coverPicture:
+        //       resizedCoverPicture?.filename || freelancerData.coverPicture,
+        //   }
+        // );
+        if (resizedProfilePicture) {
+          await unlinkFile(
+            "uploads/" + req.files["profilePicture"][0].filename
+          );
+          await unlinkFile(resizedProfilePicture.path);
+        }
+        if (resizedCoverPicture) {
+          await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
+          await unlinkFile(resizedCoverPicture.path);
+        }
+
+        res.status(200).json(updatedUser);
       }
     });
   } catch (error) {
@@ -373,7 +440,6 @@ async function editFreelancerProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
-
 //edit cover picture
 async function editFreelancerCoverPicture(req, res) {
   try {

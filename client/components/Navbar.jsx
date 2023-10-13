@@ -315,6 +315,11 @@ export default function Navbar(props) {
                     My Jobs
                   </Link>
                 )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/profile-setting`}>
+                    Profile Dashboard
+                  </Link>
+                )}
                 {!props.user.uid && (
                   <Link className={styles.btn} href="/user_profile">
                     My Profile
@@ -616,6 +621,11 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_job`}>
                     My Jobs
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/profile-setting`}>
+                    Profile Dashboard
                   </Link>
                 )}
                 {!props.user.uid && (

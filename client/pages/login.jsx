@@ -34,6 +34,7 @@ export default function Login(props) {
       clearInterval(timerId);
     }
   }, [count]);
+
   useEffect(() => {
     async function getGoogleData() {
       try {
@@ -129,6 +130,7 @@ export default function Login(props) {
 
     postData();
   };
+
   function handelLoginEmail(e) {
     e.preventDefault();
     async function postData() {
@@ -159,6 +161,7 @@ export default function Login(props) {
     }
     postData();
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     async function postData() {
@@ -184,10 +187,14 @@ export default function Login(props) {
     postData();
     startCountdown();
   }
+
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => setGoogleToken(codeResponse),
+    onSuccess: (codeResponse) => {
+      setGoogleToken(codeResponse);
+    },
     onError: (error) => console.log("Login Failed:", error),
   });
+
   const responseFacebook = async (response) => {
     console.log(response);
     // Login failed
@@ -223,9 +230,11 @@ export default function Login(props) {
       router.push("/");
     }
   };
+
   const logOut = () => {
     googleLogout();
   };
+  
   return (
     <div className={styles.login}>
       <Head>
