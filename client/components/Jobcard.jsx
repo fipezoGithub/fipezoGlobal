@@ -21,13 +21,16 @@ const Jobcard = ({ job, setJobs, company, user }) => {
   const [showModifyBox, setShowModifyBox] = useState(false);
   const [jobProfession, setJobProfession] = useState("album_designer");
   const [requiredDate, setRequiredDate] = useState("");
+  const [eventType, setEventType] = useState("");
+  const [eventTime, setEventTime] = useState({ startTime: "", endTime: "" });
   const [hiredFreelancers, setHiredFreelancers] = useState([]);
   const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
   const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
   const router = useRouter();
-  
+
   useEffect(() => {
+    console.log(JSON.parse(job.eventTime));
     setTitle(job.title);
     setDescription(job.description);
     setBudget(job.budget);
@@ -37,6 +40,12 @@ const Jobcard = ({ job, setJobs, company, user }) => {
     setDueDate(job.dueDate);
     setJobProfession(job.profession);
     setRequiredDate(job.date);
+    setEventType(job.eventType);
+    setEventTime({
+      ...eventTime,
+      startTime: JSON.parse(job.eventTime)?.startTime,
+      endTime: JSON.parse(job.eventTime)?.endTime,
+    });
     setLoginType(JSON.parse(localStorage.getItem("type")));
     job.appliedFreelancers.forEach((element) => {
       if (user?._id === element._id) {
@@ -100,6 +109,8 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           budget,
           vacancy,
           dueDate,
+          eventTime: JSON.stringify(eventTime),
+          eventType,
           date: requiredDate,
         }),
       });
@@ -647,20 +658,87 @@ const Jobcard = ({ job, setJobs, company, user }) => {
                   />
                 </div>
               </div>
-              <div className="flex items-start flex-col">
-                <label htmlFor="requiredDate" className="lg:text-xl capitalize">
-                  requirement dates
-                </label>
-                <div className="flex items-center flex-wrap">
+              <div className="flex items-center justify-between w-full flex-wrap lg:flex-nowrap">
+                <div className="flex items-start flex-col">
+                  <label
+                    htmlFor="requiredDate"
+                    className="lg:text-xl capitalize"
+                  >
+                    requirement dates
+                  </label>
+                  <div className="flex items-center flex-wrap">
+                    <input
+                      type="date"
+                      id="requiredDate"
+                      value={requiredDate}
+                      onChange={(e) => {
+                        setWarn(false);
+                        setRequiredDate(e.target.value);
+                      }}
+                      className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-start flex-col">
+                  <label className="lg:text-xl capitalize">
+                    event time{" "}
+                    <span className="text-neutral-500">{"(optional)"}</span>
+                  </label>
+                  <div className="flex items-center justify-between gap-4 ">
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor="starttime"
+                        className="lg:text-base capitalize"
+                      >
+                        start time
+                      </label>
+                      <input
+                        type="time"
+                        id="starttime"
+                        value={eventTime.startTime}
+                        onChange={(e) =>
+                          setEventTime({
+                            ...eventTime,
+                            startTime: e.target.value,
+                          })
+                        }
+                        className="outline-none py-1 focus:border-b inline-flex appearance-none"
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label
+                        htmlFor="endtime"
+                        className="lg:text-base capitalize"
+                      >
+                        end time
+                      </label>
+                      <input
+                        type="time"
+                        id="endtime"
+                        value={eventTime.endTime}
+                        onChange={(e) =>
+                          setEventTime({
+                            ...eventTime,
+                            endTime: e.target.value,
+                          })
+                        }
+                        className="placeholder:capitalize outline-none py-1 focus:border-b"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start flex-col">
+                  <label htmlFor="eventType" className="lg:text-xl capitalize">
+                    event type{" "}
+                    <span className="text-neutral-500">{"(optional)"}</span>
+                  </label>
                   <input
-                    type="date"
-                    id="requiredDate"
-                    value={requiredDate}
-                    onChange={(e) => {
-                      setWarn(false);
-                      setRequiredDate(e.target.value);
-                    }}
-                    className="placeholder:capitalize bg-transparent outline-none py-1 focus:border-b"
+                    type="text"
+                    id="eventType"
+                    placeholder="enter event type"
+                    className="placeholder:capitalize outline-none py-1 focus:border-b"
+                    value={eventType}
+                    onChange={(e) => setEventType(e.target.value)}
                   />
                 </div>
               </div>

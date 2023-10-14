@@ -86,6 +86,8 @@ async function editJobDetails(req, res) {
             budget: req.body.budget || job.budget,
             dueDate: req.body.dueDate || job.dueDate,
             venue: req.body.venue || job.venue,
+            eventTime: req.body.eventTime || job.eventTime,
+            eventType: req.body.eventType || job.eventType,
           }
         );
         res.status(200).json(modifiedJob);

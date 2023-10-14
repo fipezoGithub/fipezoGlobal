@@ -377,7 +377,7 @@ async function editFreelancerProfile(req, res) {
             2272,
             1704
           );
-          deletePromises.push(deleteFile(user.profilePicture));
+          deletePromises.push(deleteFile(freelancerData.profilePicture));
           filePromises.push(uploadFile(resizedProfilePicture));
         }
         let resizedCoverPicture;
@@ -387,7 +387,7 @@ async function editFreelancerProfile(req, res) {
             2272,
             1704
           );
-          deletePromises.push(deleteFile(user.coverPicture));
+          deletePromises.push(deleteFile(freelancerData.coverPicture));
           filePromises.push(uploadFile(resizedCoverPicture));
         }
 

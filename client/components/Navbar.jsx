@@ -307,17 +307,12 @@ export default function Navbar(props) {
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_referral`}>
-                    My Referals
+                    Referals
                   </Link>
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_job`}>
-                    My Jobs
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/profile-setting`}>
-                    Profile Dashboard
+                    Jobs
                   </Link>
                 )}
                 {!props.user.uid && (
@@ -327,7 +322,12 @@ export default function Navbar(props) {
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_requests`}>
-                    My Requests
+                    Requests
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/profile-setting`}>
+                    Settings
                   </Link>
                 )}
                 <button
@@ -615,17 +615,12 @@ export default function Navbar(props) {
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_referral`}>
-                    My Referals
+                    Referals
                   </Link>
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_job`}>
-                    My Jobs
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/profile-setting`}>
-                    Profile Dashboard
+                    Jobs
                   </Link>
                 )}
                 {!props.user.uid && (
@@ -635,7 +630,12 @@ export default function Navbar(props) {
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/my_requests`}>
-                    My Requests
+                    Requests
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link className={styles.btn} href={`/profile-setting`}>
+                    Settings
                   </Link>
                 )}
                 <button

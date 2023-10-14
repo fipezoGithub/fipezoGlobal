@@ -2,16 +2,20 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import styles from "../styles/Freelancer.module.css";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const ProfileSetting = (props) => {
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
   const [email, setEmail] = useState("");
   const [images, setImages] = useState([]);
+  const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passowordInputType, setPassowordInputType] = useState("password");
   const [location, setLocation] = useState("");
   const [rate, setRate] = useState("");
   const [bio, setBio] = useState("");
@@ -21,6 +25,8 @@ const ProfileSetting = (props) => {
     coverPictureWarn: false,
   });
   const router = useRouter();
+  const passwordRef = useRef();
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -75,6 +81,7 @@ const ProfileSetting = (props) => {
     }
     reader.readAsDataURL(file);
   };
+
   const updateProfile = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("user")
@@ -85,7 +92,7 @@ const ProfileSetting = (props) => {
       if (!profilePicture.includes("profilePicture")) {
         data.append("profilePicture", profilePicture);
       }
-      if (!coverPicture.includes("coverPicture")) {
+      if (typeof coverPicture !== "string") {
         data.append("coverPicture", coverPicture);
       }
       data.append("location", location);
@@ -96,14 +103,15 @@ const ProfileSetting = (props) => {
       data.append("rate", rate);
       data.append("bio", bio);
       data.append("equipments", equipments);
+      console.log(data);
       const res = await fetch(`${process.env.SERVER_URL}/edit/freelancer`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(Object.fromEntries(data)),
-        // body: data,
+        // body: JSON.stringify(Object.fromEntries(data)),
+        body: data,
       });
       const update = await res.json();
       if (update) {
@@ -113,6 +121,7 @@ const ProfileSetting = (props) => {
       console.log(error);
     }
   };
+
   return (
     <>
       <Head>
@@ -195,7 +204,7 @@ const ProfileSetting = (props) => {
           </div>
           <div className="flex flex-col items-center justify-center lg:w-1/2 border px-4 pb-6 shadow-md">
             <div className="flex flex-col lg:flex-row items-start justify-between w-full">
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center w-full lg:w-auto">
                 <label
                   htmlFor="location"
                   className="text-base lg:text-lg p-4 pl-0 capitalize"
@@ -204,7 +213,7 @@ const ProfileSetting = (props) => {
                 </label>
                 <select
                   required
-                  className="p-2 w-[80%] border border-[#d3d3d3] text-[#3d3d3d] bg-transparent cursor-pointer"
+                  className="p-4 w-full lg:w-[80%] border border-[#d3d3d3] text-[#3d3d3d] bg-transparent cursor-pointer"
                   name="location"
                   id="location"
                   value={location}
@@ -377,16 +386,14 @@ const ProfileSetting = (props) => {
                   </option>
                 </select>
               </div>
-              <div className="flex flex-col justify-center">
+              <div className="flex flex-col justify-center w-full lg:w-auto">
                 <label htmlFor="rate" className="text-base lg:text-lg p-4 pl-0">
                   Remuneration per day?
                 </label>
-                {/* <p className={styles.rate}>Rs. 50 / Day</p> */}
                 <input
                   required
                   className={
-                    styles.rateInput +
-                    "p-2 my-2 border-[1px] border-solid w-[80%] bg-transparent border-[hsl(0,0%,52%)]"
+                    "p-2 my-2 border-[1px] border-solid w-full lg:w-[80%] bg-transparent border-[hsl(0,0%,52%)]"
                   }
                   name="rate"
                   type="number"
@@ -409,8 +416,118 @@ const ProfileSetting = (props) => {
               /> */}
               </div>
             </div>
+            <hr className="h-px w-full my-4" />
             <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
               <div className="flex flex-col justify-center">
+                <label
+                  htmlFor="oldpassword"
+                  className="text-base lg:text-lg p-4 pl-0"
+                >
+                  Old Password :
+                </label>
+                <div>
+                  <div className="flex border border-[#878787] items-center justify-between p-2">
+                    <input
+                      type="password"
+                      className="focus:outline-none bg-transparent peer"
+                      placeholder="Enter old password"
+                      id="oldpassword"
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                      minLength={8}
+                      maxLength={15}
+                      ref={passwordRef}
+                    />
+                    <button
+                      type="button"
+                      className="hidden peer-focus:inline"
+                      onClick={() => {
+                        if (passwordRef.current.type === "password") {
+                          passwordRef.current.type = "text";
+                          setPassowordInputType("text");
+                        } else {
+                          passwordRef.current.type = "password";
+                          setPassowordInputType("password");
+                        }
+                      }}
+                    >
+                      {passowordInputType === "password" ? (
+                        <AiFillEye />
+                      ) : (
+                        <AiFillEyeInvisible />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <label
+                  htmlFor="password"
+                  className="text-base lg:text-lg p-4 pl-0"
+                >
+                  New Password :
+                </label>
+                <div>
+                  <div className="flex border border-[#878787] items-center p-2 justify-between">
+                    <input
+                      type="password"
+                      className="focus:outline-none bg-transparent peer"
+                      placeholder="Enter new password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      minLength={8}
+                      maxLength={15}
+                      ref={passwordRef}
+                    />
+                    <button
+                      type="button"
+                      className="hidden peer-focus:inline"
+                      onClick={() => {
+                        if (passwordRef.current.type === "password") {
+                          passwordRef.current.type = "text";
+                          setPassowordInputType("text");
+                        } else {
+                          passwordRef.current.type = "password";
+                          setPassowordInputType("password");
+                        }
+                      }}
+                    >
+                      {passowordInputType === "password" ? (
+                        <AiFillEye />
+                      ) : (
+                        <AiFillEyeInvisible />
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col justify-center">
+                <label
+                  htmlFor="confirmPassword"
+                  className="text-base lg:text-lg p-4 pl-0"
+                >
+                  Confirm Password :
+                </label>
+                <div>
+                  <div className="flex border border-[#878787] p-2 items-center justify-between">
+                    <input
+                      type="password"
+                      className="focus:outline-none bg-transparent"
+                      placeholder="Confirm your new password"
+                      id="confirmPassword"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      minLength={8}
+                      maxLength={15}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr className="h-px w-full my-4" />
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
+              <div className="flex flex-col justify-center w-full">
                 <label
                   htmlFor="email"
                   className="text-base lg:text-lg p-4 pl-0"
@@ -421,55 +538,13 @@ const ProfileSetting = (props) => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="focus:outline-none bg-transparent p-1 border-b border-b-[#878787]"
+                  className="focus:outline-none bg-transparent p-2 border border-[#878787]"
                   placeholder="Enter your email address"
                   id="email"
                 />
               </div>
-              <div className="flex flex-col justify-center">
-                <label
-                  htmlFor="password"
-                  className="text-base lg:text-lg p-4 pl-0"
-                >
-                  Password :
-                </label>
-                <div>
-                  <div className="flex border-b border-b-[#878787] items-center justify-between">
-                    <input
-                      type="password"
-                      className="focus:outline-none bg-transparent p-1"
-                      placeholder="Enter new password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      minLength={8}
-                      maxLength={15}
-                      // ref={this.passwordRef}
-                    />
-                    {/* <button
-                    type="button"
-                    onClick={() => {
-                      if (this.passwordRef.current.type === "password") {
-                        this.passwordRef.current.type = "text";
-                        this.setState({ passowordInputType: "text" });
-                      } else {
-                        this.passwordRef.current.type = "password";
-                        this.setState({
-                          passowordInputType: "password",
-                        });
-                      }
-                    }}
-                  >
-                    {this.state.passowordInputType === "password" ? (
-                      <AiFillEye />
-                    ) : (
-                      <AiFillEyeInvisible />
-                    )}
-                  </button> */}
-                  </div>
-                </div>
-              </div>
             </div>
+            <hr className="h-px w-full my-4" />
             <div className="flex justify-between w-full flex-col">
               <div className="flex flex-col justify-center w-full">
                 <label
@@ -497,7 +572,7 @@ const ProfileSetting = (props) => {
                 </label>
                 <textarea
                   name="equipments"
-                  id="bio"
+                  id="equipments"
                   cols="30"
                   rows="10"
                   value={equipments}

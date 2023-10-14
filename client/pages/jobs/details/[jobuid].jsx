@@ -65,7 +65,7 @@ const Jobuid = (props) => {
       console.log(error);
     }
   };
-  
+
   const profession = props.data.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))

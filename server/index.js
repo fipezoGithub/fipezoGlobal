@@ -207,7 +207,7 @@ app.get(
 app.delete("/api/delete/freelancer/:id", deleteFreelancerProfile);
 app.put("/api/verify/freelancer/:id", verifyFreelancerProfile);
 app.get("/api/profiles/featured/freelancer", getFeaturedFreelancerProfiles);
-app.put("/api/edit/freelancer", verifyToken, editFreelancerProfile);
+app.put("/api/edit/freelancer", upload, verifyToken, editFreelancerProfile);
 app.put("/api/follow/freelancer", verifyToken, followProfile);
 app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
 app.get("/api/freelancer/followers/:id", getFollowers);
