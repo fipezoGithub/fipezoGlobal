@@ -10,7 +10,6 @@ const FollowerFollowingModal = (props) => {
     props.showModalAs === "following" ? true : false
   );
   const router = useRouter();
-  console.log(props);
   useEffect(() => {
     async function getFollowersList() {
       try {
@@ -39,7 +38,7 @@ const FollowerFollowingModal = (props) => {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen backdrop-blur flex justify-center items-center z-30">
+    <div className="fixed top-0 left-0 w-full h-screen backdrop-blur flex justify-center items-center z-[100]">
       <div className="bg-white rounded-md relative px-8 py-4 flex flex-col items-center gap-2 h-96 w-96">
         <button
           className="absolute top-1 right-1"

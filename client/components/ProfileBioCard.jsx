@@ -203,18 +203,9 @@ function ProfileBioCard(props) {
           About Me
         </h1>
         <p
-          className={`w-full ${styles.bio} relative break-words max-w-xs border-2 rounded-lg`}
+          className={`w-full ${styles.bio} relative break-words border-2 rounded-lg`}
         >
           {props.freelancer.bio}
-          {router.route === "/freelancer_profile" && (
-            <button
-              type="button"
-              className="absolute bottom-0 right-0 text-2xl"
-              onClick={() => setShowEditBox(true)}
-            >
-              <AiFillEdit />
-            </button>
-          )}
         </p>
       </div>
       <div className={styles.equipment_available}>
@@ -244,18 +235,9 @@ function ProfileBioCard(props) {
           <h1 className={styles.title + " text-left"}>Fimiliar Language</h1>
         )}
         <p
-          className={`w-full break-words relative max-w-xs border-2 p-4 rounded-lg`}
+          className={`w-full break-words relative border-2 p-4 rounded-lg`}
         >
           {props.freelancer.equipments}
-          {router.route === "/freelancer_profile" && (
-            <button
-              type="button"
-              className="absolute bottom-0 right-0 text-2xl"
-              onClick={() => setShowEditBox(true)}
-            >
-              <AiFillEdit />
-            </button>
-          )}
         </p>
       </div>
       <RWebShare

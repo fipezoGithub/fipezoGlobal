@@ -26,7 +26,7 @@ export default function Login(props) {
   const router = useRouter();
   const [loginFailed, setLoginFailed] = useState(false);
   const [otpFailed, setOtpFailed] = useState(false);
-  const [count, setCount] = useState(120);
+  const [count, setCount] = useState(30);
   const [timerId, setTimerId] = useState(null);
   const passwordRef = useRef();
   useEffect(() => {
@@ -90,7 +90,7 @@ export default function Login(props) {
   }, [googleToken]);
 
   const startCountdown = () => {
-    setCount(120);
+    setCount(30);
     setTimerId(
       setInterval(() => {
         setCount((prevCount) => prevCount - 1);
@@ -234,7 +234,7 @@ export default function Login(props) {
   const logOut = () => {
     googleLogout();
   };
-  
+
   return (
     <div className={styles.login}>
       <Head>
@@ -538,6 +538,7 @@ export default function Login(props) {
                 Submit
               </button>
             </div>
+            <p className="text-sm text-neutral-400">OTP will be valid for 5 minutes</p>
             <div className={styles.lower}>
               {count > 0 && (
                 <p className={styles.resendOtp}>Resend OTP in {count}s?</p>

@@ -16,7 +16,7 @@ const Jobfilter = (props) => {
               id="open"
               className="w-4 h-4"
               onChange={(e) => props.setShowOpenJob(e.target.checked)}
-              value={props.showOpenJob}
+              checked={props.showOpenJob}
             />
             <label
               htmlFor="open"
@@ -32,7 +32,7 @@ const Jobfilter = (props) => {
               id="close"
               className="w-4 h-4"
               onChange={(e) => props.setShowClosedJob(e.target.checked)}
-              value={props.showClosedJob}
+              checked={props.showClosedJob}
             />
             <label
               htmlFor="close"

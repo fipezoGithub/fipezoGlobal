@@ -60,7 +60,7 @@ class Company extends React.Component {
       invalidOtp: false,
       registerFailed: false,
       warns: [false],
-      count: 120,
+      count: 30,
       resendOtp: false,
       timerId: null,
       isLoading: false,
@@ -77,7 +77,7 @@ class Company extends React.Component {
   startCountdown = () => {
     this.setState({ resendOtp: false });
     this.setState({
-      count: 120,
+      count: 30,
       timerId: setInterval(() => {
         this.setState((prevState) => ({
           count: prevState.count - 1,
@@ -629,6 +629,9 @@ class Company extends React.Component {
                         }
                         value={this.state.otp}
                       />
+                      <p className="pt-4 text-neutral-400">
+                        OTP will be valid for 5 minutes
+                      </p>
                     </div>
                   )}
                   {this.state.currentPage === 4 && (

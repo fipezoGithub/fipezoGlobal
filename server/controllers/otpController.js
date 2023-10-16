@@ -181,6 +181,7 @@ const otpController = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+
 //ForgetOTP
 const forgetOTPController = async (req, res) => {
   try {
@@ -220,6 +221,7 @@ const forgetOTPController = async (req, res) => {
     res.status(500).send("Internal server error");
   }
 };
+
 module.exports = {
   otpController,
   otpSignupController,

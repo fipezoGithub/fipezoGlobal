@@ -80,7 +80,7 @@ async function signupController(req, res) {
       } catch (error) {
         console.error("Error deleting OTP:", error);
       }
-    }, 120000);
+    }, 300000);
 
     res.status(200).json({ phone: phone });
   } catch (error) {
@@ -134,7 +134,7 @@ const loginController = async (req, res) => {
       } catch (error) {
         console.error("Error deleting OTP:", error);
       }
-    }, 120000);
+    }, 300000);
 
     res.status(200).json({ phone: phone, type: type });
   } catch (error) {
@@ -245,7 +245,7 @@ async function forgetController(req, res) {
       } catch (error) {
         console.error("Error deleting OTP:", error);
       }
-    }, 120000);
+    }, 300000);
 
     res.status(200).json({ phone: phone, type: type });
   } catch (error) {
@@ -517,5 +517,5 @@ module.exports = {
   emailLoginController,
   forgetController,
   updateUserPassword,
-  googleLoginController
+  googleLoginController,
 };

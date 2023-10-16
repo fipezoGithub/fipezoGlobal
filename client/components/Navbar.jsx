@@ -125,13 +125,13 @@ export default function Navbar(props) {
             </Link>
           </li>
 
-          {logInType === "freelancer" && (
+          {/* {logInType === "freelancer" && (
             <li className={styles.navElement}>
               <Link href={"/feed/"}>
                 <span id={styles.home}>Feed&nbsp;&nbsp;</span>
               </Link>
             </li>
-          )}
+          )} */}
           <li
             className={styles.navElement}
             onClick={() => {
@@ -431,13 +431,13 @@ export default function Navbar(props) {
               <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
-          {logInType === "freelancer" && (
+          {/* {logInType === "freelancer" && (
             <li className={styles.navElement}>
               <Link href={"/feed/"}>
                 <span id={styles.home}>Feed&nbsp;&nbsp;</span>
               </Link>
             </li>
-          )}
+          )} */}
           <li
             className={styles.navElement}
             onClick={() => {

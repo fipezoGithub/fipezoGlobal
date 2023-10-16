@@ -53,7 +53,7 @@ const MyJob = (props) => {
         </h1>
         <nav className="my-8">
           <ul className="flex items-center gap-4">
-            <li className="group flex flex-col items-center">
+            <li className="group flex flex-col items-center gap-2">
               <button
                 type="button"
                 className="capitalize text-lg lg:text-2xl font-medium"
@@ -64,9 +64,15 @@ const MyJob = (props) => {
               >
                 recommended jobs
               </button>
-              <span className="bg-black transition-all w-0 group-hover:w-full h-px duration-500"></span>
+              <span
+                className={`bg-black transition-all h-px duration-500 ${
+                  showRecommendedJob === true
+                    ? `w-full`
+                    : `w-0 group-hover:w-full`
+                }`}
+              ></span>
             </li>
-            <li className="group flex flex-col items-center">
+            <li className="group flex flex-col items-center gap-2">
               <button
                 type="button"
                 className="capitalize text-lg lg:text-2xl font-medium"
@@ -77,7 +83,11 @@ const MyJob = (props) => {
               >
                 applied jobs
               </button>
-              <span className="bg-black transition-all w-0 group-hover:w-full h-px duration-500"></span>
+              <span
+                className={`bg-black transition-all h-px duration-500 ${
+                  showAppliedJob === true ? `w-full` : `w-0 group-hover:w-full`
+                }`}
+              ></span>
             </li>
           </ul>
         </nav>

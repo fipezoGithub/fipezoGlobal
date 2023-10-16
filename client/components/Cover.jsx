@@ -27,7 +27,7 @@ function Cover(props) {
         style={{ objectPosition: props.position?.coverPicture }}
         className="object-cover"
       />
-      {props.user?.coverPicture === props.coverPicture && (
+      {/* {props.user?.coverPicture === props.coverPicture && (
         <div className="absolute bottom-1/2 md:bottom-1/4 right-0 md:right-4 bg-white px-4 py-2 shadow-[var(--shadow)] rounded">
           <button
             type="button"
@@ -53,7 +53,7 @@ function Cover(props) {
             </div>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 }

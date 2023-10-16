@@ -416,7 +416,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
         )}
       {showModifyBox === true && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex lg:justify-center lg:items-center w-full h-full bg-[#00000042] z-[1100]">
-          <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1 overflow-y-visible">
+          <div className="relative flex flex-col items-center gap-2 lg:gap-4 backdrop-blur px-2 lg:px-4 py-1 lg:py-2 bg-white rounded-lg mx-2 my-1 overflow-y-scroll">
             <div className="absolute top-1 right-1">
               <button
                 type="button"
@@ -679,68 +679,75 @@ const Jobcard = ({ job, setJobs, company, user }) => {
                     />
                   </div>
                 </div>
-                <div className="flex items-start flex-col">
-                  <label className="lg:text-xl capitalize">
+                {eventTime.startTime && eventTime.endTime && (
+                  <div className="flex items-start flex-col">
+                    {/* <label className="lg:text-xl capitalize">
                     event time{" "}
                     <span className="text-neutral-500">{"(optional)"}</span>
-                  </label>
-                  <div className="flex items-center justify-between gap-4 ">
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="starttime"
-                        className="lg:text-base capitalize"
-                      >
-                        start time
-                      </label>
-                      <input
-                        type="time"
-                        id="starttime"
-                        value={eventTime.startTime}
-                        onChange={(e) =>
-                          setEventTime({
-                            ...eventTime,
-                            startTime: e.target.value,
-                          })
-                        }
-                        className="outline-none py-1 focus:border-b inline-flex appearance-none"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="endtime"
-                        className="lg:text-base capitalize"
-                      >
-                        end time
-                      </label>
-                      <input
-                        type="time"
-                        id="endtime"
-                        value={eventTime.endTime}
-                        onChange={(e) =>
-                          setEventTime({
-                            ...eventTime,
-                            endTime: e.target.value,
-                          })
-                        }
-                        className="placeholder:capitalize outline-none py-1 focus:border-b"
-                      />
+                  </label> */}
+                    <div className="flex items-center justify-between gap-4 ">
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="starttime"
+                          className="lg:text-base capitalize"
+                        >
+                          start time
+                        </label>
+                        <input
+                          type="time"
+                          id="starttime"
+                          value={eventTime.startTime}
+                          onChange={(e) =>
+                            setEventTime({
+                              ...eventTime,
+                              startTime: e.target.value,
+                            })
+                          }
+                          className="outline-none py-1 focus:border-b inline-flex appearance-none"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="endtime"
+                          className="lg:text-base capitalize"
+                        >
+                          end time
+                        </label>
+                        <input
+                          type="time"
+                          id="endtime"
+                          value={eventTime.endTime}
+                          onChange={(e) =>
+                            setEventTime({
+                              ...eventTime,
+                              endTime: e.target.value,
+                            })
+                          }
+                          className="placeholder:capitalize outline-none py-1 focus:border-b"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex items-start flex-col">
-                  <label htmlFor="eventType" className="lg:text-xl capitalize">
-                    event type{" "}
-                    <span className="text-neutral-500">{"(optional)"}</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="eventType"
-                    placeholder="enter event type"
-                    className="placeholder:capitalize outline-none py-1 focus:border-b"
-                    value={eventType}
-                    onChange={(e) => setEventType(e.target.value)}
-                  />
-                </div>
+                )}
+                {eventType && (
+                  <div className="flex items-start flex-col">
+                    <label
+                      htmlFor="eventType"
+                      className="lg:text-xl capitalize"
+                    >
+                      event type{" "}
+                      <span className="text-neutral-500">{"(optional)"}</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="eventType"
+                      placeholder="enter event type"
+                      className="placeholder:capitalize outline-none py-1 focus:border-b"
+                      value={eventType}
+                      onChange={(e) => setEventType(e.target.value)}
+                    />
+                  </div>
+                )}
               </div>
               <div className="flex items-center w-full justify-center">
                 <button
