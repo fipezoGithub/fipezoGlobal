@@ -200,7 +200,7 @@ function Freelancer_Profile(props) {
           </div> */}
         </div>
       </div>
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <h2 className="py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold">
           my feeds
         </h2>
@@ -216,7 +216,7 @@ function Freelancer_Profile(props) {
               />
             ))}
         </div>
-      </div>
+      </div> */}
       <div className={styles.footer}>
         <Footer />
       </div>

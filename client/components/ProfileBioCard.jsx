@@ -26,7 +26,8 @@ function ProfileBioCard(props) {
     setUrl(window.location.origin + "/profile/" + props.freelancer.uid);
   }, [props.user]);
 
-  const handelFollow = async () => {
+  const handelFollow = async (e) => {
+    e.target.disabled = true;
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -234,9 +235,7 @@ function ProfileBioCard(props) {
         {props.freelancer.profession === "web_developer" && (
           <h1 className={styles.title + " text-left"}>Fimiliar Language</h1>
         )}
-        <p
-          className={`w-full break-words relative border-2 p-4 rounded-lg`}
-        >
+        <p className={`w-full break-words relative border-2 p-4 rounded-lg`}>
           {props.freelancer.equipments}
         </p>
       </div>

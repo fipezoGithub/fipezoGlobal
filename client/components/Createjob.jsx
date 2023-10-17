@@ -230,7 +230,7 @@ const Createjob = (props) => {
               onChange={(e) => setProfession(e.target.value)}
             >
               <option disabled value="profession" className="capitalize">
-                photography
+                photographer
               </option>
               <option value="album_designer" className="capitalize">
                 album designer

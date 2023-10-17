@@ -177,8 +177,9 @@ const ProfileSetting = (props) => {
                   File size exceeds maximum limit of 10MB
                 </p>
               )}
-              <span className="text-[#686868] absolute -bottom-16 lg:-bottom-12 right-0 text-xs lg:text-sm font-normal w-72">
-                Please upload images of maximum limit 10MB
+              <span className="text-[#686868] absolute -bottom-16 lg:-bottom-8 right-0 text-xs lg:text-sm font-normal">
+                Max file size: 10 Mb and max resolution: 5000px x 5000px. File
+                type: jpeg, jpg, png
               </span>
             </div>
             <div
@@ -431,7 +432,7 @@ const ProfileSetting = (props) => {
               </div>
               <hr className="h-px w-full my-4" />
               <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
-                <div className="flex flex-col justify-center">
+                {/* <div className="flex flex-col justify-center">
                   <label
                     htmlFor="oldpassword"
                     className="text-base lg:text-lg p-4 pl-0 text-center lg:text-left"
@@ -472,7 +473,7 @@ const ProfileSetting = (props) => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="flex flex-col justify-center">
                   <label
                     htmlFor="password"

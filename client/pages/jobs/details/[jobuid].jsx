@@ -90,7 +90,7 @@ const Jobuid = (props) => {
 
         <meta property="og:description" content={props.data.description} />
 
-        <meta property="og:image" content={`/favi.png`} />
+        <meta property="og:image" content={`/Fipezo-Jobs.png`} />
 
         <meta property="og:type" content="website" />
         <meta property="og:image:type" content="image/jpeg" />

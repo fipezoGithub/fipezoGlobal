@@ -210,7 +210,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
             width={70}
             height={70}
             alt="company profile picture"
-            className="rounded-full"
+            className="rounded-full h-16 w-16"
           />
         </div>
       </div>

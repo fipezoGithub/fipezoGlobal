@@ -3,12 +3,15 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { BsFillShareFill } from "react-icons/bs";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import { RWebShare } from "react-web-share";
 
 const My_referral = (props) => {
   const [referCode, setReferCode] = useState("");
   const [url, setUrl] = useState("");
+  const [showWithdrawlBox, setShowWithdrawlBox] = useState(false);
+  const [upiID, setUpiID] = useState("");
+  const [conUpiID, setConUpiID] = useState("");
   const referalText = useRef();
 
   useEffect(() => {
@@ -122,10 +125,7 @@ const My_referral = (props) => {
             <div>
               <RWebShare
                 data={{
-                  text:
-                    "Share refer code" +
-                    referCode.referUid +
-                    " with your frelancer friends",
+                  text: `Share refer code "${referCode.referUid}" with your frelancer friends`,
                   url: url,
                   title: "Fipezo",
                 }}
@@ -152,18 +152,193 @@ const My_referral = (props) => {
             </button>
           </h3>
         )}
-        <div>
-          <h3 className="text-center text-lg">
-            Your successful refer is{" "}
-            {referCode ? referCode.acceptedFreelancer?.length : `0`}
-          </h3>
+        <div className="flex flex-col justify-center gap-4">
+          <h3 className="text-center text-lg">Your successful refer is</h3>
+          <div className="flex items-center justify-center">
+            <span className="lg:text-lg text-white px-2 py-1 border bg-blue-500 rounded-full w-10 lg:h-10 text-center">
+              0
+            </span>
+            <span
+              className={
+                "h-0.5 w-12 " +
+                (referCode?.acceptedFreelancer?.length > 0
+                  ? " bg-blue-500"
+                  : " bg-neutral-500")
+              }
+            ></span>
+            <span
+              className={
+                "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
+                (referCode?.acceptedFreelancer?.length > 0
+                  ? " bg-blue-500 text-blue-500"
+                  : " bg-neutral-500 text-white")
+              }
+            >
+              1
+            </span>
+            <span
+              className={
+                "h-0.5 w-12 " +
+                (referCode?.acceptedFreelancer?.length > 1
+                  ? " bg-blue-500"
+                  : " bg-neutral-500")
+              }
+            ></span>
+            <span
+              className={
+                "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
+                (referCode?.acceptedFreelancer?.length > 1
+                  ? " border-blue-500 text-blue-500"
+                  : " border-neutral-500 text-neutral-500")
+              }
+            >
+              2
+            </span>
+            <span
+              className={
+                "h-0.5 w-12 " +
+                (referCode?.acceptedFreelancer?.length > 2
+                  ? " bg-blue-500"
+                  : " bg-neutral-500")
+              }
+            ></span>
+            <span
+              className={
+                "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
+                (referCode?.acceptedFreelancer?.length > 2
+                  ? " border-blue-500 text-blue-500"
+                  : " border-neutral-500 text-neutral-500")
+              }
+            >
+              3
+            </span>
+            <span
+              className={
+                "h-0.5 w-12 " +
+                (referCode?.acceptedFreelancer?.length > 3
+                  ? " bg-blue-500"
+                  : " bg-neutral-500")
+              }
+            ></span>
+            <span
+              className={
+                "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
+                (referCode?.acceptedFreelancer?.length > 3
+                  ? " border-blue-500 text-blue-500"
+                  : " border-neutral-500 text-neutral-500")
+              }
+            >
+              4
+            </span>
+            <span
+              className={
+                "h-0.5 w-12 " +
+                (referCode?.acceptedFreelancer?.length > 4
+                  ? " bg-blue-500"
+                  : " bg-neutral-500")
+              }
+            ></span>
+            <span
+              className={
+                "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
+                (referCode?.acceptedFreelancer?.length > 4
+                  ? " border-blue-500 text-blue-500"
+                  : " border-neutral-500 text-neutral-500")
+              }
+            >
+              5
+            </span>
+          </div>
         </div>
-        {/* <div className="flex items-center gap-4 justify-center">
-          <label htmlFor="upi" className="text-center text-lg">
-            please share your upi id
-          </label>
-          <input type="text" placeholder="enter upi id" id="upi" className="bg-neutral-300 p-2 placeholder:capitalize" />
-        </div> */}
+        <button
+          type="button"
+          className="px-4 py-2 capitalize lg:text-lg bg-blue-600 font-bold text-white self-center rounded-lg mt-4"
+          onClick={() => setShowWithdrawlBox(true)}
+        >
+          withdrawl now
+        </button>
+        {showWithdrawlBox === true && (
+          <div className="flex items-center justify-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur w-full h-full">
+            <div className="relative flex flex-col items-center gap-4 justify-center bg-white p-4 rounded-lg mx-4 lg:mx-0">
+              <div className="absolute top-1 right-1">
+                <button
+                  type="button"
+                  className="text-3xl"
+                  onClick={() => setShowWithdrawlBox(false)}
+                >
+                  <IoIosCloseCircleOutline />
+                </button>
+              </div>
+              <h4 className=" text-lg lg:text-2xl capitalize">withdrawl</h4>
+              {referCode?.acceptedFreelancer?.length > 5 ? (
+                <div className="flex flex-col items-center justify-between w-full gap-4 lg:gap-0">
+                  <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-4 lg:gap-0">
+                    <div className="flex flex-col items-start">
+                      <label
+                        htmlFor="upi"
+                        className="text-center lg:text-lg capitalize"
+                      >
+                        UPI ID
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="enter upi id"
+                        id="upi"
+                        value={upiID}
+                        onChange={(e) => setUpiID(e.target.value)}
+                        className="bg-neutral-300 p-2 placeholder:capitalize"
+                      />
+                    </div>
+                    <div className="flex flex-col items-start">
+                      <label
+                        htmlFor="conupi"
+                        className="text-center lg:text-lg capitalize"
+                      >
+                        confirm UPI ID
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="confirm upi id"
+                        id="conupi"
+                        value={conUpiID}
+                        onChange={(e) => setConUpiID(e.target.value)}
+                        className="bg-neutral-300 p-2 placeholder:capitalize"
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="capitalize font-bold bg-blue-500 text-white px-2 py-1 rounded-lg"
+                  >
+                    submit
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="lg:text-xl">
+                    You are not eligible to withdrawl ammount. Please assuerd
+                    that you have completed 5 successful refer.
+                  </h3>
+                </div>
+              )}
+              <div className="flex flex-col gap-4">
+                <p className="text-neutral-500">
+                  P.S: Once you submitted your upi id you can not change. Make
+                  sure your upi id before submit.
+                </p>
+                <p className="text-neutral-500">
+                  P.S: In case of any queries you can contact us by mail us at{" "}
+                  <a
+                    href="mailto:fipezocare@gmail.com"
+                    className="text-blue-500"
+                  >
+                    fipezocare@gmail.com
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <hr className="my-8 border border-[#eaeaea]" />
       <Footer />

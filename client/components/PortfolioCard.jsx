@@ -14,6 +14,7 @@ function PortfolioCard(props) {
         src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.work}`}
         width={500}
         height={500}
+        loading="eager"
         blurDataURL="/loadImg.gif"
         placeholder="blur"
         alt="work"
