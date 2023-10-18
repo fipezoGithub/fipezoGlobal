@@ -17,6 +17,9 @@ function User_profile(props) {
   const [warns, setWarns] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const [profilePicture, setProfilePicture] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showDeleteBox, setShowDeleteBox] = React.useState(false);
   const router = useRouter();
 
@@ -36,6 +39,7 @@ function User_profile(props) {
           setUser(data.user);
           setFirstname(data.user.firstname);
           setLastname(data.user.lastname);
+          setEmail(data.user.email);
           if (data.user.profilePicture)
             setProfilePicture(data.user.profilePicture);
         })
@@ -50,7 +54,16 @@ function User_profile(props) {
     const data = new FormData();
     data.append("firstname", firstname);
     data.append("lastname", lastname);
-    data.append("profilePicture", profilePicture);
+    data.append("email", email);
+    if (password !== undefined) {
+      data.append("password", password);
+    }
+    if (
+      profilePicture !== null ||
+      !profilePicture.includes("profilePicture-")
+    ) {
+      data.append("profilePicture", profilePicture);
+    }
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -278,6 +291,34 @@ function User_profile(props) {
                       setLastcolor("black");
                     }}
                     style={{ color: lastcolor }}
+                  />
+                  <input
+                    className={style.input}
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setLastcolor("black");
+                    }}
+                    style={{ color: lastcolor }}
+                  />
+                  <input
+                    className={style.input}
+                    type="password"
+                    placeholder="Enter your new password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <input
+                    className={style.input}
+                    type="password"
+                    placeholder="Confirm your new password"
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
                   />
                 </div>
                 <div className={style.btns}>

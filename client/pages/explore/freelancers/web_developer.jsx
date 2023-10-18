@@ -23,12 +23,12 @@ function Explore(props) {
   const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
   const [showAnchor, setShowAnchor] = useState(false);
-  const [showWebDeveloper, setShowWebDeveloper] = useState(false);
+  const [showWebDeveloper, setShowWebDeveloper] = useState(true);
   const [showDj, setShowDj] = useState(false);
   const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
-  const [showMehendiArtist, setShowMehendiArtist] = useState(true);
+  const [showMehendiArtist, setShowMehendiArtist] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -397,6 +397,9 @@ function Explore(props) {
 
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
+  });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
   });
   useEffect(() => {
     if (window.innerWidth < 640) {

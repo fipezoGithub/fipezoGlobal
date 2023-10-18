@@ -29,7 +29,7 @@ export default function Categories() {
     <div className={styles.categories}>
       {final.slice(0, 5).map((item, index) => (
         <Link
-          href={`/explore/freelancer/${item}`}
+          href={`/explore/freelancers/${item}`}
           className={styles.category}
           key={index}
         >

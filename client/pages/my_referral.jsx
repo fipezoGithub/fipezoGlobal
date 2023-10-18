@@ -328,11 +328,8 @@ const My_referral = (props) => {
                 </p>
                 <p className="text-neutral-500">
                   P.S: In case of any queries you can contact us by mail us at{" "}
-                  <a
-                    href="mailto:fipezocare@gmail.com"
-                    className="text-blue-500"
-                  >
-                    fipezocare@gmail.com
+                  <a href="mailto:help@fipezo.com" className="text-blue-500">
+                    help@fipezo.com
                   </a>
                 </p>
               </div>

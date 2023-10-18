@@ -151,13 +151,13 @@ export default function Navbar(props) {
               id={styles.box}
               style={{ display: display5 }}
             >
-              <Link className={styles.optionBox} href="/explore/freelancer">
+              <Link className={styles.optionBox} href="/explore/freelancers">
                 <h1 className={styles.mainText}>Freelancers</h1>
                 <p className={styles.subText}>
                   Find Different Type of Freelancers
                 </p>
               </Link>
-              <Link className={styles.optionBox} href="/explore/company">
+              <Link className={styles.optionBox} href="/explore/companies">
                 <h1 className={styles.mainText}>Companies</h1>
                 <p className={styles.subText}>
                   Find Different Type of Companies
@@ -457,13 +457,13 @@ export default function Navbar(props) {
               id={styles.box}
               style={{ display: display5 }}
             >
-              <Link className={styles.optionBox} href="/explore/freelancer">
+              <Link className={styles.optionBox} href="/explore/freelancers">
                 <h1 className={styles.mainText}>Freelancers</h1>
                 <p className={styles.subText}>
                   Find Different Type of Freelancers
                 </p>
               </Link>
-              <Link className={styles.optionBox} href="/explore/company">
+              <Link className={styles.optionBox} href="/explore/companies">
                 <h1 className={styles.mainText}>Companies</h1>
                 <p className={styles.subText}>
                   Find Different Type of Companies

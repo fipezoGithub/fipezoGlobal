@@ -177,7 +177,7 @@ const ProfileSetting = (props) => {
                   File size exceeds maximum limit of 10MB
                 </p>
               )}
-              <span className="text-[#686868] absolute -bottom-16 lg:-bottom-8 right-0 text-xs lg:text-sm font-normal">
+              <span className="text-[#686868] absolute -bottom-[4.7rem] lg:-bottom-8 right-0 text-xs lg:text-sm font-normal">
                 Max file size: 10 Mb and max resolution: 5000px x 5000px. File
                 type: jpeg, jpg, png
               </span>

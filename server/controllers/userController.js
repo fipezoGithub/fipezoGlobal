@@ -307,56 +307,52 @@ async function editUserProfile(req, res) {
         const user = await userCollection.findOne({ _id: authData.user._id });
         let updatedAuthData;
         if (user) {
-          if (!req.body.profilePicture) {
-            const resizedProfilePicture = await resizeImage(req.file, 200, 200);
-            await userCollection.updateOne(
-              { _id: authData.user._id },
-              {
-                $set: {
-                  firstname: req.body.firstname,
-                  lastname: req.body.lastname,
-                  profilePicture: resizedProfilePicture.filename,
-                },
-              }
-            );
+          let resizedProfilePicture;
+          if (req.body.profilePicture) {
+            resizedProfilePicture = await resizeImage(req.file, 200, 200);
+          }
+          user.firstname = req.body.firstname || user.firstname;
+          user.lastname = req.body.lastname || user.lastname;
+          user.email = req.body.email || user.email;
+          user.password = req.body.password || user.password;
+          user.profilePicture =
+            resizedProfilePicture?.filename || user.profilePicture;
+          await user.save();
+          // await userCollection.updateOne(
+          //   { _id: authData.user._id },
+          //   {
+          //     $set: {
+          //       firstname: req.body.firstname,
+          //       lastname: req.body.lastname,
+          //       email: req.body.email,
+          //       password: req.body.password,
+          //       profilePicture: resizedProfilePicture.filename,
+          //     },
+          //   }
+          // );
 
-            const filePromises = [];
+          const filePromises = [];
+          if (req.body.profilePicture) {
             filePromises.push(uploadFile(resizedProfilePicture));
 
             await Promise.all(filePromises);
 
             await unlinkFile("uploads/" + req.file.filename);
-            await unlinkFile(resizedProfilePicture.path);
-
-            updatedAuthData = {
-              ...authData,
-              user: {
-                ...authData.user,
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                profilePicture: resizedProfilePicture.filename,
-              },
-            };
-          } else {
-            await userCollection.updateOne(
-              { _id: authData.user._id },
-              {
-                $set: {
-                  firstname: req.body.firstname,
-                  lastname: req.body.lastname,
-                },
-              }
-            );
-
-            updatedAuthData = {
-              ...authData,
-              user: {
-                ...authData.user,
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-              },
-            };
+            await unlinkFile(resizedProfilePicture?.path);
           }
+
+          updatedAuthData = {
+            ...authData,
+            user: {
+              ...authData.user,
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              email: req.body.email,
+              profilePicture:
+                resizedProfilePicture?.filename || authData.user.profilePicture,
+            },
+          };
+
           const review = await reviewCollection.find({
             user: updatedAuthData.user._id,
           });

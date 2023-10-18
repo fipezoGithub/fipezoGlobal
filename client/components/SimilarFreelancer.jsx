@@ -36,6 +36,9 @@ const SimilarFreelancer = (props) => {
   filtered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  filtered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   const displayedFreelancers = filtered.slice(0, 4);
   return displayedFreelancers.map((item, index) => (
     <ProfileCard key={index} profile={item} />

@@ -11,7 +11,7 @@ function VerifiedExplore() {
           Explore All <span className={styles.span}>Verified Freelancers</span>{" "}
           And Find The Best Talent For Your Project Needs.
         </h1>
-        <Link className={styles.btn} href="/explore/freelancer">
+        <Link className={styles.btn} href="/explore/freelancers">
           Explore Freelancers &nbsp;&nbsp;
           <BsArrowRight id={styles.arrow} />
         </Link>

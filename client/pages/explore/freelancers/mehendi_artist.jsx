@@ -26,9 +26,9 @@ function Explore(props) {
   const [showWebDeveloper, setShowWebDeveloper] = useState(false);
   const [showDj, setShowDj] = useState(false);
   const [showDancer, setShowDancer] = useState(false);
-  const [showInfluencer, setShowInfluencer] = useState(true);
+  const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
-  const [showMehendiArtist, setShowMehendiArtist] = useState(false);
+  const [showMehendiArtist, setShowMehendiArtist] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -411,11 +414,11 @@ function Explore(props) {
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Influencer is loading"} />
+    <Loading message={"Web Developer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Influencers</title>
+        <title>Fipezo | Explore Web Developers</title>
       </Head>
       <Navbar
         user={props.user}

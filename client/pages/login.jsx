@@ -16,7 +16,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("user");
   const [otpForm, setOtpForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -274,13 +274,17 @@ export default function Login(props) {
                     id="user"
                     name="logintype"
                     value="user"
+                    checked={type === "user" ? true : false}
                     onChange={(e) => {
                       setType(e.target.value);
                       setLoginFailed(false);
                       setOtpFailed(false);
                     }}
                   />
-                  <label htmlFor="user" className="lg:text-lg capitalize">
+                  <label
+                    htmlFor="user"
+                    className="lg:text-lg capitalize cursor-pointer"
+                  >
                     user
                   </label>
                 </div>
@@ -290,13 +294,17 @@ export default function Login(props) {
                     id="freelancer"
                     name="logintype"
                     value="freelancer"
+                    checked={type === "freelancer" ? true : false}
                     onChange={(e) => {
                       setType(e.target.value);
                       setLoginFailed(false);
                       setOtpFailed(false);
                     }}
                   />
-                  <label htmlFor="freelancer" className="lg:text-lg capitalize">
+                  <label
+                    htmlFor="freelancer"
+                    className="lg:text-lg capitalize cursor-pointer"
+                  >
                     freelancer
                   </label>
                 </div>
@@ -306,13 +314,17 @@ export default function Login(props) {
                     id="company"
                     name="logintype"
                     value="company"
+                    checked={type === "company" ? true : false}
                     onChange={(e) => {
                       setType(e.target.value);
                       setLoginFailed(false);
                       setOtpFailed(false);
                     }}
                   />
-                  <label htmlFor="company" className="lg:text-lg capitalize">
+                  <label
+                    htmlFor="company"
+                    className="lg:text-lg capitalize cursor-pointer"
+                  >
                     company
                   </label>
                 </div>
@@ -533,12 +545,21 @@ export default function Login(props) {
                 placeholder="Enter OTP"
               />
             </div>
-            <div>
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                className={styles.btn}
+                onClick={(e) => setOtpForm(false)}
+              >
+                Back
+              </button>
               <button className={styles.btn} type="submit">
                 Submit
               </button>
             </div>
-            <p className="text-sm text-neutral-400">OTP will be valid for 5 minutes</p>
+            <p className="text-sm text-neutral-400">
+              OTP will be valid for 5 minutes
+            </p>
             <div className={styles.lower}>
               {count > 0 && (
                 <p className={styles.resendOtp}>Resend OTP in {count}s?</p>

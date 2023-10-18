@@ -20,13 +20,13 @@ function Explore(props) {
   const [showVideoEditor, setShowVideoEditor] = useState(false);
   const [showAlbumDesign, setShowAlbumDesign] = useState(false);
   const [showModel, setShowModel] = useState(false);
-  const [showMakeupArtist, setShowMakeupArtist] = useState(true);
+  const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
   const [showAnchor, setShowAnchor] = useState(false);
   const [showWebDeveloper, setShowWebDeveloper] = useState(false);
   const [showDj, setShowDj] = useState(false);
   const [showDancer, setShowDancer] = useState(false);
-  const [showInfluencer, setShowInfluencer] = useState(false);
+  const [showInfluencer, setShowInfluencer] = useState(true);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -116,8 +116,8 @@ function Explore(props) {
       !showWebDeveloper &&
       !showDj &&
       !showDancer &&
-      !showInfluencer&&
-      !showGraphicsDesigner&&
+      !showInfluencer &&
+      !showGraphicsDesigner &&
       !showMehendiArtist
     ) {
       return true;
@@ -135,7 +135,7 @@ function Explore(props) {
       showWebDeveloper &&
       showDj &&
       showDancer &&
-      showInfluencer&&
+      showInfluencer &&
       showGraphicsDesigner &&
       showMehendiArtist
     ) {
@@ -152,8 +152,8 @@ function Explore(props) {
         freelancer.profession === "web_developer" ||
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer"||
-        freelancer.profession === "graphics_designer"||
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "graphics_designer" ||
         freelancer.profession === "mehendi_artist"
       );
     }
@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -409,13 +412,13 @@ function Explore(props) {
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers
+  const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Makeup Artist is loading"} />
+    <Loading message={"Influencer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Makeup Artists</title>
+        <title>Fipezo | Explore Influencers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -440,7 +443,7 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
-            setShowSideBar={setShowSideBar}
+              setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
               setShowCinematographers={setShowCinematographers}

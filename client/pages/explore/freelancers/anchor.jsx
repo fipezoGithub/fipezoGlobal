@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));

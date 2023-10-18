@@ -14,9 +14,9 @@ function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [freelancers, setFreelancers] = useState([]);
   const [showPhotographers, setShowPhotographers] = useState(false);
-  const [showCinematographers, setShowCinematographers] = useState(false);
+  const [showCinematographers, setShowCinematographers] = useState(true);
   const [showDroneOperators, setShowDroneOperators] = useState(false);
-  const [showPhotoEditor, setShowPhotoEditor] = useState(true);
+  const [showPhotoEditor, setShowPhotoEditor] = useState(false);
   const [showVideoEditor, setShowVideoEditor] = useState(false);
   const [showAlbumDesign, setShowAlbumDesign] = useState(false);
   const [showModel, setShowModel] = useState(false);
@@ -241,12 +241,6 @@ function Explore(props) {
         freelancer.profession === "mehendi_artist"
       );
     }
-    if (showCinematographers && showGraphicsDesigner) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "graphics_designer"
-      );
-    }
     if (showCinematographers && showDroneOperators) {
       return (
         freelancer.profession === "cinematographer" ||
@@ -311,6 +305,12 @@ function Explore(props) {
       return (
         freelancer.profession === "cinematographer" ||
         freelancer.profession === "influencer"
+      );
+    }
+    if (showCinematographers && showGraphicsDesigner) {
+      return (
+        freelancer.profession === "cinematographer" ||
+        freelancer.profession === "graphics_designer"
       );
     }
     if (showCinematographers && showMehendiArtist) {
@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -411,11 +414,11 @@ function Explore(props) {
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Photo Editor is loading"} />
+    <Loading message={"Cinematographer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Photo Editors</title>
+        <title>Fipezo | Explore Cinematographers</title>
       </Head>
       <Navbar
         user={props.user}

@@ -23,7 +23,7 @@ function Explore(props) {
   const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
   const [showAnchor, setShowAnchor] = useState(false);
-  const [showWebDeveloper, setShowWebDeveloper] = useState(true);
+  const [showWebDeveloper, setShowWebDeveloper] = useState(false);
   const [showDj, setShowDj] = useState(false);
   const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(false);
@@ -49,9 +49,11 @@ function Explore(props) {
     window.innerWidth > 640 && setShowSideBar(true);
     setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
+
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const decrePage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
@@ -69,7 +71,7 @@ function Explore(props) {
           );
           const data = await response.json();
           setFreelancers(data);
-          if (window.innerWidth < 640) {
+          if (window.innerWidth <= 640) {
             setNoOfPages(Math.ceil(data.length / 10));
           } else {
             setNoOfPages(Math.ceil(data.length / 12));
@@ -373,6 +375,7 @@ function Explore(props) {
     }
     return false;
   });
+
   const locationFilter = filtered.filter((freelancer) => {
     if (
       filterCity === "none" &&
@@ -383,6 +386,7 @@ function Explore(props) {
       return true;
     return false;
   });
+
   const finalFiltered = locationFilter.filter((freelancer) => {
     if (!fourStars && !threeStars) {
       return true;
@@ -398,24 +402,30 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
+
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth <= 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
     } else {
       setNoOfPages(Math.ceil(finalFiltered.length / 12));
     }
   }, [finalFiltered]);
+
   const pages = noOfPages;
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Web Developer is loading"} />
+    <Loading message={"Freelancer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Web Developers</title>
+        <title>Fipezo | Explore Freelancers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -456,6 +466,7 @@ function Explore(props) {
               setShowDj={setShowDj}
               setShowDancer={setShowDancer}
               setShowInfluencer={setShowInfluencer}
+              showGraphicsDesigner={showGraphicsDesigner}
               setShowGraphicsDesigner={setShowGraphicsDesigner}
               showMehendiArtist={showMehendiArtist}
               setShowMehendiArtist={setShowMehendiArtist}
@@ -473,7 +484,6 @@ function Explore(props) {
               showDj={showDj}
               showDancer={showDancer}
               showInfluencer={showInfluencer}
-              showGraphicsDesigner={showGraphicsDesigner}
               searchQuery={searchQuery}
               setRateSort={setRateSort}
               rateSort={rateSort}
@@ -488,7 +498,12 @@ function Explore(props) {
         <div className={styles.main}>
           {final.length === 0 ? (
             <div className={styles.empty}>
-              <Image src="/nobody.webp" width={500} height={500} />
+              <Image
+                src="/nobody.webp"
+                width={500}
+                height={500}
+                alt="nobody-pic"
+              />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>
                 Try changing the filters or search for a different city.

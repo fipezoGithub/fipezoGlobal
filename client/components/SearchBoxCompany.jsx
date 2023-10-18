@@ -56,7 +56,7 @@ class SearchBoxCompany extends React.Component {
       else if (value === "Photography Institute")
         value = "photography_institute";
       else if (value === "Other") value = "other";
-      Router.push(`/explore/company/${value}`);
+      Router.push(`/explore/companies/${value}`);
     }
   };
 
@@ -76,7 +76,7 @@ class SearchBoxCompany extends React.Component {
       else if (value === "Photography Institute")
         value = "photography_institute";
       else if (value === "Other") value = "other";
-      Router.push(`/explore/company/${value}`);
+      Router.push(`/explore/companies/${value}`);
     }
   };
 
@@ -125,7 +125,7 @@ class SearchBoxCompany extends React.Component {
                   else if (value === "Other") value = "other";
                   return (
                     <Link
-                      href={`/explore/company/${value}`}
+                      href={`/explore/companies/${value}`}
                       className={styles.name}
                       key={index}
                     >

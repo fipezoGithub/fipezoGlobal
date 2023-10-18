@@ -58,19 +58,19 @@ function Footer(props) {
         <ul className={styles.law}>
           <li className={styles.heading}>Freelancing Services</li>
           <Link
-            href="/explore/freelancer/photographer"
+            href="/explore/freelancers/photographer"
             className={styles.subHeading}
           >
             Photographer
           </Link>
           <Link
-            href="/explore/freelancer/cinematographer"
+            href="/explore/freelancers/cinematographer"
             className={styles.subHeading}
           >
             Cinematographer
           </Link>
           <Link
-            href="/explore/freelancer/drone_operator"
+            href="/explore/freelancers/drone_operator"
             className={styles.subHeading}
           >
             Drone Operator
@@ -115,7 +115,7 @@ function Footer(props) {
         <ul className="flex items-center justify-between">
           <li className="capitalize text-slate-500">
             <Link
-              href={"/explore/freelancer/photographer"}
+              href={"/explore/freelancers/photographer"}
               onClick={() => handleStates("Kolkata")}
             >
               top photographers in kolkata
@@ -123,7 +123,7 @@ function Footer(props) {
           </li>
           <li className="capitalize text-slate-500">
             <Link
-              href={"/explore/freelancer/model"}
+              href={"/explore/freelancers/model"}
               onClick={() => handleStates("Kolkata")}
             >
               top models in kolkata
@@ -131,7 +131,7 @@ function Footer(props) {
           </li>
           <li className="capitalize text-slate-500">
             <Link
-              href={"/explore/freelancer/makeup_artist"}
+              href={"/explore/freelancers/makeup_artist"}
               onClick={() => handleStates("Kolkata")}
             >
               top make up artists in kolkata
@@ -139,7 +139,7 @@ function Footer(props) {
           </li>
           <li className="capitalize text-slate-500">
             <Link
-              href={"/explore/freelancer/freelancer/dancer"}
+              href={"/explore/freelancers/freelancer/dancer"}
               onClick={() => handleStates("Kolkata")}
             >
               top dancers in kolkata
@@ -147,326 +147,326 @@ function Footer(props) {
           </li>
         </ul>
       </div> */}
-      {!router.pathname.includes("/explore/freelancer") && (
+      {!router.pathname.includes("/explore/freelancers") && (
         <>
           <hr className={styles.divider} />
           <div className={styles.middle}>
             <h1 className={styles.middleHeading}>find in</h1>
             <div className={styles.stateBox}>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Agra")}
               >
                 agra
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Ahemdabad")}
               >
                 ahemdabad
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Amritsar")}
               >
                 amritsar
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Auranghabad")}
               >
                 aurangabad
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Bengaluru")}
               >
                 bengaluru
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Bhopal")}
               >
                 bhopal
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Bhubaneswar")}
               >
                 bhubaneswar
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Burdwan")}
               >
                 burdwan
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Chandigarh")}
               >
                 chandigarh
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Chennai")}
               >
                 chennai
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Coimbatore")}
               >
                 coimbatore
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Dehradun")}
               >
                 dehradun
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Durgapur")}
               >
                 durgapur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Faridabad")}
               >
                 faridabad
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Ghaziabad")}
               >
                 ghaziabad
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Guwahati")}
               >
                 guwahati
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Gwalior")}
               >
                 gwalior
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Hyderabad")}
               >
                 hyderabad
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Indore")}
               >
                 indore
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Jaipur")}
               >
                 jaipur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Jamshedpur")}
               >
                 jamshedpur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Jodhpur")}
               >
                 jodhpur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Kanpur")}
               >
                 kanpur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Kochi")}
               >
                 kochi
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Kolkata")}
               >
                 kolkata
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Ludhiana")}
               >
                 ludhiana
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Lucknow")}
               >
                 lucknow
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Madurai")}
               >
                 madurai
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Mangaluru")}
               >
                 mangaluru
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Meerut")}
               >
                 meerut
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Mumbai")}
               >
                 mumbai
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Mysuru")}
               >
                 mysuru
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Nagpur")}
               >
                 nagpur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Nashik")}
               >
                 nashik
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Navi Mumbai")}
               >
                 navi mumbai
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("New Delhi")}
               >
                 new delhi
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Patna")}
               >
                 patna
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Prayagraj")}
               >
                 prayagraj
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Puducherry")}
               >
                 puducherry
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Pune")}
               >
                 pune
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Raipur")}
               >
                 raipur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Rajkot")}
               >
                 rajkot
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Ranchi")}
               >
                 ranchi
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Siliguri")}
               >
                 siliguri
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Surat")}
               >
                 surat
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Thane")}
               >
                 thane
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Thiruvananthapuram")}
               >
                 thiruvananthapuram
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Udaipur")}
               >
                 udaipur
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Vadodara")}
               >
                 vadodara
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Varanasi")}
               >
                 varanasi
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Vijayawada")}
               >
                 vijayawada
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Visakhapatnam")}
               >
                 visakhapatnam
               </Link>
               <Link
-                href="/explore/freelancer"
+                href="/explore/freelancers"
                 onClick={() => handleStates("Warangal")}
               >
                 warangal

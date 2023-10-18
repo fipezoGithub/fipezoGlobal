@@ -17,9 +17,9 @@ function Explore(props) {
   const [showCinematographers, setShowCinematographers] = useState(false);
   const [showDroneOperators, setShowDroneOperators] = useState(false);
   const [showPhotoEditor, setShowPhotoEditor] = useState(false);
-  const [showVideoEditor, setShowVideoEditor] = useState(true);
+  const [showVideoEditor, setShowVideoEditor] = useState(false);
   const [showAlbumDesign, setShowAlbumDesign] = useState(false);
-  const [showModel, setShowModel] = useState(false);
+  const [showModel, setShowModel] = useState(true);
   const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
   const [showAnchor, setShowAnchor] = useState(false);
@@ -116,8 +116,8 @@ function Explore(props) {
       !showWebDeveloper &&
       !showDj &&
       !showDancer &&
-      !showInfluencer &&
-      !showGraphicsDesigner &&
+      !showInfluencer&&
+      !showGraphicsDesigner&&
       !showMehendiArtist
     ) {
       return true;
@@ -135,8 +135,8 @@ function Explore(props) {
       showWebDeveloper &&
       showDj &&
       showDancer &&
-      showInfluencer &&
-      showGraphicsDesigner &&
+      showInfluencer&&
+      showGraphicsDesigner&&
       showMehendiArtist
     ) {
       return (
@@ -152,8 +152,8 @@ function Explore(props) {
         freelancer.profession === "web_developer" ||
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer" ||
-        freelancer.profession === "graphics_designer" ||
+        freelancer.profession === "influencer"||
+        freelancer.profession === "graphics_designer"||
         freelancer.profession === "mehendi_artist"
       );
     }
@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -409,13 +412,13 @@ function Explore(props) {
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers;
+  const final = displayedFreelancers
   return isLoading === true ? (
-    <Loading message={"Video Editor is loading"} />
+    <Loading message={"Model is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Video Editors</title>
+        <title>Fipezo | Explore Models</title>
       </Head>
       <Navbar
         user={props.user}
@@ -440,7 +443,7 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
-              setShowSideBar={setShowSideBar}
+            setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
               setShowCinematographers={setShowCinematographers}

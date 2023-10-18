@@ -15,7 +15,7 @@ function Explore(props) {
   const [freelancers, setFreelancers] = useState([]);
   const [showPhotographers, setShowPhotographers] = useState(false);
   const [showCinematographers, setShowCinematographers] = useState(false);
-  const [showDroneOperators, setShowDroneOperators] = useState(false);
+  const [showDroneOperators, setShowDroneOperators] = useState(true);
   const [showPhotoEditor, setShowPhotoEditor] = useState(false);
   const [showVideoEditor, setShowVideoEditor] = useState(false);
   const [showAlbumDesign, setShowAlbumDesign] = useState(false);
@@ -25,7 +25,7 @@ function Explore(props) {
   const [showAnchor, setShowAnchor] = useState(false);
   const [showWebDeveloper, setShowWebDeveloper] = useState(false);
   const [showDj, setShowDj] = useState(false);
-  const [showDancer, setShowDancer] = useState(true);
+  const [showDancer, setShowDancer] = useState(false);
   const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
@@ -398,6 +398,9 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+  finalFiltered.sort((a, b) => {
+    return Number(b.featured) - Number(a.featured);
+  });
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
@@ -411,11 +414,11 @@ function Explore(props) {
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Dancer is loading"} />
+    <Loading message={"Drone Operator is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Dancers</title>
+        <title>Fipezo | Explore Drone Operators</title>
       </Head>
       <Navbar
         user={props.user}

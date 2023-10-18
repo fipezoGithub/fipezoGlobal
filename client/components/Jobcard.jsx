@@ -30,7 +30,6 @@ const Jobcard = ({ job, setJobs, company, user }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(JSON.parse(job.eventTime));
     setTitle(job.title);
     setDescription(job.description);
     setBudget(job.budget);
@@ -210,7 +209,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
             width={70}
             height={70}
             alt="company profile picture"
-            className="rounded-full h-16 w-16"
+            className="rounded-full"
           />
         </div>
       </div>

@@ -11,7 +11,7 @@ function VerifiedCompany() {
           Explore All <span className={styles.span}>Verified Companies</span>{" "}
           And Find The Best Job For You.
         </h1>
-        <Link className={styles.btn} href="/explore/company">
+        <Link className={styles.btn} href="/explore/companies">
           Explore Company &nbsp;&nbsp;
           <BsArrowRight id={styles.arrow} />
         </Link>
