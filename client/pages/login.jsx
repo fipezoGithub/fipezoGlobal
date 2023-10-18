@@ -530,6 +530,9 @@ export default function Login(props) {
               <p className={styles.subHeading}>
                 Enter a one-time password (OTP) to verify
               </p>
+              <p className={styles.subHeading+" text-center"}>
+                OTP delivered to <span className="font-bold text-lg">{phone}</span>
+              </p>
             </div>
             {otpFailed && (
               <span className={styles.warn}>
@@ -544,15 +547,17 @@ export default function Login(props) {
                 name="otp"
                 placeholder="Enter OTP"
               />
-            </div>
-            <div className="flex items-center gap-4">
               <button
                 type="button"
-                className={styles.btn}
+                className={
+                  "text-white bg-[#007cff] capitalize px-2 py-1 text-sm rounded-md whitespace-nowrap"
+                }
                 onClick={(e) => setOtpForm(false)}
               >
-                Back
+                Edit number
               </button>
+            </div>
+            <div className="flex items-center gap-4 flex-col">
               <button className={styles.btn} type="submit">
                 Submit
               </button>

@@ -2,6 +2,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import React from "react";
+import { AiOutlineCheck } from "react-icons/ai";
+import { GrClose } from "react-icons/gr";
 
 const Premium = (props) => {
   return (
@@ -63,6 +65,73 @@ const Premium = (props) => {
           <a href="mailto:fipezocare@gmail.com"> fipezocare@gmail.com</a> for
           more details.
         </p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <h2>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+          repellat esse porro ea molestias, sit dolore voluptates
+        </h2>
+        <div>
+          <table className="text-2xl text-left border">
+            <thead className="text-xs">
+              <tr className="border-b">
+                <th scope="col" className="uppercase px-6 py-3">
+                  benefits
+                </th>
+                <th scope="col" className="uppercase px-6 py-3">
+                  free
+                </th>
+                <th scope="col" className="uppercase px-6 py-3">
+                  premium
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="bg-white border-b">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium whitespace-nowrap"
+                >
+                  Apple MacBook Pro 17"
+                </th>
+                <td className="px-6 py-4">
+                  <AiOutlineCheck color="#12c96b" />
+                </td>
+                <td className="px-6 py-4">
+                  <AiOutlineCheck color="#12c96b" />
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium whitespace-nowrap"
+                >
+                  Microsoft Surface Pro
+                </th>
+                <td className="px-6 py-4">
+                  <GrClose color="#dddddd" />
+                </td>
+                <td className="px-6 py-4">
+                  <AiOutlineCheck color="#12c96b" />
+                </td>
+              </tr>
+              <tr className="bg-white">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium whitespace-nowrap"
+                >
+                  Magic Mouse 2
+                </th>
+                <td className="px-6 py-4">
+                  <GrClose color="#dddddd" />
+                </td>
+                <td className="px-6 py-4">
+                  <AiOutlineCheck color="#12c96b" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <Footer />
     </>

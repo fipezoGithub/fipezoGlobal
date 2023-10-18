@@ -6,6 +6,7 @@ import DeleteBox from "@/components/DeleteBox";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Loading from "@/components/Loading";
 
 function User_profile(props) {
   const [firstname, setFirstname] = React.useState("");
@@ -16,6 +17,7 @@ function User_profile(props) {
   const [user, setUser] = React.useState({});
   const [warns, setWarns] = React.useState(false);
   const [image, setImage] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
   const [profilePicture, setProfilePicture] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -51,6 +53,7 @@ function User_profile(props) {
 
   const handleEditProfile = (e) => {
     e.preventDefault();
+    setLoading(false);
     const data = new FormData();
     data.append("firstname", firstname);
     data.append("lastname", lastname);
@@ -58,10 +61,7 @@ function User_profile(props) {
     if (password !== undefined) {
       data.append("password", password);
     }
-    if (
-      profilePicture !== null ||
-      !profilePicture.includes("profilePicture-")
-    ) {
+    if (profilePicture !== null && !profilePicture.includes("profilePicture")) {
       data.append("profilePicture", profilePicture);
     }
     const token = localStorage.getItem("user")
@@ -89,6 +89,7 @@ function User_profile(props) {
         })
         .catch((error) => {
           console.error(error);
+          setLoading(false)
         });
     }
   };
@@ -232,110 +233,113 @@ function User_profile(props) {
               </button>
             </div>
           )}
-          {editProfile && (
-            <div className={style.editProfile}>
-              <form
-                className={style.form}
-                encType="multipart/form-data"
-                onSubmit={handleEditProfile}
-              >
-                <div
-                  className={style.editProfileImage}
-                  style={{
-                    backgroundImage: `url(${
-                      image
-                        ? image
-                        : profilePicture
-                        ? `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`
-                        : "/dp.png"
-                    })`,
-                  }}
+          {editProfile &&
+            (loading === false ? (
+              <div className={style.editProfile}>
+                <form
+                  className={style.form}
+                  encType="multipart/form-data"
+                  onSubmit={handleEditProfile}
                 >
-                  {!image && (
-                    <Image
-                      className={style.camera}
-                      id={style.camera}
-                      src="/cameraIcon.png"
-                      width={35}
-                      height={35}
-                      alt="camera"
-                      onClick={handleImageClick}
-                    />
-                  )}
-                  <input
-                    type="file"
-                    id="file"
-                    accept="image/*"
-                    name="profilePicture"
-                    onChange={handleImageChange}
-                    className={style.fileInput}
-                  />
-                </div>
-                <div className={style.editProfileInfo}>
-                  <input
-                    className={style.input}
-                    type="text"
-                    value={firstname}
-                    onChange={(e) => {
-                      setFirstname(e.target.value);
-                      setFirstcolor("black");
+                  <div
+                    className={style.editProfileImage}
+                    style={{
+                      backgroundImage: `url(${
+                        image
+                          ? image
+                          : profilePicture
+                          ? `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`
+                          : "/dp.png"
+                      })`,
                     }}
-                    style={{ color: firstcolor }}
-                  />
-                  <input
-                    className={style.input}
-                    type="text"
-                    value={lastname}
-                    onChange={(e) => {
-                      setLastname(e.target.value);
-                      setLastcolor("black");
-                    }}
-                    style={{ color: lastcolor }}
-                  />
-                  <input
-                    className={style.input}
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setLastcolor("black");
-                    }}
-                    style={{ color: lastcolor }}
-                  />
-                  <input
-                    className={style.input}
-                    type="password"
-                    placeholder="Enter your new password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                  <input
-                    className={style.input}
-                    type="password"
-                    placeholder="Confirm your new password"
-                    value={confirmPassword}
-                    onChange={(e) => {
-                      setConfirmPassword(e.target.value);
-                    }}
-                  />
-                </div>
-                <div className={style.btns}>
-                  <button className={style.logout} type="submit">
-                    Save
-                  </button>
-                  <button
-                    className={style.back}
-                    type="button"
-                    onClick={() => setEditProfile(false)}
                   >
-                    Back
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
+                    {!image && (
+                      <Image
+                        className={style.camera}
+                        id={style.camera}
+                        src="/cameraIcon.png"
+                        width={35}
+                        height={35}
+                        alt="camera"
+                        onClick={handleImageClick}
+                      />
+                    )}
+                    <input
+                      type="file"
+                      id="file"
+                      accept="image/*"
+                      name="profilePicture"
+                      onChange={handleImageChange}
+                      className={style.fileInput}
+                    />
+                  </div>
+                  <div className={style.editProfileInfo}>
+                    <input
+                      className={style.input}
+                      type="text"
+                      value={firstname}
+                      onChange={(e) => {
+                        setFirstname(e.target.value);
+                        setFirstcolor("black");
+                      }}
+                      style={{ color: firstcolor }}
+                    />
+                    <input
+                      className={style.input}
+                      type="text"
+                      value={lastname}
+                      onChange={(e) => {
+                        setLastname(e.target.value);
+                        setLastcolor("black");
+                      }}
+                      style={{ color: lastcolor }}
+                    />
+                    <input
+                      className={style.input}
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setLastcolor("black");
+                      }}
+                      style={{ color: lastcolor }}
+                    />
+                    <input
+                      className={style.input}
+                      type="password"
+                      placeholder="Enter your new password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                    <input
+                      className={style.input}
+                      type="password"
+                      placeholder="Confirm your new password"
+                      value={confirmPassword}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className={style.btns}>
+                    <button className={style.logout} type="submit">
+                      Save
+                    </button>
+                    <button
+                      className={style.back}
+                      type="button"
+                      onClick={() => setEditProfile(false)}
+                    >
+                      Back
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <Loading message={"Update your profile"} />
+            ))}
           {showDeleteBox && (
             <div className={style.deleteBox}>
               <DeleteBox

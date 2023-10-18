@@ -165,4 +165,10 @@
     height: auto;
     gap: 2rem;
   }
+  .subHeading{
+    font-size: 0.75rem;
+  }
+  #otp{
+    flex-direction: column;
+  }
 }
