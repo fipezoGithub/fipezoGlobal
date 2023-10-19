@@ -306,6 +306,17 @@ export default function Navbar(props) {
                   </Link>
                 )}
                 {props.user.uid && (
+                  <Link
+                    className={styles.btn}
+                    href={`/freelancer-premium-plans`}
+                  >
+                    Premium{" "}
+                    <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase">
+                      offer
+                    </span>
+                  </Link>
+                )}
+                {props.user.uid && (
                   <Link className={styles.btn} href={`/my_referral`}>
                     Referals
                   </Link>
@@ -611,6 +622,17 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/freelancer_profile`}>
                     My Profile
+                  </Link>
+                )}
+                {props.user.uid && (
+                  <Link
+                    className={styles.btn}
+                    href={`/freelancer-premium-plans`}
+                  >
+                    Premium{" "}
+                    <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase text-sm">
+                      offer
+                    </span>
                   </Link>
                 )}
                 {props.user.uid && (

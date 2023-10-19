@@ -702,7 +702,7 @@ class Freelancer extends React.Component {
                         value={this.state.otp}
                       />
                       <p className="pt-4 text-neutral-400">
-                        OTP will be valid for minutes
+                        OTP will be valid for 5 minutes
                       </p>
                     </div>
                   )}

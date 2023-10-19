@@ -42,7 +42,9 @@ body {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #00aaff;

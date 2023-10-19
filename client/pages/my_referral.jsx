@@ -13,7 +13,7 @@ const My_referral = (props) => {
   const [upiID, setUpiID] = useState("");
   const [conUpiID, setConUpiID] = useState("");
   const referalText = useRef();
-
+  const a = 5;
   useEffect(() => {
     const loginType = JSON.parse(localStorage.getItem("type"));
     const token = localStorage.getItem("user")
@@ -132,7 +132,7 @@ const My_referral = (props) => {
               >
                 <button
                   type="button"
-                  className="flex items-center justify-center border border-neutral-300 hover:bg-neutral-300 px-2 py-1 rounded-full capitalize"
+                  className="flex items-center justify-center border bg-blue-500 text-white border-neutral-300 hover:bg-white hover:text-orange-500 px-2 py-1 rounded-full capitalize"
                 >
                   {/* <BsFillShareFill style={{ color: "blue" }} /> */}
                   share in social media
@@ -170,7 +170,7 @@ const My_referral = (props) => {
               className={
                 "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
                 (referCode?.acceptedFreelancer?.length > 0
-                  ? " bg-blue-500 text-blue-500"
+                  ? " bg-blue-500 text-white"
                   : " bg-neutral-500 text-white")
               }
             >
@@ -188,8 +188,8 @@ const My_referral = (props) => {
               className={
                 "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
                 (referCode?.acceptedFreelancer?.length > 1
-                  ? " border-blue-500 text-blue-500"
-                  : " border-neutral-500 text-neutral-500")
+                  ? " bg-blue-500 text-white"
+                  : " bg-neutral-500 text-white")
               }
             >
               2
@@ -206,8 +206,8 @@ const My_referral = (props) => {
               className={
                 "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
                 (referCode?.acceptedFreelancer?.length > 2
-                  ? " border-blue-500 text-blue-500"
-                  : " border-neutral-500 text-neutral-500")
+                  ? " bg-blue-500 text-white"
+                  : " bg-neutral-500 text-white")
               }
             >
               3
@@ -224,8 +224,8 @@ const My_referral = (props) => {
               className={
                 "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
                 (referCode?.acceptedFreelancer?.length > 3
-                  ? " border-blue-500 text-blue-500"
-                  : " border-neutral-500 text-neutral-500")
+                  ? " bg-blue-500 text-white"
+                  : " bg-neutral-500 text-white")
               }
             >
               4
@@ -242,8 +242,8 @@ const My_referral = (props) => {
               className={
                 "lg:text-lg px-2 py-1 border rounded-full w-10 lg:h-10 text-center" +
                 (referCode?.acceptedFreelancer?.length > 4
-                  ? " border-blue-500 text-blue-500"
-                  : " border-neutral-500 text-neutral-500")
+                  ? " bg-blue-500 text-white"
+                  : " bg-neutral-500 text-white")
               }
             >
               5
@@ -255,7 +255,7 @@ const My_referral = (props) => {
           className="px-4 py-2 capitalize lg:text-lg bg-blue-600 font-bold text-white self-center rounded-lg mt-4"
           onClick={() => setShowWithdrawlBox(true)}
         >
-          withdrawl now
+          withdraw now
         </button>
         {showWithdrawlBox === true && (
           <div className="flex items-center justify-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur w-full h-full">
@@ -270,7 +270,7 @@ const My_referral = (props) => {
                 </button>
               </div>
               <h4 className=" text-lg lg:text-2xl capitalize">withdrawl</h4>
-              {referCode?.acceptedFreelancer?.length > 5 ? (
+              {referCode?.acceptedFreelancer?.length >= 5 ? (
                 <div className="flex flex-col items-center justify-between w-full gap-4 lg:gap-0">
                   <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-4 lg:gap-0">
                     <div className="flex flex-col items-start">
@@ -316,18 +316,18 @@ const My_referral = (props) => {
               ) : (
                 <div>
                   <h3 className="lg:text-xl">
-                    You are not eligible to withdrawl ammount. Please assuerd
-                    that you have completed 5 successful refer.
+                    You are not eligible to withdraw your amount. After 5
+                    successful referrals, you are eligible to withdraw.
                   </h3>
                 </div>
               )}
               <div className="flex flex-col gap-4">
                 <p className="text-neutral-500">
-                  P.S: Once you submitted your upi id you can not change. Make
-                  sure your upi id before submit.
+                  Once you submitted your upi id you can not change. Make sure
+                  your upi id before submit.
                 </p>
                 <p className="text-neutral-500">
-                  P.S: In case of any queries you can contact us by mail us at{" "}
+                  In case of any queries you can contact us by mail us at{" "}
                   <a href="mailto:help@fipezo.com" className="text-blue-500">
                     help@fipezo.com
                   </a>
