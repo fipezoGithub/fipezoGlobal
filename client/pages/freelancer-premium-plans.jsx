@@ -219,7 +219,7 @@ const Premium = (props) => {
             <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between min-w-full gap-6 snap-center">
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
-                  I can't begin to express how thrilled I am with Fipezo's
+                  I can&apos;t begin to express how thrilled I am with Fipezo&apos;s
                   Premium Package! This has truly been a game-changer in my
                   freelancing career. The premium package from www.fipezo.com
                   has not only transformed the way I work but has also enhanced
@@ -272,7 +272,7 @@ const Premium = (props) => {
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
                   The clients I have connected with through the Premium Package
-                  are not only more numerous but also higher in quality. I've
+                  are not only more numerous but also higher in quality. I&apos;ve
                   had the pleasure of working with some fantastic clients on
                   meaningful projects that align perfectly with my skills and
                   interests.
@@ -297,9 +297,9 @@ const Premium = (props) => {
             <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between min-w-full gap-6 snap-center">
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
-                  Fipezo's customer support team has been incredibly responsive
+                  Fipezo&apos;s customer support team has been incredibly responsive
                   and helpful. They genuinely care about my success and are
-                  always ready to assist with any questions or concerns. It's
+                  always ready to assist with any questions or concerns. It&apos;s
                   reassuring to know that I have a dedicated team backing me up.
                 </p>
                 <div className="flex flex-col items-start">
