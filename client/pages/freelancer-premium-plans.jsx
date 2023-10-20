@@ -10,6 +10,7 @@ import { IoClose } from "react-icons/io5";
 
 const Premium = (props) => {
   const [index, setIndex] = useState(1);
+  const [callBack, setCallBack] = useState(false);
   const testimonalRef = useRef();
   const handelTestimonail = (range, direct) => {
     testimonalRef.current.scrollBy(range, 0);
@@ -24,6 +25,28 @@ const Premium = (props) => {
       }
     }
   };
+
+  const handelCallback = async () => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/callback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const callBack = await res.json();
+      if (callBack) {
+        setCallBack(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -51,7 +74,7 @@ const Premium = (props) => {
               1 month plan
             </h3>
             <hr className="w-full h-px" />
-            <p className="font-bold text-2xl lg:text-5xl">₹99</p>
+            <p className="font-bold text-6xl lg:text-5xl">₹99</p>
             <div className="flex items-center gap-4">
               <p className="line-through text-base lg:text-xl text-neutral-500">
                 ₹140
@@ -73,15 +96,19 @@ const Premium = (props) => {
               Custom plan
             </h3>
             <hr className="w-full h-px" />
-            <p className="font-semibold lg:text-2xl">
-              Explore the best solutions and offers for your hiring requirements
+            <p className="font-semibold text-2xl">
+              {callBack === false
+                ? "Explore the best solutions and offers for your hiring requirements"
+                : "Thank you! Our representative will get back to you shortly."}
             </p>
             <div className="h-1/3"></div>
             <button
               type="button"
-              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg"
+              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg disabled:bg-neutral-600"
+              disabled={callBack === false ? false : true}
+              onClick={handelCallback}
             >
-              Request a callback
+              {callBack === false ? "Request a callback" : "Callback requested"}
             </button>
           </div>
         </div>
@@ -92,7 +119,7 @@ const Premium = (props) => {
         </p>
       </div>
       <div className="flex flex-col items-center justify-center my-8 mb-16">
-        <h2 className="text-xl lg:text-4xl mt-16 mb-12 font-semibold text-center">
+        <h2 className="text-xl lg:text-4xl mt-16 mb-12 font-semibold text-center mx-2 lg:mx-0">
           Now enjoy premium benefits for your professional profile
         </h2>
         <div className="flex items-center justify-center">
@@ -200,7 +227,7 @@ const Premium = (props) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center w-full bg-[#e7f6ff] pb-20">
-        <h2 className="text-2xl lg:text-4xl font-medium my-16 mb-8">
+        <h2 className="text-2xl lg:text-4xl font-medium my-16 mb-8 mx-2 lg:mx-0 text-center">
           What freelancers say about us!
         </h2>
         <div className="flex relative items-center gap-2 py-8">
@@ -219,11 +246,11 @@ const Premium = (props) => {
             <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between min-w-full gap-6 snap-center">
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
-                  I can&apos;t begin to express how thrilled I am with Fipezo&apos;s
-                  Premium Package! This has truly been a game-changer in my
-                  freelancing career. The premium package from www.fipezo.com
-                  has not only transformed the way I work but has also enhanced
-                  my overall freelancing experience.
+                  I can&apos;t begin to express how thrilled I am with
+                  Fipezo&apos;s Premium Package! This has truly been a
+                  game-changer in my freelancing career. The premium package
+                  from www.fipezo.com has not only transformed the way I work
+                  but has also enhanced my overall freelancing experience.
                 </p>
                 <div className="flex flex-col items-start">
                   <p className="capitalize font-bold text-neutral-600">
@@ -272,10 +299,10 @@ const Premium = (props) => {
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
                   The clients I have connected with through the Premium Package
-                  are not only more numerous but also higher in quality. I&apos;ve
-                  had the pleasure of working with some fantastic clients on
-                  meaningful projects that align perfectly with my skills and
-                  interests.
+                  are not only more numerous but also higher in quality.
+                  I&apos;ve had the pleasure of working with some fantastic
+                  clients on meaningful projects that align perfectly with my
+                  skills and interests.
                 </p>
                 <div className="flex flex-col items-start">
                   <p className="capitalize font-bold text-neutral-600">
@@ -297,10 +324,11 @@ const Premium = (props) => {
             <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start justify-between min-w-full gap-6 snap-center">
               <div className="flex flex-col items-start gap-3">
                 <p className="w-full">
-                  Fipezo&apos;s customer support team has been incredibly responsive
-                  and helpful. They genuinely care about my success and are
-                  always ready to assist with any questions or concerns. It&apos;s
-                  reassuring to know that I have a dedicated team backing me up.
+                  Fipezo&apos;s customer support team has been incredibly
+                  responsive and helpful. They genuinely care about my success
+                  and are always ready to assist with any questions or concerns.
+                  It&apos;s reassuring to know that I have a dedicated team
+                  backing me up.
                 </p>
                 <div className="flex flex-col items-start">
                   <p className="capitalize font-bold text-neutral-600">

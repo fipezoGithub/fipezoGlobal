@@ -240,6 +240,14 @@ export default function Navbar(props) {
             </li>
           )}
 
+          {isAdmin && (
+            <li className={styles.navElement}>
+              <Link href="/callback-request" className={styles.navElement}>
+                Calllback
+              </Link>
+            </li>
+          )}
+
           {!props.user && !props.company && (
             <li className={styles.navElement} id={styles.noUnderline}>
               <Link href="/login" className={styles.login}>
@@ -553,6 +561,14 @@ export default function Navbar(props) {
             <li className={styles.navElement}>
               <Link href="/verification" className={styles.navElement}>
                 Verify
+              </Link>
+            </li>
+          )}
+
+          {isAdmin && (
+            <li className={styles.navElement}>
+              <Link href="/callback-request" className={styles.navElement}>
+                Callback
               </Link>
             </li>
           )}

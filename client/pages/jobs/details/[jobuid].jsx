@@ -112,12 +112,12 @@ const Jobuid = (props) => {
         setUser={props.setUser}
       />
       <div className="flex flex-col items-center justify-center gap-8">
-        <div className="mt-16 flex bg-gradient-to-r from-white to-rose-400 items-center justify-between p-2 lg:p-4 border lg:w-2/3 gap-2">
-          <div className="flex flex-col gap-3">
-            <h4 className="text-sm lg:text-xl font-semibold">
-              Want to increase your earnings up to 10x
+        <div className="mt-16 flex bg-gradient-to-r from-white to-rose-400 items-center justify-between p-2 lg:p-4 border lg:w-2/3 lg:gap-2">
+          <div className="flex flex-col gap-1 lg:gap-3">
+            <h4 className="text-base lg:text-xl font-semibold">
+              Want to increase your earnings up to <span className="text-2xl text-orange-500">10x</span>
             </h4>
-            <p className="text-sm lg:text-xl font-semibold">
+            <p className="text-sm lg:text-2xl font-semibold text-blue-500">
               Join Fipezo as a freelancer
             </p>
             <p className="text-sm lg:text-xl font-semibold">
@@ -135,7 +135,7 @@ const Jobuid = (props) => {
             width={150}
             height={150}
             alt="job-vector"
-            className="w-16 lg:w-32"
+            className="w-20 lg:w-32"
           />
         </div>
         <div>

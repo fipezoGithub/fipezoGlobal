@@ -145,6 +145,12 @@ const {
   rejectFreelancers,
   jobViewCount,
 } = require("./controllers/jobController");
+const {
+  requestCallback,
+  getAllCallback,
+  deleteCallback,
+} = require("./controllers/callbackController");
+const { submitPayment } = require("./controllers/paymentController");
 
 // Setting up the routes
 
@@ -288,6 +294,15 @@ app.get("/api/job/user", verifyToken, getPostedJobsOfUser);
 app.get("/api/job/get/:uid", getJobById);
 app.get("/api/job/get/", getAllJob);
 app.get("/api/job/profession/:profession", getJobByProfession);
+
+//CallbackController Routes
+app.post("/api/callback", verifyToken, requestCallback);
+app.get("/api/callback", getAllCallback);
+app.delete("/api/callback/:callbackId", deleteCallback);
+
+//Paymentcontroller Routes
+app.post("/api/payment", upload, verifyToken, submitPayment);
+
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

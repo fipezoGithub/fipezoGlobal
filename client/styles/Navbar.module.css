@@ -307,8 +307,8 @@
     border-bottom: 1px dashed;
   }
   .btn {
-    font-size: 1rem;
-    line-height: 1.1rem;
+    font-size: 0.85rem;
+    line-height: 1rem;
   }
   .dropDown {
     position: static;
@@ -317,7 +317,7 @@
   }
   .profile_card {
     position: static;
-    height: 23rem;
+    height: 26rem;
     width: 32rem;
   }
   #user {

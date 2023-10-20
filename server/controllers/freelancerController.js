@@ -310,55 +310,6 @@ async function getUnFreelancerProfiles(req, res) {
 }
 
 //edit profile
-// async function editFreelancerProfile(req, res) {
-//   try {
-//     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
-//       const freelancerData = await freelancerCollection.findOne({
-//         _id: authData.user._id,
-//       });
-//       if (err && !freelancerData) {
-//         return;
-//       } else {
-//         const user = await freelancerCollection.findOne({
-//           _id: authData.user._id,
-//         });
-//         let updatedAuthData;
-//         if (user) {
-//           if (!req.body.profilePicture) {
-//             // const resizedProfilePicture = await resizeImage(req.file, 200, 200);
-//             await freelancerCollection.updateOne(
-//               { _id: authData.user._id },
-//               {
-//                 $set: {
-//                   bio: req.body.bio,
-//                   equipments: req.body.equipments,
-//                 },
-//               }
-//             );
-
-//             updatedAuthData = {
-//               ...authData,
-//               user: {
-//                 ...authData.user,
-//                 bio: req.body.bio,
-//                 equipments: req.body.equipments,
-//               },
-//             };
-//           }
-//           const updatedToken = jwt.sign(updatedAuthData, secret);
-
-//           res.send({ freelancer: updatedAuthData, token: updatedToken });
-//         } else {
-//           res.sendStatus(403);
-//         }
-//       }
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal server error");
-//   }
-// }
-
 async function editFreelancerProfile(req, res) {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
