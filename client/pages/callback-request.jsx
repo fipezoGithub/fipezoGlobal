@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const callbackRequest = (props) => {
+const CallbackRequest = (props) => {
   const [callbacks, setCallBacks] = useState([]);
   useEffect(() => {
     getCallbacks();
@@ -94,4 +94,4 @@ const callbackRequest = (props) => {
   );
 };
 
-export default callbackRequest;
+export default CallbackRequest;
