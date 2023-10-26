@@ -9,7 +9,7 @@ import { AiFillProfile } from "react-icons/ai";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { useRouter } from "next/router";
-const Jobcard = ({ job, setJobs, company, user }) => {
+const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [loginType, setLoginType] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -272,7 +272,7 @@ const Jobcard = ({ job, setJobs, company, user }) => {
           })}
         </p>
       </div>
-      {router.asPath === "/my_job" && (
+      {router.asPath === "/my_job" && status !== false && (
         <div className="flex flex-col items-start lg:text-lg gap-2">
           <h2 className="capitalize font-bold lg:text-xl">
             application status

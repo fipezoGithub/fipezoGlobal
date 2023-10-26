@@ -69,9 +69,13 @@ async function addReview(req, res) {
       const freelancer = await freelancerCollection.findOne({
         _id: req.body.freelancer,
       });
-      freelancer.rating = avgStars;
-      freelancer.reviewCount = reviews.length;
-      await freelancer.save();
+      await freelancerCollection.findByIdAndUpdate(req.body.freelancer, {
+        rating: avgStars,
+        reviewCount: reviews.length,
+      });
+      // freelancer.rating = avgStars;
+      // freelancer.reviewCount = reviews.length;
+      // await freelancer.save();
 
       res.send(postData);
     });

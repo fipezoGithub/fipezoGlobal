@@ -36,7 +36,7 @@ const Referandearn = (props) => {
       <div className="mt-4 flex flex-col items-center gap-4 rounded py-4 px-2 md:px-0">
         <h2 className="text-lg text-center">
           Invite your freelancer friend to{" "}
-          <span className="font-bold">FIpezo</span> and earn ₹50 rupees for
+          <span className="font-bold">Fipezo</span> and earn ₹50 rupees for
           every successful freelancer joining
         </h2>
         {type === "user" || type === "freelancer" ? (

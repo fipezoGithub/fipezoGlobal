@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import Link from "next/link";
 import Head from "next/head";
-import RandomFeeds from "@/components/RandomFeeds";
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 function Freelancer_Profile(props) {
   const router = useRouter();
@@ -22,6 +22,7 @@ function Freelancer_Profile(props) {
   const [picturePosition, setPicturePosition] = useState();
   const [feeds, setFeeds] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [updatePopup, setUpdatePopup] = useState(false);
 
   const handleClick = (item, index) => {
     if (!item.includes("works[]")) {
@@ -97,6 +98,7 @@ function Freelancer_Profile(props) {
         .then((res) => res.json())
         .then((data) => {
           setFreelancer(data);
+          !data.email && setUpdatePopup(true);
           setPicturePosition(JSON.parse(data.pictureStyle));
           setIsFreelancerLoaded(true);
         })
@@ -230,6 +232,26 @@ function Freelancer_Profile(props) {
           />
         )}
       </div>
+      {updatePopup === true && (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center backdrop-blur">
+          <div className="flex items-center justify-center flex-col bg-gradient-to-r p-8 from-[#cccccc] to-[#4f70b9] text-white gap-4 relative">
+            <div className="absolute top-1 right-1">
+              <button type="button" onClick={() => setUpdatePopup(false)}>
+                <IoMdCloseCircleOutline size={"2em"} />
+              </button>
+            </div>
+            <h2 className="text-xl">
+              Looks like you have not update your email, password yet.
+            </h2>
+            <Link
+              href="/profile-setting"
+              className="text-lg capitalize text-blue-600 font-bold drop-shadow-md"
+            >
+              update now
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

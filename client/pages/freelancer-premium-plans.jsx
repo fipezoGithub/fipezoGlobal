@@ -84,12 +84,13 @@ const Premium = (props) => {
               </p>
             </div>
             <div className="h-1/3"></div>
-            <Link
-              href="/payment"
+            <button
+              // href="/payment"
+              type="button"
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </Link>
+            </button>
           </div>
           <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
             <h3 className="lg:text-xl text-neutral-500 font-bold">

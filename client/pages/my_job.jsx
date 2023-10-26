@@ -94,15 +94,18 @@ const MyJob = (props) => {
         {showRecommendedJob === true && (
           <div className="flex flex-col items-center gap-8 lg:w-2/3">
             {recommendedJob.length > 0 ? (
-              recommendedJob.map((it, index) => (
-                <Jobcard
-                  job={it}
-                  key={index}
-                  setJobs={setRecommendedJob}
-                  company={props.company}
-                  user={props.user}
-                />
-              ))
+              recommendedJob
+                .toReversed()
+                .map((it, index) => (
+                  <Jobcard
+                    status={false}
+                    job={it}
+                    key={index}
+                    setJobs={setRecommendedJob}
+                    company={props.company}
+                    user={props.user}
+                  />
+                ))
             ) : (
               <div>
                 <Image
@@ -118,15 +121,17 @@ const MyJob = (props) => {
         {showAppliedJob === true && (
           <div className="flex flex-col items-center gap-8 lg:w-2/3">
             {appliedJob.length > 0 ? (
-              appliedJob.map((it, index) => (
-                <Jobcard
-                  job={it}
-                  key={index}
-                  setJobs={setAppliedJob}
-                  company={props.company}
-                  user={props.user}
-                />
-              ))
+              appliedJob
+                .toReversed()
+                .map((it, index) => (
+                  <Jobcard
+                    job={it}
+                    key={index}
+                    setJobs={setAppliedJob}
+                    company={props.company}
+                    user={props.user}
+                  />
+                ))
             ) : (
               <div>
                 <Image
