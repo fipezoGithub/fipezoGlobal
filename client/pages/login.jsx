@@ -349,7 +349,10 @@ export default function Login(props) {
               </button>
             </div>
             {showLogEmail === true && (
-              <form className="flex flex-col items-center gap-4">
+              <form
+                className="flex flex-col items-center gap-4"
+                onSubmit={handelLoginEmail}
+              >
                 <div className="flex flex-col gap-4 mt-4 items-center">
                   <div className="flex flex-col md:flex-row gap-1 items-center text-lg">
                     <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
@@ -403,11 +406,7 @@ export default function Login(props) {
                     </div>
                   </div>
                   <div>
-                    <button
-                      type="button"
-                      className={styles.btn}
-                      onClick={handelLoginEmail}
-                    >
+                    <button type="submit" className={styles.btn}>
                       Login
                     </button>
                   </div>
@@ -530,8 +529,9 @@ export default function Login(props) {
               <p className={styles.subHeading}>
                 Enter a one-time password (OTP) to verify
               </p>
-              <p className={styles.subHeading+" text-center"}>
-                OTP delivered to <span className="font-bold text-lg">{phone}</span>
+              <p className={styles.subHeading + " text-center"}>
+                OTP delivered to{" "}
+                <span className="font-bold text-lg">{phone}</span>
               </p>
             </div>
             {otpFailed && (

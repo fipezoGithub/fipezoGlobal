@@ -3,24 +3,50 @@ import { FaStar } from "react-icons/fa";
 import { CiMenuKebab } from "react-icons/ci";
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
+import { BsFillReplyAllFill } from "react-icons/bs";
 
 function Review(props) {
+  console.log(props);
   const { profilePicture } = props.review?.userDetails;
   const [title, setTitle] = useState(props.review.title);
   const [review, setReview] = useState(props.review.review);
   const [showEdit, setshowEdit] = useState(false);
+  const [replyText, setReplyText] = useState("");
   const [stars, setStars] = useState(props.review.stars);
   const [hover, setHover] = useState(null);
+  const [reviewReply, setReviewReply] = useState(false);
   const token = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).token
     : null;
   const [reviewError, setReviewError] = useState(false);
   const [minErr1, setMinErr1] = useState(false);
   const [minErr2, setMinErr2] = useState(false);
-  console.log(props);
+
   const handelShowEdit = () => {
     setshowEdit(!showEdit);
   };
+
+  const handelReply = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/review/reply/${props.review._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ reply: replyText }),
+        }
+      );
+      const data = await res.json();
+      setReviewReply(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handelUpdate = async () => {
     try {
       const res = await fetch(
@@ -43,6 +69,7 @@ function Review(props) {
       console.log(error);
     }
   };
+
   return (
     <div className={styles.review}>
       {props.review.user === props.user?._id && (
@@ -72,7 +99,7 @@ function Review(props) {
           }}
         ></div>
         <div className={styles.user_details}>
-          <h3 className={styles.user_name+" capitalize"}>
+          <h3 className={styles.user_name + " capitalize"}>
             {props.review.userDetails.firstname}{" "}
             {props.review.userDetails.lastname}
           </h3>
@@ -95,7 +122,60 @@ function Review(props) {
           {props.review.review}
         </p>
       </div>
-
+      {props.review.reply && (
+        <div className={styles.review_details + " border-l border-black mt-2"}>
+          <h4 className="pl-2">Response from freelancer</h4>
+          <p className={`${styles.review_text} break-words pl-2`}>
+            {props.review.reply}
+          </p>
+        </div>
+      )}
+      {props.user?._id === props.review.freelancer && reviewReply === false && (
+        <div className="my-2">
+          <button
+            type="button"
+            onClick={() => setReviewReply(true)}
+            className="text-sm capitalize flex items-center text-blue-600 gap-1"
+          >
+            <BsFillReplyAllFill />
+            reply
+          </button>
+        </div>
+      )}
+      {reviewReply === true && (
+        <form
+          className="flex items-center flex-col w-full"
+          onSubmit={handelReply}
+        >
+          <div className="w-full border-b">
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="3"
+              placeholder="add reply"
+              value={replyText}
+              onChange={(e) => setReplyText(e.target.value)}
+              className="p-2 outline-none placeholder:capitalize resize-none w-full"
+            ></textarea>
+          </div>
+          <div className="flex items-center gap-1 self-end">
+            <button
+              type="submit"
+              className="capitalize p-1 text-blue-500 hover:font-semibold"
+            >
+              submit
+            </button>
+            <button
+              type="button"
+              onClick={() => setReviewReply(false)}
+              className="capitalize p-1 text-red-500 hover:font-semibold"
+            >
+              cancel
+            </button>
+          </div>
+        </form>
+      )}
       {showEdit === true && (
         <div className={styles.reviewBox}>
           <span onClick={() => setshowEdit(false)} className={styles.cross}>

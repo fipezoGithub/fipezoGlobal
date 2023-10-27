@@ -302,14 +302,16 @@ export default function Name(props) {
         {showDialogBox && (
           <DialogBox
             title="Sent Successfully!"
-            text="Your Request has been sent to the props.data. You will be contacted within 24hours via sms. If you have any queries fell free to reach out to us."
+            text={`Your request has been sent to ${
+              props.data.firstname + " " + props.data.lastname
+            }. You will be contacted within 24 hours via sms. If you have any queries feel free to reach out to us.`}
             handleDialogBox={handleDialogBox}
           />
         )}
         {showReviewDialogBox && (
           <DialogBox
-            title="Review Sent Successfully!"
-            text="Thank you for the review. Your valuable feedback will help us enhance our services and better serve our clients."
+            title="Review Submitted Successfully!"
+            text="Thank you for the review. Your valuable feedback will help us to enhance our services and better serve our clients."
             handleDialogBox={handleReviewDialogBox}
           />
         )}

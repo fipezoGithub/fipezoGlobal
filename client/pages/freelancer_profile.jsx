@@ -34,7 +34,7 @@ function Freelancer_Profile(props) {
   const handelRotationRight = () => {
     if (
       currentIndex === null ||
-      !props.data.works.map((work) => work.includes("works[]"))
+      !freelancer.works.map((work) => work.includes("works[]"))
     ) {
       return;
     }
@@ -185,6 +185,7 @@ function Freelancer_Profile(props) {
             profession={freelancer.profession}
             works={freelancer.works}
             reviews={reviews}
+            user={props.user}
             handleClick={handleClick}
           />
         )}

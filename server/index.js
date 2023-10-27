@@ -85,6 +85,7 @@ const {
   addReview,
   getReviews,
   updateReviews,
+  addReviewReply,
 } = require("./controllers/reviewController");
 
 const secret = process.env.JWT_SECRET;
@@ -258,6 +259,7 @@ app.put("/api/cancel/request/:id", verifyToken, cancelRequest);
 
 //ReviewController Routes
 app.post("/api/add/review", verifyToken, addReview);
+app.post("/api/review/reply/:reviewId", verifyToken, addReviewReply);
 app.put("/api/edit/reviews/:id", verifyToken, updateReviews);
 app.get("/api/reviews/:id", getReviews);
 
@@ -302,7 +304,6 @@ app.delete("/api/callback/:callbackId", deleteCallback);
 
 //Paymentcontroller Routes
 app.post("/api/payment", upload, verifyToken, submitPayment);
-
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

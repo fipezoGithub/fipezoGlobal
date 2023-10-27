@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import styles from "../styles/Freelancer.module.css";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -94,7 +93,7 @@ const ProfileSetting = (props) => {
     setIsLoading(true);
     try {
       const data = new FormData();
-      if (!profilePicture.includes("profilePicture")) {
+      if (typeof profilePicture !== "string") {
         data.append("profilePicture", profilePicture);
       }
       if (typeof coverPicture !== "string") {

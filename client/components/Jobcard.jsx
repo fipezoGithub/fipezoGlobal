@@ -345,7 +345,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
                             width={40}
                             height={40}
                             alt="pro-pic"
-                            className="rounded-full w-8 lg:w-10 h-8 lg:h-10"
+                            className="rounded-full w-8 lg:w-10 h-8 lg:h-10 object-cover"
                           />
                           <Link
                             className="capitalize hover:font-bold text-xs lg:text-base"

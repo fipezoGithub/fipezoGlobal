@@ -155,8 +155,35 @@ async function updateReviews(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
+async function addReviewReply(req, res) {
+  try {
+    jwt.verify(req.token, secret, async (err, authData) => {
+      const review = await reviewCollection.findById(req.params.reviewId);
+      if (err || !review) {
+        res.status(403).send("Forbidden");
+        return;
+      }
+
+      if (!req.body.reply) {
+        res.status(400).send("Bad request");
+        return;
+      }
+
+      const reply = await reviewCollection.findByIdAndUpdate(review._id, {
+        reply: req.body.reply,
+      });
+
+      res.send(reply);
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
 module.exports = {
   addReview,
   getReviews,
   updateReviews,
+  addReviewReply,
 };
