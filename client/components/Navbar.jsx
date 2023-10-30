@@ -480,13 +480,13 @@ export default function Navbar(props) {
             >
               <Link className={styles.optionBox} href="/explore/freelancers">
                 <h1 className={styles.mainText}>Freelancers</h1>
-                <p className={styles.subText}>
+                <p className={styles.subText + " text-orange-500"}>
                   Find Different Type of Freelancers
                 </p>
               </Link>
               <Link className={styles.optionBox} href="/explore/companies">
                 <h1 className={styles.mainText}>Companies</h1>
-                <p className={styles.subText}>
+                <p className={styles.subText + " text-orange-500"}>
                   Find Different Type of Companies
                 </p>
               </Link>
@@ -514,13 +514,13 @@ export default function Navbar(props) {
             >
               <Link className={styles.optionBox} href="/register/freelancer">
                 <h1 className={styles.mainText}>As a Freelancer</h1>
-                <p className={styles.subText}>
+                <p className={styles.subText + " text-orange-500"}>
                   Empowering Your Career: Registering as a Freelancer
                 </p>
               </Link>
               <Link className={styles.optionBox} href="/register/company">
                 <h1 className={styles.mainText}>As a Company</h1>
-                <p className={styles.subText}>
+                <p className={styles.subText + " text-orange-500"}>
                   Building Success: Registering Your Company
                 </p>
               </Link>
@@ -548,20 +548,25 @@ export default function Navbar(props) {
             >
               <Link className={styles.optionBox} href="/contact">
                 <h1 className={styles.mainText}>Contact Us</h1>
-                <p className={styles.subText}>
+                <p className={styles.subText + " text-orange-500"}>
                   Reach out to use for an query or help
                 </p>
               </Link>
               <Link className={styles.optionBox} href="/faqs">
                 <h1 className={styles.mainText}>FAQs</h1>
-                <p className={styles.subText}>Check out some asked questions</p>
+                <p className={styles.subText + " text-orange-500"}>
+                  Check out some asked questions
+                </p>
               </Link>
             </div>
           </li>
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link href="/verification" className={styles.navElement}>
+              <Link
+                href="/verification"
+                className={styles.home}
+              >
                 Verify
               </Link>
             </li>
@@ -569,7 +574,10 @@ export default function Navbar(props) {
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link href="/callback-request" className={styles.navElement}>
+              <Link
+                href="/callback-request"
+                className={styles.home}
+              >
                 Callback
               </Link>
             </li>

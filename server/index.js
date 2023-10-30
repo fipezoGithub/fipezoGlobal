@@ -63,6 +63,7 @@ const {
   editFreelancerProfilePicture,
   updateFreelancerPassword,
   getJobsOfUser,
+  likeProfile,
 } = require("./controllers/freelancerController");
 
 const {
@@ -86,6 +87,7 @@ const {
   getReviews,
   updateReviews,
   addReviewReply,
+  likeReview,
 } = require("./controllers/reviewController");
 
 const secret = process.env.JWT_SECRET;
@@ -152,6 +154,10 @@ const {
   deleteCallback,
 } = require("./controllers/callbackController");
 const { submitPayment } = require("./controllers/paymentController");
+const {
+  createNotification,
+  getNotificationOfUser,
+} = require("./controllers/notificationController");
 
 // Setting up the routes
 
@@ -243,6 +249,7 @@ app.put(
   updateFreelancerPassword
 );
 app.get("/api/freelancer/jobs", verifyToken, getJobsOfUser);
+app.put("/api/profile/love/:id", likeProfile);
 
 //Contactcontroller routes
 app.post("/api/contact", contactUs);
@@ -261,6 +268,7 @@ app.put("/api/cancel/request/:id", verifyToken, cancelRequest);
 app.post("/api/add/review", verifyToken, addReview);
 app.post("/api/review/reply/:reviewId", verifyToken, addReviewReply);
 app.put("/api/edit/reviews/:id", verifyToken, updateReviews);
+app.put("/api/reviews/like/:reviewId", verifyToken, likeReview);
 app.get("/api/reviews/:id", getReviews);
 
 //FeedController Routes
@@ -304,6 +312,10 @@ app.delete("/api/callback/:callbackId", deleteCallback);
 
 //Paymentcontroller Routes
 app.post("/api/payment", upload, verifyToken, submitPayment);
+
+//Notification Routes
+app.post("/api/notification/create", createNotification);
+app.get("/api/notification/:userId", getNotificationOfUser);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

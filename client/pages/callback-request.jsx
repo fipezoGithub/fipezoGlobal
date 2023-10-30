@@ -36,7 +36,7 @@ const CallbackRequest = (props) => {
         </h1>
       </div>
       <div>
-        <table className="w-full mt-8 border">
+        <table className="w-full mt-8 border border-collapse">
           <thead className="">
             <tr className="py-4">
               <th className="capitalize text-sm lg:text-2xl">dp</th>
@@ -50,15 +50,15 @@ const CallbackRequest = (props) => {
             {callbacks.length > 0 &&
               callbacks.map((it, i) => (
                 <tr key={i} className="border-b">
-                  <th className="flex items-center justify-center">
+                  <th className="flex items-center justify-center py-4">
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.requestedUser.profilePicture}`}
                       width={120}
                       height={120}
-                      className=""
+                      className="w-12 lg:w-auto"
                     />
                   </th>
-                  <th className="capitalize text-sm lg:text-xl font-medium">
+                  <th className="capitalize text-sm lg:text-xl font-medium py-4">
                     <Link
                       href={`/profile/${it.requestedUser.uid}`}
                       target="_blank"
@@ -68,7 +68,7 @@ const CallbackRequest = (props) => {
                         it.requestedUser.lastname}
                     </Link>
                   </th>
-                  <th className="capitalize text-sm lg:text-xl font-medium">
+                  <th className="capitalize text-sm lg:text-xl font-medium py-4">
                     {it.requestedUser.profession
                       .split("_")
                       .map(
@@ -76,12 +76,12 @@ const CallbackRequest = (props) => {
                       )
                       .join(" ")}
                   </th>
-                  <th className="capitalize text-sm lg:text-xl font-medium">
+                  <th className="capitalize text-sm lg:text-xl font-medium py-4">
                     <a href={`tel:${it.requestedUser.phone}`}>
                       {it.requestedUser.phone}
                     </a>
                   </th>
-                  <th className="capitalize text-sm lg:text-xl font-medium">
+                  <th className="capitalize text-sm lg:text-xl font-medium py-4">
                     {it.requestedUser.location}
                   </th>
                 </tr>

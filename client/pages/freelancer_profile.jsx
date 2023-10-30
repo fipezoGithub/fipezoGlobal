@@ -60,7 +60,7 @@ function Freelancer_Profile(props) {
   const handelRotationLeft = () => {
     if (
       currentIndex === null ||
-      !props.data.works.map((work) => work.includes("works[]"))
+      !freelancer.works.map((work) => work.includes("works[]"))
     ) {
       return;
     }

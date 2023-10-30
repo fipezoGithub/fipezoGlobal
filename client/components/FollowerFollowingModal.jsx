@@ -82,6 +82,7 @@ const FollowerFollowingModal = (props) => {
                 if (props.user?.following?.includes(item._id)) {
                   props.setIsFollowed(true);
                 }
+                console.log(props.user?.following);
                 return (
                   <div
                     key={index}
@@ -107,7 +108,7 @@ const FollowerFollowingModal = (props) => {
                       <button
                         type="button"
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                        onClick={() => props.handelFollow()}
+                        onClick={(e) => props.handelFollow(e)}
                       >
                         {props.user?.following?.includes(item._id)
                           ? "unfollow"
@@ -160,7 +161,7 @@ const FollowerFollowingModal = (props) => {
                       <button
                         type="button"
                         className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                        onClick={() => props.handelFollow()}
+                        onClick={(e) => props.handelFollow(e)}
                       >
                         {props.user?.following?.includes(item._id)
                           ? "unfollow"

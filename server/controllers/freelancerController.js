@@ -608,6 +608,7 @@ async function followProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //follow company
 async function followCompany(req, res) {
   try {
@@ -650,6 +651,7 @@ async function followCompany(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 // Unfollow Profile
 async function unFollowProfile(req, res) {
   try {
@@ -694,6 +696,7 @@ async function unFollowProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 // Unfollow Company
 async function unfollowCompany(req, res) {
   try {
@@ -737,6 +740,7 @@ async function unfollowCompany(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 // Get Followers
 async function getFollowers(req, res) {
   try {
@@ -754,6 +758,7 @@ async function getFollowers(req, res) {
     res.sendStatus(500);
   }
 }
+
 // Get Followings
 async function getFollowing(req, res) {
   try {
@@ -771,6 +776,7 @@ async function getFollowing(req, res) {
     res.sendStatus(500);
   }
 }
+
 // Get Followed Companies
 async function getFollowedCompanies(req, res) {
   try {
@@ -881,6 +887,24 @@ async function getJobsOfUser(req, res) {
   });
 }
 
+//Like Profile
+async function likeProfile(req, res) {
+  try {
+    const freelancer = await freelancerCollection.findById(req.params.id);
+    if (!freelancer) {
+      res.status(404).send("Freelancer not found");
+      return;
+    }
+    const like = await freelancerCollection.findByIdAndUpdate(req.params.id, {
+      loveCount: freelancer.loveCount + 1,
+    });
+    res.status(200).json({ message: "love successfull" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   registerFreelancer,
   getFreelancerProfile,
@@ -904,4 +928,5 @@ module.exports = {
   editFreelancerProfilePicture,
   updateFreelancerPassword,
   getJobsOfUser,
+  likeProfile,
 };

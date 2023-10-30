@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaShareSquare, FaStar } from "react-icons/fa";
 import FreelancerEditBox from "@/components/FreelancerEditBox";
-import { AiOutlineThunderbolt, AiFillEdit } from "react-icons/ai";
+import { AiOutlineThunderbolt, AiFillEdit, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
 
 function ProfileBioCard(props) {
@@ -16,6 +16,7 @@ function ProfileBioCard(props) {
   const [showModalAs, setShowModalAs] = useState("");
   const [isFollowed, setIsFollowed] = useState(false);
   const [url, setUrl] = useState("");
+  const [loveCount, setLoveCount] = useState(0);
   const [showFollowingFollowerBox, setShowFollowingFollowerBox] =
     useState(false);
   const router = useRouter();
@@ -23,6 +24,7 @@ function ProfileBioCard(props) {
     if (props.user?.following?.includes(props.freelancer._id)) {
       setIsFollowed(true);
     }
+    setLoveCount(props.freelancer.loveCount);
     setUrl(window.location.origin + "/profile/" + props.freelancer.uid);
   }, [props.user]);
 
@@ -77,6 +79,32 @@ function ProfileBioCard(props) {
       }
     }
   };
+
+  const handelLove = async (e) => {
+    e.target.disabled = true;
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/profile/love/${props.freelancer._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const status = await res.json();
+      if (res.ok) {
+        setLoveCount(loveCount + 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.profile_bio_card}>
       <div className={styles.profile_pic + " overflow-hidden cursor-pointer"}>
@@ -190,6 +218,17 @@ function ProfileBioCard(props) {
             following
           </p>
         </div>
+      </div>
+      <div className="flex items-center justify-center gap-4 w-full mb-4">
+        <button
+          type="button"
+          className="text-3xl text-red-600"
+          title="Like"
+          onClick={handelLove}
+        >
+          <AiFillHeart />
+        </button>
+        <p>{loveCount} loves</p>
       </div>
       <div className="flex w-full px-4 flex-wrap">
         <p className="bg-white p-2 text-sm w-full text-black border-2 flex justify-center mb-8 rounded-3xl font-bold">

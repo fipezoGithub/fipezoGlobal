@@ -29,6 +29,14 @@ const reviewSchema = new mongoose.Schema(
     reply: {
       type: String,
     },
+    likeduser: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "usercollection",
+    },
+    likedcompany: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "companycollection",
+    },
   },
   {
     timestamps: true,

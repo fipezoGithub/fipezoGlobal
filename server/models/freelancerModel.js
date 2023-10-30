@@ -133,6 +133,10 @@ const freelancerSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    loveCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

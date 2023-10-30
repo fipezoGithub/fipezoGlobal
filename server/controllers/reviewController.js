@@ -87,7 +87,10 @@ async function addReview(req, res) {
 
 async function getReviews(req, res) {
   try {
-    const reviews = await reviewCollection.find({ freelancer: req.params.id });
+    const reviews = await reviewCollection
+      .find({ freelancer: req.params.id })
+      .populate("freelancer")
+      .exec();
     res.send(reviews);
   } catch (error) {
     console.error(error);
@@ -181,9 +184,47 @@ async function addReviewReply(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
+async function likeReview(req, res) {
+  try {
+    jwt.verify(req.token, secret, async (err, authData) => {
+      let user;
+      if (req.body.type === "user") {
+        user = await userCollection.findById(authData.user._id);
+      } else {
+        user = await companyCollection.findById(authData.user._id);
+      }
+      if (err || !user) {
+        res.status(404).send("Not logged in");
+        return;
+      }
+      let liked;
+      if (user.companyname) {
+        liked = await reviewCollection.findByIdAndUpdate(req.params.reviewId, {
+          $push: {
+            likedcompany: user._id,
+          },
+        });
+      } else {
+        liked = await reviewCollection.findByIdAndUpdate(req.params.reviewId, {
+          $push: {
+            likeduser: user._id,
+          },
+        });
+      }
+      const review = await reviewCollection.findById(req.params.reviewId);
+      res.status(200).json(review);
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   addReview,
   getReviews,
   updateReviews,
   addReviewReply,
+  likeReview,
 };

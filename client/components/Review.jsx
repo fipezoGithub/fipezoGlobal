@@ -4,6 +4,8 @@ import { CiMenuKebab } from "react-icons/ci";
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
 import { BsFillReplyAllFill } from "react-icons/bs";
+import { AiFillHeart } from "react-icons/ai";
+import Link from "next/link";
 
 function Review(props) {
   console.log(props);
@@ -17,6 +19,9 @@ function Review(props) {
   const [reviewReply, setReviewReply] = useState(false);
   const token = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user")).token
+    : null;
+  const loginType = localStorage.getItem("type")
+    ? JSON.parse(localStorage.getItem("type"))
     : null;
   const [reviewError, setReviewError] = useState(false);
   const [minErr1, setMinErr1] = useState(false);
@@ -70,6 +75,25 @@ function Review(props) {
     }
   };
 
+  const handelLike = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/reviews/like/${props.review._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ type: loginType }),
+        }
+      );
+      const review = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.review}>
       {props.review.user === props.user?._id && (
@@ -115,33 +139,74 @@ function Review(props) {
         ))}
       </div>
       <div className={styles.review_details}>
-        <h4 className={`${styles.review_title} break-words`}>
-          {props.review.title}
-        </h4>
+        <div className="flex items-center gap-2">
+          <h4 className={`${styles.review_title} truncate`}>
+            {props.review.title}
+          </h4>
+          <div>
+            {loginType ? (
+              <button
+                type="button"
+                className="text-[#c1c1c1] text-3xl disabled:text-red-600"
+                title="Like"
+                disabled={
+                  props.review.likeduser.includes(props.user?._id) ||
+                  props.review.likedcompany.includes(props.user?._id)
+                    ? true
+                    : false
+                }
+                onClick={handelLike}
+              >
+                <AiFillHeart />
+              </button>
+            ) : (
+              <Link href="/login" className="text-[#c1c1c1] text-3xl">
+                <AiFillHeart />
+              </Link>
+            )}
+          </div>
+        </div>
         <p className={`${styles.review_text} break-words`}>
           {props.review.review}
         </p>
       </div>
+      <div className="flex items-start">
+        <span className="flex items-center gap-1 text-3xl">
+          <AiFillHeart color="#ef4444" />
+          <span className={styles.oneFont + " text-lg"}>
+            {props.review.likeduser.length || props.review.likedcompany.length
+              ? props.review.likeduser.length + props.review.likedcompany.length
+              : "0"}
+          </span>
+        </span>
+      </div>
       {props.review.reply && (
         <div className={styles.review_details + " border-l border-black mt-2"}>
-          <h4 className="pl-2">Response from freelancer</h4>
+          <h4 className="pl-2">
+            Reply from{" "}
+            {props.review.freelancer.firstname +
+              " " +
+              props.review.freelancer.lastname}
+          </h4>
           <p className={`${styles.review_text} break-words pl-2`}>
             {props.review.reply}
           </p>
         </div>
       )}
-      {props.user?._id === props.review.freelancer && reviewReply === false && (
-        <div className="my-2">
-          <button
-            type="button"
-            onClick={() => setReviewReply(true)}
-            className="text-sm capitalize flex items-center text-blue-600 gap-1"
-          >
-            <BsFillReplyAllFill />
-            reply
-          </button>
-        </div>
-      )}
+      {!props.review.reply &&
+        props.user?._id === props.review.freelancer &&
+        reviewReply === false && (
+          <div className="my-2">
+            <button
+              type="button"
+              onClick={() => setReviewReply(true)}
+              className="text-sm capitalize flex items-center text-blue-600 gap-1"
+            >
+              <BsFillReplyAllFill />
+              reply
+            </button>
+          </div>
+        )}
       {reviewReply === true && (
         <form
           className="flex items-center flex-col w-full"
@@ -161,17 +226,17 @@ function Review(props) {
           </div>
           <div className="flex items-center gap-1 self-end">
             <button
-              type="submit"
-              className="capitalize p-1 text-blue-500 hover:font-semibold"
-            >
-              submit
-            </button>
-            <button
               type="button"
               onClick={() => setReviewReply(false)}
               className="capitalize p-1 text-red-500 hover:font-semibold"
             >
               cancel
+            </button>
+            <button
+              type="submit"
+              className="capitalize p-1 text-blue-500 hover:font-semibold"
+            >
+              submit
             </button>
           </div>
         </form>
