@@ -6,6 +6,7 @@ import { ImCross } from "react-icons/im";
 import { BsFillReplyAllFill } from "react-icons/bs";
 import { AiFillHeart } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function Review(props) {
   const { profilePicture } = props.review?.userDetails;
@@ -28,6 +29,7 @@ function Review(props) {
   const [reviewError, setReviewError] = useState(false);
   const [minErr1, setMinErr1] = useState(false);
   const [minErr2, setMinErr2] = useState(false);
+  const router = useRouter();
 
   function createParticle(x, y) {
     // Create a custom particle element
@@ -107,7 +109,10 @@ function Review(props) {
         }
       );
       const data = await res.json();
-      setReviewReply(false);
+      if (res.ok) {
+        setReviewReply(false);
+        router.push("/freelancer_profile");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -257,20 +262,20 @@ function Review(props) {
           </p>
         </div>
       )}
-      {(!props.review.reply ||
-        (props.user?._id === props.review.freelancer &&
-          reviewReply === false)) && (
-        <div className="my-2">
-          <button
-            type="button"
-            onClick={() => setReviewReply(true)}
-            className="text-sm capitalize flex items-center text-blue-600 gap-1"
-          >
-            <BsFillReplyAllFill />
-            reply
-          </button>
-        </div>
-      )}
+      {!props.review.reply &&
+        props.user?._id === props.review.freelancer._id &&
+        reviewReply === false && (
+          <div className="my-2">
+            <button
+              type="button"
+              onClick={() => setReviewReply(true)}
+              className="text-sm capitalize flex items-center text-blue-600 gap-1"
+            >
+              <BsFillReplyAllFill />
+              reply
+            </button>
+          </div>
+        )}
       {reviewReply === true && (
         <form
           className="flex items-center flex-col w-full"

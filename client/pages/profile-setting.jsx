@@ -431,6 +431,26 @@ const ProfileSetting = (props) => {
                 </div>
               </div>
               <hr className="h-px w-full my-4" />
+
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
+                <div className="flex flex-col justify-center w-full">
+                  <label
+                    htmlFor="email"
+                    className="text-base lg:text-lg p-4 pl-0 text-center lg:text-left"
+                  >
+                    Email :
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="focus:outline-none bg-transparent p-2 border border-[#878787]"
+                    placeholder="Enter your email address"
+                    id="email"
+                  />
+                </div>
+              </div>
+              <hr className="h-px w-full my-4" />
               <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
                 {/* <div className="flex flex-col justify-center">
                   <label
@@ -537,25 +557,6 @@ const ProfileSetting = (props) => {
                       />
                     </div>
                   </div>
-                </div>
-              </div>
-              <hr className="h-px w-full my-4" />
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
-                <div className="flex flex-col justify-center w-full">
-                  <label
-                    htmlFor="email"
-                    className="text-base lg:text-lg p-4 pl-0 text-center lg:text-left"
-                  >
-                    Email :
-                  </label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="focus:outline-none bg-transparent p-2 border border-[#878787]"
-                    placeholder="Enter your email address"
-                    id="email"
-                  />
                 </div>
               </div>
               <hr className="h-px w-full my-4" />
