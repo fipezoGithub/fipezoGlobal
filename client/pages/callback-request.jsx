@@ -55,7 +55,7 @@ const CallbackRequest = (props) => {
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.requestedUser.profilePicture}`}
                       width={120}
                       height={120}
-                      className="w-12 lg:w-auto"
+                      className="w-12 lg:w-16"
                     />
                   </th>
                   <th className="capitalize text-sm lg:text-xl font-medium py-4">

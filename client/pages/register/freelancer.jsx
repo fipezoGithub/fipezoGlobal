@@ -526,6 +526,7 @@ class Freelancer extends React.Component {
       });
     }
   };
+
   handelGoogleFbResponse = (val, i) => {
     if (i === 1) {
       this.setState({ firstName: val });
@@ -535,12 +536,14 @@ class Freelancer extends React.Component {
       this.setState({ email: val });
     }
   };
+
   handleEnterKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       this.increProgress(14.25);
     }
   };
+
   render() {
     return (
       <>
@@ -1187,7 +1190,6 @@ class Freelancer extends React.Component {
                   {!this.state.form &&
                     this.state.currentPage === 9 &&
                     (this.state.profession === "photographer" ||
-                      this.state.profession === "cinematographer" ||
                       this.state.profession === "drone_operator" ||
                       this.state.profession === "cinematographer") && (
                       <div className={styles.inputField} id={styles.equipment}>
@@ -1261,8 +1263,6 @@ class Freelancer extends React.Component {
                   {!this.state.form &&
                     this.state.currentPage === 9 &&
                     (this.state.profession === "photo_editor" ||
-                      this.state.profession === "video_editor" ||
-                      this.state.profession === "album_designer" ||
                       this.state.profession === "video_editor" ||
                       this.state.profession === "album_designer" ||
                       this.state.profession === "graphics_designer") && (

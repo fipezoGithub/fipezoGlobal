@@ -8,11 +8,13 @@ import { AiFillHeart } from "react-icons/ai";
 import Link from "next/link";
 
 function Review(props) {
-  console.log(props);
   const { profilePicture } = props.review?.userDetails;
   const [title, setTitle] = useState(props.review.title);
   const [review, setReview] = useState(props.review.review);
   const [showEdit, setshowEdit] = useState(false);
+  const [likeCount, setLikeCount] = useState(
+    props.review.likeduser.length + props.review.likedcompany.length
+  );
   const [replyText, setReplyText] = useState("");
   const [stars, setStars] = useState(props.review.stars);
   const [hover, setHover] = useState(null);
@@ -26,6 +28,65 @@ function Review(props) {
   const [reviewError, setReviewError] = useState(false);
   const [minErr1, setMinErr1] = useState(false);
   const [minErr2, setMinErr2] = useState(false);
+
+  function createParticle(x, y) {
+    // Create a custom particle element
+    const particle = document.createElement("particle");
+    // Append the element into the body
+    document.body.appendChild(particle);
+    const size = Math.floor(Math.random() * 20 + 5);
+    // Apply the size on each particle
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.borderRadius = "50%";
+    particle.style.position = "fixed";
+    particle.style.top = "0";
+    particle.style.left = "0";
+    particle.style.pointerEvents = "none";
+    particle.style.opacity = "0";
+    // Generate a random color in a blue/purple palette
+    // particle.style.background = `hsl(${Math.random() * 90 + 180}, 70%, 60%)`;
+    particle.style.background = `rgb(249, 6, 47)`;
+
+    const destinationX = x + (Math.random() - 0.5) * 2 * 75;
+    const destinationY = y + (Math.random() - 0.5) * 2 * 75;
+
+    // Store the animation in a variable because we will need it later
+    const animation = particle.animate(
+      [
+        {
+          // Set the origin position of the particle
+          // We offset the particle with half its size to center it around the mouse
+          transform: `translate(${x - size / 2}px, ${y - size / 2}px)`,
+          opacity: 1,
+        },
+        {
+          // We define the final coordinates as the second keyframe
+          transform: `translate(${destinationX}px, ${destinationY}px)`,
+          opacity: 0,
+        },
+      ],
+      {
+        // Set a random duration from 500 to 1500ms
+        duration: 500 + Math.random() * 1000,
+        easing: "cubic-bezier(0, .9, .57, 1)",
+        // Delay every particle with a random value from 0ms to 200ms
+        delay: Math.random() * 200,
+      }
+    );
+
+    animation.onfinish = () => {
+      particle.remove();
+    };
+  }
+
+  function pop(e) {
+    // Loop to generate 30 particles at once
+    for (let i = 0; i < 30; i++) {
+      // We pass the mouse coordinates to the createParticle() function
+      createParticle(e.clientX, e.clientY);
+    }
+  }
 
   const handelShowEdit = () => {
     setshowEdit(!showEdit);
@@ -75,7 +136,8 @@ function Review(props) {
     }
   };
 
-  const handelLike = async () => {
+  const handelLike = async (e) => {
+    e.target.disabled = true;
     try {
       const res = await fetch(
         `${process.env.SERVER_URL}/reviews/like/${props.review._id}`,
@@ -89,6 +151,10 @@ function Review(props) {
         }
       );
       const review = await res.json();
+      if (res.ok) {
+        pop(e);
+        setLikeCount(likeCount + 1);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -143,6 +209,13 @@ function Review(props) {
           <h4 className={`${styles.review_title} truncate`}>
             {props.review.title}
           </h4>
+        </div>
+        <p className={`${styles.review_text} break-words`}>
+          {props.review.review}
+        </p>
+      </div>
+      <div className="flex items-start">
+        <span className="flex items-center gap-1 text-3xl">
           <div>
             {loginType ? (
               <button
@@ -150,6 +223,7 @@ function Review(props) {
                 className="text-[#c1c1c1] text-3xl disabled:text-red-600"
                 title="Like"
                 disabled={
+                  loginType === "freelancer" ||
                   props.review.likeduser.includes(props.user?._id) ||
                   props.review.likedcompany.includes(props.user?._id)
                     ? true
@@ -165,18 +239,8 @@ function Review(props) {
               </Link>
             )}
           </div>
-        </div>
-        <p className={`${styles.review_text} break-words`}>
-          {props.review.review}
-        </p>
-      </div>
-      <div className="flex items-start">
-        <span className="flex items-center gap-1 text-3xl">
-          <AiFillHeart color="#ef4444" />
           <span className={styles.oneFont + " text-lg"}>
-            {props.review.likeduser.length || props.review.likedcompany.length
-              ? props.review.likeduser.length + props.review.likedcompany.length
-              : "0"}
+            {likeCount ? likeCount : "0"}
           </span>
         </span>
       </div>
@@ -193,20 +257,20 @@ function Review(props) {
           </p>
         </div>
       )}
-      {!props.review.reply &&
-        props.user?._id === props.review.freelancer &&
-        reviewReply === false && (
-          <div className="my-2">
-            <button
-              type="button"
-              onClick={() => setReviewReply(true)}
-              className="text-sm capitalize flex items-center text-blue-600 gap-1"
-            >
-              <BsFillReplyAllFill />
-              reply
-            </button>
-          </div>
-        )}
+      {(!props.review.reply ||
+        (props.user?._id === props.review.freelancer &&
+          reviewReply === false)) && (
+        <div className="my-2">
+          <button
+            type="button"
+            onClick={() => setReviewReply(true)}
+            className="text-sm capitalize flex items-center text-blue-600 gap-1"
+          >
+            <BsFillReplyAllFill />
+            reply
+          </button>
+        </div>
+      )}
       {reviewReply === true && (
         <form
           className="flex items-center flex-col w-full"

@@ -21,6 +21,7 @@ const ProfileSetting = (props) => {
   const [bio, setBio] = useState("");
   const [equipments, setEquipments] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [profession, setProfession] = useState("");
   const [warns, setWarns] = useState({
     profilePictureWarn: false,
     coverPictureWarn: false,
@@ -42,7 +43,6 @@ const ProfileSetting = (props) => {
         },
       });
       const freelancer = await res.json();
-      console.log(freelancer);
       setProfilePicture(freelancer.authData.user.profilePicture);
       setCoverPicture(freelancer.authData.user.coverPicture);
       setEmail(freelancer.authData.user.email);
@@ -50,6 +50,7 @@ const ProfileSetting = (props) => {
       setRate(freelancer.authData.user.rate);
       setBio(freelancer.authData.user.bio);
       setEquipments(freelancer.authData.user.equipments);
+      setProfession(freelancer.authData.user.profession);
     }
     getFreelancer(token);
   }, []);
@@ -581,7 +582,25 @@ const ProfileSetting = (props) => {
                     htmlFor="equipments"
                     className="text-base lg:text-lg p-4 pl-0 capitalize text-center lg:text-left"
                   >
-                    equipments
+                    {(profession === "photgrapher" ||
+                      profession === "drone_operator" ||
+                      profession === "cinematographer") &&
+                      "equipments"}
+                    {(profession === "makeup_artist" ||
+                      profession === "mehendi_artist") &&
+                      "Products Use"}
+                    {(profession === "model" ||
+                      profession === "anchor" ||
+                      profession === "dj" ||
+                      profession === "dancer" ||
+                      profession === "influencer") &&
+                      "Describe work experience"}
+                    {(profession === "photo_editor" ||
+                      profession === "video_editor" ||
+                      profession === "album_designer" ||
+                      profession === "graphics_designer") &&
+                      "Software Knowledge"}
+                    {profession === "web_developer" && "Fimiliar Language"}
                   </label>
                   <textarea
                     name="equipments"

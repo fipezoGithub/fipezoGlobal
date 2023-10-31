@@ -89,7 +89,7 @@ function User_profile(props) {
         })
         .catch((error) => {
           console.error(error);
-          setLoading(false)
+          setLoading(false);
         });
     }
   };

@@ -35,11 +35,11 @@
 
 .textarea{
   padding: 0.75rem;
-  resize: none;
-  height: 10rem;
   border: 1px solid lightgray;
   box-shadow: var(--shadow);
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
   color: black;
   letter-spacing: 1px;
 }

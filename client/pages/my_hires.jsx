@@ -153,7 +153,7 @@ export default function My_hires(props) {
               button below.
             </p>
             <Link
-              href="/explore"
+              href="/explore/freelancers"
               style={{
                 fontSize: "18px",
                 textAlign: "center",

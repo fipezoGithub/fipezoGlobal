@@ -18,11 +18,11 @@ function ReviewBox(props) {
 
   const submitReview = () => {
     async function postReview() {
-      if (title.length < 5) {
+      if (title.length < 3) {
         setMinErr1(true);
         return;
       }
-      if (review.length < 25) {
+      if (review.length < 50) {
         setMinErr2(true);
         return;
       }
@@ -82,7 +82,7 @@ function ReviewBox(props) {
       )}
       {minErr2 && (
         <p className={styles.error}>
-          <span>Review must be atleast 25 characters long</span>
+          <span>Description must be atleast 50 characters long</span>
         </p>
       )}
       <div className={styles.stars}>
@@ -113,38 +113,48 @@ function ReviewBox(props) {
       <label htmlFor="title" className={styles.label}>
         <span className="text-red-500">* </span>Overview
       </label>
-      <input
-        className={styles.input}
-        type="text"
-        id="title"
-        name="title"
-        onChange={(e) => {
-          setReviewError(false);
-          setMinErr1(false);
-          setMinErr2(false);
-          setReviewAlreadyExists(false);
-          setTitle(e.target.value);
-        }}
-        maxLength={60}
-      />
+      <div className={styles.input + " flex flex-col"}>
+        <input
+          className="w-full outline-none"
+          type="text"
+          id="title"
+          name="title"
+          maxLength={26}
+          onChange={(e) => {
+            setReviewError(false);
+            setMinErr1(false);
+            setMinErr2(false);
+            setReviewAlreadyExists(false);
+            setTitle(e.target.value);
+          }}
+        />
+        <span className="self-end text-xs text-neutral-500">
+          {title.length}/26
+        </span>
+      </div>
       <label htmlFor="review" className={styles.label}>
         <span className="text-red-500">* </span>Describe in Details
       </label>
-      <textarea
-        className={styles.textarea}
-        name="review"
-        id="review"
-        cols="30"
-        rows="10"
-        onChange={(e) => {
-          setReviewError(false);
-          setMinErr1(false);
-          setMinErr2(false);
-          setReviewAlreadyExists(false);
-          setReview(e.target.value);
-        }}
-        maxLength={500}
-      ></textarea>
+      <div className={styles.textarea}>
+        <textarea
+          className="w-full outline-none resize-none h-20"
+          name="review"
+          id="review"
+          cols="30"
+          minLength={50}
+          onChange={(e) => {
+            setReviewError(false);
+            setMinErr1(false);
+            setMinErr2(false);
+            setReviewAlreadyExists(false);
+            setReview(e.target.value);
+          }}
+          maxLength={200}
+        ></textarea>
+        <div className="relative bg-transparent self-end">
+          <span className="relative text-xs">50/200</span>
+        </div>
+      </div>
       <button className={styles.btn} onClick={submitReview}>
         Submit
       </button>

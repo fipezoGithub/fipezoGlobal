@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ImCross } from "react-icons/im";
@@ -79,10 +80,6 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === true &&
             (following.length > 0 ? (
               following.map((item, index) => {
-                if (props.user?.following?.includes(item._id)) {
-                  props.setIsFollowed(true);
-                }
-                console.log(props.user?.following);
                 return (
                   <div
                     key={index}
@@ -95,26 +92,20 @@ const FollowerFollowingModal = (props) => {
                       alt="pro-pic-dp"
                       className="rounded-full object-cover h-12 w-12"
                     />
-                    <p
-                      className="capitalize font-medium text-lg"
-                      onClick={() => {
-                        router.push(`/profile/${item.uid}`);
-                        props.setShowFollowingFollowerBox(false);
-                      }}
+                    <div className="flex flex-col items-center">
+                      <p className="capitalize font-medium text-lg">
+                        {item.firstname} {item.lastname}
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        {item.followers.length} followers
+                      </p>
+                    </div>
+                    <Link
+                      href={`/profile/${item.uid}`}
+                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                     >
-                      {item.firstname} {item.lastname}
-                    </p>
-                    {props.user?._id !== item._id && (
-                      <button
-                        type="button"
-                        className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                        onClick={(e) => props.handelFollow(e)}
-                      >
-                        {props.user?.following?.includes(item._id)
-                          ? "unfollow"
-                          : "follow"}
-                      </button>
-                    )}
+                      view profile
+                    </Link>
                   </div>
                 );
               })
@@ -131,9 +122,6 @@ const FollowerFollowingModal = (props) => {
           {isFollowingActive === false &&
             (followers.length > 0 ? (
               followers.map((item, index) => {
-                if (props.user?.following?.includes(item._id)) {
-                  props.setIsFollowed(true);
-                }
                 return (
                   <div
                     key={index}
@@ -148,26 +136,20 @@ const FollowerFollowingModal = (props) => {
                       alt="pro-pic-dp"
                       className="rounded-full object-cover h-12 w-12"
                     />
-                    <p
-                      className="capitalize font-medium text-lg"
-                      onClick={() => {
-                        router.push(`/profile/${item.uid}`);
-                        props.setShowFollowingFollowerBox(false);
-                      }}
+                    <div className="flex flex-col items-center">
+                      <p className="capitalize font-medium text-lg">
+                        {item.firstname} {item.lastname}
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        {item.followers.length} followers
+                      </p>
+                    </div>
+                    <Link
+                      href={`/profile/${item.uid}`}
+                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
                     >
-                      {item.firstname} {item.lastname}
-                    </p>
-                    {props.user?._id !== item._id && (
-                      <button
-                        type="button"
-                        className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
-                        onClick={(e) => props.handelFollow(e)}
-                      >
-                        {props.user?.following?.includes(item._id)
-                          ? "unfollow"
-                          : "follow"}
-                      </button>
-                    )}
+                      view profile
+                    </Link>
                   </div>
                 );
               })

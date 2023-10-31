@@ -343,7 +343,7 @@ export default function Name(props) {
               )}
               {loggedIn && (
                 <button
-                  className={styles.btn}
+                  className={styles.btn+" pl-6 sm:pl-0"}
                   id={styles.hire}
                   onClick={handleHireBox}
                 >

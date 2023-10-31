@@ -28,6 +28,65 @@ function ProfileBioCard(props) {
     setUrl(window.location.origin + "/profile/" + props.freelancer.uid);
   }, [props.user]);
 
+  function createParticle(x, y) {
+    // Create a custom particle element
+    const particle = document.createElement("particle");
+    // Append the element into the body
+    document.body.appendChild(particle);
+    const size = Math.floor(Math.random() * 20 + 5);
+    // Apply the size on each particle
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.borderRadius = "50%";
+    particle.style.position = "fixed";
+    particle.style.top = "0";
+    particle.style.left = "0";
+    particle.style.pointerEvents = "none";
+    particle.style.opacity = "0";
+    // Generate a random color in a blue/purple palette
+    // particle.style.background = `hsl(${Math.random() * 90 + 180}, 70%, 60%)`;
+    particle.style.background = `rgb(249, 6, 47)`;
+
+    const destinationX = x + (Math.random() - 0.5) * 2 * 75;
+    const destinationY = y + (Math.random() - 0.5) * 2 * 75;
+
+    // Store the animation in a variable because we will need it later
+    const animation = particle.animate(
+      [
+        {
+          // Set the origin position of the particle
+          // We offset the particle with half its size to center it around the mouse
+          transform: `translate(${x - size / 2}px, ${y - size / 2}px)`,
+          opacity: 1,
+        },
+        {
+          // We define the final coordinates as the second keyframe
+          transform: `translate(${destinationX}px, ${destinationY}px)`,
+          opacity: 0,
+        },
+      ],
+      {
+        // Set a random duration from 500 to 1500ms
+        duration: 500 + Math.random() * 1000,
+        easing: "cubic-bezier(0, .9, .57, 1)",
+        // Delay every particle with a random value from 0ms to 200ms
+        delay: Math.random() * 200,
+      }
+    );
+
+    animation.onfinish = () => {
+      particle.remove();
+    };
+  }
+
+  function pop(e) {
+    // Loop to generate 30 particles at once
+    for (let i = 0; i < 30; i++) {
+      // We pass the mouse coordinates to the createParticle() function
+      createParticle(e.clientX, e.clientY);
+    }
+  }
+
   const handelFollow = async (e) => {
     e.target.disabled = true;
     const token = localStorage.getItem("user")
@@ -99,6 +158,7 @@ function ProfileBioCard(props) {
       const status = await res.json();
       if (res.ok) {
         setLoveCount(loveCount + 1);
+        pop(e);
       }
     } catch (error) {
       console.log(error);
@@ -219,7 +279,7 @@ function ProfileBioCard(props) {
           </p>
         </div>
       </div>
-      <div className="flex items-center justify-center gap-4 w-full mb-4">
+      <div className="flex items-center justify-center gap-2 w-full mb-4">
         <button
           type="button"
           className="text-3xl text-red-600"
@@ -228,7 +288,7 @@ function ProfileBioCard(props) {
         >
           <AiFillHeart />
         </button>
-        <p>{loveCount} loves</p>
+        <p>{loveCount} Loves</p>
       </div>
       <div className="flex w-full px-4 flex-wrap">
         <p className="bg-white p-2 text-sm w-full text-black border-2 flex justify-center mb-8 rounded-3xl font-bold">
@@ -311,10 +371,7 @@ function ProfileBioCard(props) {
           user={props.user}
           freelancer={props.freelancer}
           userId={props.freelancer._id}
-          isFollowed={isFollowed}
-          setIsFollowed={setIsFollowed}
           showModalAs={showModalAs}
-          handelFollow={handelFollow}
         />
       )}
     </div>
