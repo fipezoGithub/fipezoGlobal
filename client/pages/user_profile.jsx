@@ -53,7 +53,7 @@ function User_profile(props) {
 
   const handleEditProfile = (e) => {
     e.preventDefault();
-    setLoading(false);
+    setLoading(true);
     const data = new FormData();
     data.append("firstname", firstname);
     data.append("lastname", lastname);
@@ -61,7 +61,7 @@ function User_profile(props) {
     if (password !== undefined) {
       data.append("password", password);
     }
-    if (profilePicture !== null && !profilePicture.includes("profilePicture")) {
+    if (profilePicture !== null && typeof profilePicture !== "string") {
       data.append("profilePicture", profilePicture);
     }
     const token = localStorage.getItem("user")
@@ -78,6 +78,7 @@ function User_profile(props) {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) {
+            setLoading(false);
           } else {
             localStorage.setItem("user", JSON.stringify({ token: data.token }));
             setEditProfile(false);
@@ -85,6 +86,8 @@ function User_profile(props) {
             setLastname(data.user.user.lastname);
             props.setUser(data.user.user);
             setProfilePicture(data.user.user.profilePicture);
+            setEditProfile(false);
+            setLoading(false);
           }
         })
         .catch((error) => {

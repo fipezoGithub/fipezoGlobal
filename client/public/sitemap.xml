@@ -2,379 +2,385 @@
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
     <loc>http://192.168.29.94:3001/about_us</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/app_store</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/callback-request</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/careers</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/categories</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/company_profile</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/contact</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/contact_panel</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/contact_soon</loc>
-    <lastmod>2023-10-31T06:54:45.898Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/data_protection</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/faqs</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/forget_password</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/freelancer-premium-plans</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/freelancer_profile</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/google_play</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/guides_and_reviews</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/login</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/my_hires</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/my_job</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/my_referral</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/my_requests</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/payment</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/posted-jobs</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/privacy_and_policy</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/profile-setting</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://192.168.29.94:3001/profile</loc>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/referandearn</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/signup</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/terms_and_conditions</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/user_profile</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/verification</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/company/[companyname]</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>http://192.168.29.94:3001/feed/index</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>http://192.168.29.94:3001/feed/[feedid]</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/jobs/create</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/jobs/index</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://192.168.29.94:3001/feed/index</loc>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://192.168.29.94:3001/feed/[feedid]</loc>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/profile/[name]</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/register/company</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/register/freelancer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/advertising_agency</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/eCommerce</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/index</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/other</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/photography</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/photography_institute</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/companies/production_house</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/album_designer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/anchor</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/cinematographer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/dancer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/dj</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/drone_operator</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/graphics_designer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/index</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/influencer</loc>
-    <lastmod>2023-10-31T06:54:45.899Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/makeup_artist</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/mehendi_artist</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/model</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/photographer</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/photo_editor</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/video_editor</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/explore/freelancers/web_developer</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://192.168.29.94:3001/jobs/details/[jobuid]</loc>
-    <lastmod>2023-10-31T06:54:45.900Z</lastmod>
+    <lastmod>2023-11-01T04:32:39.671Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

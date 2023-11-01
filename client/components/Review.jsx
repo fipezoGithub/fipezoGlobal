@@ -1,10 +1,10 @@
 import styles from "@/styles/Review.module.css";
 import { FaStar } from "react-icons/fa";
 import { CiMenuKebab } from "react-icons/ci";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImCross } from "react-icons/im";
 import { BsFillReplyAllFill } from "react-icons/bs";
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -13,6 +13,7 @@ function Review(props) {
   const [title, setTitle] = useState(props.review.title);
   const [review, setReview] = useState(props.review.review);
   const [showEdit, setshowEdit] = useState(false);
+  const [likeDisabled, setLikeDisabled] = useState(false);
   const [likeCount, setLikeCount] = useState(
     props.review.likeduser.length + props.review.likedcompany.length
   );
@@ -30,6 +31,14 @@ function Review(props) {
   const [minErr1, setMinErr1] = useState(false);
   const [minErr2, setMinErr2] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    if (
+      props.review.likeduser.includes(props.user?._id) ||
+      props.review.likedcompany.includes(props.user?._id)
+    ) {
+      setLikeDisabled(true);
+    }
+  }, []);
 
   function createParticle(x, y) {
     // Create a custom particle element
@@ -142,7 +151,6 @@ function Review(props) {
   };
 
   const handelLike = async (e) => {
-    e.target.disabled = true;
     try {
       const res = await fetch(
         `${process.env.SERVER_URL}/reviews/like/${props.review._id}`,
@@ -157,6 +165,7 @@ function Review(props) {
       );
       const review = await res.json();
       if (res.ok) {
+        setLikeDisabled(true);
         pop(e);
         setLikeCount(likeCount + 1);
       }
@@ -225,18 +234,20 @@ function Review(props) {
             {loginType ? (
               <button
                 type="button"
-                className="text-[#c1c1c1] text-3xl disabled:text-red-600"
+                className="text-3xl text-red-600"
                 title="Like"
                 disabled={
-                  loginType === "freelancer" ||
-                  props.review.likeduser.includes(props.user?._id) ||
-                  props.review.likedcompany.includes(props.user?._id)
+                  loginType === "freelancer" || likeDisabled === true
                     ? true
                     : false
                 }
-                onClick={handelLike}
+                onClick={(e) => handelLike(e)}
               >
-                <AiFillHeart />
+                {loginType === "freelancer" || likeDisabled === true ? (
+                  <AiFillHeart className="pointer-events-none" />
+                ) : (
+                  <AiOutlineHeart className="pointer-events-none" />
+                )}
               </button>
             ) : (
               <Link href="/login" className="text-[#c1c1c1] text-3xl">

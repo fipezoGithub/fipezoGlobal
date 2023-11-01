@@ -11,7 +11,7 @@ const twilio = require("twilio")(
   process.env.TWILIO_AUTH_TOKEN
 );
 const otpCollection = require("../models/otpModel");
-const { uploadFile } = require("../middlewares/s3");
+const { uploadFile, deleteFile } = require("../middlewares/s3");
 const sharp = require("sharp");
 const path = require("path");
 const reviewCollection = require("../models/reviewModel");
@@ -308,8 +308,19 @@ async function editUserProfile(req, res) {
         let updatedAuthData;
         if (user) {
           let resizedProfilePicture;
-          if (req.body.profilePicture) {
+          let filePromises = [];
+          let deletePromises = [];
+          if (req.file) {
             resizedProfilePicture = await resizeImage(req.file, 200, 200);
+            filePromises.push(uploadFile(resizedProfilePicture));
+            if (user.profilePicture) {
+              deletePromises.push(deleteFile(user.profilePicture));
+            }
+            await Promise.all(deletePromises);
+            await Promise.all(filePromises);
+
+            await unlinkFile("uploads/" + req.file.filename);
+            await unlinkFile(resizedProfilePicture?.path);
           }
           user.firstname = req.body.firstname || user.firstname;
           user.lastname = req.body.lastname || user.lastname;
@@ -330,16 +341,6 @@ async function editUserProfile(req, res) {
           //     },
           //   }
           // );
-
-          const filePromises = [];
-          if (req.body.profilePicture) {
-            filePromises.push(uploadFile(resizedProfilePicture));
-
-            await Promise.all(filePromises);
-
-            await unlinkFile("uploads/" + req.file.filename);
-            await unlinkFile(resizedProfilePicture?.path);
-          }
 
           updatedAuthData = {
             ...authData,

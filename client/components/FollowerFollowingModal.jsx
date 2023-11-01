@@ -93,7 +93,7 @@ const FollowerFollowingModal = (props) => {
                       className="rounded-full object-cover h-12 w-12"
                     />
                     <div className="flex flex-col items-center">
-                      <p className="capitalize font-medium text-lg">
+                      <p className="capitalize font-medium text-lg truncate">
                         {item.firstname} {item.lastname}
                       </p>
                       <p className="text-xs text-neutral-500">
@@ -125,9 +125,7 @@ const FollowerFollowingModal = (props) => {
                 return (
                   <div
                     key={index}
-                    className={`cursor-pointer flex items-center gap-2 ${
-                      props.user?._id !== item._id ? "justify-between" : " "
-                    } w-full`}
+                    className={`cursor-pointer flex items-center gap-2 justify-between w-full`}
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.profilePicture}`}
@@ -137,7 +135,7 @@ const FollowerFollowingModal = (props) => {
                       className="rounded-full object-cover h-12 w-12"
                     />
                     <div className="flex flex-col items-center">
-                      <p className="capitalize font-medium text-lg">
+                      <p className="capitalize font-medium text-lg truncate">
                         {item.firstname} {item.lastname}
                       </p>
                       <p className="text-xs text-neutral-500">

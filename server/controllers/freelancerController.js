@@ -391,6 +391,7 @@ async function editFreelancerProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //edit cover picture
 async function editFreelancerCoverPicture(req, res) {
   try {
@@ -596,7 +597,6 @@ async function followProfile(req, res) {
               },
             }
           );
-          console.log(req.body.userid, authData.user._id);
           res.send({ message: `following successfully ${req.body.userid}` });
         } else {
           res.sendStatus(403);
@@ -682,7 +682,6 @@ async function unFollowProfile(req, res) {
               },
             }
           );
-          console.log(req.body.userid, authData.user._id);
           res
             .status(200)
             .send({ message: `unfollow successfully ${req.body.userid}` });

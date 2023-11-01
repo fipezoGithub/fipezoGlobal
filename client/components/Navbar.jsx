@@ -326,24 +326,9 @@ export default function Navbar(props) {
                     </span>
                   </Link>
                 )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_referral`}>
-                    Referals
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_job`}>
-                    Jobs
-                  </Link>
-                )}
                 {!props.user.uid && (
                   <Link className={styles.btn} href="/user_profile">
                     My Profile
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_requests`}>
-                    Requests
                   </Link>
                 )}
                 {props.user.uid && (
@@ -414,6 +399,9 @@ export default function Navbar(props) {
                 </Link>
                 <Link className={styles.btn} href="/posted-jobs">
                   My Job Posts
+                </Link>
+                <Link className={styles.btn} href="/edit-company">
+                  Setting
                 </Link>
                 <button
                   className={styles.btn}
@@ -563,10 +551,7 @@ export default function Navbar(props) {
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link
-                href="/verification"
-                className={styles.home}
-              >
+              <Link href="/verification" className={styles.home}>
                 Verify
               </Link>
             </li>
@@ -574,10 +559,7 @@ export default function Navbar(props) {
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link
-                href="/callback-request"
-                className={styles.home}
-              >
+              <Link href="/callback-request" className={styles.home}>
                 Callback
               </Link>
             </li>
@@ -661,24 +643,9 @@ export default function Navbar(props) {
                     </span>
                   </Link>
                 )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_referral`}>
-                    Referals
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_job`}>
-                    Jobs
-                  </Link>
-                )}
                 {!props.user.uid && (
                   <Link className={styles.btn} href="/user_profile">
                     My Profile
-                  </Link>
-                )}
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/my_requests`}>
-                    Requests
                   </Link>
                 )}
                 {props.user.uid && (
@@ -749,6 +716,9 @@ export default function Navbar(props) {
                 </Link>
                 <Link className={styles.btn} href="/posted-jobs">
                   My Job Posts
+                </Link>
+                <Link className={styles.btn} href="/edit-company">
+                  Setting
                 </Link>
                 <button
                   className={styles.btn}
