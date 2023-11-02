@@ -6,6 +6,7 @@ import { BiChevronDown } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { FaBell } from "react-icons/fa";
 
 export default function Navbar(props) {
   const [background, setBackground] = useState("transparent");
@@ -13,6 +14,7 @@ export default function Navbar(props) {
   const [color, setColor] = useState(props.color);
   const [isAdmin, setIsAdmin] = useState(false);
   const [logInType, setLogInType] = useState("");
+  const [notificationCount, setNotificationCount] = useState(0);
   const [display, setDisplay] = useState("none");
   const [display2, setDisplay2] = useState("none");
   const [display3, setDisplay3] = useState("none");
@@ -55,6 +57,25 @@ export default function Navbar(props) {
     } else {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
+    const type = JSON.parse(localStorage.getItem("type"));
+    async function getNotifications() {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${type}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const noti = await res.json();
+      const filtered = noti.filter((not) => {
+        return not.seen === false;
+      });
+      console.log(filtered.length);
+      setNotificationCount(filtered.length);
+    }
+    getNotifications();
     setLogInType(JSON.parse(localStorage.getItem("type")));
   }, []);
 
@@ -331,9 +352,22 @@ export default function Navbar(props) {
                     My Profile
                   </Link>
                 )}
+                <Link
+                  href="/my_notifications"
+                  className={
+                    styles.btn + " flex items-center justify-center gap-2"
+                  }
+                >
+                  Notifications <FaBell size={"1.2em"} />{" "}
+                  {notificationCount > 0 && (
+                    <span className="absolute right-1 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
+                      {notificationCount}
+                    </span>
+                  )}
+                </Link>
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/profile-setting`}>
-                    Settings
+                    Dashboard
                   </Link>
                 )}
                 <button
@@ -650,7 +684,7 @@ export default function Navbar(props) {
                 )}
                 {props.user.uid && (
                   <Link className={styles.btn} href={`/profile-setting`}>
-                    Settings
+                    Dashboard
                   </Link>
                 )}
                 <button

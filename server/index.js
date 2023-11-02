@@ -157,6 +157,7 @@ const { submitPayment } = require("./controllers/paymentController");
 const {
   createNotification,
   getNotificationOfUser,
+  seeNotifications,
 } = require("./controllers/notificationController");
 
 // Setting up the routes
@@ -316,6 +317,7 @@ app.post("/api/payment", upload, verifyToken, submitPayment);
 //Notification Routes
 app.post("/api/notification/create", createNotification);
 app.get("/api/notification/:userId", getNotificationOfUser);
+app.put("/api/notification/:id", seeNotifications);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

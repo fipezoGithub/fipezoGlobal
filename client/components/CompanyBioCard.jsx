@@ -145,7 +145,7 @@ function CompanyBioCard(props) {
           About Us
         </h1>
         <p
-          className={`w-full ${styles.bio} relative break-words max-w-xs border-2 rounded-lg`}
+          className={`w-full ${styles.bio} relative break-words border-2 rounded-lg`}
         >
           {props.company.bio}
         </p>

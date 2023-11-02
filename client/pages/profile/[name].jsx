@@ -331,6 +331,7 @@ export default function Name(props) {
               works={props.data?.works}
               reviews={reviews}
               user={props.user}
+              company={props.company}
               handleClick={handleClick}
             />
           )}

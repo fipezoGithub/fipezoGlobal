@@ -10,6 +10,7 @@ import { AiOutlineThunderbolt, AiFillEdit, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
 
 function ProfileBioCard(props) {
+  console.log(props);
   const links = JSON.parse(props.freelancer.links);
   const [display, setDisplay] = useState("none");
   const [showEditBox, setShowEditBox] = useState(false);
@@ -19,6 +20,7 @@ function ProfileBioCard(props) {
   const [loveCount, setLoveCount] = useState(0);
   const [showFollowingFollowerBox, setShowFollowingFollowerBox] =
     useState(false);
+  const [loveError, setLoveError] = useState(false);
   const router = useRouter();
   useEffect(() => {
     if (props.user?.following?.includes(props.freelancer._id)) {
@@ -141,6 +143,13 @@ function ProfileBioCard(props) {
 
   const handelLove = async (e) => {
     e.target.disabled = true;
+    if (props.user._id === props.freelancer._id) {
+      setLoveError(true);
+      setTimeout(() => {
+        setLoveError(false);
+      }, 1500);
+      return;
+    }
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -279,6 +288,13 @@ function ProfileBioCard(props) {
           </p>
         </div>
       </div>
+      {loveError === true && (
+        <div className="mb-4">
+          <h3 className="text-red-500 font-semibold">
+            Sorry! you can not give love to your own profile
+          </h3>
+        </div>
+      )}
       <div className="flex items-center justify-center gap-2 w-full mb-4">
         <button
           type="button"

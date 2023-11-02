@@ -15,7 +15,6 @@ function HireBox(props) {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-      console.log(props.freelancer);
     async function postHire() {
       try {
         if (token) {
@@ -38,6 +37,25 @@ function HireBox(props) {
             }),
           });
           const data = await response.json();
+          if (response.ok) {
+            const res = await fetch(
+              `${process.env.SERVER_URL}/notification/create`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  type: "Hire",
+                  headline: `You have a hire request from ${props.user.firstname} ${props.user.lastname}`,
+                  acceptedFreelancer: props.freelancer._id,
+                  sentUser: props.user._id,
+                  href: "/my_requests",
+                }),
+              }
+            );
+            const data = await res.json();
+          }
         }
         props.setShowDialogBox(true);
         props.handleHireBox(false);

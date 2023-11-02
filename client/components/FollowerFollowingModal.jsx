@@ -40,7 +40,7 @@ const FollowerFollowingModal = (props) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen backdrop-blur flex justify-center items-center z-[100]">
-      <div className="bg-white rounded-md relative px-8 py-4 flex flex-col items-center gap-2 h-96 w-96">
+      <div className="bg-white rounded-md relative px-4 lg:px-8 py-4 flex flex-col items-center gap-2 h-96 w-96">
         <button
           className="absolute top-1 right-1"
           onClick={() => props.setShowFollowingFollowerBox(false)}
@@ -94,7 +94,8 @@ const FollowerFollowingModal = (props) => {
                     />
                     <div className="flex flex-col items-center">
                       <p className="capitalize font-medium text-lg truncate">
-                        {item.firstname} {item.lastname}
+                        {item.firstname.toLowerCase()}{" "}
+                        {item.lastname.toLowerCase()}
                       </p>
                       <p className="text-xs text-neutral-500">
                         {item.followers.length} followers
@@ -102,7 +103,7 @@ const FollowerFollowingModal = (props) => {
                     </div>
                     <Link
                       href={`/profile/${item.uid}`}
-                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
+                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl whitespace-nowrap"
                     >
                       view profile
                     </Link>
@@ -136,7 +137,8 @@ const FollowerFollowingModal = (props) => {
                     />
                     <div className="flex flex-col items-center">
                       <p className="capitalize font-medium text-lg truncate">
-                        {item.firstname} {item.lastname}
+                        {item.firstname.toLowerCase()}{" "}
+                        {item.lastname.toLowerCase()}
                       </p>
                       <p className="text-xs text-neutral-500">
                         {item.followers.length} followers
@@ -144,7 +146,7 @@ const FollowerFollowingModal = (props) => {
                     </div>
                     <Link
                       href={`/profile/${item.uid}`}
-                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl"
+                      className="capitalize bg-[#0095f6] text-white p-2 text-sm rounded-xl whitespace-nowrap"
                     >
                       view profile
                     </Link>

@@ -74,6 +74,9 @@ const Profile = (props) => {
             <Link className={style.option} href="/my_job">
               Jobs
             </Link>
+            <Link className={style.option} href="/my_notifications">
+              Notifications
+            </Link>
             <Link className={style.option} href="/my_requests">
               Hire Requests
             </Link>

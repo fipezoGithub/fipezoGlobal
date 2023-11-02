@@ -63,20 +63,37 @@ export default function My_requests(props) {
     }
   }, [freelancer, isFreelancerLoaded]);
 
-  const handleDeleteAccount = (id) => {
+  const handleDeleteAccount = (req) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     if (token) {
-      fetch(`${process.env.SERVER_URL}/cancel/request/${id}`, {
+      fetch(`${process.env.SERVER_URL}/cancel/request/${req._id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.success) {
+            const res = await fetch(
+              `${process.env.SERVER_URL}/notification/create`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  type: "Hire Reject",
+                  headline: `Your hire request is rejected by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                  acceptedUser: req.user,
+                  sentFreelancer: req.freelancer,
+                  href: "/my_hires",
+                }),
+              }
+            );
+            const data = await res.json();
             setShowDeleteBox(false);
             setReqId(null);
             setRequests(requests.filter((request) => request._id !== id));
@@ -88,21 +105,38 @@ export default function My_requests(props) {
     }
   };
 
-  const acceptRequest = (id) => {
+  const acceptRequest = (req) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     if (token) {
-      fetch(`${process.env.SERVER_URL}/accept/request/${id}`, {
+      fetch(`${process.env.SERVER_URL}/accept/request/${req._id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.success) {
             setShowDeleteBox(false);
+            const res = await fetch(
+              `${process.env.SERVER_URL}/notification/create`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  type: "Hire Accept",
+                  headline: `Your hire request is accepted by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                  acceptedUser: req.user,
+                  sentFreelancer: req.freelancer,
+                  href: "/my_hires",
+                }),
+              }
+            );
+            const data = await res.json();
           }
         })
         .catch((error) => {

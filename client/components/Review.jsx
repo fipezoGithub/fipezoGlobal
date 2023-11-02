@@ -34,9 +34,12 @@ function Review(props) {
   useEffect(() => {
     if (
       props.review.likeduser.includes(props.user?._id) ||
-      props.review.likedcompany.includes(props.user?._id)
+      props.review.likedcompany.includes(props.company?._id)
     ) {
       setLikeDisabled(true);
+    }
+    if (props.review.reply) {
+      setReplyText(props.review.reply);
     }
   }, []);
 
@@ -261,16 +264,32 @@ function Review(props) {
         </span>
       </div>
       {props.review.reply && (
-        <div className={styles.review_details + " border-l border-black mt-2"}>
-          <h4 className="pl-2">
-            Reply from{" "}
-            {props.review.freelancer.firstname +
-              " " +
-              props.review.freelancer.lastname}
-          </h4>
-          <p className={`${styles.review_text} break-words pl-2`}>
-            {props.review.reply}
-          </p>
+        <div
+          className={
+            styles.review_details +
+            " border-l border-black mt-2 flex justify-between items-start"
+          }
+        >
+          <div>
+            <h4 className="pl-2">
+              Reply from{" "}
+              {props.review.freelancer.firstname +
+                " " +
+                props.review.freelancer.lastname}
+            </h4>
+            <p className={`${styles.review_text} break-words pl-2`}>
+              {props.review.reply}
+            </p>
+          </div>
+          {props.user?._id === props.review.freelancer._id && (
+            <button
+              type="button"
+              className="capitalize lg:text-sm"
+              onClick={() => setReviewReply(true)}
+            >
+              edit
+            </button>
+          )}
         </div>
       )}
       {!props.review.reply &&

@@ -21,7 +21,12 @@ function Reviews(props) {
           .slice(0)
           .reverse()
           .map((review) => (
-            <Review key={review._id} review={review} user={props.user} />
+            <Review
+              key={review._id}
+              review={review}
+              user={props.user}
+              company={props.company}
+            />
           ))
       )}
     </div>

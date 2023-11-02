@@ -110,7 +110,8 @@
 .left4 {
   height: 28%;
   width: 100%;
-  background-color: #f71aa2;
+  /* background-color: #f71aa2; */
+  background-color: #ff4f00;
   color: white;
   padding: 2rem;
   display: flex;

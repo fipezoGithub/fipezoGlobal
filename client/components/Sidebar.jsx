@@ -67,7 +67,9 @@ class Sidebar extends React.Component {
     return (
       <div className={styles.sidebar}>
         <div
-          className="flex flex-col snap-y h-[35vh] overflow-hidden overflow-y-scroll justify-start"
+          className={`flex flex-col snap-y ${
+            this.state.showDropDown === true ? "h-[35vh]" : "h-auto"
+          } overflow-hidden overflow-y-scroll justify-start`}
           id={styles.category}
         >
           <div className={styles.title}>

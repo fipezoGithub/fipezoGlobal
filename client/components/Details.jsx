@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 function Details(props) {
+  console.log(props);
   const [showReviews, setShowReviews] = useState(false);
   const [showPortfolio, setShowPortfolio] = useState(true);
   const [works, setWorks] = useState([]);
@@ -154,7 +155,13 @@ function Details(props) {
           </button>
         )}
       </div> */}
-      {showReviews && <Reviews reviews={props.reviews} user={props.user} />}
+      {showReviews && (
+        <Reviews
+          reviews={props.reviews}
+          user={props.user}
+          company={props.company}
+        />
+      )}
     </div>
   );
 }

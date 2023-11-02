@@ -35,7 +35,7 @@ function RequestCard(props) {
             type="button"
             id={styles.accept}
             onClick={() => {
-              props.acceptRequest(props.request._id);
+              props.acceptRequest(props.request);
               props.setShowAcceptBox(true);
             }}
           >
@@ -47,7 +47,7 @@ function RequestCard(props) {
             id={styles.decline}
             onClick={() => {
               props.setShowDeleteBox(true);
-              props.setReqId(props.request._id);
+              props.setReqId(props.request);
             }}
           >
             Decline
