@@ -59,25 +59,37 @@ export default function Navbar(props) {
     }
     const type = JSON.parse(localStorage.getItem("type"));
     async function getNotifications() {
-      const res = await fetch(
-        `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${type}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      let res;
+      if (props.company) {
+        res = await fetch(
+          `${process.env.SERVER_URL}/notification/${props.company?._id}?type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else {
+        res = await fetch(
+          `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      }
       const noti = await res.json();
       const filtered = noti.filter((not) => {
         return not.seen === false;
       });
-      console.log(filtered.length);
       setNotificationCount(filtered.length);
     }
     getNotifications();
     setLogInType(JSON.parse(localStorage.getItem("type")));
-  }, []);
+  }, [props.user, props.company]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -122,7 +134,27 @@ export default function Navbar(props) {
           <i className={styles.fipezo}>Fipezo</i>
         </Link>
       </div>
-      <div className="md:hidden">
+      <div className="md:hidden flex gap-2">
+        {!props.user && !props.company ? (
+          <Link
+            href="/login"
+            className={"flex items-center justify-center gap-2"}
+          >
+            <FaBell size={"1.6em"} />
+          </Link>
+        ) : (
+          <Link
+            href="/my_notifications"
+            className={"flex items-center justify-center gap-2 relative"}
+          >
+            <FaBell size={"1.6em"} />{" "}
+            {notificationCount > 0 && (
+              <span className="absolute right-0 top-0 bg-red-500 font-bold rounded-full w-4 h-4 text-center text-sm">
+                {notificationCount}
+              </span>
+            )}
+          </Link>
+        )}
         <button type="button" onClick={handelSideNav}>
           <RiMenu3Fill size={"2em"} />
         </button>
@@ -435,7 +467,7 @@ export default function Navbar(props) {
                   My Job Posts
                 </Link>
                 <Link className={styles.btn} href="/edit-company">
-                  Setting
+                  Settings
                 </Link>
                 <button
                   className={styles.btn}
@@ -752,7 +784,7 @@ export default function Navbar(props) {
                   My Job Posts
                 </Link>
                 <Link className={styles.btn} href="/edit-company">
-                  Setting
+                  Settings
                 </Link>
                 <button
                   className={styles.btn}

@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
 const PostedJobs = (props) => {
   const [jobs, setJobs] = useState([]);
+  
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token

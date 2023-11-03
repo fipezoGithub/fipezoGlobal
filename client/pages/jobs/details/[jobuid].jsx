@@ -33,6 +33,7 @@ const Jobuid = (props) => {
   const [loginType, setLoginType] = useState("");
   const [isApplied, setIsApplied] = useState(false);
   const [url, setUrl] = useState("");
+  console.log(props);
   useEffect(() => {
     setLoginType(JSON.parse(localStorage.getItem("type")));
     setUrl(window.location.origin + "/jobs/details/" + props.data.uid);
@@ -60,6 +61,23 @@ const Jobuid = (props) => {
       const data = await res.json();
       if (data) {
         setIsApplied(true);
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: "Job apply",
+              headline: `${props.user.firstname} ${props.user.lastname} applied to your posted job`,
+              acceptedCompany: props.data.createdCompany._id,
+              sentFreelancer: props.user._id,
+              href: "/posted-jobs",
+            }),
+          }
+        );
+        const data = await res.json();
       }
     } catch (error) {
       console.log(error);
@@ -75,6 +93,7 @@ const Jobuid = (props) => {
   let today = new Date();
   var Result = Math.round(a.getTime() - today.getTime()) / one_day;
   var Final_Result = Result.toFixed(0);
+
   return (
     <>
       <Head>

@@ -7,20 +7,34 @@ import React, { useEffect, useState } from "react";
 
 const My_notifications = (props) => {
   const [notifications, setNotifications] = useState([]);
-  
+
   useEffect(() => {
     const type = JSON.parse(localStorage.getItem("type"));
     async function getNotifications() {
-      const res = await fetch(
-        `${process.env.SERVER_URL}/notification/${props.user._id}?type=${type}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const noti = await res.json();
+      let noti;
+      if (type === "company") {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/${props.company._id}?type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        noti = await res.json();
+      } else {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/${props.user._id}?type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        noti = await res.json();
+      }
       console.log(noti);
       setNotifications(noti);
     }
@@ -60,14 +74,14 @@ const My_notifications = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16 mx-8 flex flex-col items-center justify-center gap-6 mb-8">
+      <div className="mt-16 mx-4 lg:mx-8 flex flex-col items-center justify-center gap-6 mb-8">
         <h1 className="text-2xl font-semibold">Notifications</h1>
         {notifications.length > 0 ? (
           notifications.map((item, index) => (
             <Link
               href={item.href}
               key={index}
-              className={`flex items-center border px-6 py-3 gap-3 ${
+              className={`flex items-center border px-3 lg:px-6 py-3 gap-3 lg:w-[30rem] ${
                 item.seen === false ? "bg-slate-50" : "bg-white"
               }`}
               onClick={() => seenNotification(item)}
@@ -78,18 +92,18 @@ const My_notifications = (props) => {
                     `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.sentUser.profilePicture}`) ||
                   (item.sentFreelancer?.profilePicture &&
                     `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.sentFreelancer.profilePicture}`) ||
-                  (item.sentCompany.profilePicture &&
+                  (item.sentCompany?.profilePicture &&
                     `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.sentCompany?.profilePicture}`) ||
                   "/dp.png"
                 }
                 width={120}
                 height={120}
                 alt="user-picture"
-                className="rounded-full w-16 h-16 object-cover"
+                className="rounded-full w-12 lg:w-16 h-12 lg:h-16 object-cover"
               />
-              <div>
-                <h1>{item.headline}</h1>
-                <p>
+              <div className="flex flex-col gap-1">
+                <h1 className="text-sm lg:text-lg">{item.headline}</h1>
+                <p className="text-sm lg:text-base">
                   {new Date(item.createdAt).toLocaleString("en-IN", {
                     day: "numeric",
                     month: "long",
@@ -100,7 +114,12 @@ const My_notifications = (props) => {
             </Link>
           ))
         ) : (
-          <div></div>
+          <div className="flex flex-col items-center">
+            <Image src={"/nojobs.webp"} height={800} width={800} className="" alt="no notification" />
+            <p className="capitalize font-semibold lg:text-xl">
+              no pending notifications
+            </p>
+          </div>
         )}
       </div>
       <Footer />

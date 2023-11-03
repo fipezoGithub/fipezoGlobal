@@ -374,7 +374,7 @@ class Sidebar extends React.Component {
           />
         </div>
 
-        <hr className={styles.divider} />
+        {/* <hr className={styles.divider} />
 
         <div className={styles.filter}>
           <div className={styles.title}>
@@ -399,7 +399,7 @@ class Sidebar extends React.Component {
               />
             </div>
           )}
-        </div>
+        </div> */}
         <hr className={styles.divider} />
 
         <div className={styles.filter} id={styles.rating}>

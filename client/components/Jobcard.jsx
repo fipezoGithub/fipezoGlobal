@@ -135,6 +135,23 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       });
       const data = await res.json();
       if (data) {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: "Job apply",
+              headline: `Your application is selected by ${company.companyname}`,
+              acceptedFreelancer: userid,
+              sentCompany: company._id,
+              href: "/my_job",
+            }),
+          }
+        );
+        const data = await res.json();
         setJobs([]);
       }
     } catch (error) {
@@ -157,6 +174,23 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       });
       const data = await res.json();
       if (data) {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: "Job apply",
+              headline: `Sorry! your application is rejected by ${company.companyname}`,
+              acceptedFreelancer: userid,
+              sentCompany: company._id,
+              href: "/my_job",
+            }),
+          }
+        );
+        const data = await res.json();
         setJobs([]);
       }
     } catch (error) {

@@ -9,6 +9,7 @@ import { BiFilter } from "react-icons/bi";
 import Image from "next/image";
 import Head from "next/head";
 import Loading from "@/components/Loading";
+import { IoSearch } from "react-icons/io5";
 
 function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +38,7 @@ function Explore(props) {
   const [filterCity, setFilterCity] = useState("");
   const [divider, setDivider] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
   const increPage = (e) => {
     if (currentPage !== noOfPages) {
       setCurrentPage(currentPage + 1);
@@ -49,14 +51,33 @@ function Explore(props) {
     window.innerWidth > 640 && setShowSideBar(true);
     setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
+
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const decrePage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.SERVER_URL}/freelancer/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      }
+    );
+    const data = await response.json();
+    setFreelancers(data);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -428,9 +449,25 @@ function Explore(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className={styles.search}>
-        <SearchBox border={true} />
-      </div>
+      <form
+        className={styles.search + " flex items-center justify-center"}
+        onSubmit={handleSearch}
+      >
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search for freelancers"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button className={styles.searchIcon} type="submit">
+          <IoSearch
+            style={{ fontSize: "1.25rem", color: "white" }}
+            className="pointer-events-none"
+            aria-label="Search"
+          />
+        </button>
+      </form>
       <div className={styles.body}>
         <div className={styles.sidebar}>
           <div>

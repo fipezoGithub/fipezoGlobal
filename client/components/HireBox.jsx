@@ -1,11 +1,12 @@
 import styles from "../styles/HireBox.module.css";
 import { ImCross } from "react-icons/im";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function HireBox(props) {
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
+  const [fullName, setFullName] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [budget, setBudget] = useState("");
@@ -15,6 +16,7 @@ function HireBox(props) {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
+    const type = JSON.parse(localStorage.getItem("type"));
     async function postHire() {
       try {
         if (token) {
@@ -26,7 +28,7 @@ function HireBox(props) {
             },
             body: JSON.stringify({
               freelancer: props.freelancer._id,
-              fullname: `${props.user.firstname} ${props.user.lastname}`,
+              fullname: fullName,
               phone: props.user.phone,
               description: description,
               address: address,
@@ -38,23 +40,43 @@ function HireBox(props) {
           });
           const data = await response.json();
           if (response.ok) {
-            const res = await fetch(
-              `${process.env.SERVER_URL}/notification/create`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  type: "Hire",
-                  headline: `You have a hire request from ${props.user.firstname} ${props.user.lastname}`,
-                  acceptedFreelancer: props.freelancer._id,
-                  sentUser: props.user._id,
-                  href: "/my_requests",
-                }),
-              }
-            );
-            const data = await res.json();
+            if (type === "company") {
+              const res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire",
+                    headline: `You have a hire request from ${fullName}`,
+                    acceptedFreelancer: props.freelancer._id,
+                    sentCompany: props.user._id,
+                    href: "/my_requests",
+                  }),
+                }
+              );
+              const data = await res.json();
+            } else {
+              const res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire",
+                    headline: `You have a hire request from ${fullName}`,
+                    acceptedFreelancer: props.freelancer._id,
+                    sentUser: props.user._id,
+                    href: "/my_requests",
+                  }),
+                }
+              );
+              const data = await res.json();
+            }
           }
         }
         props.setShowDialogBox(true);
@@ -67,6 +89,15 @@ function HireBox(props) {
 
     postHire();
   };
+
+  useEffect(() => {
+    const type = JSON.parse(localStorage.getItem("type"));
+    if (type === "company") {
+      setFullName(props.user.companyname);
+    } else {
+      setFullName(props.user.firstname + " " + props.user.lastname);
+    }
+  }, []);
 
   return (
     <div className={styles.hireBox}>
@@ -88,7 +119,7 @@ function HireBox(props) {
               type="text"
               id="name"
               name="fullname"
-              value={`${props.user.firstname} ${props.user.lastname}`}
+              value={fullName}
               placeholder="Enter full name"
             />
           </div>

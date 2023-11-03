@@ -327,15 +327,15 @@ function User_profile(props) {
                     />
                   </div>
                   <div className={style.btns}>
-                    <button className={style.logout} type="submit">
-                      Save
-                    </button>
                     <button
                       className={style.back}
                       type="button"
                       onClick={() => setEditProfile(false)}
                     >
                       Back
+                    </button>
+                    <button className={style.logout} type="submit">
+                      Save
                     </button>
                   </div>
                 </form>

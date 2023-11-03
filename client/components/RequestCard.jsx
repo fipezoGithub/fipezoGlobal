@@ -33,17 +33,6 @@ function RequestCard(props) {
           <button
             className={styles.btn}
             type="button"
-            id={styles.accept}
-            onClick={() => {
-              props.acceptRequest(props.request);
-              props.setShowAcceptBox(true);
-            }}
-          >
-            Accept
-          </button>
-          <button
-            className={styles.btn}
-            type="button"
             id={styles.decline}
             onClick={() => {
               props.setShowDeleteBox(true);
@@ -51,6 +40,17 @@ function RequestCard(props) {
             }}
           >
             Decline
+          </button>
+          <button
+            className={styles.btn}
+            type="button"
+            id={styles.accept}
+            onClick={() => {
+              props.acceptRequest(props.request);
+              props.setShowAcceptBox(true);
+            }}
+          >
+            Accept
           </button>
         </div>
       )}

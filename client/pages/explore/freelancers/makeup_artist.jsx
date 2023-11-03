@@ -2,7 +2,6 @@ import ProfileCard from "@/components/ProfileCard";
 import styles from "@/styles/Explore.module.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import SearchBox from "@/components/SearchBox";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { BiFilter } from "react-icons/bi";
@@ -57,6 +56,23 @@ function Explore(props) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.SERVER_URL}/freelancer/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      }
+    );
+    const data = await response.json();
+    setFreelancers(data);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -116,8 +132,8 @@ function Explore(props) {
       !showWebDeveloper &&
       !showDj &&
       !showDancer &&
-      !showInfluencer&&
-      !showGraphicsDesigner&&
+      !showInfluencer &&
+      !showGraphicsDesigner &&
       !showMehendiArtist
     ) {
       return true;
@@ -135,7 +151,7 @@ function Explore(props) {
       showWebDeveloper &&
       showDj &&
       showDancer &&
-      showInfluencer&&
+      showInfluencer &&
       showGraphicsDesigner &&
       showMehendiArtist
     ) {
@@ -152,8 +168,8 @@ function Explore(props) {
         freelancer.profession === "web_developer" ||
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer"||
-        freelancer.profession === "graphics_designer"||
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "graphics_designer" ||
         freelancer.profession === "mehendi_artist"
       );
     }
@@ -412,7 +428,7 @@ function Explore(props) {
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers
+  const final = displayedFreelancers;
   return isLoading === true ? (
     <Loading message={"Makeup Artist is loading"} />
   ) : (
@@ -426,9 +442,25 @@ function Explore(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className={styles.search}>
-        <SearchBox border={true} />
-      </div>
+      <form
+        className={styles.search + " flex items-center justify-center"}
+        onSubmit={handleSearch}
+      >
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search for freelancers"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button className={styles.searchIcon} type="submit">
+          <IoSearch
+            style={{ fontSize: "1.25rem", color: "white" }}
+            className="pointer-events-none"
+            aria-label="Search"
+          />
+        </button>
+      </form>
       <div className={styles.body}>
         <div className={styles.sidebar}>
           <div>
@@ -443,7 +475,7 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
-            setShowSideBar={setShowSideBar}
+              setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
               setShowCinematographers={setShowCinematographers}

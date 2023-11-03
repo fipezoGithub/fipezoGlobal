@@ -9,6 +9,7 @@ import { BiFilter } from "react-icons/bi";
 import Image from "next/image";
 import Head from "next/head";
 import Loading from "@/components/Loading";
+import { IoSearch } from "react-icons/io5";
 
 function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,6 +103,23 @@ function Explore(props) {
     fetchFreelancer();
   }, []);
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.SERVER_URL}/freelancer/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      }
+    );
+    const data = await response.json();
+    setFreelancers(data);
+    setCurrentPage(1);
+  };
+
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (
       !showPhotographers &&
@@ -116,8 +134,8 @@ function Explore(props) {
       !showWebDeveloper &&
       !showDj &&
       !showDancer &&
-      !showInfluencer&&
-      !showGraphicsDesigner&&
+      !showInfluencer &&
+      !showGraphicsDesigner &&
       !showMehendiArtist
     ) {
       return true;
@@ -135,7 +153,7 @@ function Explore(props) {
       showWebDeveloper &&
       showDj &&
       showDancer &&
-      showInfluencer&&
+      showInfluencer &&
       showGraphicsDesigner &&
       showMehendiArtist
     ) {
@@ -153,7 +171,7 @@ function Explore(props) {
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
         freelancer.profession === "influencer" ||
-        freelancer.profession === "graphics_designer"||
+        freelancer.profession === "graphics_designer" ||
         freelancer.profession === "mehendi_artist"
       );
     }
@@ -412,7 +430,7 @@ function Explore(props) {
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers
+  const final = displayedFreelancers;
   return isLoading === true ? (
     <Loading message={"Photographer is loading"} />
   ) : (
@@ -426,9 +444,25 @@ function Explore(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className={styles.search}>
-        <SearchBox border={true} />
-      </div>
+      <form
+        className={styles.search + " flex items-center justify-center"}
+        onSubmit={handleSearch}
+      >
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Search for freelancers"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button className={styles.searchIcon} type="submit">
+          <IoSearch
+            style={{ fontSize: "1.25rem", color: "white" }}
+            className="pointer-events-none"
+            aria-label="Search"
+          />
+        </button>
+      </form>
       <div className={styles.body}>
         <div className={styles.sidebar}>
           <div>
@@ -443,7 +477,7 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
-            setShowSideBar={setShowSideBar}
+              setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
               setShowCinematographers={setShowCinematographers}

@@ -77,22 +77,42 @@ export default function My_requests(props) {
         .then((res) => res.json())
         .then(async (data) => {
           if (data.success) {
-            const res = await fetch(
-              `${process.env.SERVER_URL}/notification/create`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  type: "Hire Reject",
-                  headline: `Your hire request is rejected by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
-                  acceptedUser: req.user,
-                  sentFreelancer: req.freelancer,
-                  href: "/my_hires",
-                }),
-              }
-            );
+            let res;
+            if (!req.userDetails.uid) {
+              res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire Reject",
+                    headline: `Your hire request is rejected by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                    acceptedUser: req.user,
+                    sentFreelancer: req.freelancer,
+                    href: "/my_hires",
+                  }),
+                }
+              );
+            } else {
+              res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire Reject",
+                    headline: `Your hire request is rejected by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                    acceptedCompany: req.user,
+                    sentFreelancer: req.freelancer,
+                    href: "/my_hires",
+                  }),
+                }
+              );
+            }
             const data = await res.json();
             setShowDeleteBox(false);
             setReqId(null);
@@ -120,22 +140,42 @@ export default function My_requests(props) {
         .then(async (data) => {
           if (data.success) {
             setShowDeleteBox(false);
-            const res = await fetch(
-              `${process.env.SERVER_URL}/notification/create`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  type: "Hire Accept",
-                  headline: `Your hire request is accepted by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
-                  acceptedUser: req.user,
-                  sentFreelancer: req.freelancer,
-                  href: "/my_hires",
-                }),
-              }
-            );
+            let res;
+            if (!req.userDetails.uid) {
+              res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire Accept",
+                    headline: `Your hire request is accepted by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                    acceptedUser: req.user,
+                    sentFreelancer: req.freelancer,
+                    href: "/my_hires",
+                  }),
+                }
+              );
+            } else {
+              res = await fetch(
+                `${process.env.SERVER_URL}/notification/create`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    type: "Hire Accept",
+                    headline: `Your hire request is accepted by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
+                    acceptedCompany: req.user,
+                    sentFreelancer: req.freelancer,
+                    href: "/my_hires",
+                  }),
+                }
+              );
+            }
             const data = await res.json();
           }
         })
