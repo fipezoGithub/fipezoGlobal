@@ -8,6 +8,7 @@ import { BiFilter } from "react-icons/bi";
 import Image from "next/image";
 import Head from "next/head";
 import Loading from "@/components/Loading";
+import { IoSearch } from "react-icons/io5";
 
 function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
