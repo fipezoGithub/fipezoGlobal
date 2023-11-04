@@ -47,6 +47,11 @@ export default function App({ Component, pageProps }) {
           break;
       }
     }
+    // if (!("Notification" in window)) {
+    //   console.log("This browser does not support desktop notification");
+    // } else {
+    //   Notification.requestPermission();
+    // }
     // getLocation();
     const start = () => {
       console.log("start");

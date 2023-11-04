@@ -142,7 +142,7 @@ function ProfileBioCard(props) {
 
   const handelLove = async (e) => {
     e.target.disabled = true;
-    if (props.user._id === props.freelancer._id) {
+    if (props.user?._id === props.freelancer._id) {
       setLoveError(true);
       setTimeout(() => {
         setLoveError(false);
