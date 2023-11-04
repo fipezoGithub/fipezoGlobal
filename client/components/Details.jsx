@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 function Details(props) {
-  console.log(props);
   const [showReviews, setShowReviews] = useState(false);
   const [showPortfolio, setShowPortfolio] = useState(true);
   const [works, setWorks] = useState([]);

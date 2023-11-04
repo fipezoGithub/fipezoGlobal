@@ -10,7 +10,6 @@ import { AiOutlineThunderbolt, AiFillEdit, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
 
 function ProfileBioCard(props) {
-  console.log(props);
   const links = JSON.parse(props.freelancer.links);
   const [display, setDisplay] = useState("none");
   const [showEditBox, setShowEditBox] = useState(false);

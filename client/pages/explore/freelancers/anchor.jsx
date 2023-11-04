@@ -450,7 +450,7 @@ function Explore(props) {
         <input
           type="text"
           className={styles.searchInput}
-          placeholder="Search for freelancers"
+          placeholder="Search freelancers by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

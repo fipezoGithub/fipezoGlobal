@@ -38,6 +38,7 @@ function Explore(props) {
   const [filterCity, setFilterCity] = useState("");
   const [divider, setDivider] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
   const increPage = (e) => {
     if (currentPage !== noOfPages) {
       setCurrentPage(currentPage + 1);
@@ -458,7 +459,7 @@ function Explore(props) {
         <input
           type="text"
           className={styles.searchInput}
-          placeholder="Search for freelancers"
+          placeholder="Search freelancers by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

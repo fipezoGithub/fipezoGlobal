@@ -13,7 +13,7 @@ const Profile = (props) => {
   const [phone, setPhone] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const router = useRouter();
-
+  const logintype = JSON.parse(localStorage.getItem("type"));
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -71,18 +71,41 @@ const Profile = (props) => {
           </div>
 
           <div className={style.options}>
-            <Link className={style.option} href="/my_job">
-              Jobs
-            </Link>
-            <Link className={style.option} href="/my_requests">
-              Hire Requests
-            </Link>
-            <Link href="/edit-profile" className={style.option}>
-              Edit Profile
-            </Link>
-            <Link className={style.option} href="/my_referral">
-              My Referal
-            </Link>
+            {logintype === "freelancer" && (
+              <Link className={style.option} href="/my_job">
+                Jobs
+              </Link>
+            )}
+            {logintype === "company" && (
+              <Link className={style.option} href="/posted-jobs">
+                My Job Posts
+              </Link>
+            )}
+            {logintype === "freelancer" && (
+              <Link className={style.option} href="/my_requests">
+                Hire Requests
+              </Link>
+            )}
+            {logintype === "company" && (
+              <Link className={style.option} href="/my_hires">
+                Hire Requests
+              </Link>
+            )}
+            {logintype === "freelancer" && (
+              <Link href="/edit-profile" className={style.option}>
+                Edit Profile
+              </Link>
+            )}
+            {logintype === "company" && (
+              <Link href="/edit-company" className={style.option}>
+                Edit Profile
+              </Link>
+            )}
+            {logintype === "freelancer" && (
+              <Link className={style.option} href="/my_referral">
+                My Referal
+              </Link>
+            )}
             <Link
               target="_blank"
               href="https://www.facebook.com/profile.php?id=100094694632348&sk=reviews"

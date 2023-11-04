@@ -100,13 +100,16 @@ export default function Navbar(props) {
     if (props.checkLoggedIn) props.checkLoggedIn(false);
     router.push("/");
   };
+
   const handelSideNav = () => {
     sideNavRef.current.style.display = "flex";
     sideNavRef.current.style.transform = "translateX(0%)";
   };
+
   const closeSideNav = () => {
     sideNavRef.current.removeAttribute("style");
   };
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 0) {
@@ -120,6 +123,7 @@ export default function Navbar(props) {
       }
     });
   }, [props.color]);
+
   return (
     <nav
       className={styles.navbar}
@@ -135,14 +139,7 @@ export default function Navbar(props) {
         </Link>
       </div>
       <div className="md:hidden flex gap-2">
-        {!props.user && !props.company ? (
-          <Link
-            href="/login"
-            className={"flex items-center justify-center gap-2"}
-          >
-            <FaBell size={"1.6em"} />
-          </Link>
-        ) : (
+        {(props.user || props.company) && (
           <Link
             href="/my_notifications"
             className={"flex items-center justify-center gap-2 relative"}
@@ -463,11 +460,21 @@ export default function Navbar(props) {
                 >
                   My Profile
                 </Link>
-                <Link className={styles.btn} href="/posted-jobs">
-                  My Job Posts
+                <Link
+                  href="/my_notifications"
+                  className={
+                    styles.btn + " flex items-center justify-center gap-2"
+                  }
+                >
+                  Notifications <FaBell size={"1.2em"} />{" "}
+                  {notificationCount > 0 && (
+                    <span className="absolute right-1 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
+                      {notificationCount}
+                    </span>
+                  )}
                 </Link>
-                <Link className={styles.btn} href="/edit-company">
-                  Settings
+                <Link className={styles.btn} href="/profile-setting">
+                  Dashboard
                 </Link>
                 <button
                   className={styles.btn}
@@ -780,11 +787,8 @@ export default function Navbar(props) {
                 >
                   My Profile
                 </Link>
-                <Link className={styles.btn} href="/posted-jobs">
-                  My Job Posts
-                </Link>
-                <Link className={styles.btn} href="/edit-company">
-                  Settings
+                <Link className={styles.btn} href="/profile-setting">
+                  Dashboard
                 </Link>
                 <button
                   className={styles.btn}

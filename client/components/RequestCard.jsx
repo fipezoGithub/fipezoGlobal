@@ -28,7 +28,7 @@ function RequestCard(props) {
         Time: {props.request.startTime} - {props.request.endTime}
       </p>
       <p className={styles.cardInfo}>Budget: {props.request.budget}</p>
-      {props.request.status !== "accepted" && (
+      {props.request.status === "pending" && (
         <div className={styles.btns}>
           <button
             className={styles.btn}
@@ -54,17 +54,27 @@ function RequestCard(props) {
           </button>
         </div>
       )}
-      {props.request.status === "accepted" && (
-        <div className={styles.btns}>
-          <button
-            className={`${styles.btn} ${styles.accepted}`}
-            type="button"
-            id={styles.accepted}
-          >
-            Accepted
-          </button>
-        </div>
-      )}
+      {props.request.status !== "pending" &&
+        (props.request.status === "accepted" ? (
+          <div className={styles.btns}>
+            <button
+              className={`${styles.btn} ${styles.accepted}`}
+              type="button"
+              id={styles.accepted}
+            >
+              Accepted
+            </button>
+          </div>
+        ) : (
+          <div className={styles.btns}>
+            <button
+              className={`${styles.btn} ${styles.accepted} bg-red-600 text-white`}
+              type="button"
+            >
+              Declined
+            </button>
+          </div>
+        ))}
     </div>
   );
 }

@@ -40,7 +40,7 @@ export default function My_requests(props) {
     } else {
       router.push("/login");
     }
-  }, []);
+  }, [requests.length === 0]);
 
   useEffect(() => {
     const token = localStorage.getItem("user")
@@ -116,7 +116,7 @@ export default function My_requests(props) {
             const data = await res.json();
             setShowDeleteBox(false);
             setReqId(null);
-            setRequests(requests.filter((request) => request._id !== id));
+            setRequests([]);
           }
         })
         .catch((error) => {
@@ -177,6 +177,7 @@ export default function My_requests(props) {
               );
             }
             const data = await res.json();
+            setRequests([]);
           }
         })
         .catch((error) => {
