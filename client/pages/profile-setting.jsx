@@ -12,9 +12,10 @@ const Profile = (props) => {
   const [lastname, setLastname] = useState("");
   const [phone, setPhone] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  const [logintype, setLoginType] = useState("");
   const router = useRouter();
-  const logintype = JSON.parse(localStorage.getItem("type"));
   useEffect(() => {
+    setLoginType(JSON.parse(localStorage.getItem("type")));
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
