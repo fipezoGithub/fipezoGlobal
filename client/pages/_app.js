@@ -10,6 +10,7 @@ export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     function getLocation() {
       if (navigator.geolocation) {
@@ -47,11 +48,13 @@ export default function App({ Component, pageProps }) {
           break;
       }
     }
+
     // if (!("Notification" in window)) {
     //   console.log("This browser does not support desktop notification");
     // } else {
     //   Notification.requestPermission();
     // }
+
     // getLocation();
     const start = () => {
       console.log("start");
@@ -70,6 +73,7 @@ export default function App({ Component, pageProps }) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
+
   return (
     <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
       <div>

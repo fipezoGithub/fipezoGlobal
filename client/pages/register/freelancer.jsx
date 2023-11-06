@@ -98,7 +98,7 @@ class Freelancer extends React.Component {
   };
 
   increProgress = (val) => {
-    if (this.state.progress + val > 125) {
+    if (this.state.progress + val > 100) {
       return;
     }
 
@@ -169,38 +169,38 @@ class Freelancer extends React.Component {
       return;
     }
 
-    if (
-      (this.state.bio.length > 300 || this.state.bio.length < 50) &&
-      this.state.currentPage === 8
-    ) {
-      this.setState({ textareaError: true });
-      return;
-    }
+    // if (
+    //   (this.state.bio.length > 300 || this.state.bio.length < 50) &&
+    //   this.state.currentPage === 8
+    // ) {
+    //   this.setState({ textareaError: true });
+    //   return;
+    // }
 
-    if (this.state.bio === "" && this.state.currentPage === 8) {
-      this.setState({ error: true });
-      return;
-    }
+    // if (this.state.bio === "" && this.state.currentPage === 8) {
+    //   this.setState({ error: true });
+    //   return;
+    // }
 
-    if (
-      (this.state?.equipments?.length > 300 ||
-        this.state.equipments.length < 50) &&
-      this.state.currentPage === 9
-    ) {
-      this.setState({ textareaError: true });
-      return;
-    }
+    // if (
+    //   (this.state?.equipments?.length > 300 ||
+    //     this.state.equipments.length < 50) &&
+    //   this.state.currentPage === 9
+    // ) {
+    //   this.setState({ textareaError: true });
+    //   return;
+    // }
 
-    if (this.state.equipments === "" && this.state.currentPage === 9) {
-      this.setState({ error: true });
-      return;
-    }
+    // if (this.state.equipments === "" && this.state.currentPage === 9) {
+    //   this.setState({ error: true });
+    //   return;
+    // }
 
-    if (this.state.currentPage === 9) {
-      this.setState({ error: false });
-      this.setState({ form: true });
-      return;
-    }
+    // if (this.state.currentPage === 9) {
+    //   this.setState({ error: false });
+    //   this.setState({ form: true });
+    //   return;
+    // }
 
     this.setState({ progress: this.state.progress + val });
     this.setState({ error: false });
@@ -228,11 +228,11 @@ class Freelancer extends React.Component {
   };
 
   increPage = () => {
-    if (this.state.currentPage === 9) {
+    if (this.state.currentPage === 8) {
       return;
     }
 
-    if (this.state.currentPage === 8) {
+    if (this.state.currentPage === 7) {
       this.setState({ btn: "Submit" });
     }
 
@@ -242,7 +242,7 @@ class Freelancer extends React.Component {
   decrePage = () => {
     if (this.state.currentPage === 1) return;
 
-    if (this.state.currentPage === 8) {
+    if (this.state.currentPage === 7) {
       this.setState({ btn: "Next" });
     }
 
@@ -326,26 +326,26 @@ class Freelancer extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     let c = 0;
-    if (this.state.works.length < 8) {
-      this.setState({ worksError: true });
-      c++;
-    }
-    if (this.state.profilePicture === null) {
-      this.setState({ profilePicError: true });
-      this.setState({ warns: [false, ...this.state.warns.slice(1)] });
-      return;
-    }
-    if (this.state.coverPicture === null) {
-      this.setState({ coverPicError: true });
-      this.setState({
-        warns: [
-          ...this.state.warns.slice(0, 1),
-          false,
-          ...this.state.warns.slice(2),
-        ],
-      });
-      return;
-    }
+    // if (this.state.works.length < 8) {
+    //   this.setState({ worksError: true });
+    //   c++;
+    // }
+    // if (this.state.profilePicture === null) {
+    //   this.setState({ profilePicError: true });
+    //   this.setState({ warns: [false, ...this.state.warns.slice(1)] });
+    //   return;
+    // }
+    // if (this.state.coverPicture === null) {
+    //   this.setState({ coverPicError: true });
+    //   this.setState({
+    //     warns: [
+    //       ...this.state.warns.slice(0, 1),
+    //       false,
+    //       ...this.state.warns.slice(2),
+    //     ],
+    //   });
+    //   return;
+    // }
     // if (this.state.aadhaarCard === null) {
     //   this.setState({ addharError: true });
     //   this.setState({
@@ -368,7 +368,7 @@ class Freelancer extends React.Component {
     //   });
     //   return;
     // }
-    if (c > 0) return;
+    // if (c > 0) return;
     this.setState({ isLoading: true });
     const postData = async () => {
       this.setState({ isLoading: true });
@@ -393,38 +393,60 @@ class Freelancer extends React.Component {
         data.append("email", this.state.email);
         data.append("password", this.state.password);
         data.append("rate", this.state.rate);
-        data.append("bio", this.state.bio);
-        data.append("equipments", this.state.equipments);
+        // data.append("bio", this.state.bio);
+        // data.append("equipments", this.state.equipments);
         data.append("followers", null);
         data.append("following", null);
-        data.append("profilePicture", this.state.profilePicture);
-        data.append("coverPicture", this.state.coverPicture);
-        data.append("aadhaarCard", this.state.aadhaarCard);
-        data.append("panCard", this.state.panCard);
-        data.append("works[]", this.state.works[0]);
-        data.append("works[]", this.state.works[1]);
-        data.append("works[]", this.state.works[2]);
-        data.append("works[]", this.state.works[3]);
-        data.append("works[]", this.state.works[4]);
-        data.append("works[]", this.state.works[5]);
-        data.append("works[]", this.state.works[6]);
-        data.append("works[]", this.state.works[7]);
-        data.append("links", JSON.stringify(this.state.links));
+        // data.append("profilePicture", this.state.profilePicture);
+        // data.append("coverPicture", this.state.coverPicture);
+        // data.append("aadhaarCard", this.state.aadhaarCard);
+        // data.append("panCard", this.state.panCard);
+        // data.append("works[]", this.state.works[0]);
+        // data.append("works[]", this.state.works[1]);
+        // data.append("works[]", this.state.works[2]);
+        // data.append("works[]", this.state.works[3]);
+        // data.append("works[]", this.state.works[4]);
+        // data.append("works[]", this.state.works[5]);
+        // data.append("works[]", this.state.works[6]);
+        // data.append("works[]", this.state.works[7]);
+        // data.append("links", JSON.stringify(this.state.links));
         data.append(
           "pictureStyle",
           JSON.stringify({ coverPicture: "center", profilePicture: "center" })
         );
         data.append("usedReferalId", this.state.usedReferalId);
-        data.append("termsAndConditions", this.state.termsAndConditions);
+        // data.append("termsAndConditions", this.state.termsAndConditions);
         data.append("verified", false);
         const response = await fetch(
           `${process.env.SERVER_URL}/register/freelancer`,
           {
             method: "POST",
             headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            body: data,
+            body: JSON.stringify({
+              uid:
+                this.state.firstName.toLowerCase() +
+                "." +
+                this.state.lastName.toLowerCase() +
+                "_" +
+                parseInt(this.state.phone).toString(16),
+              firstname: this.state.firstName.toLowerCase(),
+              lastname: this.state.lastName.toLowerCase(),
+              phone: this.state.phone,
+              location: this.state.location,
+              profession: this.state.profession,
+              email: this.state.email,
+              password: this.state.password,
+              rate: this.state.rate,
+              pictureStyle: JSON.stringify({
+                coverPicture: "center",
+                profilePicture: "center",
+              }),
+              usedReferalId: this.state.usedReferalId,
+              verified: false,
+            }),
           }
         );
         const responseData = await response.json();
@@ -1134,7 +1156,7 @@ class Freelancer extends React.Component {
                       />
                     </div>
                   )}
-                  {this.state.textareaError && (
+                  {/* {this.state.textareaError && (
                     <p className={styles.error}>
                       Please provide less than 300 characters and atleast 50
                       characters.
@@ -1306,25 +1328,31 @@ class Freelancer extends React.Component {
                           value={this.state?.equipments}
                         ></textarea>
                       </div>
-                    )}
+                    )} */}
                   {!this.state.form && (
                     <div className={styles.btns}>
                       {this.state.currentPage !== 1 && (
                         <button
                           className={styles.backBtn}
                           type="button"
-                          onClick={() => this.decreProgress(11.11)}
+                          onClick={() => this.decreProgress(15)}
                         >
                           Back
                         </button>
                       )}
-                      {this.state.currentPage !== 3 && (
-                        <button
-                          className={styles.NextBtn}
-                          type="button"
-                          onClick={() => this.increProgress(11.11)}
-                        >
-                          {this.state.btn}
+                      {this.state.currentPage !== 3 &&
+                        this.state.currentPage !== 7 && (
+                          <button
+                            className={styles.NextBtn}
+                            type="button"
+                            onClick={() => this.increProgress(15)}
+                          >
+                            {this.state.btn}
+                          </button>
+                        )}
+                      {this.state.currentPage === 7 && (
+                        <button className={styles.NextBtn} type="submit">
+                          Submit
                         </button>
                       )}
                       {this.state.currentPage === 3 && (

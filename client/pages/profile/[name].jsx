@@ -14,6 +14,8 @@ import DialogBox from "@/components/DialogBox";
 import Modal from "@/components/Modal";
 import Head from "next/head";
 import SimilarFreelancer from "@/components/SimilarFreelancer";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
     `${process.env.SERVER_URL}/profile/freelancer/${ctx.query.name}`
@@ -21,6 +23,7 @@ export const getServerSideProps = async (ctx) => {
   const data = await response.json();
   return { props: { data } };
 };
+
 export default function Name(props) {
   const router = useRouter();
   const uid = router.query.name;
@@ -37,6 +40,7 @@ export default function Name(props) {
   const [copied, setCopied] = useState(false);
   const [showDialogBox, setShowDialogBox] = useState(false);
   const [showReviewDialogBox, setShowReviewDialogBox] = useState(false);
+
   const handleClick = (item, index) => {
     if (!item.includes("works[]")) {
       return;
@@ -44,6 +48,7 @@ export default function Name(props) {
     setCurrentIndex(index);
     setClickedImg(`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/` + item);
   };
+
   const handelRotationRight = () => {
     if (
       currentIndex === null ||
@@ -202,6 +207,7 @@ export default function Name(props) {
   const handleReviewDialogBox = (val) => {
     setShowReviewDialogBox(val);
   };
+
   useEffect(() => {
     setLogInType(JSON.parse(localStorage.getItem("type")));
     if (props.user !== null && props.user?.uid === uid) {
@@ -344,7 +350,7 @@ export default function Name(props) {
               )}
               {loggedIn && (
                 <button
-                  className={styles.btn+" pl-6 sm:pl-0"}
+                  className={styles.btn + " pl-6 sm:pl-0"}
                   id={styles.hire}
                   onClick={handleHireBox}
                 >
@@ -388,7 +394,7 @@ export default function Name(props) {
             </div>
           )}
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col relative">
           <h1 className="py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold">
             Similar{" "}
             {props.data.profession

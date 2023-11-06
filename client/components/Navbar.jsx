@@ -360,11 +360,19 @@ export default function Navbar(props) {
                 <p className={styles.number}>
                   {props.user ? props.user.phone : ""}
                 </p>
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/freelancer_profile`}>
-                    My Profile
-                  </Link>
-                )}
+                {props.user.uid &&
+                  (props.user.profilePicture ? (
+                    <Link className={styles.btn} href={`/freelancer_profile`}>
+                      My Profile
+                    </Link>
+                  ) : (
+                    <Link
+                      className={styles.btn}
+                      href={`/complete-your-profile`}
+                    >
+                      Complete your profile
+                    </Link>
+                  ))}
                 {props.user.uid && (
                   <Link
                     className={styles.btn}
@@ -700,11 +708,19 @@ export default function Navbar(props) {
                 <p className={styles.number}>
                   {props.user ? props.user.phone : ""}
                 </p>
-                {props.user.uid && (
-                  <Link className={styles.btn} href={`/freelancer_profile`}>
-                    My Profile
-                  </Link>
-                )}
+                {props.user.uid &&
+                  (props.user.profilePicture ? (
+                    <Link className={styles.btn} href={`/freelancer_profile`}>
+                      My Profile
+                    </Link>
+                  ) : (
+                    <Link
+                      className={styles.btn}
+                      href={`/complete-your-profile`}
+                    >
+                      Complete Your Profile
+                    </Link>
+                  ))}
                 {props.user.uid && (
                   <Link
                     className={styles.btn}

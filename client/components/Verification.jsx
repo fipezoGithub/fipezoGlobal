@@ -355,6 +355,125 @@ function Verification(props) {
         </label>
       </div>
       <h1 className={styles.heading}>
+        Tell us about yourself
+        {props.worksError && (
+          <p className={styles.err}>Please Provide atleast 8 Works for you</p>
+        )}
+      </h1>
+      <div className="flex items-center justify-between w-full gap-6 mb-12">
+        <div className="flex flex-col gap-2 w-full">
+          <label htmlFor="bio" className={styles.social}>
+            <span className="text-red-500">* </span>Bio :
+          </label>
+          <textarea
+            required
+            name="bio"
+            id="bio"
+            value={props.bio}
+            onChange={(e) => props.setBio(e.target.value)}
+            rows="10"
+            className="outline-none border border-[#686868] p-4 w-full resize-none"
+            placeholder="Write Your Yourself here..."
+          ></textarea>
+        </div>
+        {(props.profession === "photographer" ||
+          props.profession === "drone_operator" ||
+          props.profession === "cinematographer") && (
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="equipments" className={styles.social}>
+              <span className="text-red-500">* </span>Equipments Available :
+            </label>
+            <textarea
+              required
+              name="equipments"
+              id="equipments"
+              value={props.equipments}
+              onChange={(e) => props.setEquipments(e.target.value)}
+              rows="10"
+              className="outline-none border border-[#686868] p-4 w-full resize-none"
+              placeholder="Write Your equipments here..."
+            ></textarea>
+          </div>
+        )}
+        {(props.profession === "makeup_artist" ||
+          props.profession === "mehendi_artist") && (
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="products" className={styles.social}>
+              <span className="text-red-500">* </span>Products Use :
+            </label>
+            <textarea
+              required
+              name="equipments"
+              id="products"
+              value={props.equipments}
+              onChange={(e) => props.setEquipments(e.target.value)}
+              rows="10"
+              className="outline-none border border-[#686868] p-4 w-full resize-none"
+              placeholder="Write Your products here..."
+            ></textarea>
+          </div>
+        )}
+        {(props.profession === "model" ||
+          props.profession === "anchor" ||
+          props.profession === "dj" ||
+          props.profession === "dancer" ||
+          props.profession === "influencer") && (
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="products" className={styles.social}>
+              <span className="text-red-500">* </span>Describe your work
+              experience :
+            </label>
+            <textarea
+              required
+              name="equipments"
+              id="products"
+              value={props.equipments}
+              onChange={(e) => props.setEquipments(e.target.value)}
+              className="outline-none border border-[#686868] p-4 w-full resize-none"
+              rows="10"
+              placeholder="Write about Your working experience here..."
+            ></textarea>
+          </div>
+        )}
+        {(props.profession === "photo_editor" ||
+          props.profession === "video_editor" ||
+          props.profession === "album_designer" ||
+          props.profession === "graphics_designer") && (
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="fimiliarSoft" className={styles.social}>
+              <span className="text-red-500">* </span>Software Knowledge :
+            </label>
+            <textarea
+              required
+              name="equipments"
+              id="equipments"
+              value={props.equipments}
+              onChange={(e) => props.setEquipments(e.target.value)}
+              className="outline-none border border-[#686868] p-4 w-full resize-none"
+              rows="10"
+              placeholder="Write software name which you used..."
+            ></textarea>
+          </div>
+        )}
+        {props.profession === "web_developer" && (
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="fimiliarSoft" className={styles.social}>
+              <span className="text-red-500">* </span>Fimiliar Language :
+            </label>
+            <textarea
+              required
+              name="equipments"
+              id="equipments"
+              value={props.equipments}
+              onChange={(e) => props.setEquipments(e.target.value)}
+              rows="10"
+              className="outline-none border border-[#686868] p-4 w-full resize-none"
+              placeholder="Write languages which you fimiliar with..."
+            ></textarea>
+          </div>
+        )}
+      </div>
+      <h1 className={styles.heading}>
         Add Your Works
         {props.worksError && (
           <p className={styles.err}>Please Provide atleast 8 Works for you</p>

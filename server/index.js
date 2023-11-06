@@ -64,6 +64,7 @@ const {
   updateFreelancerPassword,
   getJobsOfUser,
   likeProfile,
+  verificationProfile,
 } = require("./controllers/freelancerController");
 
 const {
@@ -210,7 +211,7 @@ app.put(
 );
 
 //FreelancerController Routes
-app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
+app.post("/api/register/freelancer", verifyToken, registerFreelancer);
 app.get("/api/profile/freelancer/:uid", getFreelancerProfile);
 app.get("/api/profiles/verified/freelancer", getFreelancerProfiles);
 app.get(
@@ -222,6 +223,7 @@ app.delete("/api/delete/freelancer/:id", deleteFreelancerProfile);
 app.put("/api/verify/freelancer/:id", verifyFreelancerProfile);
 app.get("/api/profiles/featured/freelancer", getFeaturedFreelancerProfiles);
 app.put("/api/edit/freelancer", upload, verifyToken, editFreelancerProfile);
+app.put("/api/freelancer/verify", upload, verifyToken, verificationProfile);
 app.put("/api/follow/freelancer", verifyToken, followProfile);
 app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
 app.get("/api/freelancer/followers/:id", getFollowers);

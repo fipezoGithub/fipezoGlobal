@@ -35,7 +35,17 @@ const My_notifications = (props) => {
         );
         noti = await res.json();
       }
-      console.log(noti);
+
+      // noti.map((not) => {
+      //   if (not.seen === false) {
+      //     var options = {
+      //       body: not.headline,
+      //       dir: "ltr",
+      //     };
+      //     let notification = new Notification("Notification Demo", options);
+      //     return notification;
+      //   }
+      // });
       setNotifications(noti);
     }
     getNotifications();
@@ -115,7 +125,13 @@ const My_notifications = (props) => {
           ))
         ) : (
           <div className="flex flex-col items-center">
-            <Image src={"/nojobs.webp"} height={800} width={800} className="" alt="no notification" />
+            <Image
+              src={"/nojobs.webp"}
+              height={800}
+              width={800}
+              className=""
+              alt="no notification"
+            />
             <p className="capitalize font-semibold lg:text-xl">
               no pending notifications
             </p>

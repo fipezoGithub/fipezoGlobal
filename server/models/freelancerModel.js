@@ -42,19 +42,15 @@ const freelancerSchema = new mongoose.Schema(
     },
     bio: {
       type: String,
-      required: true,
     },
     equipments: {
       type: String,
-      required: true,
     },
     profilePicture: {
       type: String,
-      required: true,
     },
     coverPicture: {
       type: String,
-      required: true,
     },
     aadhaarCard: {
       type: String,
@@ -64,7 +60,6 @@ const freelancerSchema = new mongoose.Schema(
     },
     works: {
       type: [String],
-      required: true,
     },
     following: {
       type: [mongoose.Schema.Types.ObjectId],
@@ -87,7 +82,6 @@ const freelancerSchema = new mongoose.Schema(
     },
     links: {
       type: Object,
-      required: true,
     },
     rating: {
       type: Number,
@@ -99,7 +93,6 @@ const freelancerSchema = new mongoose.Schema(
     },
     termsAndConditions: {
       type: Boolean,
-      required: true,
     },
     featured: {
       type: Boolean,

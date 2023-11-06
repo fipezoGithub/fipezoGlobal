@@ -31,29 +31,6 @@ async function resizeImage(file, width, height) {
 
 async function registerFreelancer(req, res) {
   try {
-    const resizedProfilePicture = await resizeImage(
-      req.files["profilePicture"][0],
-      400,
-      300
-    );
-    const resizedCoverPicture = await resizeImage(
-      req.files["coverPicture"][0],
-      2272,
-      1704
-    );
-    let resizedAadhaarCard;
-    if (req.files["aadhaarCard"]) {
-      resizedAadhaarCard = await resizeImage(
-        req.files["aadhaarCard"][0],
-        2272,
-        1704
-      );
-    }
-    let resizedPanCard;
-    if (req.files["panCard"]) {
-      resizedPanCard = await resizeImage(req.files["panCard"][0], 2272, 1704);
-    }
-
     let referalUID;
     if (req.body.usedReferalId) {
       const referal = await referCollection.findOne({
@@ -62,38 +39,6 @@ async function registerFreelancer(req, res) {
       referalUID = referal._id;
     } else {
       referalUID = null;
-    }
-    let worksToStore = [];
-    if (
-      req.body.profession === "photographer" ||
-      req.body.profession === "photo_editor" ||
-      req.body.profession === "model" ||
-      req.body.profession === "makeup_artist" ||
-      req.body.profession === "mehendi_artist" ||
-      req.body.profession === "album_designer" ||
-      req.body.profession === "web_developer" ||
-      req.body.profession === "graphics_designer"
-    ) {
-      worksToStore = req.files["works[]"]?.map((file) => file.filename);
-    } else if (
-      req.body.profession === "drone_operator" ||
-      req.body.profession === "anchor" ||
-      req.body.profession === "dj" ||
-      req.body.profession === "dancer" ||
-      req.body.profession === "influencer"
-    ) {
-      const droneWorksFromBody = [
-        req.body.works[0],
-        req.body.works[1],
-        req.body.works[2],
-        req.body.works[3],
-      ];
-      const droneWorksFromFiles = req.files["works[]"]?.map(
-        (file) => file.filename
-      );
-      worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
-    } else {
-      worksToStore = req.body.works;
     }
 
     const freelancerData = new freelancerCollection({
@@ -106,27 +51,22 @@ async function registerFreelancer(req, res) {
       email: req.body.email,
       password: req.body.password,
       rate: req.body.rate,
-      bio: req.body.bio,
-      equipments: req.body.equipments,
       followers: [],
       following: [],
-      profilePicture: resizedProfilePicture.filename,
-      coverPicture: resizedCoverPicture.filename,
-      aadhaarCard: resizedAadhaarCard?.filename || null,
-      panCard: resizedPanCard?.filename || null,
-      works: worksToStore,
+
       pictureStyle: req.body.pictureStyle,
-      links: req.body.links,
+
       rating: 0,
       reviewCount: 0,
       reviews: [],
       joinByRefaralId: [],
       createdReferalId: null,
       usedReferalId: referalUID,
-      termsAndConditions: req.body.termsAndConditions,
+
       featured: false,
       verified: false,
     });
+
     const newFreelancer = await freelancerData.save();
     const referID = await new referCollection({
       referUid:
@@ -155,54 +95,6 @@ async function registerFreelancer(req, res) {
         });
       }
     }
-    const filePromises = [];
-    filePromises.push(uploadFile(resizedProfilePicture));
-    filePromises.push(uploadFile(resizedCoverPicture));
-    if (req.files["aadhaarCard"]) {
-      filePromises.push(uploadFile(resizedAadhaarCard));
-    }
-    if (req.files["panCard"]) {
-      filePromises.push(uploadFile(resizedPanCard));
-    }
-
-    if (
-      req.body.profession === "photographer" ||
-      req.body.profession === "drone_operator" ||
-      req.body.profession === "photo_editor" ||
-      req.body.profession === "model" ||
-      req.body.profession === "makeup_artist" ||
-      req.body.profession === "mehendi_artist" ||
-      req.body.profession === "album_designer" ||
-      req.body.profession === "anchor" ||
-      req.body.profession === "web_developer" ||
-      req.body.profession === "dj" ||
-      req.body.profession === "dancer" ||
-      req.body.profession === "influencer" ||
-      req.body.profession === "graphics_designer"
-    ) {
-      req.files["works[]"]?.forEach((file) => {
-        filePromises.push(uploadFile(file));
-      });
-    }
-
-    await Promise.all(filePromises);
-
-    await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
-    await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
-    if (req.files["aadhaarCard"]) {
-      await unlinkFile("uploads/" + req.files["aadhaarCard"][0].filename);
-    }
-    if (req.files["panCard"]) {
-      await unlinkFile("uploads/" + req.files["panCard"][0].filename);
-    }
-    await unlinkFile(resizedProfilePicture.path);
-    await unlinkFile(resizedCoverPicture.path);
-    if (req.files["aadhaarCard"]) {
-      await unlinkFile(resizedAadhaarCard.path);
-    }
-    if (req.files["panCard"]) {
-      await unlinkFile(resizedPanCard.path);
-    }
 
     // if (req.body.profession === 'photographer' || req.body.profession === 'drone_operator') {
     //   req.files['works[]'].forEach(file => {
@@ -224,6 +116,154 @@ async function registerFreelancer(req, res) {
         return res.sendStatus(403);
       }
       res.json({ token });
+    });
+  } catch (error) {
+    console.error(error.stack);
+    res.status(500).send("Internal server error");
+  }
+}
+
+//Profile Verification
+async function verificationProfile(req, res) {
+  try {
+    jwt.verify(req.token, secret, async (err, authData) => {
+      const freelancer = await freelancerCollection.findById(authData.user._id);
+
+      if (err || !freelancer) {
+        res.status(404).send("User not found");
+        return;
+      }
+
+      if (freelancer.verified === true) {
+        res.status(400).send("User already verified");
+        return;
+      }
+
+      const resizedProfilePicture = await resizeImage(
+        req.files["profilePicture"][0],
+        400,
+        300
+      );
+
+      const resizedCoverPicture = await resizeImage(
+        req.files["coverPicture"][0],
+        2272,
+        1704
+      );
+
+      let resizedAadhaarCard;
+
+      if (req.files["aadhaarCard"]) {
+        resizedAadhaarCard = await resizeImage(
+          req.files["aadhaarCard"][0],
+          2272,
+          1704
+        );
+      }
+
+      let resizedPanCard;
+
+      if (req.files["panCard"]) {
+        resizedPanCard = await resizeImage(req.files["panCard"][0], 2272, 1704);
+      }
+      let worksToStore = [];
+      if (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "photo_editor" ||
+        freelancer.profession === "model" ||
+        freelancer.profession === "makeup_artist" ||
+        freelancer.profession === "mehendi_artist" ||
+        freelancer.profession === "album_designer" ||
+        freelancer.profession === "web_developer" ||
+        freelancer.profession === "graphics_designer"
+      ) {
+        worksToStore = req.files["works[]"]?.map((file) => file.filename);
+      } else if (
+        freelancer.profession === "drone_operator" ||
+        freelancer.profession === "anchor" ||
+        freelancer.profession === "dj" ||
+        freelancer.profession === "dancer" ||
+        freelancer.profession === "influencer"
+      ) {
+        const droneWorksFromBody = [
+          req.body.works[0],
+          req.body.works[1],
+          req.body.works[2],
+          req.body.works[3],
+        ];
+        const droneWorksFromFiles = req.files["works[]"]?.map(
+          (file) => file.filename
+        );
+        worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
+      } else {
+        worksToStore = req.body.works;
+      }
+
+      const verificationDetails = await freelancerCollection.findByIdAndUpdate(
+        freelancer._id,
+        {
+          bio: req.body.bio,
+          equipments: req.body.equipments,
+          profilePicture: resizedProfilePicture.filename,
+          coverPicture: resizedCoverPicture.filename,
+          aadhaarCard: resizedAadhaarCard?.filename || null,
+          panCard: resizedPanCard?.filename || null,
+          works: worksToStore,
+          links: req.body.links,
+          termsAndConditions: req.body.termsAndConditions,
+        }
+      );
+
+      const filePromises = [];
+      filePromises.push(uploadFile(resizedProfilePicture));
+      filePromises.push(uploadFile(resizedCoverPicture));
+      if (req.files["aadhaarCard"]) {
+        filePromises.push(uploadFile(resizedAadhaarCard));
+      }
+      if (req.files["panCard"]) {
+        filePromises.push(uploadFile(resizedPanCard));
+      }
+
+      if (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "drone_operator" ||
+        freelancer.profession === "photo_editor" ||
+        freelancer.profession === "model" ||
+        freelancer.profession === "makeup_artist" ||
+        freelancer.profession === "mehendi_artist" ||
+        freelancer.profession === "album_designer" ||
+        freelancer.profession === "anchor" ||
+        freelancer.profession === "web_developer" ||
+        freelancer.profession === "dj" ||
+        freelancer.profession === "dancer" ||
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "graphics_designer"
+      ) {
+        req.files["works[]"]?.forEach((file) => {
+          filePromises.push(uploadFile(file));
+        });
+      }
+
+      await Promise.all(filePromises);
+
+      await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
+      await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
+      if (req.files["aadhaarCard"]) {
+        await unlinkFile("uploads/" + req.files["aadhaarCard"][0].filename);
+      }
+      if (req.files["panCard"]) {
+        await unlinkFile("uploads/" + req.files["panCard"][0].filename);
+      }
+      await unlinkFile(resizedProfilePicture.path);
+      await unlinkFile(resizedCoverPicture.path);
+      if (req.files["aadhaarCard"]) {
+        await unlinkFile(resizedAadhaarCard.path);
+      }
+      if (req.files["panCard"]) {
+        await unlinkFile(resizedPanCard.path);
+      }
+
+      res.status(200).json(verificationDetails);
     });
   } catch (error) {
     console.error(error.stack);
@@ -793,6 +833,7 @@ async function getFollowedCompanies(req, res) {
     res.sendStatus(500);
   }
 }
+
 // Search Freelancer by name
 async function getFreelancerByName(req, res) {
   try {
@@ -811,6 +852,7 @@ async function getFreelancerByName(req, res) {
     res.status(500);
   }
 }
+
 // Get Feed of Freelancer
 async function getFeedOfFreelancer(req, res) {
   try {
@@ -906,6 +948,7 @@ async function likeProfile(req, res) {
 
 module.exports = {
   registerFreelancer,
+  verificationProfile,
   getFreelancerProfile,
   getFreelancerProfiles,
   getUnFreelancerProfiles,
