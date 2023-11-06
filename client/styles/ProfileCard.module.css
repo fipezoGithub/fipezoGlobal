@@ -1,6 +1,6 @@
 .profileCard {
   border: 1px solid #bfbfbf;
-  width: 22rem;
+  min-width: 22rem;
   height: 20.75rem;
   margin-bottom: 1.5rem;
   padding: 1rem;
