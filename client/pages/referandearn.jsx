@@ -131,8 +131,8 @@ const Referandearn = (props) => {
           <p className="text-lg font-bold">Fraud and Misuse :</p>
           <li className="list-disc ml-6">
             Fipezo reserves the right to investigate and withhold rewards in
-            cases of fraudulent activity or misuse of the "Refer and Earn"
-            program.
+            cases of fraudulent activity or misuse of the &quot;Refer and
+            Earn&quot; program.
           </li>
           <li className="list-disc ml-6">
             Fraudulent activity includes but is not limited to, creating fake
@@ -142,9 +142,11 @@ const Referandearn = (props) => {
         <ul className="mb-4">
           <p className="text-lg font-bold">Contact :</p>
           <li className="list-disc ml-6">
-            If you have any questions or concerns regarding the "Refer and Earn"
-            program, please contact our{" "}
-            <Link href="/contact" className="text-blue-600 font-medium">customer support.</Link>
+            If you have any questions or concerns regarding the &quot;Refer and
+            Earn&quot; program, please contact our{" "}
+            <Link href="/contact" className="text-blue-600 font-medium">
+              customer support.
+            </Link>
           </li>
         </ul>
       </div>
