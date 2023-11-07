@@ -310,7 +310,7 @@ export default function Navbar(props) {
             <li className="p-2">
               <Link
                 href="/signup"
-                className="bg-blue-600 text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
+                className="bg-blue-600 md:text-xs text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
               >
                 Get started - It&apos;s free
               </Link>

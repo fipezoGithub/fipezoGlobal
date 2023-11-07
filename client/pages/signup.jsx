@@ -22,7 +22,7 @@ const signup = (props) => {
           <h1 className="text-2xl lg:text-5xl font-bold">
             Tell us who you are
           </h1>
-          <div className="flex flex-col lg:flow-row items-center justify-center gap-3 lg:h-52">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:h-52">
             <Link
               href="/register/user"
               className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
@@ -33,7 +33,7 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center font-medium">
+              <p className="lg:w-2/3 text-center font-medium">
                 I am a client, wants to hire freelancer
               </p>
             </Link>
@@ -47,7 +47,7 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center font-medium">
+              <p className="lg:w-2/3 text-center font-medium">
                 I am a freelancer, looking for work
               </p>
             </Link>
@@ -61,7 +61,7 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center font-medium">
+              <p className="lg:w-2/3 text-center font-medium">
                 I am a company, wants to hire freelancer
               </p>
             </Link>
