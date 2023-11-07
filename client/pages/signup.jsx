@@ -18,12 +18,14 @@ const signup = (props) => {
         setUser={props.setUser}
       />
       <div className="mt-28 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4 justify-center">
-          <h1 className="text-5xl font-bold">Tell us who you are</h1>
-          <div className="flex items-center justify-center gap-3 h-52">
+        <div className="flex flex-col items-center gap-4 justify-center border p-16 border-green-600 rounded-lg">
+          <h1 className="text-2xl lg:text-5xl font-bold">
+            Tell us who you are
+          </h1>
+          <div className="flex flex-col lg:flow-row items-center justify-center gap-3 lg:h-52">
             <Link
               href="/register/user"
-              className="flex flex-col items-center text-lg border px-6 py-3 rounded-lg gap-2"
+              className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
             >
               <Image
                 src="/client_register.png"
@@ -31,11 +33,13 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center">I am a client, wants to hire freelancer</p>
+              <p className="w-2/3 text-center font-medium">
+                I am a client, wants to hire freelancer
+              </p>
             </Link>
             <Link
               href="/register/freelancer"
-              className="flex flex-col items-center text-lg border px-6 py-3 rounded-lg gap-2"
+              className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
             >
               <Image
                 src="/freelancer_register.png"
@@ -43,11 +47,13 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center">I am a freelancer, looking for work</p>
+              <p className="w-2/3 text-center font-medium">
+                I am a freelancer, looking for work
+              </p>
             </Link>
             <Link
               href="/register/freelancer"
-              className="flex flex-col items-center text-lg border px-6 py-3 rounded-lg gap-2"
+              className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
             >
               <Image
                 src="/company_register.png"
@@ -55,10 +61,12 @@ const signup = (props) => {
                 height={175}
                 className="w-12 h-12"
               />
-              <p className="w-2/3 text-center">I am a company, wants to hire freelancer</p>
+              <p className="w-2/3 text-center font-medium">
+                I am a company, wants to hire freelancer
+              </p>
             </Link>
           </div>
-          <p className="text-xl">
+          <p className="text-base lg:text-xl text-center">
             Already have an account?{" "}
             <Link href="/login" className="text-blue-600">
               Log in

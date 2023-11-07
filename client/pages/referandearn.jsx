@@ -42,12 +42,12 @@ const Referandearn = (props) => {
           <span className="font-bold">Fipezo</span> and earn ₹50 rupees for
           every successful freelancer joining
         </h2>
-        <div className="flex items-center justify-center mx-16 gap-4 my-6 flex-wrap md:flex-nowrap">
+        <div className="flex items-center justify-center mx-8 lg:mx-16 gap-4 my-6 flex-wrap md:flex-nowrap">
           <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
             <BsFingerprint className="text-4xl" />
             <p className="text-2xl">Step 1:</p>
             <p className="text-lg">
-              Login to Fipezo and go downmost refer and earn page
+              Login to Fipezo and navigate to refer and earn page
             </p>
           </div>
           <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
@@ -89,7 +89,7 @@ const Referandearn = (props) => {
           </Link>
         )}
       </div>
-      <div className="mx-16">
+      <div className="mx-8 lg:mx-16">
         <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
         <ul className="mb-4">
           <p className="text-lg font-bold">Eligibility :</p>

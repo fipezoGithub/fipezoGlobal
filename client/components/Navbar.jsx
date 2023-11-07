@@ -571,7 +571,7 @@ export default function Navbar(props) {
             </div>
           </li>
 
-          <li
+          {/* <li
             className={styles.navElement}
             onClick={() => {
               if (display === "none") setDisplay("flex");
@@ -603,7 +603,7 @@ export default function Navbar(props) {
                 </p>
               </Link>
             </div>
-          </li>
+          </li> */}
 
           <li
             className={styles.navElement}
@@ -659,6 +659,17 @@ export default function Navbar(props) {
             <li className={styles.navElement} id={styles.noUnderline}>
               <Link href="/login" className={styles.login}>
                 Login
+              </Link>
+            </li>
+          )}
+
+          {!props.user && !props.company && (
+            <li className="p-2">
+              <Link
+                href="/signup"
+                className="bg-white text-black px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
+              >
+                Get started - It&apos;s free
               </Link>
             </li>
           )}
