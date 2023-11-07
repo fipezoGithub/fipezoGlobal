@@ -301,7 +301,7 @@ function ProfileBioCard(props) {
           title="Like"
           onClick={handelLove}
         >
-          <AiFillHeart />
+          <AiFillHeart className="hover:scale-125" />
         </button>
         <p>{loveCount} Loves</p>
       </div>

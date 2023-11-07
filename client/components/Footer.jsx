@@ -81,6 +81,9 @@ function Footer(props) {
           <Link className={styles.subHeading} href="/referandearn">
             Refer and Earn
           </Link>
+          <Link className={styles.subHeading} href="/sitemap">
+            Sitemap
+          </Link>
         </ul>
         <ul id={styles.socials}>
           <li className={styles.heading}>Socials</li>

@@ -33,7 +33,6 @@ const Jobuid = (props) => {
   const [loginType, setLoginType] = useState("");
   const [isApplied, setIsApplied] = useState(false);
   const [url, setUrl] = useState("");
-  console.log(props);
   useEffect(() => {
     setLoginType(JSON.parse(localStorage.getItem("type")));
     setUrl(window.location.origin + "/jobs/details/" + props.data.uid);

@@ -171,7 +171,7 @@ export default function Navbar(props) {
 
           <li className={styles.navElement}>
             <Link href="/jobs">
-              <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
+              <span id={styles.home}>Browse Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
 
@@ -216,7 +216,7 @@ export default function Navbar(props) {
             </div>
           </li>
 
-          <li
+          {/* <li
             className={styles.navElement}
             onClick={() => {
               if (display === "none") setDisplay("flex");
@@ -248,7 +248,7 @@ export default function Navbar(props) {
                 </p>
               </Link>
             </div>
-          </li>
+          </li> */}
 
           <li
             className={styles.navElement}
@@ -301,10 +301,14 @@ export default function Navbar(props) {
           )}
 
           {!props.user && !props.company && (
-            <li className={styles.navElement} id={styles.noUnderline}>
-              <Link href="/login" className={styles.login}>
-                Login
-              </Link>
+            <li className={styles.navElement}>
+              <Link href="/login">Log In</Link>
+            </li>
+          )}
+
+          {!props.user && !props.company && (
+            <li className="p-2">
+              <Link href="/signup" className="bg-blue-600 text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap">Get started - It's free</Link>
             </li>
           )}
 
@@ -397,7 +401,7 @@ export default function Navbar(props) {
                 >
                   Notifications <FaBell size={"1.2em"} />{" "}
                   {notificationCount > 0 && (
-                    <span className="absolute right-1 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
+                    <span className="absolute right-6 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
                       {notificationCount}
                     </span>
                   )}
@@ -518,7 +522,7 @@ export default function Navbar(props) {
           </li>
           <li className={styles.navElement}>
             <Link href="/jobs">
-              <span id={styles.home}>Jobs&nbsp;&nbsp;</span>
+              <span id={styles.home}>Browse Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
           {/* {logInType === "freelancer" && (

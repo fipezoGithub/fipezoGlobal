@@ -285,7 +285,7 @@ export default function Login(props) {
                     htmlFor="user"
                     className="lg:text-lg capitalize cursor-pointer"
                   >
-                    user
+                    Client
                   </label>
                 </div>
                 <div className="flex items-center gap-1">
@@ -484,7 +484,7 @@ export default function Login(props) {
               {type === "user" && (
                 <p className={`${styles.signup}`}>
                   Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/signup">
+                  <Link className="text-cyan-500" href="/register/user">
                     Sign up now
                   </Link>
                 </p>

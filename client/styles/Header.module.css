@@ -1,8 +1,9 @@
 .header {
-  background-image: url(/img19S.webp);
+  /* background-image: url(/img19S.webp); */
+  background-image: url(/headerIMGBg.jpeg);
   height: 75vh;
   width: 100vw;
-  background-position: center;
+  background-position: top;
   background-size: cover;
   padding: 2rem;
   text-align: center;
@@ -37,6 +38,7 @@
 .AnimationText {
   display: inline-block;
   animation: bounceIn 2s infinite;
+  color: #f4ce14;
 }
 
 @keyframes bounceIn {
@@ -82,7 +84,7 @@
 @media (max-width: 768px) {
   .header {
     height: 40vh;
-    background-image: url(/img19S.webp);
+    background-image: url(/headerIMGBg.jpeg);
     background-attachment: scroll;
     padding-top: 6rem;
   }

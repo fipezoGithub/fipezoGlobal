@@ -19,7 +19,7 @@ class Header extends React.Component {
     setInterval(() => {
       const newIndex = (this.state.index + 1) % this.state.texts.length;
       this.setState({ index: newIndex });
-    }, 2000);
+    }, 4000);
   }
 
   render() {
@@ -36,8 +36,8 @@ class Header extends React.Component {
         // }}
       >
         <div className={styles.headingText}>
-          Hire Freelance{" "}
-          <span className={styles.AnimationText}>{currentText}</span> Anywhere.
+          Hire Freelancer{" "}
+          <span className={styles.AnimationText}>{currentText}</span> Nearby.
         </div>
         <SearchBar border={false} />
       </div>
