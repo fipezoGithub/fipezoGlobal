@@ -308,7 +308,12 @@ export default function Navbar(props) {
 
           {!props.user && !props.company && (
             <li className="p-2">
-              <Link href="/signup" className="bg-blue-600 text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap">Get started - It's free</Link>
+              <Link
+                href="/signup"
+                className="bg-blue-600 text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
+              >
+                Get started - It&apos;s free
+              </Link>
             </li>
           )}
 
