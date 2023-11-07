@@ -83,6 +83,32 @@ export default function App({ Component, pageProps }) {
             name="description"
             content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
           />
+
+          <meta property="og:url" content="https://fipezo.com/" />
+          <meta property="og:type" content="website" />
+          <meta
+            property="og:title"
+            content="Fipezo | Hire Freelancers in your City"
+          />
+          <meta
+            property="og:description"
+            content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
+          />
+          <meta property="og:image" content="/favi.png" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta property="twitter:domain" content="fipezo.com" />
+          <meta property="twitter:url" content="https://fipezo.com/" />
+          <meta
+            name="twitter:title"
+            content="Fipezo | Hire Freelancers in your City"
+          />
+          <meta
+            name="twitter:description"
+            content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
+          />
+          <meta name="twitter:image" content="" />
+
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#1f1c1c" />
           <link rel="canonical" href="https://fipezo.com/" />

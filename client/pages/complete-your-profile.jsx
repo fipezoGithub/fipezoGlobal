@@ -2,6 +2,7 @@ import Verification from "@/components/Verification";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const CompleteYourProfile = (props) => {
   const [bio, setBio] = useState("");
@@ -20,6 +21,7 @@ const CompleteYourProfile = (props) => {
   const [profilePicError, setProfilePicError] = useState(false);
   const [warns, setWarns] = useState([]);
   const [profession, setProfession] = useState("photographer");
+  const router = useRouter();
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);
@@ -124,6 +126,9 @@ const CompleteYourProfile = (props) => {
         }
       );
       const responseData = await response.json();
+      if (response.ok) {
+        router.push(`/freelancer_profile`);
+      }
       console.log(responseData);
     } catch (error) {
       console.log(error);

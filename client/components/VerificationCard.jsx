@@ -43,7 +43,7 @@ function VerificationCard(props) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   }
-  const links = JSON.parse(props.profile.links);
+  const links = props.profile.links && JSON.parse(props.profile.links);
 
   const handleDelete = async () => {
     try {
@@ -137,7 +137,7 @@ function VerificationCard(props) {
           ></div>
         </div>
         <div className={styles.socials}>
-          {links.facebook && (
+          {links?.facebook && (
             <Link href={links.facebook} target="_black">
               <Image
                 className={styles.social}
@@ -148,7 +148,7 @@ function VerificationCard(props) {
               />
             </Link>
           )}
-          {links.instagram && (
+          {links?.instagram && (
             <Link href={links.instagram} target="_black">
               <Image
                 className={styles.social}
@@ -159,7 +159,7 @@ function VerificationCard(props) {
               />
             </Link>
           )}
-          {links.twitter && (
+          {links?.twitter && (
             <Link href={links.twitter} target="_black">
               <Image
                 className={styles.social}
@@ -170,7 +170,7 @@ function VerificationCard(props) {
               />
             </Link>
           )}
-          {links.youtube && (
+          {links?.youtube && (
             <Link href={links.youtube} target="_black">
               <Image
                 className={styles.social}
@@ -244,12 +244,16 @@ function VerificationCard(props) {
             </div>
           )}
         </div>
+        {props.profile.works.length === 0 && (
+          <h3 className="text-lg text-rose-600 font-bold text-center">
+            This profile is not completed yet!
+          </h3>
+        )}
         <div className={styles.cards + " no-scrollbar"}>
           {props.profile.aadhaarCard && (
             <div
               className={styles.card}
               onClick={() => {
-                console.log(aadhaarCard);
                 setScreen(aadhaarCard);
               }}
             >
@@ -291,7 +295,6 @@ function VerificationCard(props) {
             <div
               className={styles.work}
               onClick={() => {
-                console.log(work1);
                 setScreen(work1);
               }}
             >
