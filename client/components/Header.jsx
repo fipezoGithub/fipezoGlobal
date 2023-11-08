@@ -27,14 +27,7 @@ class Header extends React.Component {
     const currentText = texts[index];
 
     return (
-      <div
-        className={styles.header}
-        // style={{
-        //   backgroundImage: `url(${
-        //     this.state.backgroundImages[Math.floor(Math.random() * 3)]
-        //   })`,
-        // }}
-      >
+      <div className={styles.header}>
         <div className={styles.headingText}>
           Hire Freelancer{" "}
           <span className={styles.AnimationText}>{currentText}</span> Nearby.

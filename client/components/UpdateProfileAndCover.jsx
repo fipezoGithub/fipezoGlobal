@@ -12,9 +12,11 @@ const UpdateProfileAndCover = (props) => {
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
   const router = useRouter();
+  
   useEffect(() => {
     setPosition(props.position);
   }, []);
+
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();

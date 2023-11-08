@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../styles/AddFeed.module.css";
 import {
   AiFillYoutube,
@@ -45,6 +45,7 @@ const AddFeed = (props) => {
       console.error("Something went wrong!");
     };
   };
+
   const submitPost = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("user")
@@ -71,6 +72,7 @@ const AddFeed = (props) => {
       console.log(error);
     }
   };
+  
   return (
     <div className="fixed top-0 w-full h-full flex flex-col items-center justify-center backdrop-blur z-[1100]">
       <form

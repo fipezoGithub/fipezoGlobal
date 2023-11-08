@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaShareSquare, FaStar } from "react-icons/fa";
 import FreelancerEditBox from "@/components/FreelancerEditBox";
-import { AiOutlineThunderbolt, AiFillEdit, AiFillHeart } from "react-icons/ai";
+import { AiOutlineThunderbolt, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
 
 function ProfileBioCard(props) {

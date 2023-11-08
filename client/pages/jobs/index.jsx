@@ -413,7 +413,7 @@ export default function Jobs(props) {
               <BiFilter size={"2em"} />
               Filters
             </button>
-            <div className="flex flex-col items-center gap-8 w-full">
+            <div className="flex flex-col items-center gap-8 w-full h-screen overflow-hidden overflow-y-scroll">
               {filteredFreelancers.length > 0 ? (
                 filteredFreelancers.map((job, index) => (
                   <Jobcard

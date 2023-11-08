@@ -9,11 +9,12 @@ export default function Bio() {
         <div className={styles.picturesNText}>
           <div className={styles.pictures}>
             <h1 className={styles.heading} id={styles.head}>
-              One-Stop Platform for Freelance Talent
+              Your Go-To Platform for Online Freelancer Hiring and Freelance Job
+              Search
             </h1>
             <p className={styles.subHeading}>
-              Find the Right Freelancer for Your Project with Our Easy-to-Use
-              Platform
+              Find the Right Freelancer Online for Your Project with Our
+              Easy-to-Use Platform
             </p>
             <button className={styles.button}>
               <span className={styles.location}>
@@ -28,10 +29,10 @@ export default function Bio() {
             <div className={styles.container}>
               <p className={styles.boxsubheading}>
                 {" "}
-                we believe in quality over quantity. That&apos;s why we
-                carefully verify each freelancer on our platform, so you can
-                trust that you&apos;re working with skilled professionals who
-                are committed to delivering top-notch results.
+                We prioritize quality over quantity, ensuring every professional
+                freelancer on our platform is carefully verified. You can trust
+                our skilled professionals to consistently deliver top-notch
+                results.
               </p>
             </div>
             <div className={styles.images}>

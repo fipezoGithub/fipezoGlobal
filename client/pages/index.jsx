@@ -9,6 +9,7 @@ import Register from "@/components/Register";
 import FreelancerPoints from "@/components/FreelancerPoints";
 import BoxSection from "@/components/BoxSection";
 import VerifiedCompany from "@/components/VerifiedCompany";
+import Signupguide from "@/components/Signupguide";
 
 export default function Index(props) {
   return (
@@ -25,6 +26,7 @@ export default function Index(props) {
       <div className="grey-container">
         <Bio />
       </div>
+      <Signupguide />
       <VerifiedExplore />
       <FreelancerPoints />
       <VerifiedCompany />

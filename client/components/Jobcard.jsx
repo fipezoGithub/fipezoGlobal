@@ -119,7 +119,27 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       console.log(error);
     }
   };
-
+  const markExpire = async () => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/job/edit/${job._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          dueDate: new Date().getDate() - 1,
+        }),
+      });
+      const update = await res.json();
+      setJobs([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const hireFreelancer = async (userid) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -430,6 +450,15 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
           <>
             <hr className="h-[1px] w-full bg-neutral-400" />
             <div className="self-end flex items-center gap-4">
+              {Final_Result > 0 && (
+                <button
+                  type="button"
+                  className="border-[#338ef4] border capitalize px-4 py-2 text-[#338ef4] font-semibold lg:text-xl rounded-md"
+                  onClick={markExpire}
+                >
+                  marked as expire
+                </button>
+              )}
               <button
                 type="button"
                 className="bg-[#338ef4] capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"

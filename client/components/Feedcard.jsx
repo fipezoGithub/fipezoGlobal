@@ -5,7 +5,6 @@ import ReactPlayer from "react-player";
 import { FaRegShareSquare, FaShareSquare } from "react-icons/fa";
 import { RWebShare } from "react-web-share";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { BiCommentDetail } from "react-icons/bi";
 
 const Feedcard = (props) => {
@@ -13,7 +12,6 @@ const Feedcard = (props) => {
   const [url, setUrl] = useState("");
   const [love, setLove] = useState(false);
   const [shareCount, setShareCount] = useState(0);
-  const router = useRouter();
   const descRef = useRef();
   const profession = props.feed.freelancer.profession
     .split("_")

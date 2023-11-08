@@ -361,14 +361,18 @@ function Verification(props) {
         )}
       </h1>
       <div className="flex items-center justify-between w-full gap-6 mb-12">
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2 w-full relative">
           <label htmlFor="bio" className={styles.social}>
             <span className="text-red-500">* </span>Bio :
           </label>
+          <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+            {props.bio.length}/200
+          </span>
           <textarea
             required
             name="bio"
             id="bio"
+            maxLength={200}
             value={props.bio}
             onChange={(e) => props.setBio(e.target.value)}
             rows="10"
@@ -379,10 +383,13 @@ function Verification(props) {
         {(props.profession === "photographer" ||
           props.profession === "drone_operator" ||
           props.profession === "cinematographer") && (
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full relative">
             <label htmlFor="equipments" className={styles.social}>
               <span className="text-red-500">* </span>Equipments Available :
             </label>
+            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+              {props.equipments.length}/200
+            </span>
             <textarea
               required
               name="equipments"
@@ -397,10 +404,13 @@ function Verification(props) {
         )}
         {(props.profession === "makeup_artist" ||
           props.profession === "mehendi_artist") && (
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full relative">
             <label htmlFor="products" className={styles.social}>
               <span className="text-red-500">* </span>Products Use :
             </label>
+            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+              {props.equipments.length}/200
+            </span>
             <textarea
               required
               name="equipments"
@@ -418,11 +428,14 @@ function Verification(props) {
           props.profession === "dj" ||
           props.profession === "dancer" ||
           props.profession === "influencer") && (
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full relative">
             <label htmlFor="products" className={styles.social}>
               <span className="text-red-500">* </span>Describe your work
               experience :
             </label>
+            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+              {props.equipments.length}/200
+            </span>
             <textarea
               required
               name="equipments"
@@ -439,10 +452,13 @@ function Verification(props) {
           props.profession === "video_editor" ||
           props.profession === "album_designer" ||
           props.profession === "graphics_designer") && (
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full relative">
             <label htmlFor="fimiliarSoft" className={styles.social}>
               <span className="text-red-500">* </span>Software Knowledge :
             </label>
+            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+              {props.equipments.length}/200
+            </span>
             <textarea
               required
               name="equipments"
@@ -456,10 +472,13 @@ function Verification(props) {
           </div>
         )}
         {props.profession === "web_developer" && (
-          <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full relative">
             <label htmlFor="fimiliarSoft" className={styles.social}>
               <span className="text-red-500">* </span>Fimiliar Language :
             </label>
+            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
+              {props.equipments.length}/200
+            </span>
             <textarea
               required
               name="equipments"

@@ -24,7 +24,7 @@ const signup = (props) => {
           </h1>
           <div className="flex flex-col lg:flex-row items-center justify-center gap-3 lg:h-52">
             <Link
-              href="/register/user"
+              href="/register/client"
               className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
             >
               <Image
@@ -52,7 +52,7 @@ const signup = (props) => {
               </p>
             </Link>
             <Link
-              href="/register/freelancer"
+              href="/register/company"
               className="flex flex-col items-center text-lg border-[2px] px-6 py-3 rounded-lg gap-2 hover:border-green-600"
             >
               <Image

@@ -6,7 +6,6 @@ import { ImCross } from "react-icons/im";
 const FollowerFollowingModal = (props) => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   const [isFollowingActive, setIsFollowingActive] = useState(
     props.showModalAs === "following" ? true : false
   );

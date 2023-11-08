@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import Loading from "@/components/Loading";
 
 const CompleteYourProfile = (props) => {
   const [bio, setBio] = useState("");
@@ -20,7 +21,7 @@ const CompleteYourProfile = (props) => {
   const [coverPicError, setCoverPicError] = useState(false);
   const [profilePicError, setProfilePicError] = useState(false);
   const [warns, setWarns] = useState([]);
-  const [profession, setProfession] = useState("photographer");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const getVerificationDetails = (val, index) => {
@@ -94,6 +95,7 @@ const CompleteYourProfile = (props) => {
 
   const verificationDetails = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -126,12 +128,13 @@ const CompleteYourProfile = (props) => {
         }
       );
       const responseData = await response.json();
-      if (response.ok) {
+      if (responseData) {
         router.push(`/freelancer_profile`);
+        setLoading(false);
       }
-      console.log(responseData);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -143,32 +146,36 @@ const CompleteYourProfile = (props) => {
         setCompany={props?.setCompany}
         setUser={props?.setUser}
       />
-      <form
-        className="flex flex-col items-center mb-24 p-16 rounded-[5px] pt-8 relative top-8"
-        onSubmit={verificationDetails}
-      >
-        <Verification
-          getVerificationDetails={getVerificationDetails}
-          checkWorks={checkWorks}
-          worksError={worksError}
-          addharError={addharError}
-          panError={panError}
-          bio={bio}
-          setBio={setBio}
-          equipments={equipments}
-          setEquipments={setEquipments}
-          setPicError={setPicError}
-          coverPicError={coverPicError}
-          profilePicError={profilePicError}
-          warns={warns}
-          setWarns={setWarns}
-          user={props.user}
-          setUser={props.setUser}
-          company={props.company}
-          setCompany={props.setCompany}
-          profession={profession}
-        />
-      </form>
+      {loading === false ? (
+        <form
+          className="flex flex-col items-center mb-24 p-16 rounded-[5px] pt-8 relative top-8"
+          onSubmit={verificationDetails}
+        >
+          <Verification
+            getVerificationDetails={getVerificationDetails}
+            checkWorks={checkWorks}
+            worksError={worksError}
+            addharError={addharError}
+            panError={panError}
+            bio={bio}
+            setBio={setBio}
+            equipments={equipments}
+            setEquipments={setEquipments}
+            setPicError={setPicError}
+            coverPicError={coverPicError}
+            profilePicError={profilePicError}
+            warns={warns}
+            setWarns={setWarns}
+            user={props.user}
+            setUser={props.setUser}
+            company={props.company}
+            setCompany={props.setCompany}
+            profession={props.user?.profession}
+          />
+        </form>
+      ) : (
+        <Loading message={"Complete your profile"} />
+      )}
       <Footer />
     </>
   );

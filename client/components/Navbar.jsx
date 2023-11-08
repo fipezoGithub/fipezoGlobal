@@ -286,16 +286,8 @@ export default function Navbar(props) {
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link href="/verification" className={styles.navElement}>
-                Verify
-              </Link>
-            </li>
-          )}
-
-          {isAdmin && (
-            <li className={styles.navElement}>
-              <Link href="/callback-request" className={styles.navElement}>
-                Calllback
+              <Link href="/admin/dashboard" className={styles.navElement}>
+                Admin Panel
               </Link>
             </li>
           )}
@@ -310,7 +302,7 @@ export default function Navbar(props) {
             <li className="p-2">
               <Link
                 href="/signup"
-                className="bg-blue-600 md:text-xs text-white px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
+                className="bg-blue-600 md:text-sm text-white px-5 py-3 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
               >
                 Get started - It&apos;s free
               </Link>
@@ -641,16 +633,8 @@ export default function Navbar(props) {
 
           {isAdmin && (
             <li className={styles.navElement}>
-              <Link href="/verification" className={styles.home}>
-                Verify
-              </Link>
-            </li>
-          )}
-
-          {isAdmin && (
-            <li className={styles.navElement}>
-              <Link href="/callback-request" className={styles.home}>
-                Callback
+              <Link href="/admin/dashboard" className={styles.home}>
+                Admin Panel
               </Link>
             </li>
           )}
@@ -667,7 +651,7 @@ export default function Navbar(props) {
             <li className="p-2">
               <Link
                 href="/signup"
-                className="bg-white text-black px-4 py-2 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
+                className="bg-white text-black px-5 py-3 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap"
               >
                 Get started - It&apos;s free
               </Link>
