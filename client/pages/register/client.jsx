@@ -25,6 +25,12 @@ function Signup(props) {
   const [timerId, setTimerId] = useState(null);
 
   useEffect(() => {
+    if (props.user || props.company) {
+      router.push("/");
+    }
+  }, []);
+
+  useEffect(() => {
     if (count === 0) {
       clearInterval(timerId);
     }
@@ -132,6 +138,7 @@ function Signup(props) {
     },
     onError: (error) => setSignupFailed(true),
   });
+
   const responseFacebook = async (response) => {
     console.log(response);
     setSignupFailed(false);
@@ -143,6 +150,7 @@ function Signup(props) {
     setLastname(response.name.split(" ")[1]);
     setEmail(response.email);
   };
+
   return (
     <div className={styles.signup}>
       <Head>

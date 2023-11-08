@@ -29,6 +29,13 @@ export default function Login(props) {
   const [count, setCount] = useState(30);
   const [timerId, setTimerId] = useState(null);
   const passwordRef = useRef();
+  
+  useEffect(() => {
+    if (props.user || props.company) {
+      router.push("/");
+    }
+  }, []);
+
   useEffect(() => {
     if (count === 0) {
       clearInterval(timerId);

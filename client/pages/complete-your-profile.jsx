@@ -1,7 +1,7 @@
 import Verification from "@/components/Verification";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
 
@@ -23,6 +23,12 @@ const CompleteYourProfile = (props) => {
   const [warns, setWarns] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!props.user || !props.user.uid || props.user.profilePicture) {
+      router.push("/");
+    }
+  }, []);
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);

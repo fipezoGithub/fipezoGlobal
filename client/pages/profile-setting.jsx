@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import style from "../styles/User_profile.module.css";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Loading from "@/components/Loading";
 
 const Profile = (props) => {
   const [firstname, setFirstname] = useState("");
