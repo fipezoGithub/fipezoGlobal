@@ -36,7 +36,7 @@ const Signupguide = () => {
             </span>
             <p className="ml-5">
               Ensure trust and authenticity by completing the verification
-              process. It's quick and secure.
+              process. It&apos;s quick and secure.
             </p>
           </li>
           <li className="flex flex-col items-start">
