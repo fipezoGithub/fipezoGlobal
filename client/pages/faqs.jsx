@@ -423,7 +423,7 @@ class Faqs extends React.Component {
                         Rates and Availability:
                       </span>{" "}
                       Specify your per day or project rates, and let clients
-                      know when you're available to work. <br />
+                      know when you&apos;re available to work. <br />
                       <span className="font-bold">Reviews and Ratings:</span> As
                       you complete projects, encourage clients to leave reviews
                       and ratings, which can enhance your credibility. <br />
@@ -676,15 +676,15 @@ class Faqs extends React.Component {
                       <span className="font-bold">Skills Needed:</span>List the
                       skills or expertise required for the job. <br />
                       <span className="font-bold">Budget:</span>Specify the
-                      budget for the project, whether it's a fixed amount or a
-                      range. <br />
+                      budget for the project, whether it&apos;s a fixed amount
+                      or a range. <br />
                       <span className="font-bold">Timeline:</span> Mention the
-                      project's expected start and completion dates. <br />
+                      project&apos;s expected start and completion dates. <br />
                       <span className="font-bold">Location:</span> Indicate if
                       the project is location-specific or remote. <br /> <br />
-                      By providing this information, you'll help freelancers
-                      understand the scope of the job and apply with relevant
-                      proposals.
+                      By providing this information, you&apos;ll help
+                      freelancers understand the scope of the job and apply with
+                      relevant proposals.
                       <br />
                     </p>
                   )}
@@ -898,7 +898,8 @@ class Faqs extends React.Component {
                   )}
                   &nbsp; &nbsp;{" "}
                   <h1 className={styles.summary}>
-                    What should I do if I forget my password or can't log in?
+                    What should I do if I forget my password or can&apos;t log
+                    in?
                   </h1>
                   {this.state.currentAnswer === "eleventh" && (
                     <p className={styles.details}>
@@ -935,7 +936,7 @@ class Faqs extends React.Component {
                   )}
                   &nbsp; &nbsp;{" "}
                   <h1 className={styles.summary}>
-                    How can I contact Fipezo's support team for assistance?
+                    How can I contact Fipezo&apos;s support team for assistance?
                   </h1>
                   {this.state.currentAnswer === "twelveth" && (
                     <p className={styles.details}>
@@ -968,7 +969,8 @@ class Faqs extends React.Component {
                   )}
                   &nbsp; &nbsp;{" "}
                   <h1 className={styles.summary}>
-                    How do I report issues or violations of Fipezo's policies?
+                    How do I report issues or violations of Fipezo&apos;s
+                    policies?
                   </h1>
                   {this.state.currentAnswer === "thirteenth" && (
                     <p className={styles.details}>
@@ -1262,7 +1264,7 @@ class Faqs extends React.Component {
                     <p className={styles.details}>
                       By referring someone to create a freelance profile on
                       Fipezo, you can earn 50 rupees as a reward. It&apos;s a
-                      straightforward way to benefit from your referrals'
+                      straightforward way to benefit from your referrals&apos;
                       involvement in the platform.
                     </p>
                   )}
@@ -1351,7 +1353,7 @@ class Faqs extends React.Component {
                       You can often track your referrals and rewards through
                       your Fipezo account. The platform typically provides a
                       dashboard where you can see the status of your referrals
-                      and the rewards you've earned.
+                      and the rewards you&apos;ve earned.
                     </p>
                   )}
                 </li>
@@ -1443,11 +1445,11 @@ class Faqs extends React.Component {
                       The terms of service and user agreements on Fipezo outline
                       the guidelines and rules for using our platform. By
                       agreeing to these terms, you commit to following our
-                      community's standards and practices, ensuring a safe and
-                      trusted environment for all users. It's important to
-                      review and understand these terms to maintain a positive
-                      experience on Fipezo. Your satisfaction and security are
-                      of utmost importance to us.
+                      community&apos;s standards and practices, ensuring a safe
+                      and trusted environment for all users. It&apos;s important
+                      to review and understand these terms to maintain a
+                      positive experience on Fipezo. Your satisfaction and
+                      security are of utmost importance to us.
                     </p>
                   )}
                 </li>
@@ -1503,7 +1505,7 @@ class Faqs extends React.Component {
                   &nbsp; &nbsp;{" "}
                   <h1 className={styles.summary}>
                     How are disputes and conflicts handled in accordance with
-                    Fipezo's policies?
+                    Fipezo&apos;s policies?
                   </h1>
                   {this.state.currentAnswer === "eleventh" && (
                     <p className={styles.details}>
