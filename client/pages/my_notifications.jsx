@@ -46,7 +46,7 @@ const My_notifications = (props) => {
       //     return notification;
       //   }
       // });
-      setNotifications(noti);
+      setNotifications(noti.reverse());
     }
     getNotifications();
   }, []);
@@ -92,7 +92,7 @@ const My_notifications = (props) => {
               href={item.href}
               key={index}
               className={`flex items-center border px-3 lg:px-6 py-3 gap-3 lg:w-[30rem] ${
-                item.seen === false ? "bg-slate-50" : "bg-white"
+                item.seen === false ? "bg-slate-200" : "bg-white"
               }`}
               onClick={() => seenNotification(item)}
             >

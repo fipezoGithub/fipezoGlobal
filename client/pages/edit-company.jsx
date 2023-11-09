@@ -116,6 +116,7 @@ const ProfileSetting = (props) => {
       );
       const update = await res.json();
       if (update) {
+        props.setCompany({});
         router.push("/freelancer_profile");
       }
       setIsLoading(false);

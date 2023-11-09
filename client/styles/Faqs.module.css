@@ -1,22 +1,22 @@
 .body {
-    padding-top: 4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 12rem;
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12rem;
 }
 
 .content {
-    display: flex;
-    width: 90vw;
-    margin-top: 1rem;
-    font-weight: 500;
-    font-size: 1.05rem;
+  display: flex;
+  width: 90vw;
+  margin-top: 1rem;
+  font-weight: 500;
+  font-size: 1.05rem;
 }
 
 .categories {
-    width: 32%;
-    padding-left: 4rem;
+  width: 32%;
+  padding-left: 4rem;
 }
 
 /* .points{
@@ -25,135 +25,178 @@
 } */
 
 .qnas {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    font-size: 1.55rem;
-    font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  font-size: 1.55rem;
+  font-weight: 400;
 }
 
 .heading {
-    font-size: 2.8rem;
-    font-weight: 700;
+  font-size: 2.8rem;
+  font-weight: 700;
 }
 
 .subHeading {
-    font-size: 1.2rem;
-    color: #7c7c7c;
+  font-size: 1.5rem;
+  color: #0f0e0e;
+  font-weight: 700;
 }
 
 .top {
-    font-size: 1.55rem;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .lists {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 1.25rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .divider {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border: #ededed 1px solid;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: #ededed 1px solid;
 }
 
 #generalTab {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+#freelanceraccount {
+  cursor: pointer;
+}
+
+#companyaccount {
+  cursor: pointer;
+}
+
+#accountverification {
+  cursor: pointer;
+}
+
+#referandearn {
+  cursor: pointer;
 }
 
 #privacyTab {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+#legal {
+  cursor: pointer;
 }
 
 #servicesTab {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.summary{
-    display: inline;
-    cursor: pointer;
+.summary {
+  display: inline;
+  cursor: pointer;
+  font-weight: 700;
 }
 
-.details{
-    font-size: 1.2rem;
-    color: #7c7c7c;
-    margin-top: 1rem;
+.details {
+  font-size: 1.2rem;
+  color: #474545;
+  margin-top: 1rem;
+  margin-left: 3.5rem;
 }
 
-.container{
-    width: 90%;
-    text-align: center;
+.container {
+  width: 90%;
+  text-align: center;
 }
 
-.active{
-    display: block;
-    color: #00aaff;
+.active {
+  display: block;
+  color: #00aaff;
 }
 
-@media (max-width: 1100px){
-    .content{
-        width: 100vw;
-        justify-content: space-evenly;
-    }
+@media (max-width: 1100px) {
+  .content {
+    width: 100vw;
+    justify-content: space-evenly;
+  }
 }
 
-@media (max-width: 800px){
-    .heading{
-        font-size: 1.4rem;
-    }
+@media (max-width: 800px) {
+  .heading {
+    font-size: 1.4rem;
+  }
 
-    .subHeading{
-        font-size: 0.8rem;
-    }
+  .subHeading {
+    font-size: 0.8rem;
+  }
 
-    .top {
-        font-size: 0.75rem;
-    }
+  .top {
+    font-size: 0.75rem;
+  }
 
-    .details{
-        font-size: 0.75rem;
-    }
+  .details {
+    font-size: 0.75rem;
+    margin-left: 3rem;
+    margin-top: 0rem;
+  }
 
-    .summary{
-        font-size: 0.75rem;
-    }
+  .summary {
+    font-size: 0.75rem;
+  }
 
-    .lists{
-        font-size: 0.85rem;
-        flex-direction: row;
-        width: 80vw;
-        margin-bottom: 1rem;
-    }
+  .lists {
+    font-size: 0.85rem;
+    flex-direction: row;
+    width: 80vw;
+    margin-bottom: 1rem;
+  }
 
-    .icon{
-        font-size: 0.75rem;
-    }
+  .icon {
+    font-size: 0.75rem;
+  }
 
-    .categories{
-        width: 100%;
-        padding-left: 2rem;
-    }
+  .categories {
+    width: 100%;
+    padding-left: 2rem;
+  }
 
-    .qnas{
-        width: 80vw;
-    }
+  .qnas {
+    width: 80vw;
+  }
 
-    .qnas li{
-        font-size: 1.8rem;
-    }
+  .qnas li {
+    font-size: 1.8rem;
+  }
 
-    .divider{
-        margin-top: 0.75rem;
-        margin-bottom: 0.75rem;
-    }
+  .divider {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
 
-    .content{
-        /* width: 100vw;
+  .content {
+    /* width: 100vw;
         justify-content: space-between; */
-        flex-direction: column;
-        align-items: center;
-    }
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .lists {
+    overflow: hidden;
+    overflow-x: scroll;
+    width: auto;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  .list{
+    text-align: center;
+  }
+  .categories{
+    padding-left: 0%;
+    margin: 0 0.5rem;
+  }
 }

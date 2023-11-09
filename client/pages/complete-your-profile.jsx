@@ -23,7 +23,7 @@ const CompleteYourProfile = (props) => {
   const [warns, setWarns] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  console.log(props);
   useEffect(() => {
     if (!props.user || !props.user.uid || props.user.profilePicture) {
       router.push("/");
@@ -50,10 +50,10 @@ const CompleteYourProfile = (props) => {
       ]);
     }
     if (index === 12) {
-      setLinks((prev) => ({ ...prev, instagram: val }));
+      setLinks((prev) => ({ ...prev, facebook: val }));
     }
     if (index === 13) {
-      setLinks((prev) => ({ ...prev, facebook: val }));
+      setLinks((prev) => ({ ...prev, instagram: val }));
     }
     if (index === 14) {
       setLinks((prev) => ({ ...prev, twitter: val }));
@@ -136,6 +136,7 @@ const CompleteYourProfile = (props) => {
       const responseData = await response.json();
       if (responseData) {
         router.push(`/freelancer_profile`);
+        props.setUser(null);
         setLoading(false);
       }
     } catch (error) {

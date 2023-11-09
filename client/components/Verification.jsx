@@ -395,6 +395,7 @@ function Verification(props) {
               name="equipments"
               id="equipments"
               value={props.equipments}
+              maxLength={200}
               onChange={(e) => props.setEquipments(e.target.value)}
               rows="10"
               className="outline-none border border-[#686868] p-4 w-full resize-none"
@@ -415,6 +416,7 @@ function Verification(props) {
               required
               name="equipments"
               id="products"
+              maxLength={200}
               value={props.equipments}
               onChange={(e) => props.setEquipments(e.target.value)}
               rows="10"
@@ -440,6 +442,7 @@ function Verification(props) {
               required
               name="equipments"
               id="products"
+              maxLength={200}
               value={props.equipments}
               onChange={(e) => props.setEquipments(e.target.value)}
               className="outline-none border border-[#686868] p-4 w-full resize-none"
@@ -464,6 +467,7 @@ function Verification(props) {
               name="equipments"
               id="equipments"
               value={props.equipments}
+              maxLength={200}
               onChange={(e) => props.setEquipments(e.target.value)}
               className="outline-none border border-[#686868] p-4 w-full resize-none"
               rows="10"
@@ -483,6 +487,7 @@ function Verification(props) {
               required
               name="equipments"
               id="equipments"
+              maxLength={200}
               value={props.equipments}
               onChange={(e) => props.setEquipments(e.target.value)}
               rows="10"

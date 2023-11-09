@@ -1,51 +1,56 @@
 .profile_nav {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .nav {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    position: relative;
-    cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  position: relative;
+  cursor: pointer;
 }
 
-#review, #portfolio {
-    color: #000000;
+#review,
+#portfolio {
+  color: #000000;
 }
 
-#review::after, #portfolio::after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #000000;
-    transition: all 0.3s ease-in-out;
+#review::after,
+#portfolio::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000000;
+  transition: all 0.3s ease-in-out;
 }
 
-#review:hover::after, #portfolio:hover::after {
-    width: 100%;
-    opacity: 1;
+#review:hover::after,
+#portfolio:hover::after {
+  width: 100%;
+  opacity: 1;
 }
 
-#review::before, #portfolio::before {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #000000;
-    transition: all 0.3s ease-in-out;
-    transform-origin: left;
-    transform: scaleX(0);
-    opacity: 0.5;
+#review::before,
+#portfolio::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000000;
+  transition: all 0.3s ease-in-out;
+  transform-origin: left;
+  transform: scaleX(0);
+  opacity: 0.5;
 }
 
-#review:hover::before, #portfolio:hover::before {
-    transform: scaleX(1);
+#review:hover::before,
+#portfolio:hover::before {
+  transform: scaleX(1);
 }

@@ -243,7 +243,14 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
   var Final_Result = Result.toFixed(0);
   return (
     <div className="flex flex-col items-start border rounded-lg shadow-md p-4 gap-3 lg:w-full relative">
-      <div className="p-1 lg:p-2 border border-red-600 flex items-center gap-2 text-red-600">
+      <div
+        className={
+          "p-1 lg:p-2 border  flex items-center gap-2 " +
+          (Final_Result > 0
+            ? "text-green-600 border-green-600"
+            : "text-red-600 border-red-600")
+        }
+      >
         <BsStopCircle />
         {Final_Result > 0 ? `${Final_Result} days left` : `Expired`}
       </div>

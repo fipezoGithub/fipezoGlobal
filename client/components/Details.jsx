@@ -23,6 +23,7 @@ function Details(props) {
   useEffect(() => {
     setWorks(props.works);
   }, [props.works]);
+  
   return (
     <div className={styles.details}>
       {props?.profession !== undefined && (

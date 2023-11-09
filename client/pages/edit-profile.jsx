@@ -1,4 +1,3 @@
-
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
@@ -120,6 +119,7 @@ const ProfileSetting = (props) => {
       });
       const update = await res.json();
       if (update) {
+        props.setUser({});
         router.push("/freelancer_profile");
       }
       setIsLoading(false);

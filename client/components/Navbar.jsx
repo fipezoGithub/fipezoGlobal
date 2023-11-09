@@ -57,7 +57,9 @@ export default function Navbar(props) {
     } else {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
+
     const type = JSON.parse(localStorage.getItem("type"));
+
     async function getNotifications() {
       let res;
       if (props.company) {
@@ -398,7 +400,7 @@ export default function Navbar(props) {
                 >
                   Notifications <FaBell size={"1.2em"} />{" "}
                   {notificationCount > 0 && (
-                    <span className="absolute right-6 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
+                    <span className=" bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
                       {notificationCount}
                     </span>
                   )}
@@ -477,7 +479,7 @@ export default function Navbar(props) {
                 >
                   Notifications <FaBell size={"1.2em"} />{" "}
                   {notificationCount > 0 && (
-                    <span className="absolute right-1 top-0 bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
+                    <span className="bg-red-500 font-bold rounded-full w-6 h-6 text-center text-white">
                       {notificationCount}
                     </span>
                   )}

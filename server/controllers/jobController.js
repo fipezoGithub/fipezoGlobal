@@ -3,6 +3,21 @@ const jobsCollection = require("../models/jobsModel");
 const companyCollection = require("../models/companyModel");
 const freelancerCollection = require("../models/freelancerModel");
 const secret = process.env.JWT_SECRET;
+const twilio = require("twilio")(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
+
+function sendTextMessage(phoneNumber, message) {
+  if (process.env.CLIENT_URL !== "http://localhost:3001") {
+    phoneNumber = "+91" + phoneNumber.toString();
+    twilio.messages.create({
+      body: message,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phoneNumber,
+    });
+  }
+}
 
 async function createJob(req, res) {
   jwt.verify(req.token, secret, async (err, authdata) => {
@@ -33,6 +48,17 @@ async function createJob(req, res) {
           jobPosted: newJob._id,
         },
       });
+      const freelancers = await freelancerCollection.find({
+        profession: req.body.profession,
+      });
+      if (freelancers.length > 0) {
+        freelancers.forEach((element) => {
+          sendTextMessage(
+            element.phone,
+            `Exclusive opportunity alert! New job posted from ${company.companyname} Be the first to grab it and showcase your skills. Check it out now! at https://fipezo.com/jobs/details/${newJob.uid}`
+          );
+        });
+      }
       res.status(201).json(newJob);
     }
   });
@@ -205,9 +231,16 @@ async function hiredFreelancers(req, res) {
             $push: { hiredFreelancers: req.body.userId },
           }
         );
-        await freelancerCollection.findByIdAndUpdate(req.body.userId, {
-          $push: { hiredJob: updatedJob._id },
-        });
+        const hiredFreelancer = await freelancerCollection.findByIdAndUpdate(
+          req.body.userId,
+          {
+            $push: { hiredJob: updatedJob._id },
+          }
+        );
+        sendTextMessage(
+          hiredFreelancer.phone,
+          `Congratulations on being selected for ${job.title} on Fipezo. Please check your notification for in-depth details. Let's kick-start this opportunity!`
+        );
         res.status(200).json(updatedJob);
       }
     }

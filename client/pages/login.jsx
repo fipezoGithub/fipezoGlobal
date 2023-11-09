@@ -29,7 +29,7 @@ export default function Login(props) {
   const [count, setCount] = useState(30);
   const [timerId, setTimerId] = useState(null);
   const passwordRef = useRef();
-  
+
   useEffect(() => {
     if (props.user || props.company) {
       router.push("/");
@@ -491,7 +491,7 @@ export default function Login(props) {
               {type === "user" && (
                 <p className={`${styles.signup}`}>
                   Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/register/user">
+                  <Link className="text-cyan-500" href="/register/client">
                     Sign up now
                   </Link>
                 </p>

@@ -7,7 +7,12 @@ const Footer2 = () => {
   return (
     <>
       <div className="bg-black p-4">
-        <Image src="/footermap.png" width={800} height={800} className="w-80 h-80" />
+        <Image
+          src="/footermap.png"
+          width={800}
+          height={800}
+          className="w-96"
+        />
       </div>
       <div className={styles.lower}>
         <div className={styles.company}>
