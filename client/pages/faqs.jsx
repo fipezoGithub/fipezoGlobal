@@ -56,6 +56,46 @@ class Faqs extends React.Component {
     this.setState({ currentAnswer: val });
   };
 
+  setTopic = (val) => {
+    switch (val) {
+      case "general":
+        this.generalShow();
+        break;
+
+      case "freelanceraccount":
+        this.freelanceraccount();
+        break;
+
+      case "companyaccount":
+        this.companyaccount();
+        break;
+
+      case "accountverification":
+        this.accountverification();
+        break;
+
+      case "referandearn":
+        this.referandearn();
+        break;
+
+      case "privacy":
+        this.privacyShow();
+        break;
+
+      case "legal":
+        this.legal();
+        break;
+
+      case "services":
+        this.servicesShow();
+        break;
+
+      default:
+        this.generalShow();
+        break;
+    }
+  };
+
   render() {
     return (
       <div className={styles.faqs}>
@@ -158,6 +198,25 @@ class Faqs extends React.Component {
                   Help and Support
                 </li>
               </ul>
+              <div className="sm:hidden my-4 flex items-center justify-center">
+                <select
+                  name=""
+                  id=""
+                  className="focus:outline-none text-xs border p-2"
+                  onChange={(e) => this.setTopic(e.target.value)}
+                >
+                  <option value="general">Getting Started</option>
+                  <option value="freelanceraccount">Freelancer Account</option>
+                  <option value="companyaccount">Company Account</option>
+                  <option value="accountverification">
+                    Account Verification
+                  </option>
+                  <option value="referandearn">Refer and Earn Program</option>
+                  <option value="privacy">Privacy and Security</option>
+                  <option value="legal">Legal and Terms</option>
+                  <option value="services">Help and Support</option>
+                </select>
+              </div>
             </div>
             {this.state.currentTab === "general" && (
               <ul className={styles.qnas} id={styles.general}>

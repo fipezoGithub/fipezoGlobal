@@ -130,6 +130,10 @@ export default function App({ Component, pageProps }) {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-BK5CPZ5W66"
         ></Script>
+        <Script
+          async
+          src="https://code.tidio.co/ystl8iilwvqpmrnk1ma6beua0qwwtray.js"
+        ></Script>
         <Script id="google-script">
           {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

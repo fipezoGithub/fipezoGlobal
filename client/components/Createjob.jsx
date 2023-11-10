@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const Createjob = (props) => {
@@ -14,7 +13,6 @@ const Createjob = (props) => {
   const [eventType, setEventType] = useState("");
   const [eventTime, setEventTime] = useState({ startTime: "", endTime: "" });
   const [warn, setWarn] = useState(false);
-  const router = useRouter();
 
   const handelPostJob = async (e) => {
     e.preventDefault();
@@ -56,7 +54,9 @@ const Createjob = (props) => {
         }),
       });
       const newJob = await res.json();
-      router.push("/posted-jobs");
+      if (newJob) {
+        props.setShowConfirmBox(true);
+      }
     } catch (error) {
       console.log(error);
     }

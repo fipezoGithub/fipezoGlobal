@@ -11,6 +11,7 @@ const ProfileSetting = (props) => {
   const [profilePicture, setProfilePicture] = useState("");
   const [coverPicture, setCoverPicture] = useState("");
   const [email, setEmail] = useState("");
+  const [uid, setUID] = useState("");
   const [images, setImages] = useState([]);
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +27,7 @@ const ProfileSetting = (props) => {
     profilePictureWarn: false,
     coverPictureWarn: false,
   });
+  const [showConfirmBox, setShowConfirmBox] = useState(false);
   const router = useRouter();
 
   const passwordRef = useRef();
@@ -43,6 +45,7 @@ const ProfileSetting = (props) => {
         },
       });
       const company = await res.json();
+      setUID(company.authData.user.uid);
       setProfilePicture(company.authData.user.profilePicture);
       setCoverPicture(company.authData.user.coverPicture);
       setEmail(company.authData.user.companyemail);
@@ -116,14 +119,19 @@ const ProfileSetting = (props) => {
       );
       const update = await res.json();
       if (update) {
-        props.setCompany({});
-        router.push("/freelancer_profile");
+        setIsLoading(false);
+        setShowConfirmBox(true);
       }
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
+  };
+
+  const handelDialougeBox = () => {
+    setShowConfirmBox(false);
+    props.setCompany(null);
+    router.push(`/company/${uid}`);
   };
 
   return (
@@ -371,6 +379,14 @@ const ProfileSetting = (props) => {
         <Loading message={"Updating your data"} />
       )}
       <Footer />
+
+      {showConfirmBox === true && (
+        <DialogBox
+          title="Profile Upadated Successfully!"
+          text="Your profile update was successful! Your new information is now reflected in our system. If you ever have questions or need assistance, feel free to reach out to our customer support team via the contact us. We're here to help!"
+          handleDialogBox={handelDialougeBox}
+        />
+      )}
     </>
   );
 };

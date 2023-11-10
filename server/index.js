@@ -160,6 +160,13 @@ const {
   getNotificationOfUser,
   seeNotifications,
 } = require("./controllers/notificationController");
+const {
+  addBlog,
+  getAllBlogs,
+  getBlogById,
+  likeBlog,
+} = require("./controllers/blogController");
+const blogCoverPic = require("./middlewares/blogCover");
 
 // Setting up the routes
 
@@ -320,6 +327,12 @@ app.post("/api/payment", upload, verifyToken, submitPayment);
 app.post("/api/notification/create", createNotification);
 app.get("/api/notification/:userId", getNotificationOfUser);
 app.put("/api/notification/:id", seeNotifications);
+
+//Blog Routes
+app.post("/api/blog/create", blogCoverPic, addBlog);
+app.get("/api/blog/", getAllBlogs);
+app.get("/api/blog/:blogid", getBlogById);
+app.put("/api/blog/:blogid", verifyToken, likeBlog);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

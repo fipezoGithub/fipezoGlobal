@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Loading from "@/components/Loading";
+import DialogBox from "@/components/DialogBox";
 
 const ProfileSetting = (props) => {
   const [profilePicture, setProfilePicture] = useState("");
@@ -26,6 +27,7 @@ const ProfileSetting = (props) => {
     profilePictureWarn: false,
     coverPictureWarn: false,
   });
+  const [showConfirmBox, setShowConfirmBox] = useState(false);
   const router = useRouter();
 
   const passwordRef = useRef();
@@ -119,14 +121,19 @@ const ProfileSetting = (props) => {
       });
       const update = await res.json();
       if (update) {
-        props.setUser({});
-        router.push("/freelancer_profile");
+        setIsLoading(false);
+        setShowConfirmBox(true);
       }
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
+  };
+
+  const handelDialougeBox = () => {
+    setShowConfirmBox(false);
+    props.setUser(null);
+    router.push("/freelancer_profile");
   };
 
   return (
@@ -630,6 +637,13 @@ const ProfileSetting = (props) => {
         <Loading message={"Updating your data"} />
       )}
       <Footer />
+      {showConfirmBox === true && (
+        <DialogBox
+          title="Profile Upadated Successfully!"
+          text="Your profile update was successful! Your new information is now reflected in our system. If you ever have questions or need assistance, feel free to reach out to our customer support team via the contact us. We're here to help!"
+          handleDialogBox={handelDialougeBox}
+        />
+      )}
     </>
   );
 };
