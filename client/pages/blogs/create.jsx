@@ -19,7 +19,7 @@ const Create = (props) => {
         <h1 className="lg:text-3xl font-bold">Create Blog</h1>
         <form
           action=""
-          className="flex flex-col gap-4 items-center border shadow-md"
+          className="flex flex-col gap-4 items-center border shadow-md p-4 rounded-lg"
         >
           <div className="flex flex-col p-4 gap-4 w-full">
             <label htmlFor="title" className="capitalize text-xl">
@@ -52,7 +52,10 @@ const Create = (props) => {
             <input type="file" accept="image/*" id="cover" />
           </div>
           <div>
-            <button type="submit" className="px-4 py-2 capitalize fomt-bold">
+            <button
+              type="submit"
+              className="px-4 py-2 capitalize fomt-bold text-lg bg-blue-600 text-white rounded-lg"
+            >
               submit
             </button>
           </div>

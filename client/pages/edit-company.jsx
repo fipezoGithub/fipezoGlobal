@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Loading from "@/components/Loading";
+import DialogBox from "@/components/DialogBox";
 
 const ProfileSetting = (props) => {
   const [profilePicture, setProfilePicture] = useState("");
