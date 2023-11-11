@@ -14,12 +14,12 @@ const BlogCategory = (props) => {
       <Head>
         <title>
           Fipezo |{" "}
-          {(
+          {/* {(
             router.query.category.charAt(0).toUpperCase() +
             router.query.category.slice(1)
           )
             .split("_")
-            .join(" ")}
+            .join(" ")} */}
         </title>
       </Head>
       <Navbar
