@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
-const Category = (props) => {
+const BlogCategory = (props) => {
   const router = useRouter();
   return (
     <>
@@ -58,4 +58,4 @@ const Category = (props) => {
   );
 };
 
-export default Category;
+export default BlogCategory;
