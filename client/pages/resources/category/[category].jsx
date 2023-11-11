@@ -31,7 +31,7 @@ const BlogCategory = (props) => {
       <div className="mt-16">
         <div className="flex items-center justify-between mx-8">
           <h1 className="text-4xl capitalize font-semibold">
-            {router.query.category.split("_").join(" ")}
+            {/* {router.query.category.split("_").join(" ")} */}
           </h1>
           <button type="button">
             <FaSearch size={"1.5em"} />
