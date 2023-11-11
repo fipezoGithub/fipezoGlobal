@@ -3,10 +3,10 @@ import React from "react";
 
 const Loading = ({ message }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <Image src="/loading.gif" width={300} height={300} alt="loading" />
-      <span>Please wait...</span>
-      <span>{message}</span>
+    <div className="flex flex-col items-center justify-center h-screen bg-black">
+      <Image src="/Loadingnew.gif" width={300} height={300} alt="loading" />
+      <span className="text-white">Please wait...</span>
+      <span className="text-white">{message}</span>
     </div>
   );
 };

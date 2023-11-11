@@ -47,7 +47,7 @@ const Dashboard = (props) => {
             }
           );
           const data = await response.json();
-          setFreelancers(data);
+          setFreelancers(data.reverse());
         }
       } catch (error) {
         console.error(error);
@@ -67,7 +67,7 @@ const Dashboard = (props) => {
             }
           );
           const data = await response.json();
-          setCompanies(data);
+          setCompanies(data.reverse());
         }
       } catch (error) {
         console.error(error);

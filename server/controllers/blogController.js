@@ -31,6 +31,7 @@ async function addBlog(req, res) {
       uid: req.body.uid,
       title: req.body.title,
       content: req.body.content,
+      category: req.body.category,
       cover: resizedBlogImg.filename,
     });
     const newBlog = await blogData.save();
@@ -60,7 +61,7 @@ async function getAllBlogs(req, res) {
 
 async function getBlogById(req, res) {
   try {
-    const blog = await blogCollection.findById(req.params.blogid);
+    const blog = await blogCollection.findOne({ uid: req.params.blogid });
     if (!blog) {
       res.status(404).json({ message: "Blog not found" });
     }
@@ -113,4 +114,35 @@ async function likeBlog(req, res) {
   }
 }
 
-module.exports = { addBlog, getAllBlogs, getBlogById, likeBlog };
+async function getBlogsByCategory(req, res) {
+  try {
+    const blogs = await blogCollection.find({ category: req.params.category });
+    res.status(200).json(blogs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+async function getBlogsByTitle(req, res) {
+  try {
+    const blogs = await blogCollection
+      .find({
+        title: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+      })
+      .exec();
+    res.status(200).json(blogs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+module.exports = {
+  addBlog,
+  getAllBlogs,
+  getBlogById,
+  likeBlog,
+  getBlogsByCategory,
+  getBlogsByTitle,
+};

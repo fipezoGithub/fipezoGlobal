@@ -218,13 +218,13 @@ function Contact(props) {
             />
           </div>
         </div>
-        <ReactWhatsapp
+        {/* <ReactWhatsapp
           number="+919038578787"
           message="Hello Fipezo"
           className={styles.whatsapp}
         >
           <Image src="/chat.png" height={70} width={70} alt="whatsapp-icon" />
-        </ReactWhatsapp>
+        </ReactWhatsapp> */}
       </div>
       <Footer />
     </div>

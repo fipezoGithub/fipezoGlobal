@@ -11,6 +11,6 @@ const blogCoverPic = multer({
       cb(null, file.fieldname + "-" + uniqueSuffix + "-" + fileName);
     },
   }),
-}).single("blogCoverPic");
+}).single("cover");
 
 module.exports = blogCoverPic;

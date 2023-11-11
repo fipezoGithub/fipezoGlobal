@@ -11,6 +11,21 @@ const path = require("path");
 const companyCollection = require("../models/companyModel");
 const referCollection = require("../models/referModel");
 const jobsCollection = require("../models/jobsModel");
+const twilio = require("twilio")(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
+
+function sendTextMessage(phoneNumber, message) {
+  if (process.env.CLIENT_URL !== "http://localhost:3001") {
+    phoneNumber = "+91" + phoneNumber.toString();
+    twilio.messages.create({
+      body: message,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phoneNumber,
+    });
+  }
+}
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -596,9 +611,14 @@ async function deleteFreelancerProfile(req, res) {
 
 async function verifyFreelancerProfile(req, res) {
   const id = req.params.id;
+  const freelancer = await freelancerCollection.findById(id);
   freelancerCollection
     .updateOne({ _id: id }, { $set: { verified: true } })
     .then(() => {
+      sendTextMessage(
+        freelancer.phone,
+        "Your profile has been successfully verified. Please log in to Fipezo. Happy Freelancing!"
+      );
       res.json({ id: id });
     })
     .catch((error) => {

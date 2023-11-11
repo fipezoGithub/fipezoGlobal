@@ -743,7 +743,7 @@ export default withRouter(
                     {this.state.currentPage === 4 && (
                       <div>
                         <h2 className={styles.label}>
-                          Have you any referal code
+                          Do you have any referal code
                         </h2>
                         <div>
                           <input
@@ -1074,7 +1074,8 @@ export default withRouter(
                         </div>
                         <div className={styles.inputField} id={styles.otp}>
                           <label htmlFor="password" className={styles.label}>
-                            <span style={{ color: "white" }}>* </span>Password :
+                            <span style={{ color: "white" }}>* </span>Create
+                            your password :
                           </label>
                           <div>
                             <div className="flex border-b border-b-[#878787] items-center justify-between">
@@ -1136,7 +1137,7 @@ export default withRouter(
                       <div className={styles.inputField} id={styles.rate}>
                         <label htmlFor="rate" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>What is your
-                          remuneration per day?
+                          fee per day?
                         </label>
                         {this.state.rate && (
                           <p className={styles.rate}>

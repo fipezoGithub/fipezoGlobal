@@ -218,6 +218,12 @@ export default function Navbar(props) {
             </div>
           </li>
 
+          {/* <li className={styles.navElement}>
+            <Link href="/resources">
+              <span id={styles.home}>Resources&nbsp;&nbsp;</span>
+            </Link>
+          </li> */}
+
           {/* <li
             className={styles.navElement}
             onClick={() => {
@@ -564,6 +570,12 @@ export default function Navbar(props) {
               </Link>
             </div>
           </li>
+
+          {/* <li className={styles.navElement}>
+            <Link href="/resources">
+              <span id={styles.home}>Resources&nbsp;&nbsp;</span>
+            </Link>
+          </li> */}
 
           {/* <li
             className={styles.navElement}

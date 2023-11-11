@@ -165,6 +165,8 @@ const {
   getAllBlogs,
   getBlogById,
   likeBlog,
+  getBlogsByCategory,
+  getBlogsByTitle,
 } = require("./controllers/blogController");
 const blogCoverPic = require("./middlewares/blogCover");
 
@@ -332,6 +334,8 @@ app.put("/api/notification/:id", seeNotifications);
 app.post("/api/blog/create", blogCoverPic, addBlog);
 app.get("/api/blog/", getAllBlogs);
 app.get("/api/blog/:blogid", getBlogById);
+app.get("/api/blog/category/:category", getBlogsByCategory);
+app.post("/api/blog/search", getBlogsByTitle);
 app.put("/api/blog/:blogid", verifyToken, likeBlog);
 
 app.get("/api/images/:key", async (req, res) => {
