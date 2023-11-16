@@ -247,7 +247,7 @@ function Verification(props) {
         )}
       </div>
       <div className={styles.uploads}>
-        <div className="flex flex-col md:block gap-1">
+        <div className="flex flex-col md:block gap-1 relative">
           <label className={styles.box}>
             <AiOutlinePlus style={{ color: "white" }} />
             &nbsp;&nbsp;&nbsp;&nbsp;Aadhaar Card
@@ -262,6 +262,9 @@ function Verification(props) {
             {props.addharError && (
               <p className={styles.warn}>Please Provide Addhar Card</p>
             )}
+            <p className="w-60 capitalize absolute -bottom-6 right-0 text-[#686868] font-normal">
+              optional
+            </p>
             {props.warns[2] && (
               <p className={styles.warn}>
                 File size exceeds maximum limit of 10mb
@@ -269,7 +272,7 @@ function Verification(props) {
             )}
           </label>
         </div>
-        <div className="flex flex-col md:block gap-1">
+        <div className="flex flex-col md:block gap-1 relative">
           <label className={styles.box}>
             <AiOutlinePlus style={{ color: "white" }} />
             &nbsp;&nbsp;&nbsp;&nbsp;Pan Card
@@ -284,6 +287,9 @@ function Verification(props) {
             {props.panError && (
               <p className={styles.warn}>Please Provide Pan Card</p>
             )}
+            <p className="w-60 capitalize absolute -bottom-6 right-0 text-[#686868] font-normal">
+              optional
+            </p>
             {props.warns[3] && (
               <p className={styles.warn}>
                 File size exceeds maximum limit of 10mb

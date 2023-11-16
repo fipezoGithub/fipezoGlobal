@@ -29,6 +29,7 @@ const signup = (props) => {
             >
               <Image
                 src="/client_register.png"
+                alt="client_register"
                 width={175}
                 height={175}
                 className="w-12 h-12"
@@ -43,6 +44,7 @@ const signup = (props) => {
             >
               <Image
                 src="/freelancer_register.png"
+                alt="freelancer_register"
                 width={175}
                 height={175}
                 className="w-12 h-12"
@@ -57,6 +59,7 @@ const signup = (props) => {
             >
               <Image
                 src="/company_register.png"
+                alt="company_register"
                 width={175}
                 height={175}
                 className="w-12 h-12"

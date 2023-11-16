@@ -1,9 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import RelatedBlogs from "@/components/RelatedBlogs";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { BiShareAlt } from "react-icons/bi";
 import { RWebShare } from "react-web-share";
 
@@ -17,7 +19,9 @@ export const getServerSideProps = async (ctx) => {
 
 export default function Bloguid(props) {
   const [url, setUrl] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
   const bodyRef = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     setUrl(window.location.origin + "/resources/details/" + props.data.uid);
@@ -26,7 +30,49 @@ export default function Bloguid(props) {
     if (bodyRef.current.childNodes.length === 0) {
       bodyRef.current.appendChild(html.body);
     }
+    const type = JSON.parse(localStorage.getItem("type"));
+    if (type !== "company") {
+      if (
+        props.data.likeuser.includes(props.user?._id) ||
+        props.data.likefreelancer.includes(props.user?._id)
+      ) {
+        setIsLiked(true);
+      }
+    } else {
+      if (props.data.likecompany.includes(props.company?._id)) {
+        setIsLiked(true);
+      }
+    }
   }, []);
+
+  const likePost = async (id) => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    const type = JSON.parse(localStorage.getItem("type"));
+    if (type === null) {
+      router.push("/login");
+      return;
+    }
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/blog/${id}?type=${type}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const like = await res.json();
+      if (like) {
+        setIsLiked(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -39,49 +85,81 @@ export default function Bloguid(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16 mx-8 flex flex-col gap-6">
-        <div>
-          <Image
-            src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
-            width={1080}
-            height={720}
-            alt="resources-cover"
-          />
-        </div>
-        <h1 className="text-4xl font-medium">{props.data.title}</h1>
-        <p className="">
-          Fipezo Team |{" "}
-          {new Date(props.data.createdAt).toLocaleString("en-IN", {
-            month: "long",
-            year: "numeric",
-          })}
-        </p>
-        <div ref={bodyRef} className="text-lg"></div>
-        <div className="flex items-center gap-4">
-          <span className="text-neutral-500">{props.data.view}</span>
-          <button
-            type="button"
-            className="capitalize text-xl flex items-center gap-1"
-          >
-            <AiOutlineLike /> like
-          </button>
-
-          <RWebShare
-            data={{
-              text:
-                "Share The Blog " + props.data.title + " on your social media!",
-              url: url,
-              title: "Fipezo",
-            }}
-          >
+      <div className="mt-16 mx-8 flex flex-col lg:flex-row items-start gap-4">
+        <div className="mx-16"></div>
+        <div className="flex flex-col lg:gap-6 gap-3">
+          <div>
+            <Image
+              src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
+              width={1080}
+              height={720}
+              className="lg:w-3/4 lg:h-[55vh] object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
+              alt="resources-cover"
+            />
+          </div>
+          <h1 className="text-2xl lg:text-4xl font-bold lg:font-medium">
+            {props.data.title}
+          </h1>
+          <p className="">
+            <span className="font-bold text-lg">Fipezo Team</span> |{" "}
+            <span>
+              {new Date(props.data.createdAt).toLocaleString("en-IN", {
+                month: "long",
+                year: "numeric",
+              })}
+            </span>
+          </p>
+          <div ref={bodyRef} className="text-lg"></div>
+          <div className="flex items-center gap-4">
+            <span className="text-neutral-500">{props.data.view}</span>
             <button
               type="button"
               className="capitalize text-xl flex items-center gap-1"
+              onClick={() => likePost(props.data._id)}
+              disabled={isLiked === true ? true : false}
             >
-              <BiShareAlt /> share
+              {isLiked === true ? (
+                <>
+                  <AiFillLike /> liked
+                </>
+              ) : (
+                <>
+                  <AiOutlineLike /> like
+                </>
+              )}
             </button>
-          </RWebShare>
+
+            <RWebShare
+              data={{
+                text:
+                  "Share The Blog " +
+                  props.data.title +
+                  " on your social media!",
+                url: url,
+                title: "Fipezo",
+              }}
+            >
+              <button
+                type="button"
+                className="capitalize text-xl flex items-center gap-1"
+              >
+                <BiShareAlt /> share
+              </button>
+            </RWebShare>
+          </div>
         </div>
+        <hr className="w-full h-px lg:hidden" />
+        <div className="">
+          <RelatedBlogs />
+        </div>
+      </div>
+      <div className="flex items-center justify-center w-full my-4">
+        <Image
+          src="/blog-page-banner.png"
+          width={1080}
+          height={760}
+          className="w-full"
+        />
       </div>
       <Footer />
     </>

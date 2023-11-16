@@ -53,9 +53,11 @@ export default function ProfileCard(props) {
         )}
       </div>
       <div className={styles.image + " overflow-hidden"}>
-        <img
+        <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.profilePicture}`}
           alt="profile-dp"
+          width={800}
+          height={800}
           className="h-full w-full object-cover"
         />
       </div>

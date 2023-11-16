@@ -8,6 +8,7 @@ const { uploadFile } = require("../middlewares/s3");
 const blogCollection = require("../models/blogModel");
 const userCollection = require("../models/userModel");
 const companyCollection = require("../models/companyModel");
+const { response } = require("express");
 
 // Function to resize an image and return the path of the resized image
 async function resizeImage(file, width, height) {
@@ -138,6 +139,20 @@ async function getBlogsByTitle(req, res) {
   }
 }
 
+async function viewCount(req, res) {
+  try {
+    const blog = await blogCollection.findById(req.body.id);
+    if (!blog) {
+      res.status(404).send("No blog found");
+    }
+    await blogCollection.findByIdAndUpdate(blog._id, { view: blog.view + 1 });
+    res.status(200).send("View added successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   addBlog,
   getAllBlogs,
@@ -145,4 +160,5 @@ module.exports = {
   likeBlog,
   getBlogsByCategory,
   getBlogsByTitle,
+  viewCount,
 };

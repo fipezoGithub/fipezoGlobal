@@ -1,25 +1,51 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import SearchBlog from "@/components/SearchBlog";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-const BlogCategory = (props) => {
+export const getServerSideProps = async (ctx) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/blog/category/${ctx.query.category}`
+  );
+  const data = await response.json();
+  return { props: { data } };
+};
+
+export default function BlogCategory(props) {
+  const [showSearch, setShowSearch] = useState(false);
   const router = useRouter();
+
+  const viewCount = async (id) => {
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/blog/viewcount`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id }),
+      });
+      const view = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Head>
         <title>
           Fipezo |{" "}
-          {/* {(
+          {(
             router.query.category.charAt(0).toUpperCase() +
             router.query.category.slice(1)
           )
             .split("_")
-            .join(" ")} */}
+            .join(" ")}
         </title>
       </Head>
       <Navbar
@@ -31,31 +57,45 @@ const BlogCategory = (props) => {
       <div className="mt-16">
         <div className="flex items-center justify-between mx-8">
           <h1 className="text-4xl capitalize font-semibold">
-            {/* {router.query.category.split("_").join(" ")} */}
+            {router.query.category.split("_").join(" ")}
           </h1>
-          <button type="button">
+          <button type="button" onClick={() => setShowSearch(true)}>
             <FaSearch size={"1.5em"} />
           </button>
         </div>
-        <div className="flex items-center justify-center gap-12 flex-wrap">
-          <Link
-            href="/resources/details/A_Comprehensive_Guide_to_Navigating_Fipezo's_Platform_for_Maximum_Opportunities"
-            className="flex flex-col items-start gap-2"
-          >
-            <Image
-              src="/500-graphics.png"
-              width={400}
-              height={400}
-              alt="resource-cover"
-              className="w-[15vw]"
-            />
-            <h3 className="text-xl font-medium">title</h3>
-          </Link>
+        <div className="flex items-center justify-center gap-12 flex-wrap my-4">
+          {props.data.length > 0 ? (
+            props.data.map((item, index) => (
+              <Link
+                href={`/resources/details/${item.uid}`}
+                onClick={() => viewCount(item._id)}
+                className="flex flex-col items-start gap-2 mx-4 lg:mx-0"
+                key={index}
+              >
+                <Image
+                  src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                  width={400}
+                  height={400}
+                  alt="resource-cover"
+                  className="lg:w-[25vw]"
+                />
+                <h3 className="lg:text-xl font-medium lg:truncate">
+                  {item.title}
+                </h3>
+              </Link>
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center my-4">
+              <Image src="/no-blogs.png" width={1080} height={1080} />
+              <p className="text-lg">
+                No blogs found. Try different categories
+              </p>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
+      {showSearch === true && <SearchBlog setShowSearch={setShowSearch} />}
     </>
   );
-};
-
-export default BlogCategory;
+}

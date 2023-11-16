@@ -11,6 +11,7 @@ const Signupguide = () => {
       <div className="p-2 md:p-4 bg-[#2a2b2b] rounded-xl shadow-[--shadow]">
         <Image
           src="/Fipezo signup animation.gif"
+          alt="signup animation"
           height={600}
           width={600}
           className="w-72 lg:w-96"

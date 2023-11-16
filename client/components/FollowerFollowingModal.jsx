@@ -111,8 +111,10 @@ const FollowerFollowingModal = (props) => {
               })
             ) : (
               <div className="flex flex-col gap-4">
-                <img
+                <Image
                   src={"/no_followers_found.png"}
+                  width={600}
+                  height={600}
                   alt="no reviews img"
                   className="w-full"
                 />
@@ -154,9 +156,11 @@ const FollowerFollowingModal = (props) => {
               })
             ) : (
               <div className="flex flex-col gap-4">
-                <img
+                <Image
                   src={"/no_followers_found.png"}
                   alt="no reviews img"
+                  width={600}
+                  height={600}
                   className="w-full"
                 />
                 <p className="text-center capitalize">no followers available</p>

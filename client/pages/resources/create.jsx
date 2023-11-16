@@ -5,12 +5,14 @@ import React, { useMemo, useState } from "react";
 import "quill/dist/quill.snow.css";
 // import ReactQuill from "react-quill";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 const Create = (props) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("featured");
   const [image, setImage] = useState("");
+  const router = useRouter();
 
   const ReactQuill = useMemo(
     () => dynamic(() => import("react-quill"), { ssr: false }),
@@ -112,7 +114,9 @@ const Create = (props) => {
         body: data,
       });
       const blog = await res.json();
-      console.log(blog);
+      if (blog) {
+        router.push(`/resources/details/${blog.uid}`);
+      }
     } catch (error) {
       console.log(error);
     }

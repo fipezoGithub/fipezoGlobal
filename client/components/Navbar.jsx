@@ -218,11 +218,11 @@ export default function Navbar(props) {
             </div>
           </li>
 
-          {/* <li className={styles.navElement}>
+          <li className={styles.navElement}>
             <Link href="/resources">
               <span id={styles.home}>Resources&nbsp;&nbsp;</span>
             </Link>
-          </li> */}
+          </li>
 
           {/* <li
             className={styles.navElement}
@@ -571,11 +571,11 @@ export default function Navbar(props) {
             </div>
           </li>
 
-          {/* <li className={styles.navElement}>
+          <li className={styles.navElement}>
             <Link href="/resources">
               <span id={styles.home}>Resources&nbsp;&nbsp;</span>
             </Link>
-          </li> */}
+          </li>
 
           {/* <li
             className={styles.navElement}

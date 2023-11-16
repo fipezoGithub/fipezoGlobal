@@ -99,6 +99,7 @@ const Feedcard = (props) => {
             src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.feed.freelancer.profilePicture}`}
             width={600}
             height={600}
+            alt="freelancer profile picture"
             className="h-12 w-12 rounded-full object-fill"
           />
         </div>

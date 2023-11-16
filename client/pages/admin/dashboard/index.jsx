@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
+import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdVerified } from "react-icons/md";
 
 const Dashboard = (props) => {
@@ -206,6 +207,17 @@ const Dashboard = (props) => {
                   <MdContactPhone />
                   contact request
                 </button>
+              </li>
+              <li
+                className={`px-4 py-2`}
+              >
+                <Link
+                  href="/resources/create"
+                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                >
+                  <IoIosCreate />
+                  create blog
+                </Link>
               </li>
             </ul>
           </div>
