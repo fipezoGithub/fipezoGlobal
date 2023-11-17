@@ -568,18 +568,23 @@ async function deleteFreelancerProfile(req, res) {
     }
 
     const filePromises = [];
-    filePromises.push(deleteFile(user.profilePicture));
-    filePromises.push(deleteFile(user.coverPicture));
+    if (user.profilePicture) {
+      filePromises.push(deleteFile(user.profilePicture));
+    }
+    if (user.coverPicture) {
+      filePromises.push(deleteFile(user.coverPicture));
+    }
     if (user.aadhaarCard) {
       filePromises.push(deleteFile(user.aadhaarCard));
     }
     if (user.panCard) {
       filePromises.push(deleteFile(user.panCard));
     }
-
-    user.works.forEach((file) => {
-      filePromises.push(deleteFile(file));
-    });
+    if (user.works.length > 0) {
+      user.works.forEach((file) => {
+        filePromises.push(deleteFile(file));
+      });
+    }
 
     await Promise.all(filePromises);
     await referCollection.deleteOne({ _id: user.createdReferalId });

@@ -7,8 +7,8 @@ function HireBox(props) {
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [fullName, setFullName] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("00:00");
   const [budget, setBudget] = useState("");
   const [hireError, setHireError] = useState(false);
 
@@ -203,6 +203,7 @@ function HireBox(props) {
             value={startTime}
             onChange={(e) => {
               setHireError(false);
+              console.log(e.target.value);
               setStartTime(e.target.value);
             }}
           />
@@ -219,6 +220,7 @@ function HireBox(props) {
             value={endTime}
             onChange={(e) => {
               setHireError(false);
+              console.log(e.target.value);
               setEndTime(e.target.value);
             }}
           />

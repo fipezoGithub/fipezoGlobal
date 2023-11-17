@@ -6,13 +6,29 @@ import { AiTwotoneHeart } from "react-icons/ai";
 const Footer2 = () => {
   return (
     <>
-      <div className="bg-black p-4">
-        <Image
-          src="/footermap.png"
-          width={800}
-          height={800}
-          className="w-96"
-        />
+      <div className="flex">
+        <div className="bg-black p-4">
+          <Image
+            src="/footermap.png"
+            width={800}
+            height={800}
+            className="w-96"
+          />
+        </div>
+        <div>
+          <ul className="flex flex-col">
+            <p className="capitalize">about</p>
+            <Link href="/about_us" className={styles.subHeading}>
+              About Us
+            </Link>
+            <Link href="/careers" className={styles.subHeading}>
+              Careers
+            </Link>
+            <Link href="/guides_and_reviews" className={styles.subHeading}>
+              Guides and Reviews
+            </Link>
+          </ul>
+        </div>
       </div>
       <div className={styles.lower}>
         <div className={styles.company}>

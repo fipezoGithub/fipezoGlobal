@@ -63,13 +63,13 @@ export default function BlogCategory(props) {
             <FaSearch size={"1.5em"} />
           </button>
         </div>
-        <div className="flex items-center justify-center gap-12 flex-wrap my-4">
+        <div className="flex items-start gap-12 flex-wrap my-4 gap-y-12 mx-8">
           {props.data.length > 0 ? (
             props.data.map((item, index) => (
               <Link
                 href={`/resources/details/${item.uid}`}
                 onClick={() => viewCount(item._id)}
-                className="flex flex-col items-start gap-2 mx-4 lg:mx-0"
+                className="flex flex-col items-start gap-2 mx-4 lg:mx-0 max-w-sm"
                 key={index}
               >
                 <Image
@@ -77,9 +77,9 @@ export default function BlogCategory(props) {
                   width={400}
                   height={400}
                   alt="resource-cover"
-                  className="lg:w-[25vw]"
+                  className=""
                 />
-                <h3 className="lg:text-xl font-medium lg:truncate">
+                <h3 className="lg:text-xl font-medium lg:line-clamp-2">
                   {item.title}
                 </h3>
               </Link>

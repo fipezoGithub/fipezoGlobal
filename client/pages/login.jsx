@@ -280,6 +280,7 @@ export default function Login(props) {
                     type="radio"
                     id="user"
                     name="logintype"
+                    className="peer hidden"
                     value="user"
                     checked={type === "user" ? true : false}
                     onChange={(e) => {
@@ -290,9 +291,15 @@ export default function Login(props) {
                   />
                   <label
                     htmlFor="user"
-                    className="lg:text-lg capitalize cursor-pointer"
+                    className="lg:text-lg capitalize cursor-pointer border border-transparent peer-checked:border-white px-4 py-2 flex flex-col items-center gap-2 rounded-md"
                   >
-                    Client
+                    <Image
+                      src="/client_register.png"
+                      width={600}
+                      height={600}
+                      className="w-20 invert"
+                    />
+                    <p className="text-center text-sm">Log in as a Client</p>
                   </label>
                 </div>
                 <div className="flex items-center gap-1">
@@ -300,6 +307,7 @@ export default function Login(props) {
                     type="radio"
                     id="freelancer"
                     name="logintype"
+                    className="peer hidden"
                     value="freelancer"
                     checked={type === "freelancer" ? true : false}
                     onChange={(e) => {
@@ -310,9 +318,17 @@ export default function Login(props) {
                   />
                   <label
                     htmlFor="freelancer"
-                    className="lg:text-lg capitalize cursor-pointer"
+                    className="lg:text-lg capitalize cursor-pointer border border-transparent peer-checked:border-white px-4 py-2 flex flex-col items-center gap-2 rounded-md"
                   >
-                    freelancer
+                    <Image
+                      src="/freelancer_register.png"
+                      width={600}
+                      height={600}
+                      className="w-20 invert"
+                    />
+                    <p className="text-center text-sm">
+                      Log in as a Freelancer
+                    </p>
                   </label>
                 </div>
                 <div className="flex items-center gap-1">
@@ -320,6 +336,7 @@ export default function Login(props) {
                     type="radio"
                     id="company"
                     name="logintype"
+                    className="peer hidden"
                     value="company"
                     checked={type === "company" ? true : false}
                     onChange={(e) => {
@@ -330,9 +347,15 @@ export default function Login(props) {
                   />
                   <label
                     htmlFor="company"
-                    className="lg:text-lg capitalize cursor-pointer"
+                    className="lg:text-lg capitalize cursor-pointer border border-transparent peer-checked:border-white px-4 py-2 flex flex-col items-center gap-2 rounded-md"
                   >
-                    company
+                    <Image
+                      src="/company_register.png"
+                      width={600}
+                      height={600}
+                      className="w-20 invert"
+                    />
+                    <p className="text-center text-sm">Log in as a Company</p>
                   </label>
                 </div>
               </div>

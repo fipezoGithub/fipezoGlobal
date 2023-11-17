@@ -129,7 +129,7 @@ const Create = (props) => {
   return (
     <>
       <Head>
-        <title>Fipezo | Blogs</title>
+        <title>Fipezo | Post a Blog</title>
       </Head>
       <Navbar
         user={props.user}

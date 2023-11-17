@@ -7,6 +7,10 @@ import { FaSearch } from "react-icons/fa";
 const SearchBlog = (props) => {
   const [searchResults, setSearchResults] = useState([]);
   const getSearchResult = async (srchQuery) => {
+    if (srchQuery.length <= 0) {
+      setSearchResults([]);
+      return;
+    }
     try {
       const res = await fetch(`${process.env.SERVER_URL}/blog/search`, {
         method: "POST",
@@ -37,7 +41,7 @@ const SearchBlog = (props) => {
   };
 
   return (
-    <div className="fixed top-12 left-0 w-full h-screen bg-white flex flex-col items-center gap-6">
+    <div className="fixed top-12 left-0 w-full h-screen bg-white flex flex-col items-center">
       <div className="flex items-center justify-center gap-2 border border-blue-600 px-4 py-2 rounded-xl w-4/5 mt-4">
         <FaSearch size={"1.5em"} />
         <input
@@ -50,14 +54,19 @@ const SearchBlog = (props) => {
           <AiOutlineClose size={"1.5em"} />
         </button>
       </div>
-      <div className="flex flex-col items-start">
+      <div
+        className={
+          "flex flex-col items-start w-4/5" +
+          (searchResults.length > 0 && " border border-t-0 rounded-xl shadow")
+        }
+      >
         {searchResults.length > 0 ? (
           searchResults.map((item, index) => (
             <Link
               href={`/resources/details/${item.uid}`}
               key={index}
               onClick={() => viewCount(item._id)}
-              className="text-lg lg:text-2xl line-clamp-1 border-b px-2 lg:px-4 py-1 lg:py-2 border-neutral-500"
+              className="text-lg lg:text-xl line-clamp-1 px-2 lg:px-4 py-1 lg:py-2"
             >
               {item.title}
             </Link>

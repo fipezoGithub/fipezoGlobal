@@ -88,12 +88,12 @@ export default function Bloguid(props) {
       <div className="mt-16 mx-8 flex flex-col lg:flex-row items-start gap-4">
         <div className="mx-16"></div>
         <div className="flex flex-col lg:gap-6 gap-3">
-          <div>
+          <div className="">
             <Image
               src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
-              width={1080}
+              width={1200}
               height={720}
-              className="lg:w-3/4 lg:h-[55vh] object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
+              className="lg:w-3/4 lg:min-h-[55vh] object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
               alt="resources-cover"
             />
           </div>
@@ -149,7 +149,7 @@ export default function Bloguid(props) {
           </div>
         </div>
         <hr className="w-full h-px lg:hidden" />
-        <div className="">
+        <div className="w-full">
           <RelatedBlogs />
         </div>
       </div>

@@ -181,7 +181,7 @@ export default function Blogs(props) {
           </div>
         </div>
         {featuredBlogs.length > 0 && (
-          <div className="mx-8 my-8">
+          <div className="m-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
                 <li className="text-2xl lg:text-5xl font-bold capitalize">
@@ -197,19 +197,19 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {featuredBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className="w-60"
+                    width={800}
+                    height={800}
+                    className=""
                   />
                   <p className="font-bold lg:text-2xl line-clamp-2">
                     {item.title}
@@ -236,19 +236,19 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {freelanceInsightsBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
                     width={400}
                     height={400}
-                    className="w-60"
+                    className=""
                   />
                   <h3 className="font-bold lg:text-2xl line-clamp-2">
                     {item.title}
@@ -275,19 +275,19 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {hiringInsightsBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
                     width={400}
                     height={400}
-                    className="w-60"
+                    className=""
                   />
                   <h3 className="font-bold lg:text-2xl line-clamp-2">
                     {item.title}
@@ -314,19 +314,19 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {fipezoInsightsBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
                     width={400}
                     height={400}
-                    className="w-60"
+                    className=""
                   />
                   <h3 className="font-bold lg:text-2xl line-clamp-2">
                     {item.title}
@@ -353,19 +353,19 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {howToGuideBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
                     src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
                     width={400}
                     height={400}
-                    className="w-60"
+                    className=""
                   />
                   <h3 className="font-bold lg:text-2xl line-clamp-2">
                     {item.title}
@@ -392,12 +392,12 @@ export default function Blogs(props) {
                 </li>
               </ul>
             </nav>
-            <section className="flex items-center justify-center flex-wrap">
+            <section className="flex items-start flex-wrap gap-y-12">
               {successStoryBlogs.map((item, index) => (
                 <Link
                   href={`/resources/details/${item.uid}`}
                   onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12"
+                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
                   key={index}
                 >
                   <Image
