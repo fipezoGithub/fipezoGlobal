@@ -36,7 +36,7 @@ class SearchBar extends React.Component {
     return (
       <div>
         <div className={styles.searchMain}>
-          <div className={styles.location}>
+          {/* <div className={styles.location}>
             <IoLocationSharp
               className={styles.locationIcon}
               style={{ color: "red" }}
@@ -327,7 +327,7 @@ class SearchBar extends React.Component {
                 Warangal
               </p>
             </div>
-          </div>
+          </div> */}
           <SearchBox border={this.props.border} />
         </div>
         {/* <div className={styles.suggestions}>

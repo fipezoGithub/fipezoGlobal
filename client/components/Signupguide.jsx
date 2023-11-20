@@ -7,17 +7,17 @@ import { MdPersonAddAlt1, MdVerified } from "react-icons/md";
 
 const Signupguide = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-start justify-center mb-4 mt-24 gap-8">
-      <div className="p-2 md:p-4 bg-[#2a2b2b] rounded-xl shadow-[--shadow]">
+    <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center mb-4 mt-24 gap-8">
+      <div className="p-2 lg:p-4 bg-[#2a2b2b] rounded-xl shadow-[--shadow]">
         <Image
           src="/Fipezo signup animation.gif"
           alt="signup animation"
           height={600}
           width={600}
-          className="w-72 lg:w-96"
+          className="w-96"
         />
       </div>
-      <div className="flex flex-col gap-4 mx-8 md:mx-0 items-center md:items-start">
+      <div className="flex flex-col gap-4 mx-8 lg:mx-0 items-center lg:items-start">
         <h2 className="text-3xl mt-1 font-semibold">
           Join Fipezo For Free, Begin Your Freelance Journey
         </h2>
@@ -68,7 +68,7 @@ const Signupguide = () => {
           </Link>
           <Link
             href="/faqs"
-            className="border border-blue-600 text-blue-600 px-2 md:px-6 py-2 md:py-3 rounded-3xl hover:text-blue-800 hover:border-blue-800 font-semibold text-center"
+            className="border border-blue-600 text-blue-600 px-2 lg:px-6 py-2 lg:py-3 rounded-3xl hover:text-blue-800 hover:border-blue-800 font-semibold text-center"
           >
             Learn how to hire
           </Link>

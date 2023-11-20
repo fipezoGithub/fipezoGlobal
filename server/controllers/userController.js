@@ -90,7 +90,6 @@ async function signupController(req, res) {
 }
 
 // login
-
 const loginController = async (req, res) => {
   try {
     const phone = req.body.phone;
@@ -460,7 +459,7 @@ const getNavbar = async (req, res) => {
       if (user) {
         res.json({
           message: "Navbar",
-          authData,
+          user,
         });
       } else {
         res.sendStatus(403);

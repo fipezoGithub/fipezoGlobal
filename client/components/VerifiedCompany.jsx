@@ -22,6 +22,7 @@ function VerifiedCompany() {
           width="300"
           height="300"
           alt="verified tick"
+          className="w-3/4 lg:w-auto"
         />
       </div>
     </div>

@@ -72,6 +72,20 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 1.8rem;
+  }
+  .verified{
+    padding: 2rem;
+  }
+  .image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .heading {
     font-size: 1.5rem;

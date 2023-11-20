@@ -95,6 +95,7 @@ const AddFeed = (props) => {
           <div>
             <Image
               src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.profilePicture}`}
+              alt="profile picture"
               width={600}
               height={600}
               className="h-10 w-10 rounded-full object-fill"

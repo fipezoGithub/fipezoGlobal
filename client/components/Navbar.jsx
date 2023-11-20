@@ -36,14 +36,10 @@ export default function Navbar(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (
-            data.authData.user.phone === 9038578787 &&
-            !data.authData.user.location
-          )
+          if (data.user.phone === 9038578787 && !data.user.location)
             setIsAdmin(true);
-          if (data.authData.user.companyname)
-            props.setCompany(data.authData.user);
-          else props.setUser(data.authData.user);
+          if (data.user.companyname) props.setCompany(data.user);
+          else props.setUser(data.user);
           if (props.checkLoggedIn) props.checkLoggedIn(true);
         })
         .catch((error) => {
@@ -140,7 +136,7 @@ export default function Navbar(props) {
           <i className={styles.fipezo}>Fipezo</i>
         </Link>
       </div>
-      <div className="md:hidden flex gap-2">
+      <div className="lg:hidden flex gap-2">
         {(props.user || props.company) && (
           <Link
             href="/my_notifications"
@@ -158,8 +154,8 @@ export default function Navbar(props) {
           <RiMenu3Fill size={"2em"} />
         </button>
       </div>
-      <div className={styles.right + " hidden md:block"}>
-        <div className={styles.left + " sm:hidden"}>
+      <div className={styles.right + " hidden lg:block"}>
+        <div className={styles.left + " lg:hidden"}>
           <Link href="/">
             <i className={styles.fipezo}>Fipezo</i>
           </Link>
@@ -173,7 +169,7 @@ export default function Navbar(props) {
 
           <li className={styles.navElement}>
             <Link href="/jobs">
-              <span id={styles.home}>Browse Jobs&nbsp;&nbsp;</span>
+              <span id={styles.home}>Browse&nbsp;Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
 
@@ -295,14 +291,14 @@ export default function Navbar(props) {
           {isAdmin && (
             <li className={styles.navElement}>
               <Link href="/admin/dashboard" className={styles.navElement}>
-                Admin Panel
+                Admin&nbsp;Panel
               </Link>
             </li>
           )}
 
           {!props.user && !props.company && (
             <li className={styles.navElement}>
-              <Link href="/login">Log In</Link>
+              <Link href="/login">Log&nbsp;In</Link>
             </li>
           )}
 
@@ -506,15 +502,15 @@ export default function Navbar(props) {
         </ul>
       </div>
       <div
-        className={styles.right + " px-2 py-1 text-white md:hidden"}
+        className={styles.right + " px-2 py-1 text-white lg:hidden"}
         ref={sideNavRef}
       >
-        <div className="md:hidden absolute top-[1%] right-[2%] z-[1100]">
+        <div className="lg:hidden absolute top-[1%] right-[2%] z-[1100]">
           <button type="button" onClick={closeSideNav}>
             <RxCross2 color="white" size={"2rem"} />
           </button>
         </div>
-        <div className={styles.left + " md:hidden"}>
+        <div className={styles.left + " lg:hidden"}>
           <Link href="/">
             <i className={styles.fipezo}>Fipezo</i>
           </Link>
@@ -683,7 +679,7 @@ export default function Navbar(props) {
               onMouseEnter={() => setDisplay3("flex")}
               onMouseLeave={() => setDisplay3("none")}
             >
-              <span className="truncate md:w-5/6 capitalize">
+              <span className="truncate lg:w-5/6 w-auto capitalize">
                 {props.user && !props.company
                   ? `${props.user.firstname + " " + props.user.lastname}`
                   : ""}
@@ -923,7 +919,7 @@ export default function Navbar(props) {
                 alt="App Store"
                 width={143}
                 height={143}
-              ></Image>
+              />
             </Link>
           </div>
         </div>

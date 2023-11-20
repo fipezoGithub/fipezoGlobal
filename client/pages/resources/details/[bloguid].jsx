@@ -78,6 +78,20 @@ export default function Bloguid(props) {
     <>
       <Head>
         <title>Fipezo | {props.data.title}</title>
+        <meta name="description" content={props.data.bio}></meta>
+        <meta property="og:title" content={"Fipezo || " + props.data.title} />
+
+        <meta property="og:description" content={props.data.title} />
+
+        <meta
+          property="og:image"
+          content={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:image:type" content="image/*" />
+
+        <meta property="og:url" content="http://fipezo.com/" />
       </Head>
       <Navbar
         user={props.user}
@@ -111,7 +125,7 @@ export default function Bloguid(props) {
           </p>
           <div ref={bodyRef} className="text-lg"></div>
           <div className="flex items-center gap-4">
-            <span className="text-neutral-500">{props.data.view}</span>
+            <span className="text-neutral-500">{props.data.view} views</span>
             <button
               type="button"
               className="capitalize text-xl flex items-center gap-1"

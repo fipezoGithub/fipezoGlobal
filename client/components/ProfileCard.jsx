@@ -28,8 +28,6 @@ export default function ProfileCard(props) {
         <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}`}
           alt="cover picture"
-          // width={2000}
-          // height={2000}
           fill={true}
           style={{ objectPosition: position.coverPicture }}
           className="w-full h-24 absolute top-0 object-cover"

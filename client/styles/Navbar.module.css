@@ -218,6 +218,7 @@
 @media (max-width: 1100px) {
   .left {
     width: 35%;
+    margin-left: 0;
   }
 
   .navElement {
@@ -269,13 +270,6 @@
     margin-left: 0.2rem;
   }
 
-  .right {
-    width: auto;
-    padding-right: 1rem;
-    margin-right: 0.4rem;
-    transition: transform 0.4s;
-  }
-
   .navigations {
     height: 3rem;
   }
@@ -303,12 +297,8 @@
     padding: 0.45rem;
   }
 }
-@media (min-width: 641px) and (max-width: 767px) {
-  .right {
-    display: none;
-  }
-}
-@media (max-width: 767px) {
+
+@media (max-width: 1024px) {
   .right {
     position: fixed;
     flex-direction: column;
@@ -330,6 +320,49 @@
     justify-content: flex-start;
     align-items: flex-start;
   }
+  .navElement {
+    font-size: 1.4rem;
+    width: 100%;
+    border-bottom: 1px dashed;
+  }
+  .btn {
+    font-size: 0.85rem;
+    line-height: 1rem;
+  }
+  .dropDown {
+    position: static;
+    z-index: 10;
+    width: auto;
+  }
+  .profile_card {
+    position: static;
+    height: 26rem;
+    width: 32rem;
+  }
+  #user {
+    width: 100%;
+  }
+  .login {
+    font-size: 1.4rem;
+    border-bottom: 1px dashed;
+    background: transparent;
+    width: 100%;
+    border-radius: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  .mainText {
+    font-size: 1.2rem;
+  }
+  .subText {
+    font-size: 0.8rem;
+  }
+  .navElement:hover {
+    border-bottom: 1px dashed;
+  }
+}
+
+@media (max-width: 767px) {
   .navElement {
     font-size: 1.4rem;
     width: 100%;

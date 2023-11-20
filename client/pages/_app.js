@@ -94,7 +94,7 @@ export default function App({ Component, pageProps }) {
             property="og:description"
             content="Discover top freelance talent and job opportunities in India at Fipezo, your premier platform for connecting skilled freelancers with employers. Find the perfect match for your projects or hire your expertise today."
           />
-          <meta property="og:image" content="/favi.png" />
+          <meta property="og:image" content={`https://fipezo.com/favi.png`} />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta property="twitter:domain" content="fipezo.com" />

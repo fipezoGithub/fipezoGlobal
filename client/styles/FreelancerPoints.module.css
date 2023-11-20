@@ -123,11 +123,15 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
+  .heading {
+    font-size: 2.8rem;
+    margin-top: 1rem;
+  }
   .btn {
     width: auto;
   }
-  .text{
+  .text {
     width: auto;
   }
 }
