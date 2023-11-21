@@ -9,13 +9,25 @@ const RelatedBlogs = () => {
       try {
         const res = await fetch(`${process.env.SERVER_URL}/blog`);
         const blogs = await res.json();
-        setRelatedBlogs(blogs);
+        const shuffle = shuffleArray(blogs);
+        setRelatedBlogs(shuffle);
       } catch (error) {
         console.log(error);
       }
     }
     getAllBlogs();
   }, []);
+
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+
+    return array;
+  }
 
   const viewCount = async (id) => {
     try {
@@ -35,7 +47,7 @@ const RelatedBlogs = () => {
   return (
     <div>
       <h3 className="text-xl font-semibold">Related Posts</h3>
-      {relatedBlogs.map((item, index) => (
+      {relatedBlogs.slice(0, 6).map((item, index) => (
         <Link
           href={`/resources/details/${item.uid}`}
           onClick={() => viewCount(item._id)}

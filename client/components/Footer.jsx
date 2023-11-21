@@ -551,7 +551,7 @@ function Footer(props) {
           <div className={styles.google_play}>
             <Link href="/google_play">
               <Image
-                src="/google-play.png"
+                src="/google-play-btn.png"
                 alt="Google Play"
                 width={130}
                 height={130}

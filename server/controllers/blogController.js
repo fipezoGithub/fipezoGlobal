@@ -34,6 +34,7 @@ async function addBlog(req, res) {
       content: req.body.content,
       category: req.body.category,
       cover: resizedBlogImg.filename,
+      metaDescriptions: req.body.metaDescriptions,
     });
     const newBlog = await blogData.save();
     const filePromises = [];
@@ -65,6 +66,7 @@ async function getBlogById(req, res) {
     const blog = await blogCollection.findOne({ uid: req.params.blogid });
     if (!blog) {
       res.status(404).json({ message: "Blog not found" });
+      return;
     }
     res.status(200).json(blog);
   } catch (error) {

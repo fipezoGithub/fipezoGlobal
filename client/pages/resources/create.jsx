@@ -12,6 +12,7 @@ const Create = (props) => {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("featured");
   const [image, setImage] = useState("");
+  const [metaDescriptions, setMetaDescriptions] = useState("");
   const router = useRouter();
 
   const ReactQuill = useMemo(
@@ -101,7 +102,7 @@ const Create = (props) => {
       const data = new FormData();
       data.append(
         "uid",
-        title.split(" ").join("_") +
+        title.split(" ").join("_").split("?").join("_") +
           "_" +
           Math.ceil(Math.random() * 1000000000).toString(16)
       );
@@ -109,6 +110,7 @@ const Create = (props) => {
       data.append("content", content);
       data.append("category", category);
       data.append("cover", image);
+      data.append("metaDescriptions", metaDescriptions);
       const res = await fetch(`${process.env.SERVER_URL}/blog/create`, {
         method: "POST",
         body: data,
@@ -213,6 +215,19 @@ const Create = (props) => {
                 id="cover"
                 className="p-2"
                 onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
+            <div className="flex flex-col p-4 gap-4">
+              <label htmlFor="metaDescription" className="capitalize text-xl">
+                Meta Decsription
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Meta Description..."
+                id="metaDescription"
+                value={metaDescriptions}
+                onChange={(e) => setMetaDescriptions(e.target.value)}
+                className="focus:outline-none focus:border-b p-3"
               />
             </div>
           </div>

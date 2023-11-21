@@ -33,16 +33,31 @@ export default function Bloguid(props) {
     const type = JSON.parse(localStorage.getItem("type"));
     if (type !== "company") {
       if (
-        props.data.likeuser.includes(props.user?._id) ||
-        props.data.likefreelancer.includes(props.user?._id)
+        props.data.likeuser?.includes(props.user?._id) ||
+        props.data.likefreelancer?.includes(props.user?._id)
       ) {
         setIsLiked(true);
       }
     } else {
-      if (props.data.likecompany.includes(props.company?._id)) {
+      if (props.data.likecompany?.includes(props.company?._id)) {
         setIsLiked(true);
       }
     }
+    const viewCount = async (id) => {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/blog/viewcount`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        });
+        const view = await res.json();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    viewCount(props.data._id);
   }, []);
 
   const likePost = async (id) => {
@@ -81,7 +96,7 @@ export default function Bloguid(props) {
         <meta name="description" content={props.data.bio}></meta>
         <meta property="og:title" content={"Fipezo || " + props.data.title} />
 
-        <meta property="og:description" content={props.data.title} />
+        <meta property="og:description" content={props.data.metaDescriptions} />
 
         <meta
           property="og:image"
@@ -172,6 +187,7 @@ export default function Bloguid(props) {
           src="/blog-page-banner.png"
           width={1080}
           height={760}
+          alt="fipezo banner"
           className="w-full"
         />
       </div>
