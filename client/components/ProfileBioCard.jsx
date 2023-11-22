@@ -175,7 +175,7 @@ function ProfileBioCard(props) {
 
   return (
     <div className={styles.profile_bio_card}>
-      <div className={styles.profile_pic + " overflow-hidden cursor-pointer"}>
+      <div className={styles.profile_pic + " overflow-hidden"}>
         <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.freelancer.profilePicture}`}
           width={900}

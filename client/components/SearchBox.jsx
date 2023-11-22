@@ -2,6 +2,7 @@ import React from "react";
 import Router from "next/router";
 import { RiStore2Line } from "react-icons/ri";
 import { GoLocation } from "react-icons/go";
+import { IoIosArrowDown } from "react-icons/io";
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -122,27 +123,38 @@ class SearchBox extends React.Component {
     );
 
     return (
-      <div className="flex flex-col lg:flex-row my-4 bg-white lg:bg-inherit px-2 lg:px-0 py-2 lg:py-0 z-[900] shadow-md lg:shadow-none border-b lg:border-b-0 rounded-md lg:rounded-none gap-3 lg:gap-0">
+      <div className="flex flex-col lg:flex-row my-4 bg-white lg:bg-inherit px-2 lg:px-0 py-2 lg:py-0 z-[100] shadow-md lg:shadow-none border-b lg:border-b-0 rounded-md lg:rounded-none gap-3 lg:gap-0">
         <div className="relative flex flex-col items-start">
-          <div className="flex items-center bg-white px-2 lg:rounded-l-md border lg:border-0 rounded-md lg:rounded-none">
-            <RiStore2Line color="#000000" />
+          <div
+            className="flex items-center bg-white px-2 lg:px-4 lg:rounded-l-md border lg:border-r lg:border-0 rounded-md lg:rounded-none w-full lg:w-auto"
+            onClick={() => {
+              this.setState({ searchTerm: "" });
+              this.setState({
+                showDropDownCategory: !this.state.showDropDownCategory,
+              });
+              this.setState({ showDropDownCity: false });
+            }}
+          >
+            <RiStore2Line color="#bebebe" size={"1.5em"} />
             <input
               type="text"
               name=""
               value={this.state.searchTerm}
-              onClick={() =>
-                this.setState({
-                  showDropDownCategory: !this.state.showDropDownCategory,
-                })
-              }
-              onChange={(e) => this.setState({ searchTerm: e.target.value })}
+              onChange={(e) => {
+                this.setState({ searchTerm: e.target.value });
+                if (e.target.value.length > 0) {
+                  this.setState({ showDropDownCategory: true });
+                }
+              }}
               id="freelancer_category"
               placeholder="Enter freelancer category"
-              className="py-4 px-2 focus:outline-none lg:border-r placeholder:text-black"
+              className="py-4 px-2 focus:outline-none placeholder:text-black"
             />
+            <input type="text" disabled className="hidden lg:block w-20" />
+            <IoIosArrowDown color="#bebebe" size={"1.5em"} />
           </div>
           {showDropDownCategory === true && (
-            <div className="bg-white w-full z-[1100] h-40 overflow-hidden overflow-y-scroll">
+            <div className="bg-white w-full z-[1100] h-80 overflow-hidden overflow-y-scroll">
               {filteredOptions.length > 0 &&
                 filteredOptions.map((option, index) => {
                   let value = option;
@@ -169,10 +181,14 @@ class SearchBox extends React.Component {
                         this.setState({ searchTerm: option });
                         this.setState({ searchValue: value });
                         this.setState({ showDropDownCategory: false });
+                        if (this.state.cityTerm.length === 0) {
+                          this.setState({ showDropDownCity: true });
+                        }
                       }}
-                      className="text-left p-2 cursor-pointer"
+                      className="text-left p-2 cursor-pointer flex items-center gap-2 hover:bg-blue-100"
                       key={index}
                     >
+                      <RiStore2Line color="#bebebe" />
                       {option}
                     </p>
                   );
@@ -181,39 +197,90 @@ class SearchBox extends React.Component {
           )}
         </div>
         <div className="relative group">
-          <div className="flex items-center bg-white border lg:border-0 rounded-md lg:rounded-none px-2 lg:px-0">
-            <GoLocation color="#000000" />
+          <div className="flex items-center bg-white border lg:border-0 rounded-md lg:rounded-none px-4">
+            <GoLocation color="#bebebe" size={"1.5em"} />
             <input
               type="text"
               name=""
               id=""
               value={this.state.cityTerm}
-              onChange={(e) => this.setState({ cityTerm: e.target.value })}
-              onClick={() =>
+              onChange={(e) => {
+                this.setState({ cityTerm: e.target.value });
+                if (e.target.value.length > 0) {
+                  this.setState({ showDropDownCity: true });
+                }
+              }}
+              onClick={() => {
+                this.setState({ cityTerm: "" });
                 this.setState({
                   showDropDownCity: !this.state.showDropDownCity,
-                })
-              }
+                });
+                this.setState({ showDropDownCategory: false });
+              }}
               placeholder="Select city"
               className="py-4 px-2 focus:outline-none placeholder:text-black"
             />
+            <IoIosArrowDown color="#bebebe" size={"1.5em"} />
           </div>
           {showDropDownCity === true && (
-            <div className="bg-white w-full z-[1100] relative h-40 overflow-hidden overflow-y-scroll">
+            <div className="bg-white w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll">
+              <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold text-neutral-500">
+                major cities
+              </span>
               {filteredCity.length > 0 &&
                 filteredCity.map((option, index) => {
-                  return (
-                    <p
-                      onClick={() => {
-                        this.setState({ cityTerm: option });
-                        this.setState({ showDropDownCity: false });
-                      }}
-                      className="cursor-pointer text-left p-2"
-                      key={index}
-                    >
-                      {option}
-                    </p>
-                  );
+                  if (
+                    option === "Bengaluru" ||
+                    option === "Chennai" ||
+                    option === "Delhi" ||
+                    option === "Hyderabad" ||
+                    option === "Kolkata" ||
+                    option === "Mumbai" ||
+                    option === "Pune"
+                  ) {
+                    return (
+                      <p
+                        onClick={() => {
+                          this.setState({ cityTerm: option });
+                          this.setState({ showDropDownCity: false });
+                        }}
+                        className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100"
+                        key={index}
+                      >
+                        <GoLocation color="#bebebe" />
+                        {option}
+                      </p>
+                    );
+                  }
+                })}
+              <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold text-neutral-500">
+                other cities
+              </span>
+              {filteredCity.length > 0 &&
+                filteredCity.map((option, index) => {
+                  if (
+                    option !== "Bengaluru" &&
+                    option !== "Chennai" &&
+                    option !== "Delhi" &&
+                    option !== "Hyderabad" &&
+                    option !== "Kolkata" &&
+                    option !== "Mumbai" &&
+                    option !== "Pune"
+                  ) {
+                    return (
+                      <p
+                        onClick={() => {
+                          this.setState({ cityTerm: option });
+                          this.setState({ showDropDownCity: false });
+                        }}
+                        className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100"
+                        key={index}
+                      >
+                        <GoLocation color="#bebebe" />
+                        {option}
+                      </p>
+                    );
+                  }
                 })}
             </div>
           )}
@@ -222,9 +289,9 @@ class SearchBox extends React.Component {
           <button
             type="button"
             onClick={this.handleSearch}
-            className="bg-blue-600 text-white py-2 lg:py-4 px-2 capitalize font-semibold w-full lg:w-auto rounded-md lg:rounded-none lg:rounded-r-md"
+            className="bg-blue-600 text-white py-2 lg:py-4 px-8 lg:px-4 capitalize font-semibold w-full lg:w-auto rounded-md lg:rounded-none lg:rounded-r-md flex items-center text-base gap-2 justify-center lg:justify-normal"
           >
-            find freelancer &gt;
+            find freelancer
           </button>
         </div>
       </div>

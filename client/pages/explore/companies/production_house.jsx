@@ -343,9 +343,7 @@ function Explore(props) {
             )}
           </div>
         </div>
-        <div className={styles.footer}>
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </>
   );

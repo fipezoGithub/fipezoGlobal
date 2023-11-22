@@ -45,14 +45,14 @@ const ProfileSetting = (props) => {
         },
       });
       const freelancer = await res.json();
-      setProfilePicture(freelancer.authData.user.profilePicture);
-      setCoverPicture(freelancer.authData.user.coverPicture);
-      setEmail(freelancer.authData.user.email);
-      setLocation(freelancer.authData.user.location);
-      setRate(freelancer.authData.user.rate);
-      setBio(freelancer.authData.user.bio);
-      setEquipments(freelancer.authData.user.equipments);
-      setProfession(freelancer.authData.user.profession);
+      setProfilePicture(freelancer.user.profilePicture);
+      setCoverPicture(freelancer.user.coverPicture);
+      setEmail(freelancer.user.email);
+      setLocation(freelancer.user.location);
+      setRate(freelancer.user.rate);
+      setBio(freelancer.user.bio);
+      setEquipments(freelancer.user.equipments);
+      setProfession(freelancer.user.profession);
     }
     getFreelancer(token);
   }, []);

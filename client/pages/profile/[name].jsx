@@ -409,9 +409,7 @@ export default function Name(props) {
             />
           </div>
         </div>
-        <div className={styles.footer}>
           <Footer />
-        </div>
         <div>
           {clickedImg && (
             <Modal

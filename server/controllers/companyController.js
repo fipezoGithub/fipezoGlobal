@@ -135,7 +135,7 @@ async function editCompanyProfile(req, res) {
           300
         );
 
-        deletePromises.push(deleteFile(freelancerData.coverPicture));
+        deletePromises.push(deleteFile(user.coverPicture));
         filePromises.push(uploadFile(resizedCoverPicture));
       }
 
@@ -156,8 +156,6 @@ async function editCompanyProfile(req, res) {
         await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
         await unlinkFile(resizedCoverPicture.path);
       }
-
-      const updatedToken = jwt.sign(updatedUser, secret);
 
       res.status(200).json(updatedUser);
     });

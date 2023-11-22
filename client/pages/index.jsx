@@ -3,14 +3,13 @@ import Header from "../components/Header";
 import Categories from "../components/Categories";
 import Bio from "../components/Bio";
 import Featured from "../components/Featured";
-import Footer from "@/components/Footer";
 import VerifiedExplore from "@/components/VerifiedExplore";
 import Register from "@/components/Register";
 import FreelancerPoints from "@/components/FreelancerPoints";
 import BoxSection from "@/components/BoxSection";
 import VerifiedCompany from "@/components/VerifiedCompany";
 import Signupguide from "@/components/Signupguide";
-import Footer2 from "@/components/Footer2";
+import Footer from "@/components/Footer";
 
 export default function Index(props) {
   return (
@@ -38,8 +37,8 @@ export default function Index(props) {
       <div className="grey-container">
         <Featured />
       </div>
+      {/* <Footer /> */}
       <Footer />
-      {/* <Footer2 /> */}
     </div>
   );
 }

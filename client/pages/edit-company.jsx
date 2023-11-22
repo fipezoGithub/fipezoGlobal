@@ -46,12 +46,12 @@ const ProfileSetting = (props) => {
         },
       });
       const company = await res.json();
-      setUID(company.authData.user.uid);
-      setProfilePicture(company.authData.user.profilePicture);
-      setCoverPicture(company.authData.user.coverPicture);
-      setEmail(company.authData.user.companyemail);
-      setLocation(company.authData.user.location);
-      setBio(company.authData.user.bio);
+      setUID(company.user.uid);
+      setProfilePicture(company.user.profilePicture);
+      setCoverPicture(company.user.coverPicture);
+      setEmail(company.user.companyemail);
+      setLocation(company.user.location);
+      setBio(company.user.bio);
     }
     getFreelancer(token);
   }, []);

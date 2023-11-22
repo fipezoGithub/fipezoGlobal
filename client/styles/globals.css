@@ -15,6 +15,20 @@
   --shadow: 0 6px 27px 0 rgba(0, 3, 2, 0.08);
   --primary-blue: #00aaff;
 }
+.radar::after {
+  content: "";
+  height: 26px;
+  width: 26px;
+  margin: -5px 0 0 -5px;
+  position: absolute;
+  animation: pulsate 2s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  box-shadow: 0 0 1px 2px #ffda31;
+  animation-delay: 1.1s;
+  border-radius: 100%;
+}
+
 * {
   margin: 0%;
   padding: 0%;
@@ -206,5 +220,20 @@ input[type="number"] {
   }
   .overlay > button {
     right: -24px;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(0.1, 0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.1, 1.1);
+    opacity: 0;
   }
 }

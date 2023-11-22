@@ -2,7 +2,6 @@ import ProfileCard from "@/components/ProfileCard";
 import styles from "@/styles/Explore.module.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import SearchBox from "@/components/SearchBox";
 import Footer from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { BiFilter } from "react-icons/bi";
@@ -59,7 +58,7 @@ function Explore(props) {
       window.scrollTo(0, 0);
     }
   };
-  
+
   const handleSearch = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -622,9 +621,7 @@ function Explore(props) {
           )}
         </div>
       </div>
-      <div className={styles.footer}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

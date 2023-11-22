@@ -1,6 +1,7 @@
 import styles from "../styles/Header.module.css";
 import SearchBar from "../components/SearchBar";
 import React from "react";
+import SearchBox from "./SearchBox";
 
 class Header extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class Header extends React.Component {
           Hire Freelancer{" "}
           <span className={styles.AnimationText}>{currentText}</span> Nearby.
         </div>
-        <SearchBar border={false} />
+        <SearchBox border={false} />
       </div>
     );
   }
