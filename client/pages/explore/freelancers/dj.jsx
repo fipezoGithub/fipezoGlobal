@@ -58,7 +58,7 @@ function Explore(props) {
       window.scrollTo(0, 0);
     }
   };
-  
+
   const handleSearch = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -117,7 +117,7 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, []);
+  }, [searchQuery]);
 
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (
@@ -524,7 +524,7 @@ function Explore(props) {
         <div className={styles.main}>
           {final.length === 0 ? (
             <div className={styles.empty}>
-              <Image src="/nobody.webp" width={500} height={500} />
+              <Image src="/nobody.webp" width={500} height={500} alt="nobody" />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>
                 Try changing the filters or search for a different city.
@@ -544,17 +544,6 @@ function Explore(props) {
                       Back
                     </button>
                   )}
-                  {/* {Array.from({ length: pages }, (_, index) => ( */}
-                  {/* <div
-                    className={styles.page}
-                    style={
-                      currentPage === 1
-                        ? { backgroundColor: "black", color: "white" }
-                        : {}
-                    }
-                    // onClick={() => setCurrentPage(index + 1)}
-                    // key={index}
-                  > */}
                   {currentPage > 1 && (
                     <span
                       className={styles.page}
@@ -592,8 +581,6 @@ function Explore(props) {
                       {currentPage + 1}
                     </span>
                   )}
-                  {/* </div> */}
-                  {/* )).slice(0, 3)} */}
                   {currentPage < pages - 1 && (
                     <>
                       {"..."}
@@ -621,7 +608,7 @@ function Explore(props) {
           )}
         </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 }

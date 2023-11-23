@@ -41,7 +41,7 @@ const Jobuid = (props) => {
         setIsApplied(true);
       }
     });
-  }, []);
+  }, [props.data.appliedFreelancers,props.data.uid]);
 
   const applyJob = async (e) => {
     e.target.disabled = true;

@@ -111,7 +111,7 @@ const Dashboard = (props) => {
     fetchCompany();
     getCallbacks();
     fetchMessages();
-  }, []);
+  }, [props.user, router]);
 
   const updateFreelancers = (id) => {
     const newFreelancers = freelancers.filter((freelancer) => {
@@ -208,9 +208,7 @@ const Dashboard = (props) => {
                   contact request
                 </button>
               </li>
-              <li
-                className={`px-4 py-2`}
-              >
+              <li className={`px-4 py-2`}>
                 <Link
                   href="/resources/create"
                   className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
@@ -274,6 +272,7 @@ const Dashboard = (props) => {
                             src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.requestedUser.profilePicture}`}
                             width={120}
                             height={120}
+                            alt="callback requeted user"
                             className="w-12 lg:w-16"
                           />
                         </th>

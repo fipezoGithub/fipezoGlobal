@@ -865,6 +865,7 @@ async function getFreelancerByName(req, res) {
     const data = await freelancerCollection
       .find({
         firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+        verified: true,
       })
       .exec();
     // if (!data || data.length === 0) {

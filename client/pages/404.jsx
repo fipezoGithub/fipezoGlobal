@@ -22,6 +22,7 @@ const Custom404 = (props) => {
           height={600}
           width={600}
           className=""
+          alt="not found 404"
         />
         <p className="text-red-500 font-semibold lg:text-xl">
           OOPS!!! the url you looking for can not found

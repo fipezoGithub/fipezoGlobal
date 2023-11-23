@@ -26,9 +26,11 @@ async function createJob(req, res) {
       res.status(404).json({ message: "Not logged in" });
     } else {
       const newJob = new jobsCollection({
-        uid: `${req.body.title.split(" ").join("-")}-job-at-${
-          company.companyname
-        }-${company._id}`,
+        uid: `${req.body.title
+          .split(" ")
+          .join("-")}-job-at-${company.companyname.split(" ").join("-")}-${
+          company._id
+        }`,
         date: req.body.date,
         dueDate: req.body.dueDate,
         title: req.body.title,

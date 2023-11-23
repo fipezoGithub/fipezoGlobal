@@ -8,7 +8,7 @@ import { MdPersonAddAlt1, MdVerified } from "react-icons/md";
 const Signupguide = () => {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center mb-4 mt-24 gap-8">
-      <div className="p-2 lg:p-4 bg-[#2a2b2b] rounded-xl shadow-[--shadow]">
+      <div className="p-2 m-2 lg:m-0 lg:p-4 bg-[#2a2b2b] rounded-xl shadow-[--shadow]">
         <Image
           src="/Fipezo signup animation.gif"
           alt="signup animation"
@@ -17,8 +17,8 @@ const Signupguide = () => {
           className="w-96"
         />
       </div>
-      <div className="flex flex-col gap-4 mx-8 lg:mx-0 items-center lg:items-start">
-        <h2 className="text-3xl mt-1 font-semibold">
+      <div className="flex flex-col gap-4 mx-4 lg:mx-0 items-center lg:items-start">
+        <h2 className="text-xl lg:text-3xl mt-1 font-semibold">
           Join Fipezo For Free, Begin Your Freelance Journey
         </h2>
         <ul className="flex flex-col gap-6">

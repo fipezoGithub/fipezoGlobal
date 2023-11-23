@@ -120,7 +120,7 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, []);
+  }, [searchQuery]);
 
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (

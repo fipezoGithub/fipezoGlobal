@@ -34,13 +34,13 @@ export default function Login(props) {
     if (props.user || props.company) {
       router.push("/");
     }
-  }, []);
+  }, [props.company, props.user, router]);
 
   useEffect(() => {
     if (count === 0) {
       clearInterval(timerId);
     }
-  }, [count]);
+  }, [count, timerId]);
 
   useEffect(() => {
     async function getGoogleData() {
@@ -94,7 +94,7 @@ export default function Login(props) {
     if (googleToken) {
       getGoogleData();
     }
-  }, [googleToken]);
+  }, [googleToken, router, type]);
 
   const startCountdown = () => {
     setCount(30);
@@ -295,6 +295,7 @@ export default function Login(props) {
                   >
                     <Image
                       src="/client_register.png"
+                      alt="client register"
                       width={600}
                       height={600}
                       className="w-20 invert"
@@ -322,6 +323,7 @@ export default function Login(props) {
                   >
                     <Image
                       src="/freelancer_register.png"
+                      alt="freelancer register"
                       width={600}
                       height={600}
                       className="w-20 invert"

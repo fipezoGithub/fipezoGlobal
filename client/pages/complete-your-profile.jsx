@@ -23,12 +23,11 @@ const CompleteYourProfile = (props) => {
   const [warns, setWarns] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  console.log(props);
   useEffect(() => {
     if (!props.user || !props.user.uid || props.user.profilePicture) {
       router.push("/");
     }
-  }, []);
+  }, [props.user, router]);
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);

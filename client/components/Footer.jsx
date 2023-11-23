@@ -341,16 +341,24 @@ const Footer = () => {
                   <Link href="/faqs">FAQs</Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/guides_and_reviews">Rate our services</Link>
+                  <Link
+                    href="https://www.facebook.com/fipezo/reviews/?id=100094694632348&sk=reviews"
+                    target="_blank"
+                  >
+                    Rate our services
+                  </Link>
                 </li>
               </ul>
               <ul className="flex flex-col items-start gap-2">
                 <p className="capitalize text-xl font-bold">useful links</p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/terms_and_conditions">refer &amp; earn</Link>
+                  <Link href="/referandearn">refer &amp; earn</Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/site">sitemap</Link>
+                  <Link href="/sitemap">sitemap</Link>
+                </li>
+                <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
+                  <Link href="/submit_your_city">submit your city</Link>
                 </li>
               </ul>
             </div>

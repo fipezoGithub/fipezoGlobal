@@ -51,7 +51,7 @@ const Companyname = (props) => {
     if (props.user !== null && props.user?.uid === uid) {
       router.push("/freelancer_profile");
     }
-  }, [props.user]);
+  }, [props.user,router]);
 
   const checkLoggedIn = (val) => {
     setLoggedIn(val);

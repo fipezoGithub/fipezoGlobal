@@ -91,7 +91,7 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, []);
+  }, [searchQuery]);
   const filteredCompanies = companies.filter((freelancer) => {
     if (
       !showphotography &&

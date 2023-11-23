@@ -170,6 +170,16 @@ const {
   viewCount,
 } = require("./controllers/blogController");
 const blogCoverPic = require("./middlewares/blogCover");
+const {
+  requestCityRaise,
+  getAllRequests,
+  deleteCityRequest,
+} = require("./controllers/requestController");
+const {
+  createReport,
+  getAllReports,
+  updateStatusReport,
+} = require("./controllers/reportController");
 
 // Setting up the routes
 
@@ -339,6 +349,16 @@ app.post("/api/blog/viewcount", viewCount);
 app.get("/api/blog/category/:category", getBlogsByCategory);
 app.post("/api/blog/search", getBlogsByTitle);
 app.put("/api/blog/:blogid", verifyToken, likeBlog);
+
+//Report Routes
+app.post("/api/report", verifyToken, createReport);
+app.get("/api/report", verifyToken, getAllReports);
+app.put("/api/report/:repId", verifyToken, updateStatusReport);
+
+//Request Routes
+app.post("/api/request", requestCityRaise);
+app.get("/api/request", getAllRequests);
+app.delete("/api/request/:requestid", deleteCityRequest);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

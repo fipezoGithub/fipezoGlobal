@@ -118,7 +118,7 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, []);
+  }, [searchQuery]);
 
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (
@@ -598,8 +598,6 @@ function Explore(props) {
                       {currentPage + 1}
                     </span>
                   )}
-                  {/* </div> */}
-                  {/* )).slice(0, 3)} */}
                   {currentPage < pages - 1 && (
                     <>
                       {"..."}

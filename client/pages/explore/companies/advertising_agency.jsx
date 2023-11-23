@@ -58,7 +58,6 @@ function Explore(props) {
             { cache: "no-store" }
           );
           const data = await response.json();
-          console.log(data);
           setCompanies(data);
           if (window.innerWidth < 640) {
             setNoOfPages(Math.ceil(data.length / 10));
@@ -91,7 +90,7 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, []);
+  }, [searchQuery]);
   const filteredCompanies = companies.filter((freelancer) => {
     if (
       !showphotography &&

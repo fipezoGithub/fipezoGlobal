@@ -4,10 +4,11 @@ import { RWebShare } from "react-web-share";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoLocationSharp } from "react-icons/io5";
-import { FaShareSquare, FaStar } from "react-icons/fa";
+import { FaFontAwesomeFlag, FaShareSquare, FaStar } from "react-icons/fa";
 import FreelancerEditBox from "@/components/FreelancerEditBox";
 import { AiOutlineThunderbolt, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
+import ReportModal from "./ReportModal";
 
 function ProfileBioCard(props) {
   const links = JSON.parse(props.freelancer.links);
@@ -353,22 +354,30 @@ function ProfileBioCard(props) {
           {props.freelancer.equipments}
         </p>
       </div>
-      <RWebShare
-        data={{
-          text:
-            "Share the profile of " +
-            props.freelancer.firstname +
-            " " +
-            props.freelancer.lastname +
-            " on your social media!",
-          url: url,
-          title: "Fipezo",
-        }}
-      >
-        <button className={styles.share}>
-          <FaShareSquare style={{ color: "white" }} /> Share Profile
-        </button>
-      </RWebShare>
+      <div className="flex items-center justify-between gap-4 mb-6">
+        <RWebShare
+          data={{
+            text:
+              "Share the profile of " +
+              props.freelancer.firstname +
+              " " +
+              props.freelancer.lastname +
+              " on your social media!",
+            url: url,
+            title: "Fipezo",
+          }}
+        >
+          <button className="bg-black text-white flex items-center p-2 text-lg gap-4 px-4 rounded-lg">
+            <FaShareSquare style={{ color: "white" }} /> Share Profile
+          </button>
+        </RWebShare>
+        {/* <button
+          type="button"
+          className="flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg"
+        >
+          <FaFontAwesomeFlag /> report
+        </button> */}
+      </div>
       {showEditBox && (
         <div className="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2">
           <FreelancerEditBox
@@ -389,6 +398,7 @@ function ProfileBioCard(props) {
           showModalAs={showModalAs}
         />
       )}
+      {/* <ReportModal /> */}
     </div>
   );
 }

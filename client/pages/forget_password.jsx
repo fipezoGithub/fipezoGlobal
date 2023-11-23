@@ -236,7 +236,7 @@ const Forget_password = (props) => {
           )}
         </div>
         <div className="relative hidden md:block">
-          <Image src="/Forgot password-amico.png" width={600} height={600} />
+          <Image src="/Forgot password-amico.png" width={600} height={600} alt="forget password" />
         </div>
       </div>
       <Footer />

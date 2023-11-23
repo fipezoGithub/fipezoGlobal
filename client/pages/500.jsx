@@ -22,6 +22,7 @@ export default function Custom500(props) {
           height={600}
           width={600}
           className=""
+          alt="internal server error"
         />
         <p className="text-red-500 font-semibold lg:text-xl">
           OOPS!!! an error has been encountered

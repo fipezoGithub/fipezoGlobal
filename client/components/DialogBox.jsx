@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import styles from "../styles/DialogBox.module.css";
 import { BsCheckCircleFill } from "react-icons/bs";
 
 function DialogBox(props) {
+  const router = useRouter();
   return (
     <div className={styles.box}>
       <div className={styles.container}>
@@ -15,7 +17,12 @@ function DialogBox(props) {
         <div className={styles.btnBox}>
           <button
             className={styles.btn}
-            onClick={() => props.handleDialogBox(false)}
+            onClick={() => {
+              props.handleDialogBox(false);
+              if (props.home && props.home === true) {
+                router.push("/");
+              }
+            }}
           >
             OK
           </button>
