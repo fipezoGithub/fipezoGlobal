@@ -246,7 +246,7 @@ function Verification(props) {
           <p className={styles.warn}>File size exceeds maximum limit of 10mb</p>
         )}
       </div>
-      <div className={styles.uploads}>
+      {/* <div className={styles.uploads}>
         <div className="flex flex-col md:block gap-1 relative">
           <label className={styles.box}>
             <AiOutlinePlus style={{ color: "white" }} />
@@ -297,7 +297,7 @@ function Verification(props) {
             )}
           </label>
         </div>
-      </div>
+      </div> */}
       <div className={styles.socials}>
         <label className={styles.social}>
           Facebook : <br />

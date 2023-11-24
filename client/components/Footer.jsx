@@ -10,13 +10,20 @@ const Footer = () => {
   const [showHyderabad, setShowHyderabad] = useState(false);
   const [showKolkata, setShowKolkata] = useState(false);
   const [showMumbai, setShowMumbai] = useState(false);
+  const [showAmritsar, setShowAmritsar] = useState(false);
+  const [showGuwahati, setShowGuwahati] = useState(false);
+  const [showAhemdabad, setShowAhemdabad] = useState(false);
 
   return (
     <footer className="bg-black text-white w-full pt-4 lg:pt-8">
       <div className="flex flex-col mx-4">
-        <div className="lg:ml-4 mb-4">
+        <div className="lg:ml-4 mb-4 flex items-center gap-2">
           <Link className="text-4xl" href="/">
             <i style={{ fontWeight: "800", letterSpacing: "-0.5px" }}>Fipezo</i>
+            <i className="text-2xl font-semibold not-italic">
+              {" "}
+              | Cities we are currently operating
+            </i>
           </Link>
         </div>
         <div className="flex flex-col lg:flex-row items-start justify-around gap-4 lg:gap-0">
@@ -34,7 +41,7 @@ const Footer = () => {
                 onMouseLeave={() => setShowKolkata(false)}
               ></span>
               {showKolkata === true && (
-                <span className="absolute top-[50%] right-[16%] lg:right-[21%] capitalize font-semibold text-sm">
+                <span className="absolute top-[50%] right-[16%] lg:right-[18%] capitalize font-bold text-sm lg:text-lg">
                   kolkata
                 </span>
               )}
@@ -44,7 +51,7 @@ const Footer = () => {
                 onMouseLeave={() => setShowDelhi(false)}
               ></span>
               {showDelhi === true && (
-                <span className="absolute top-[33%] right-[42%] lg:right-[49%] capitalize font-semibold text-sm">
+                <span className="absolute top-[33%] right-[42%] lg:right-[45%] capitalize font-bold text-sm lg:text-lg">
                   new delhi
                 </span>
               )}
@@ -54,7 +61,7 @@ const Footer = () => {
                 onMouseLeave={() => setShowBengaluru(false)}
               ></span>
               {showBengaluru === true && (
-                <span className="absolute top-[79%] right-[48%] lg:right-[54%] capitalize font-semibold text-sm">
+                <span className="absolute top-[79%] right-[48%] lg:right-[50%] capitalize font-bold text-sm lg:text-lg">
                   bangalore
                 </span>
               )}
@@ -64,7 +71,7 @@ const Footer = () => {
                 onMouseLeave={() => setShowChennai(false)}
               ></span>
               {showChennai === true && (
-                <span className="absolute top-[70%] right-[34%] lg:right-[40%] capitalize font-semibold text-sm">
+                <span className="absolute top-[70%] right-[34%] lg:right-[36%] capitalize font-bold text-sm lg:text-lg">
                   Chennai
                 </span>
               )}
@@ -74,7 +81,7 @@ const Footer = () => {
                 onMouseLeave={() => setShowHyderabad(false)}
               ></span>
               {showHyderabad === true && (
-                <span className="absolute top-[62%] right-[36%] lg:right-[43%] capitalize font-semibold text-sm">
+                <span className="absolute top-[62%] right-[36%] lg:right-[38%] capitalize font-bold text-sm lg:text-lg">
                   hyderabad
                 </span>
               )}
@@ -84,8 +91,38 @@ const Footer = () => {
                 onMouseLeave={() => setShowMumbai(false)}
               ></span>
               {showMumbai === true && (
-                <span className="absolute top-[67%] lg:top-[65%] right-[62%] lg:right-[67%] capitalize font-semibold text-sm">
+                <span className="absolute top-[67%] lg:top-[65%] right-[62%] lg:right-[64%] capitalize font-bold text-sm lg:text-lg">
                   mumbai
+                </span>
+              )}
+              <span
+                className="absolute top-[25%] right-[75%] w-4 h-4 bg-yellow-500 rounded-full peer radar"
+                onMouseEnter={() => setShowAmritsar(true)}
+                onMouseLeave={() => setShowAmritsar(false)}
+              ></span>
+              {showAmritsar === true && (
+                <span className="absolute top-[25%] lg:top-[24%] right-[56%] lg:right-[58%] capitalize font-bold text-sm lg:text-lg">
+                  amritsar
+                </span>
+              )}
+              <span
+                className="absolute top-[45%] right-[15%] w-4 h-4 bg-yellow-500 rounded-full peer radar"
+                onMouseEnter={() => setShowGuwahati(true)}
+                onMouseLeave={() => setShowGuwahati(false)}
+              ></span>
+              {showGuwahati === true && (
+                <span className="absolute top-[50%] lg:top-[44%] right-[0%] lg:-right-[4%] capitalize font-bold text-sm lg:text-lg">
+                  guwahati
+                </span>
+              )}
+              <span
+                className="absolute top-[50%] right-[82%] w-4 h-4 bg-yellow-500 rounded-full peer radar"
+                onMouseEnter={() => setShowAhemdabad(true)}
+                onMouseLeave={() => setShowAhemdabad(false)}
+              ></span>
+              {showAhemdabad === true && (
+                <span className="absolute top-[50%] lg:top-[49%] right-[56%] lg:right-[59%] capitalize font-bold text-sm lg:text-lg">
+                  ahemdabad
                 </span>
               )}
             </div>

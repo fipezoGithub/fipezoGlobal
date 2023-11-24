@@ -21,6 +21,7 @@ function ProfileBioCard(props) {
   const [showFollowingFollowerBox, setShowFollowingFollowerBox] =
     useState(false);
   const [loveError, setLoveError] = useState(false);
+  const [showReportBox, setShowReportBox] = useState(false);
   const router = useRouter();
   useEffect(() => {
     if (props.user?.following?.includes(props.freelancer._id)) {
@@ -371,12 +372,13 @@ function ProfileBioCard(props) {
             <FaShareSquare style={{ color: "white" }} /> Share Profile
           </button>
         </RWebShare>
-        {/* <button
+        <button
           type="button"
+          onClick={() => setShowReportBox(true)}
           className="flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg"
         >
           <FaFontAwesomeFlag /> report
-        </button> */}
+        </button>
       </div>
       {showEditBox && (
         <div className="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2">
@@ -398,7 +400,12 @@ function ProfileBioCard(props) {
           showModalAs={showModalAs}
         />
       )}
-      {/* <ReportModal /> */}
+      {showReportBox === true && (
+        <ReportModal
+          setShowReportBox={setShowReportBox}
+          freelancer={props.freelancer}
+        />
+      )}
     </div>
   );
 }

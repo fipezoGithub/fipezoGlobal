@@ -27,7 +27,7 @@ const CompleteYourProfile = (props) => {
     if (!props.user || !props.user.uid || props.user.profilePicture) {
       router.push("/");
     }
-  }, [props.user, router]);
+  }, []);
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);
