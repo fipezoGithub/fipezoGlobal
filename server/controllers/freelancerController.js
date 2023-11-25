@@ -55,7 +55,18 @@ async function registerFreelancer(req, res) {
     } else {
       referalUID = null;
     }
+    const resizedProfilePicture = await resizeImage(
+      req.files["profilePicture"][0],
+      2272,
+      1704
+    );
 
+    const resizedCoverPicture = await resizeImage(
+      req.files["coverPicture"][0],
+      2272,
+      1704
+    );
+    const filePromises = [];
     const freelancerData = new freelancerCollection({
       uid: req.body.uid,
       firstname: req.body.firstname,
@@ -66,21 +77,27 @@ async function registerFreelancer(req, res) {
       email: req.body.email,
       password: req.body.password,
       rate: req.body.rate,
+      profilePicture: resizedProfilePicture.filename,
+      coverPicture: resizedCoverPicture?.filename,
       followers: [],
       following: [],
-
+      bio: req.body.bio,
       pictureStyle: req.body.pictureStyle,
-
+      equipments: req.body.equipments,
       rating: 0,
       reviewCount: 0,
       reviews: [],
       joinByRefaralId: [],
       createdReferalId: null,
       usedReferalId: referalUID,
-
       featured: false,
       verified: false,
     });
+
+    filePromises.push(uploadFile(resizedProfilePicture));
+    filePromises.push(uploadFile(resizedCoverPicture));
+
+    await Promise.all(filePromises);
 
     const newFreelancer = await freelancerData.save();
     const referID = await new referCollection({
@@ -120,7 +137,10 @@ async function registerFreelancer(req, res) {
     //     unlinkFile(file.path);
     //   });
     // }
-
+    await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
+    await unlinkFile(resizedProfilePicture.path);
+    await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
+    await unlinkFile(resizedCoverPicture.path);
     const user = await freelancerCollection.findOne({
       phone: req.body.phone,
     });
@@ -153,18 +173,6 @@ async function verificationProfile(req, res) {
         res.status(400).send("User already verified");
         return;
       }
-
-      const resizedProfilePicture = await resizeImage(
-        req.files["profilePicture"][0],
-        400,
-        300
-      );
-
-      const resizedCoverPicture = await resizeImage(
-        req.files["coverPicture"][0],
-        2272,
-        1704
-      );
 
       let resizedAadhaarCard;
 
@@ -219,8 +227,6 @@ async function verificationProfile(req, res) {
         {
           bio: req.body.bio,
           equipments: req.body.equipments,
-          profilePicture: resizedProfilePicture.filename,
-          coverPicture: resizedCoverPicture.filename,
           aadhaarCard: resizedAadhaarCard?.filename || null,
           panCard: resizedPanCard?.filename || null,
           works: worksToStore,
@@ -230,8 +236,6 @@ async function verificationProfile(req, res) {
       );
 
       const filePromises = [];
-      filePromises.push(uploadFile(resizedProfilePicture));
-      filePromises.push(uploadFile(resizedCoverPicture));
       if (req.files["aadhaarCard"]) {
         filePromises.push(uploadFile(resizedAadhaarCard));
       }
@@ -261,16 +265,12 @@ async function verificationProfile(req, res) {
 
       await Promise.all(filePromises);
 
-      await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
-      await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
       if (req.files["aadhaarCard"]) {
         await unlinkFile("uploads/" + req.files["aadhaarCard"][0].filename);
       }
       if (req.files["panCard"]) {
         await unlinkFile("uploads/" + req.files["panCard"][0].filename);
       }
-      await unlinkFile(resizedProfilePicture.path);
-      await unlinkFile(resizedCoverPicture.path);
       if (req.files["aadhaarCard"]) {
         await unlinkFile(resizedAadhaarCard.path);
       }

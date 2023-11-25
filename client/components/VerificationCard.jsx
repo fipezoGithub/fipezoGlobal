@@ -125,14 +125,14 @@ function VerificationCard(props) {
         <div
           className={styles.cover}
           style={{
-            backgroundImage: `url("https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}")`,
+            backgroundImage: `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}')`,
           }}
         ></div>
         <div className={styles.profileImg}>
           <div
             className={styles.image}
             style={{
-              backgroundImage: `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.profilePicture})`,
+              backgroundImage: `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.profilePicture}')`,
             }}
           ></div>
         </div>

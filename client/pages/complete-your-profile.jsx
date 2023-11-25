@@ -24,7 +24,7 @@ const CompleteYourProfile = (props) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    if (!props.user || !props.user.uid || props.user.profilePicture) {
+    if (!props.user || !props.user.uid || props.user.works.length > 0) {
       router.push("/");
     }
   }, []);
@@ -106,20 +106,20 @@ const CompleteYourProfile = (props) => {
       : null;
     try {
       const data = new FormData();
-      data.append("bio", bio);
-      data.append("equipments", equipments);
-      data.append("profilePicture", profilePicture);
-      data.append("coverPicture", coverPicture);
       data.append("aadhaarCard", aadhaarCard);
       data.append("panCard", panCard);
-      data.append("works[]", works[0]);
-      data.append("works[]", works[1]);
-      data.append("works[]", works[2]);
-      data.append("works[]", works[3]);
-      data.append("works[]", works[4]);
-      data.append("works[]", works[5]);
-      data.append("works[]", works[6]);
-      data.append("works[]", works[7]);
+      if (works.length > 0) {
+        works.forEach((element) => {
+          data.append("works[]", element);
+        });
+        // data.append("works[]", works[1]);
+        // data.append("works[]", works[2]);
+        // data.append("works[]", works[3]);
+        // data.append("works[]", works[4]);
+        // data.append("works[]", works[5]);
+        // data.append("works[]", works[6]);
+        // data.append("works[]", works[7]);
+      }
       data.append("links", JSON.stringify(links));
       data.append("termsAndConditions", termsAndConditions);
       const response = await fetch(

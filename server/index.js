@@ -231,7 +231,7 @@ app.put(
 );
 
 //FreelancerController Routes
-app.post("/api/register/freelancer", verifyToken, registerFreelancer);
+app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
 app.get("/api/profile/freelancer/:uid", getFreelancerProfile);
 app.get("/api/profiles/verified/freelancer", getFreelancerProfiles);
 app.get(

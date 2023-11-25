@@ -98,9 +98,8 @@ function Freelancer_Profile(props) {
         .then((res) => res.json())
         .then((data) => {
           setFreelancer(data);
-          !data.email && setUpdatePopup(true);
-          setPicturePosition(JSON.parse(data.pictureStyle));
           setIsFreelancerLoaded(true);
+          !data.email && setUpdatePopup(true);
         })
         .catch((error) => {
           console.error(error);
@@ -173,13 +172,12 @@ function Freelancer_Profile(props) {
       />
       {/* <div className='w-full'><Link className={styles.btn} style={{width: '100%'}} id={styles.hire} href='/my_requests'>My Requests</Link></div> */}
       <div className={styles.profile_details}>
-        {freelancer.links && (
-          <ProfileBioCard
-            freelancer={freelancer}
-            handleClick={handleClick}
-            user={props.user}
-          />
-        )}
+        <ProfileBioCard
+          freelancer={freelancer}
+          handleClick={handleClick}
+          user={props.user}
+        />
+
         {isFreelancerLoaded && (
           <Details
             profession={freelancer.profession}

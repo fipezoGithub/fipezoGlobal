@@ -178,7 +178,7 @@ function Verification(props) {
       <p className={styles.subTitle}>
         You&apos;re almost there! Just a final step to complete your profile.
       </p>
-      <div
+      {/* <div
         className={styles.imageFields}
         id={styles.cover}
         style={{
@@ -201,7 +201,6 @@ function Verification(props) {
           onChange={(e) => handleImageChange(e, 5)}
           accept="image/jpeg,image/png"
           name="coverPicture"
-          required
         />
         {props.coverPicError && (
           <p className={styles.warn}>Please Provide Cover Picture</p>
@@ -237,7 +236,6 @@ function Verification(props) {
           onChange={(e) => handleImageChange(e, 4)}
           accept="image/jpeg,image/png"
           name="profilePicture"
-          required
         />
         {props.profilePicError && (
           <p className={styles.warn}>Please Provide Profile Picture</p>
@@ -245,7 +243,7 @@ function Verification(props) {
         {props.warns[0] && (
           <p className={styles.warn}>File size exceeds maximum limit of 10mb</p>
         )}
-      </div>
+      </div> */}
       {/* <div className={styles.uploads}>
         <div className="flex flex-col md:block gap-1 relative">
           <label className={styles.box}>
@@ -310,7 +308,6 @@ function Verification(props) {
               setLinks({ ...links, facebook: e.target.value });
             }}
             value={links.facebook}
-            required
           />
           <span className={styles.mandatory}>
             <s>*</s> This field is mandatory
@@ -327,7 +324,6 @@ function Verification(props) {
               setLinks({ ...links, instagram: e.target.value });
             }}
             value={links.instagram}
-            required
           />
           <span className={styles.mandatory}>
             <s>*</s> This field is mandatory
@@ -360,13 +356,13 @@ function Verification(props) {
           />
         </label>
       </div>
-      <h1 className={styles.heading}>
+      {/* <h1 className={styles.heading}>
         Tell us about yourself
         {props.worksError && (
           <p className={styles.err}>Please Provide atleast 8 Works for you</p>
         )}
-      </h1>
-      <div className="flex items-center justify-between w-full gap-6 mb-12">
+      </h1> */}
+      {/* <div className="flex items-center justify-between w-full gap-6 mb-12">
         <div className="flex flex-col gap-2 w-full relative">
           <label htmlFor="bio" className={styles.social}>
             <span className="text-red-500">* </span>Bio :
@@ -375,7 +371,6 @@ function Verification(props) {
             {props.bio.length}/200
           </span>
           <textarea
-            required
             name="bio"
             id="bio"
             maxLength={200}
@@ -397,7 +392,6 @@ function Verification(props) {
               {props.equipments.length}/200
             </span>
             <textarea
-              required
               name="equipments"
               id="equipments"
               value={props.equipments}
@@ -419,7 +413,6 @@ function Verification(props) {
               {props.equipments.length}/200
             </span>
             <textarea
-              required
               name="equipments"
               id="products"
               maxLength={200}
@@ -445,7 +438,6 @@ function Verification(props) {
               {props.equipments.length}/200
             </span>
             <textarea
-              required
               name="equipments"
               id="products"
               maxLength={200}
@@ -469,7 +461,6 @@ function Verification(props) {
               {props.equipments.length}/200
             </span>
             <textarea
-              required
               name="equipments"
               id="equipments"
               value={props.equipments}
@@ -490,7 +481,6 @@ function Verification(props) {
               {props.equipments.length}/200
             </span>
             <textarea
-              required
               name="equipments"
               id="equipments"
               maxLength={200}
@@ -502,7 +492,7 @@ function Verification(props) {
             ></textarea>
           </div>
         )}
-      </div>
+      </div> */}
       <h1 className={styles.heading}>
         Add Your Works
         {props.worksError && (
@@ -530,7 +520,6 @@ function Verification(props) {
               id="workimg1"
               onChange={(e) => handleImageChange(e, 0)}
               accept="image/jpeg,image/png"
-              required
             />
             {!images[0] && (
               <label htmlFor="workimg1" className="cursor-pointer">
@@ -558,7 +547,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 1)}
               accept="image/jpeg,image/png"
               id="workimg2"
-              required
             />
             {!images[1] && (
               <label htmlFor="workimg2" className="cursor-pointer">
@@ -586,7 +574,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 2)}
               accept="image/jpeg,image/png"
               id="workimg3"
-              required
             />
             {!images[2] && (
               <label htmlFor="workimg3" className="cursor-pointer">
@@ -614,7 +601,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 3)}
               accept="image/jpeg,image/png"
               id="workimg4"
-              required
             />
             {!images[3] && (
               <label htmlFor="workimg4" className="cursor-pointer">
@@ -642,7 +628,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 8)}
               accept="image/jpeg,image/png"
               id="workimg5"
-              required
             />
             {!images[8] && (
               <label htmlFor="workimg5" className="cursor-pointer">
@@ -670,7 +655,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 9)}
               accept="image/jpeg,image/png"
               id="workimg6"
-              required
             />
             {!images[9] && (
               <label htmlFor="workimg6" className="cursor-pointer">
@@ -698,7 +682,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 10)}
               accept="image/jpeg,image/png"
               id="workimg7"
-              required
             />
             {!images[10] && (
               <label htmlFor="workimg7" className="cursor-pointer">
@@ -726,7 +709,6 @@ function Verification(props) {
               onChange={(e) => handleImageChange(e, 11)}
               accept="image/jpeg,image/png"
               id="workimg8"
-              required
             />
             {!images[11] && (
               <label htmlFor="workimg8" className="cursor-pointer">
@@ -765,7 +747,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -782,7 +763,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -799,7 +779,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -816,7 +795,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <div
             className={styles.addBox}
@@ -829,7 +807,6 @@ function Verification(props) {
               className={styles.work}
               onChange={(e) => handleImageChange(e, 8)}
               accept="image/jpeg,image/png"
-              required
             />
             {!images[8] && (
               <AiOutlinePlus
@@ -854,7 +831,6 @@ function Verification(props) {
               className={styles.work}
               onChange={(e) => handleImageChange(e, 9)}
               accept="image/jpeg,image/png"
-              required
             />
             {!images[9] && (
               <AiOutlinePlus
@@ -879,7 +855,6 @@ function Verification(props) {
               className={styles.work}
               onChange={(e) => handleImageChange(e, 10)}
               accept="image/jpeg,image/png"
-              required
             />
             {!images[10] && (
               <AiOutlinePlus
@@ -904,7 +879,6 @@ function Verification(props) {
               className={styles.work}
               onChange={(e) => handleImageChange(e, 11)}
               accept="image/jpeg,image/png"
-              required
             />
             {!images[11] && (
               <AiOutlinePlus
@@ -938,7 +912,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -955,7 +928,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -972,7 +944,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -989,7 +960,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -1006,7 +976,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -1023,7 +992,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -1040,7 +1008,6 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
           <input
             type="url"
@@ -1057,14 +1024,12 @@ function Verification(props) {
                 e.target.placeholder = "url must be a youtube link";
               }
             }}
-            required
           />
         </div>
       )}
       <div className={styles.check}>
         <input
           type="checkbox"
-          required
           checked={termsAndConditions}
           className={styles.checkbox}
           onChange={(e) => {

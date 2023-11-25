@@ -51,7 +51,13 @@ async function getAllReports(req, res) {
         res.status(404).send("Admin not found");
       }
 
-      const reports = await reportCollection.find({});
+      const reports = await reportCollection
+        .find({})
+        .populate("createdFreelancer")
+        .populate("createdUser")
+        .populate("createdCompany")
+        .populate("acceptedFreelancer")
+        .exec();
       res.status(200).json(reports);
     });
   } catch (error) {

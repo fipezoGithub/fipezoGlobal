@@ -40,6 +40,7 @@ export default withRouter(
         aadhaarCard: null,
         panCard: null,
         works: [],
+        images: [],
         links: { instagram: "", facebook: "", twitter: "", youtube: "" },
         usedReferalId: "",
         termsAndConditions: true,
@@ -105,7 +106,7 @@ export default withRouter(
     };
 
     increProgress = (val) => {
-      if (this.state.progress + val > 100) {
+      if (this.state.progress + val > 121) {
         return;
       }
 
@@ -176,38 +177,38 @@ export default withRouter(
         return;
       }
 
-      // if (
-      //   (this.state.bio.length > 300 || this.state.bio.length < 50) &&
-      //   this.state.currentPage === 8
-      // ) {
-      //   this.setState({ textareaError: true });
-      //   return;
-      // }
+      if (
+        (this.state.bio.length > 200 || this.state.bio.length < 50) &&
+        this.state.currentPage === 10
+      ) {
+        this.setState({ textareaError: true });
+        return;
+      }
 
-      // if (this.state.bio === "" && this.state.currentPage === 8) {
-      //   this.setState({ error: true });
-      //   return;
-      // }
+      if (this.state.bio === "" && this.state.currentPage === 10) {
+        this.setState({ error: true });
+        return;
+      }
 
-      // if (
-      //   (this.state?.equipments?.length > 300 ||
-      //     this.state.equipments.length < 50) &&
-      //   this.state.currentPage === 9
-      // ) {
-      //   this.setState({ textareaError: true });
-      //   return;
-      // }
+      if (
+        (this.state?.equipments?.length > 200 ||
+          this.state.equipments.length < 50) &&
+        this.state.currentPage === 11
+      ) {
+        this.setState({ textareaError: true });
+        return;
+      }
 
-      // if (this.state.equipments === "" && this.state.currentPage === 9) {
-      //   this.setState({ error: true });
-      //   return;
-      // }
+      if (this.state.equipments === "" && this.state.currentPage === 11) {
+        this.setState({ error: true });
+        return;
+      }
 
-      // if (this.state.currentPage === 9) {
-      //   this.setState({ error: false });
-      //   this.setState({ form: true });
-      //   return;
-      // }
+      if (this.state.currentPage === 11) {
+        this.setState({ error: false });
+        this.setState({ form: true });
+        return;
+      }
 
       this.setState({ progress: this.state.progress + val });
       this.setState({ error: false });
@@ -235,11 +236,11 @@ export default withRouter(
     };
 
     increPage = () => {
-      if (this.state.currentPage === 8) {
+      if (this.state.currentPage === 12) {
         return;
       }
 
-      if (this.state.currentPage === 7) {
+      if (this.state.currentPage === 11) {
         this.setState({ btn: "Submit" });
       }
 
@@ -249,7 +250,7 @@ export default withRouter(
     decrePage = () => {
       if (this.state.currentPage === 1) return;
 
-      if (this.state.currentPage === 7) {
+      if (this.state.currentPage === 10) {
         this.setState({ btn: "Next" });
       }
 
@@ -400,12 +401,12 @@ export default withRouter(
           data.append("email", this.state.email);
           data.append("password", this.state.password);
           data.append("rate", this.state.rate);
-          // data.append("bio", this.state.bio);
-          // data.append("equipments", this.state.equipments);
+          data.append("bio", this.state.bio);
+          data.append("equipments", this.state.equipments);
           data.append("followers", null);
           data.append("following", null);
-          // data.append("profilePicture", this.state.profilePicture);
-          // data.append("coverPicture", this.state.coverPicture);
+          data.append("profilePicture", this.state.profilePicture);
+          data.append("coverPicture", this.state.coverPicture);
           // data.append("aadhaarCard", this.state.aadhaarCard);
           // data.append("panCard", this.state.panCard);
           // data.append("works[]", this.state.works[0]);
@@ -429,31 +430,34 @@ export default withRouter(
             {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
+                // "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-              body: JSON.stringify({
-                uid:
-                  this.state.firstName.toLowerCase() +
-                  "." +
-                  this.state.lastName.toLowerCase() +
-                  "_" +
-                  parseInt(this.state.phone).toString(16),
-                firstname: this.state.firstName.toLowerCase(),
-                lastname: this.state.lastName.toLowerCase(),
-                phone: this.state.phone,
-                location: this.state.location,
-                profession: this.state.profession,
-                email: this.state.email,
-                password: this.state.password,
-                rate: this.state.rate,
-                pictureStyle: JSON.stringify({
-                  coverPicture: "center",
-                  profilePicture: "center",
-                }),
-                usedReferalId: this.state.usedReferalId,
-                verified: false,
-              }),
+              // body: JSON.stringify({
+              //   uid:
+              //     this.state.firstName.toLowerCase() +
+              //     "." +
+              //     this.state.lastName.toLowerCase() +
+              //     "_" +
+              //     parseInt(this.state.phone).toString(16),
+              //   firstname: this.state.firstName.toLowerCase(),
+              //   lastname: this.state.lastName.toLowerCase(),
+              //   phone: this.state.phone,
+              //   location: this.state.location,
+              //   profession: this.state.profession,
+              //   email: this.state.email,
+              //   password: this.state.password,
+              //   rate: this.state.rate,
+              //   bio: this.state.bio,
+              //   equipments: this.state.equipments,
+              //   pictureStyle: JSON.stringify({
+              //     coverPicture: "center",
+              //     profilePicture: "center",
+              //   }),
+              //   usedReferalId: this.state.usedReferalId,
+              //   verified: false,
+              // }),
+              body: data,
             }
           );
           const responseData = await response.json();
@@ -464,6 +468,7 @@ export default withRouter(
           Router.push("/contact_soon");
         } catch (error) {
           console.error(error);
+          this.setState({ isLoading: false });
           this.setState({ registerFailed: true });
         }
       };
@@ -572,6 +577,54 @@ export default withRouter(
         this.increProgress(14.25);
       }
     };
+
+    handleImageChange = (e, index) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      if (!file) {
+        return;
+      }
+
+      if (file.size > 10485760 && index === 4) {
+        this.setWarns(true, 0);
+        this.setPicError(false, 1);
+        return;
+      }
+
+      if (index === 4) {
+        this.setState({ cameras: true });
+        this.setState({ profilePicture: file });
+      }
+
+      if (file.size > 10485760 && index === 5) {
+        this.setWarns(true, 1);
+        this.setPicError(false, 2);
+        return;
+      }
+
+      if (index === 5) {
+        this.setState({ cameras: true });
+        this.setState({ coverPicture: file });
+      }
+
+      this.setWarns(false, -1);
+
+      reader.onloadend = () => {
+        const newImages = [...this.state.images];
+        newImages[index] = reader.result;
+        this.setState({ images: newImages });
+      };
+
+      reader.readAsDataURL(file);
+    };
+
+    handleImageClick(event) {
+      const sibling = event.currentTarget.previousElementSibling;
+      if (sibling) {
+        sibling.click();
+      }
+    }
 
     render() {
       return (
@@ -1187,201 +1240,326 @@ export default withRouter(
                         />
                       </div>
                     )}
-                    {/* {this.state.textareaError && (
-                    <p className={styles.error}>
-                      Please provide less than 300 characters and atleast 50
-                      characters.
-                    </p>
-                  )}
-                  {this.state.currentPage === 8 &&
-                    this.state.bio.length < 50 &&
-                    !this.state.textareaError && (
-                      <p>No of characters left: {50 - this.state.bio.length}</p>
+                    {this.state.currentPage === 8 && (
+                      <div
+                        className={
+                          styles.imageFields +
+                          " relative flex justify-center h-28 lg:h-44 w-28 lg:w-44 rounded-full border border-gray-300 bg-cover bg-no-repeat bg-center shadow-[var(--shadow)]"
+                        }
+                        id={styles.profile_pic}
+                        style={{
+                          backgroundImage: this.state.images[4]
+                            ? `url(${this.state.images[4]})`
+                            : `url(/dp.png)`,
+                        }}
+                      >
+                        {!this.state.cameras && (
+                          <Image
+                            className={
+                              styles.camera +
+                              " absolute bottom-2 lg:bottom-6 left-3 lg:left-8 flex items-center justify-center cursor-pointer opacity-20 border-2 p-[5px] rounded-full"
+                            }
+                            id={styles.camera}
+                            src="/cameraIcon.png"
+                            width={40}
+                            height={40}
+                            alt="camera"
+                            onClick={this.handleImageClick}
+                          />
+                        )}
+                        <input
+                          type="file"
+                          className={
+                            styles.profilePicPreview +
+                            " h-full w-full cursor-pointer rounded-full"
+                          }
+                          onChange={(e) => this.handleImageChange(e, 4)}
+                          accept="image/jpeg,image/png"
+                          name="profilePicture"
+                        />
+                        {this.state.profilePicError && (
+                          <p className={styles.warn}>
+                            Please Provide Profile Picture
+                          </p>
+                        )}
+                        {this.state.warns[0] && (
+                          <p className={styles.warn}>
+                            File size exceeds maximum limit of 10mb
+                          </p>
+                        )}
+                      </div>
                     )}
-                  {this.state.currentPage === 8 &&
-                    this.state.bio.length > 300 &&
-                    !this.state.textareaError && (
-                      <p>
-                        No of characters excceded: {this.state.bio.length - 300}
+                    {this.state.currentPage === 9 && (
+                      <div
+                        className={styles.imageFields}
+                        id={styles.cover}
+                        style={{
+                          backgroundImage: this.state.images[5]
+                            ? `url(${this.state.images[5]})`
+                            : `none`,
+                        }}
+                      >
+                        {!this.state.cameras && (
+                          <Image
+                            className={styles.camera}
+                            src="/cameraIcon.png"
+                            width={40}
+                            height={40}
+                            alt="camera"
+                            onClick={this.handleImageClick}
+                          />
+                        )}
+                        <input
+                          type="file"
+                          className={styles.coverPreview}
+                          onChange={(e) => this.handleImageChange(e, 5)}
+                          accept="image/jpeg,image/png"
+                          name="coverPicture"
+                        />
+                        {this.state.coverPicError && (
+                          <p className={styles.warn}>
+                            Please Provide Cover Picture
+                          </p>
+                        )}
+                        {this.state.warns[1] && (
+                          <p className={styles.warn}>
+                            File size exceeds maximum limit of 10MB
+                          </p>
+                        )}
+                        <span className={styles.instruction}>
+                          Please upload images of maximum limit 10MB
+                        </span>
+                      </div>
+                    )}
+                    {this.state.textareaError && (
+                      <p className={styles.error}>
+                        Please provide less than 300 characters and atleast 50
+                        characters.
                       </p>
                     )}
-                  {this.state.currentPage === 8 && (
-                    <div className={styles.inputField} id={styles.bio}>
-                      <label htmlFor="bio" className={styles.label}>
-                        <span style={{ color: "white" }}>* </span>Bio :
-                      </label>
-                      <textarea
-                        required
-                        name="bio"
-                        id="bio"
-                        cols="30"
-                        rows="10"
-                        onChange={(event) => this.handleTextChange(event, 1)}
-                        onKeyDown={this.handleEnterKeyPress}
-                        className={styles.textarea}
-                        placeholder="Write Your Yourself here..."
-                        value={this.state.bio}
-                      ></textarea>
-                    </div>
-                  )}
-                  {this.state.currentPage === 9 &&
-                    this.state?.equipments?.length < 50 &&
-                    !this.state.textareaError && (
-                      <p>
-                        No of characters left:{" "}
-                        {50 - this.state?.equipments?.length}
-                      </p>
-                    )}
-                  {this.state.currentPage === 9 &&
-                    this.state?.equipments?.length > 300 &&
-                    !this.state.textareaError && (
-                      <p>
-                        No of characters excceded:{" "}
-                        {this.state?.equipments?.length - 300}
-                      </p>
-                    )}
-                  {!this.state.form &&
-                    this.state.currentPage === 9 &&
-                    (this.state.profession === "photographer" ||
-                      this.state.profession === "drone_operator" ||
-                      this.state.profession === "cinematographer") && (
-                      <div className={styles.inputField} id={styles.equipment}>
-                        <label htmlFor="equipments" className={styles.label}>
-                          <span style={{ color: "white" }}>* </span>Equipments
-                          Available :
+                    {this.state.currentPage === 10 &&
+                      this.state.bio.length < 50 &&
+                      !this.state.textareaError && (
+                        <p>
+                          No of characters left: {50 - this.state.bio.length}
+                        </p>
+                      )}
+                    {this.state.currentPage === 10 &&
+                      this.state.bio.length > 300 &&
+                      !this.state.textareaError && (
+                        <p>
+                          No of characters excceded:{" "}
+                          {this.state.bio.length - 300}
+                        </p>
+                      )}
+                    {this.state.currentPage === 10 && (
+                      <div className={styles.inputField} id={styles.bio}>
+                        <label htmlFor="bio" className={styles.label}>
+                          <span style={{ color: "white" }}>* </span>Bio :
                         </label>
                         <textarea
                           required
-                          name="equipments"
-                          id="equipments"
+                          name="bio"
+                          id="bio"
                           cols="30"
                           rows="10"
-                          onChange={(event) => this.handleTextChange(event, 2)}
+                          onChange={(event) => this.handleTextChange(event, 1)}
                           onKeyDown={this.handleEnterKeyPress}
                           className={styles.textarea}
-                          placeholder="Write Your equipments here..."
-                          value={this.state?.equipments}
+                          placeholder="Write Your Yourself here..."
+                          value={this.state.bio}
                         ></textarea>
                       </div>
                     )}
-                  {!this.state.form &&
-                    this.state.currentPage === 9 &&
-                    (this.state.profession === "makeup_artist" ||
-                      this.state.profession === "mehendi_artist") && (
-                      <div className={styles.inputField} id={styles.equipment}>
-                        <label htmlFor="products" className={styles.label}>
-                          <span style={{ color: "white" }}>* </span>Products Use
-                          :
-                        </label>
-                        <textarea
-                          required
-                          name="equipments"
-                          id="products"
-                          cols="30"
-                          rows="10"
-                          onChange={(event) => this.handleTextChange(event, 2)}
-                          onKeyDown={this.handleEnterKeyPress}
-                          className={styles.textarea}
-                          placeholder="Write Your products here..."
-                          value={this.state?.equipments}
-                        ></textarea>
-                      </div>
-                    )}
-                  {!this.state.form &&
-                    this.state.currentPage === 9 &&
-                    (this.state.profession === "model" ||
-                      this.state.profession === "anchor" ||
-                      this.state.profession === "dj" ||
-                      this.state.profession === "dancer" ||
-                      this.state.profession === "influencer") && (
-                      <div className={styles.inputField} id={styles.equipment}>
-                        <label htmlFor="products" className={styles.label}>
-                          <span style={{ color: "white" }}>* </span>Describe
-                          your work experience :
-                        </label>
-                        <textarea
-                          required
-                          name="equipments"
-                          id="products"
-                          cols="30"
-                          rows="10"
-                          onChange={(event) => this.handleTextChange(event, 2)}
-                          onKeyDown={this.handleEnterKeyPress}
-                          className={styles.textarea}
-                          placeholder="Write about Your working experience here..."
-                          value={this.state?.equipments}
-                        ></textarea>
-                      </div>
-                    )}
-                  {!this.state.form &&
-                    this.state.currentPage === 9 &&
-                    (this.state.profession === "photo_editor" ||
-                      this.state.profession === "video_editor" ||
-                      this.state.profession === "album_designer" ||
-                      this.state.profession === "graphics_designer") && (
-                      <div className={styles.inputField} id={styles.equipment}>
-                        <label htmlFor="fimiliarSoft" className={styles.label}>
-                          <span style={{ color: "white" }}>* </span>Software
-                          Knowledge :
-                        </label>
-                        <textarea
-                          required
-                          name="equipments"
-                          id="equipments"
-                          cols="30"
-                          rows="10"
-                          onChange={(event) => this.handleTextChange(event, 2)}
-                          onKeyDown={this.handleEnterKeyPress}
-                          className={styles.textarea}
-                          placeholder="Write software name which you used..."
-                          value={this.state?.equipments}
-                        ></textarea>
-                      </div>
-                    )}
-                  {!this.state.form &&
-                    this.state.currentPage === 9 &&
-                    this.state.profession === "web_developer" && (
-                      <div className={styles.inputField} id={styles.equipment}>
-                        <label htmlFor="fimiliarSoft" className={styles.label}>
-                          <span style={{ color: "white" }}>* </span>Fimiliar
-                          Language :
-                        </label>
-                        <textarea
-                          required
-                          name="equipments"
-                          id="equipments"
-                          cols="30"
-                          rows="10"
-                          onChange={(event) => this.handleTextChange(event, 2)}
-                          onKeyDown={this.handleEnterKeyPress}
-                          className={styles.textarea}
-                          placeholder="Write languages which you fimiliar with..."
-                          value={this.state?.equipments}
-                        ></textarea>
-                      </div>
-                    )} */}
+                    {this.state.currentPage === 11 &&
+                      this.state?.equipments?.length < 50 &&
+                      !this.state.textareaError && (
+                        <p>
+                          No of characters left:{" "}
+                          {50 - this.state?.equipments?.length}
+                        </p>
+                      )}
+                    {this.state.currentPage === 11 &&
+                      this.state?.equipments?.length > 300 &&
+                      !this.state.textareaError && (
+                        <p>
+                          No of characters excceded:{" "}
+                          {this.state?.equipments?.length - 300}
+                        </p>
+                      )}
+                    {!this.state.form &&
+                      this.state.currentPage === 11 &&
+                      (this.state.profession === "photographer" ||
+                        this.state.profession === "drone_operator" ||
+                        this.state.profession === "cinematographer") && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.equipment}
+                        >
+                          <label htmlFor="equipments" className={styles.label}>
+                            <span style={{ color: "white" }}>* </span>Equipments
+                            Available :
+                          </label>
+                          <textarea
+                            required
+                            name="equipments"
+                            id="equipments"
+                            cols="30"
+                            rows="10"
+                            onChange={(event) =>
+                              this.handleTextChange(event, 2)
+                            }
+                            onKeyDown={this.handleEnterKeyPress}
+                            className={styles.textarea}
+                            placeholder="Write Your equipments here..."
+                            value={this.state?.equipments}
+                          ></textarea>
+                        </div>
+                      )}
+                    {!this.state.form &&
+                      this.state.currentPage === 11 &&
+                      (this.state.profession === "makeup_artist" ||
+                        this.state.profession === "mehendi_artist") && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.equipment}
+                        >
+                          <label htmlFor="products" className={styles.label}>
+                            <span style={{ color: "white" }}>* </span>Products
+                            Use :
+                          </label>
+                          <textarea
+                            required
+                            name="equipments"
+                            id="products"
+                            cols="30"
+                            rows="10"
+                            onChange={(event) =>
+                              this.handleTextChange(event, 2)
+                            }
+                            onKeyDown={this.handleEnterKeyPress}
+                            className={styles.textarea}
+                            placeholder="Write Your products here..."
+                            value={this.state?.equipments}
+                          ></textarea>
+                        </div>
+                      )}
+                    {!this.state.form &&
+                      this.state.currentPage === 11 &&
+                      (this.state.profession === "model" ||
+                        this.state.profession === "anchor" ||
+                        this.state.profession === "dj" ||
+                        this.state.profession === "dancer" ||
+                        this.state.profession === "influencer") && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.equipment}
+                        >
+                          <label htmlFor="products" className={styles.label}>
+                            <span style={{ color: "white" }}>* </span>Describe
+                            your work experience :
+                          </label>
+                          <textarea
+                            required
+                            name="equipments"
+                            id="products"
+                            cols="30"
+                            rows="10"
+                            onChange={(event) =>
+                              this.handleTextChange(event, 2)
+                            }
+                            onKeyDown={this.handleEnterKeyPress}
+                            className={styles.textarea}
+                            placeholder="Write about Your working experience here..."
+                            value={this.state?.equipments}
+                          ></textarea>
+                        </div>
+                      )}
+                    {!this.state.form &&
+                      this.state.currentPage === 11 &&
+                      (this.state.profession === "photo_editor" ||
+                        this.state.profession === "video_editor" ||
+                        this.state.profession === "album_designer" ||
+                        this.state.profession === "graphics_designer") && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.equipment}
+                        >
+                          <label
+                            htmlFor="fimiliarSoft"
+                            className={styles.label}
+                          >
+                            <span style={{ color: "white" }}>* </span>Software
+                            Knowledge :
+                          </label>
+                          <textarea
+                            required
+                            name="equipments"
+                            id="equipments"
+                            cols="30"
+                            rows="10"
+                            onChange={(event) =>
+                              this.handleTextChange(event, 2)
+                            }
+                            onKeyDown={this.handleEnterKeyPress}
+                            className={styles.textarea}
+                            placeholder="Write software name which you used..."
+                            value={this.state?.equipments}
+                          ></textarea>
+                        </div>
+                      )}
+                    {!this.state.form &&
+                      this.state.currentPage === 11 &&
+                      this.state.profession === "web_developer" && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.equipment}
+                        >
+                          <label
+                            htmlFor="fimiliarSoft"
+                            className={styles.label}
+                          >
+                            <span style={{ color: "white" }}>* </span>Fimiliar
+                            Language :
+                          </label>
+                          <textarea
+                            required
+                            name="equipments"
+                            id="equipments"
+                            cols="30"
+                            rows="10"
+                            onChange={(event) =>
+                              this.handleTextChange(event, 2)
+                            }
+                            onKeyDown={this.handleEnterKeyPress}
+                            className={styles.textarea}
+                            placeholder="Write languages which you fimiliar with..."
+                            value={this.state?.equipments}
+                          ></textarea>
+                        </div>
+                      )}
                     {!this.state.form && (
                       <div className={styles.btns}>
                         {this.state.currentPage !== 1 && (
                           <button
                             className={styles.backBtn}
                             type="button"
-                            onClick={() => this.decreProgress(15)}
+                            onClick={() => this.decreProgress(11)}
                           >
                             Back
                           </button>
                         )}
                         {this.state.currentPage !== 3 &&
-                          this.state.currentPage !== 7 && (
+                          this.state.currentPage !== 11 && (
                             <button
                               className={styles.NextBtn}
                               type="button"
-                              onClick={() => this.increProgress(15)}
+                              onClick={() => this.increProgress(11)}
                             >
                               {this.state.btn}
                             </button>
                           )}
-                        {this.state.currentPage === 7 && (
+                        {this.state.currentPage === 11 && (
                           <button className={styles.NextBtn} type="submit">
                             Submit
                           </button>

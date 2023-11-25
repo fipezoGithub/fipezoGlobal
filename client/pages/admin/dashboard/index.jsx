@@ -10,16 +10,21 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
-import { MdContactPhone, MdVerified } from "react-icons/md";
+import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
+import { FaCity } from "react-icons/fa";
 
 const Dashboard = (props) => {
   const [freelancers, setFreelancers] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [callbacks, setCallBacks] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [requestedCities, setRequestedCities] = useState([]);
+  const [reports, setReports] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
+  const [submittedCityBox, setSubmittedCityBox] = useState(false);
+  const [reportBox, setReportBox] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
   const router = useRouter();
 
@@ -107,10 +112,38 @@ const Dashboard = (props) => {
         console.error(error);
       }
     }
+
+    async function getRequestedCities() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/request`);
+        const cities = await res.json();
+        setRequestedCities(cities);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function getReports() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/report`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const reports = await res.json();
+        setReports(reports);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     fetchFreelancer();
     fetchCompany();
     getCallbacks();
     fetchMessages();
+    getRequestedCities();
+    getReports();
   }, [props.user, router]);
 
   const updateFreelancers = (id) => {
@@ -125,6 +158,23 @@ const Dashboard = (props) => {
       return company._id !== id;
     });
     setCompanies(newCompanies);
+  };
+
+  const handelRequestedCities = async (id) => {
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/request/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (res.ok) {
+        const newCites = requestedCities.filter((req) => {
+          return req._id !== id;
+        });
+        setRequestedCities(newCites);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -163,6 +213,8 @@ const Dashboard = (props) => {
                   onClick={() => {
                     setCallbackBox(false);
                     setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
                     setVerificationBox(true);
                   }}
                 >
@@ -182,6 +234,8 @@ const Dashboard = (props) => {
                   onClick={() => {
                     setContactRequestBox(false);
                     setVerificationBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
                     setCallbackBox(true);
                   }}
                 >
@@ -201,11 +255,55 @@ const Dashboard = (props) => {
                   onClick={() => {
                     setVerificationBox(false);
                     setCallbackBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
                     setContactRequestBox(true);
                   }}
                 >
                   <MdContactPhone />
                   contact request
+                </button>
+              </li>
+              <li
+                className={`px-4 py-2 ${
+                  submittedCityBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  onClick={() => {
+                    setVerificationBox(false);
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setReportBox(false);
+                    setSubmittedCityBox(true);
+                  }}
+                >
+                  <FaCity />
+                  submitted cities
+                </button>
+              </li>
+              <li
+                className={`px-4 py-2 ${
+                  reportBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  onClick={() => {
+                    setVerificationBox(false);
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(true);
+                  }}
+                >
+                  <MdReport />
+                  reports
                 </button>
               </li>
               <li className={`px-4 py-2`}>
@@ -309,11 +407,121 @@ const Dashboard = (props) => {
               </table>
             </div>
           )}
+          {submittedCityBox === true && (
+            <div
+              id="submittedCity"
+              className="flex items-center justify-center w-full"
+            >
+              <table className="w-full mt-8 border border-collapse">
+                <thead className="">
+                  <tr className="py-4">
+                    <th className="capitalize text-sm lg:text-2xl">name</th>
+                    <th className="capitalize text-sm lg:text-2xl">phone</th>
+                    <th className="capitalize text-sm lg:text-2xl">location</th>
+                    <th className="capitalize text-sm lg:text-2xl">action</th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {requestedCities.length > 0 &&
+                    requestedCities.map((it, i) => (
+                      <tr key={i} className="border-b">
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <h3>{it.name}</h3>
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <a href={`tel:${it.phone}`}>{it.phone}</a>
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          {it.city}
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <button
+                            type="button"
+                            onClick={() => handelRequestedCities(it._id)}
+                            className="bg-red-500 text-white px-2 lg:px-4 py-2 rounded-md capitalize text-sm lg:text-base"
+                          >
+                            complete
+                          </button>
+                        </th>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          )}
           {contactRequestBox === true && (
             <div className="flex flex-col items-center justify-center gap-4">
               {messages.map((message, index) => {
                 return <ContactCard key={index} message={message} />;
               })}
+            </div>
+          )}
+          {reportBox === true && (
+            <div className="flex flex-col gap-4">
+              {reports.length > 0 &&
+                reports.map((it, i) => (
+                  <div
+                    key={i}
+                    className="border px-4 py-2 flex flex-col items-start gap-2"
+                  >
+                    {it.createdFreelancer && (
+                      <h1>
+                        <span className="capitalize font-semibold">
+                          {it.createdFreelancer?.firstname.toLowerCase() +
+                            " " +
+                            it.createdFreelancer?.lastname.toLowerCase()}
+                        </span>{" "}
+                        reported{" "}
+                        <span className="capitalize font-semibold">
+                          {it.acceptedFreelancer?.firstname.toLowerCase() +
+                            " " +
+                            it.acceptedFreelancer?.lastname.toLowerCase()}
+                        </span>
+                      </h1>
+                    )}
+                    {it.createdUser && (
+                      <h1>
+                        <span className="capitalize font-semibold">
+                          {it.createdUser?.firstname.toLowerCase() +
+                            " " +
+                            it.createdUser?.lastname.toLowerCase()}
+                        </span>{" "}
+                        reported{" "}
+                        <span className="capitalize font-semibold">
+                          {it.acceptedFreelancer?.firstname.toLowerCase() +
+                            " " +
+                            it.acceptedFreelancer?.lastname.toLowerCase()}
+                        </span>
+                      </h1>
+                    )}
+                    {it.createdCompany && (
+                      <h1>
+                        <span className="capitalize font-semibold">
+                          {it.createdCompany.companyname.toLowerCase()}
+                        </span>{" "}
+                        reported{" "}
+                        <span className="capitalize font-semibold">
+                          {it.acceptedFreelancer?.firstname.toLowerCase() +
+                            " " +
+                            it.acceptedFreelancer?.lastname.toLowerCase()}
+                        </span>
+                      </h1>
+                    )}
+                    <h2 className="capitalize">
+                      reason {it.reason.split("_").join(" ")}
+                    </h2>
+                    <p>{it.description}</p>
+                    <p>status {it.status}</p>
+                    <p>
+                      {new Date(it.createdAt).toLocaleString("en-IN", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                    <button type="button">mark as solved</button>
+                  </div>
+                ))}
             </div>
           )}
         </div>

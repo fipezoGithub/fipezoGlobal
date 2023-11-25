@@ -11,7 +11,7 @@ import FollowerFollowingModal from "./FollowerFollowingModal";
 import ReportModal from "./ReportModal";
 
 function ProfileBioCard(props) {
-  const links = JSON.parse(props.freelancer.links);
+  // const links = JSON.parse(props.freelancer.links);
   const [display, setDisplay] = useState("none");
   const [showEditBox, setShowEditBox] = useState(false);
   const [showModalAs, setShowModalAs] = useState("");
@@ -193,8 +193,8 @@ function ProfileBioCard(props) {
           className="whitespace-nowrap capitalize"
           style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
         >
-          {props.freelancer.firstname.toLowerCase()}{" "}
-          {props.freelancer.lastname.toLowerCase()}
+          {props.freelancer.firstname?.toLowerCase()}{" "}
+          {props.freelancer.lastname?.toLowerCase()}
         </span>{" "}
         <span className={styles.con}>
           <Image
@@ -221,7 +221,7 @@ function ProfileBioCard(props) {
         <div className="flex items-center gap-2">
           <div className="flex items-center text-sm bg-[#25be25] px-3 py-1 rounded-lg text-white">
             <p className="text-[0.9rem]">
-              {props.freelancer.rating.toFixed(1)}
+              {props.freelancer.rating?.toFixed(1)}
             </p>
             <FaStar className={styles.star} />
           </div>
@@ -235,7 +235,7 @@ function ProfileBioCard(props) {
       <div className="flex w-full justify-start pl-6 gap-4">
         <p className="bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap">
           {props.freelancer.profession
-            .split("_")
+            ?.split("_")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}
         </p>
@@ -372,13 +372,16 @@ function ProfileBioCard(props) {
             <FaShareSquare style={{ color: "white" }} /> Share Profile
           </button>
         </RWebShare>
-        <button
-          type="button"
-          onClick={() => setShowReportBox(true)}
-          className="flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg"
-        >
-          <FaFontAwesomeFlag /> report
-        </button>
+        {(props.user || props.company) &&
+          props.freelancer._id !== props.user?._id && (
+            <button
+              type="button"
+              onClick={() => setShowReportBox(true)}
+              className="flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg"
+            >
+              <FaFontAwesomeFlag /> report
+            </button>
+          )}
       </div>
       {showEditBox && (
         <div className="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2">
