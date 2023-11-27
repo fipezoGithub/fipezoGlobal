@@ -29,7 +29,7 @@ const Dashboard = (props) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!props.user || !props.user?.phone === 9038578787) {
+    if (!props.user || !props.user?.phone === 3335573725) {
       router.push("/");
     }
 

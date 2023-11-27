@@ -22,17 +22,28 @@ let otpTimer;
 async function signupController(req, res) {
   try {
     const phone = req.body.phone;
-    let user;
-    if (req.body.type === "user")
-      user = await userCollection.findOne({ phone: phone });
-    else if (req.body.type === "freelancer")
-      user = await freelancerCollection.findOne({ phone: phone });
-    else if (req.body.type === "company")
-      user = await companyCollection.findOne({
-        companyphone: req.body.companyphone,
-      });
+    const email = req.body.email;
+    let existingUser = null;
+    let existingFreelancer;
+    let existingCompany;
+    existingUser = await userCollection.findOne({ phone: phone });
+    existingFreelancer = await freelancerCollection.findOne({ phone: phone });
+    existingCompany = await companyCollection.findOne({
+      companyphone: phone,
+    });
 
-    if (user) {
+    // let existingEmailUser;
+    // let existingEmailFreelancer;
+    // let existingEmailCompany;
+    // existingEmailUser = await userCollection.findOne({ email: email });
+    // existingEmailFreelancer = await freelancerCollection.findOne({
+    //   email: email,
+    // });
+    // existingEmailCompany = await companyCollection.findOne({
+    //   companyemail: email,
+    // });
+
+    if (existingUser || existingFreelancer || existingCompany) {
       return res.status(403).json({ message: "user already exist" });
     }
 
@@ -93,16 +104,17 @@ async function signupController(req, res) {
 const loginController = async (req, res) => {
   try {
     const phone = req.body.phone;
-    const type = req.body.type;
-    let user;
-    if (type === "user") user = await userCollection.findOne({ phone: phone });
-    else if (type === "freelancer")
-      user = await freelancerCollection.findOne({ phone: phone });
-    else if (type === "company")
-      user = await companyCollection.findOne({ companyphone: phone });
+    let existingUser = null;
+    let existingFreelancer;
+    let existingCompany;
+    existingUser = await userCollection.findOne({ phone: phone });
+    existingFreelancer = await freelancerCollection.findOne({ phone: phone });
+    existingCompany = await companyCollection.findOne({
+      companyphone: phone,
+    });
 
-    if (!user) {
-      return res.sendStatus(403);
+    if (!existingUser && !existingFreelancer && !existingCompany) {
+      return res.status(403).json({ message: "user not found" });
     }
 
     const existingOtpData = await otpCollection.findOne({ phone: phone });
@@ -117,7 +129,7 @@ const loginController = async (req, res) => {
     const otpData = new otpCollection({
       phone: phone,
       otp: code,
-      type: type,
+      type: "login",
     });
 
     await otpData.save();
@@ -135,7 +147,7 @@ const loginController = async (req, res) => {
       }
     }, 300000);
 
-    res.status(200).json({ phone: phone, type: type });
+    res.status(200).json({ phone: phone, type: "login" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -146,17 +158,30 @@ async function emailLoginController(req, res) {
   try {
     const email = req.body.email;
     const password = req.body.password;
-    const type = req.body.type;
-    let user;
-    if (type === "user") user = await userCollection.findOne({ email: email });
-    else if (type === "freelancer")
-      user = await freelancerCollection.findOne({ email: email });
-    else if (type === "company")
-      user = await companyCollection.findOne({ companyemail: email });
+    let existingUser = null;
+    let existingFreelancer;
+    let existingCompany;
+    existingUser = await userCollection.findOne({ email: email });
+    existingFreelancer = await freelancerCollection.findOne({ email: email });
+    existingCompany = await companyCollection.findOne({
+      companyemail: email,
+    });
 
-    if (!user) {
-      return res.sendStatus(403);
+    if (!existingUser && !existingFreelancer && !existingCompany) {
+      return res.status(403).json({ message: "user not found" });
     } else {
+      let user = await userCollection.findOne({ email: req.body.email });
+      if (!user) {
+        user = await freelancerCollection.findOne({ email: req.body.email });
+        if (!user) {
+          user = await companyCollection.findOne({
+            companyemail: req.body.email,
+          });
+          if (!user) {
+            return res.sendStatus(403);
+          }
+        }
+      }
       if (await user.matchPassword(password)) {
         jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
           if (err) {
@@ -178,17 +203,30 @@ async function emailLoginController(req, res) {
 async function googleLoginController(req, res) {
   try {
     const email = req.body.email;
-    const type = req.body.type;
-    let user;
-    if (type === "user") user = await userCollection.findOne({ email: email });
-    else if (type === "freelancer")
-      user = await freelancerCollection.findOne({ email: email });
-    else if (type === "company")
-      user = await companyCollection.findOne({ companyemail: email });
+    let existingUser = null;
+    let existingFreelancer;
+    let existingCompany;
+    existingUser = await userCollection.findOne({ email: email });
+    existingFreelancer = await freelancerCollection.findOne({ email: email });
+    existingCompany = await companyCollection.findOne({
+      companyemail: email,
+    });
 
-    if (!user) {
-      return res.sendStatus(403);
+    if (!existingUser && !existingFreelancer && !existingCompany) {
+      return res.status(403).json({ message: "user not found" });
     } else {
+      let user = await userCollection.findOne({ email: req.body.email });
+      if (!user) {
+        user = await freelancerCollection.findOne({ email: req.body.email });
+        if (!user) {
+          user = await companyCollection.findOne({
+            companyemail: req.body.email,
+          });
+          if (!user) {
+            return res.sendStatus(403);
+          }
+        }
+      }
       jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
         if (err) {
           console.log(err);

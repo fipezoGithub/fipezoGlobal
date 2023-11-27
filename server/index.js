@@ -24,6 +24,7 @@ const {
   VerifyFreelancerPhone,
   VerifyCompanyPhone,
   forgetOTPController,
+  verifyEmail,
 } = require("./controllers/otpController");
 
 const {
@@ -203,6 +204,7 @@ app.post("/api/email/login/social", googleLoginController);
 
 //Otpcontroller Routes
 app.post("/api/otp", otpController);
+app.post("/api/verify/email", verifyEmail);
 app.post("/api/otp/signup", otpSignupController);
 app.post("/api/verify/freelancer/phone", VerifyFreelancerPhone);
 app.post("/api/verify/company/phone", VerifyCompanyPhone);

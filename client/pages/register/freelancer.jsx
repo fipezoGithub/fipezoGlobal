@@ -47,6 +47,7 @@ export default withRouter(
         passowordInputType: "password",
         error: false,
         form: false,
+        exist: false,
         phoneError: false,
         passwordError: false,
         worksError: false,
@@ -105,7 +106,7 @@ export default withRouter(
       });
     };
 
-    increProgress = (val) => {
+    increProgress = async (val) => {
       if (this.state.progress + val > 121) {
         return;
       }
@@ -129,7 +130,9 @@ export default withRouter(
       }
 
       if (this.state.currentPage === 2) {
-        this.getOtp();
+        if (this.state.exist === true) {
+          return;
+        }
       }
 
       if (this.state.otp === "" && this.state.currentPage === 3) {
@@ -210,6 +213,10 @@ export default withRouter(
         return;
       }
 
+      if (this.currentPage === 2 && this.state.exist === true) {
+        return;
+      }
+
       this.setState({ progress: this.state.progress + val });
       this.setState({ error: false });
       this.setState({ phoneError: false });
@@ -246,6 +253,25 @@ export default withRouter(
 
       this.setState({ currentPage: this.state.currentPage + 1 });
     };
+
+    async checkEmail(val) {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/verify/email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: this.state.email }),
+        });
+        if (res.status === 404) {
+          this.setState({ exist: true });
+          return;
+        }
+        this.increProgress(11);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
     decrePage = () => {
       if (this.state.currentPage === 1) return;
@@ -500,7 +526,7 @@ export default withRouter(
             this.setState({ invalidOtp: false });
           }
           const data = await response.json();
-          this.increProgress(14.25);
+          this.increProgress(11);
           localStorage.setItem("user", JSON.stringify(data));
         } catch (error) {
           console.error(error);
@@ -513,7 +539,7 @@ export default withRouter(
     getOtp = () => {
       const postData = async () => {
         try {
-          await fetch(`${process.env.SERVER_URL}/signup`, {
+          const res = await fetch(`${process.env.SERVER_URL}/signup`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -523,14 +549,20 @@ export default withRouter(
               type: "freelancer",
             }),
           });
+          if (res.status === 403) {
+            this.setState({ exist: true });
+            return;
+          } else {
+            this.setState({ exist: false });
+            this.startCountdown();
+            this.setState({ invalidOtp: false });
+            this.increProgress(11);
+          }
         } catch (error) {
           console.error(error);
         }
       };
-
       postData();
-      this.startCountdown();
-      this.setState({ invalidOtp: false });
     };
 
     checkWorks = (val) => {
@@ -688,6 +720,11 @@ export default withRouter(
                         Invalid OTP. Please try again.
                       </p>
                     )}
+                    {this.state.exist && (
+                      <p className={styles.error}>
+                        Details already exists. Try login.
+                      </p>
+                    )}
                     {this.state.currentPage === 1 && (
                       <div className={styles.inputField} id={styles.firstname}>
                         <label htmlFor="firstname" className={styles.label}>
@@ -759,6 +796,7 @@ export default withRouter(
                             this.setState({
                               phone: event.target.value,
                               error: false,
+                              exist: false,
                             })
                           }
                           value={this.state.phone}
@@ -1120,6 +1158,7 @@ export default withRouter(
                               this.setState({
                                 email: event.target.value,
                                 error: false,
+                                exist: false,
                               })
                             }
                             value={this.state.email}
@@ -1549,7 +1588,9 @@ export default withRouter(
                             Back
                           </button>
                         )}
-                        {this.state.currentPage !== 3 &&
+                        {this.state.currentPage !== 2 &&
+                          this.state.currentPage !== 3 &&
+                          this.state.currentPage !== 6 &&
                           this.state.currentPage !== 11 && (
                             <button
                               className={styles.NextBtn}
@@ -1559,9 +1600,27 @@ export default withRouter(
                               {this.state.btn}
                             </button>
                           )}
+                        {this.state.currentPage === 6 && (
+                          <button
+                            className={styles.NextBtn}
+                            type="button"
+                            onClick={() => this.checkEmail()}
+                          >
+                            {this.state.btn}
+                          </button>
+                        )}
                         {this.state.currentPage === 11 && (
                           <button className={styles.NextBtn} type="submit">
                             Submit
+                          </button>
+                        )}
+                        {this.state.currentPage === 2 && (
+                          <button
+                            className={styles.NextBtn}
+                            type="button"
+                            onClick={this.getOtp}
+                          >
+                            Next
                           </button>
                         )}
                         {this.state.currentPage === 3 && (
@@ -1576,7 +1635,9 @@ export default withRouter(
                         {this.state.resendOtp &&
                           this.state.currentPage === 3 && (
                             <button
-                              className={styles.NextBtn}
+                              className={
+                                styles.NextBtn + " flex items-center gap-1"
+                              }
                               type="button"
                               onClick={this.getOtp}
                             >

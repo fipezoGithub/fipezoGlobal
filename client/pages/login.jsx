@@ -113,7 +113,7 @@ export default function Login(props) {
     async function postData() {
       try {
         const storedPhone = phone;
-        const storedType = type;
+        const storedType = "login";
         const response = await fetch(`${process.env.SERVER_URL}/otp`, {
           method: "POST",
           headers: {
@@ -180,10 +180,14 @@ export default function Login(props) {
           },
           body: JSON.stringify({
             phone: phone,
-            type: type,
+            type: "login",
           }),
         });
         const data = await response.json();
+        if (response.status !== 200) {
+          setLoginFailed(true);
+          return;
+        }
         setOtpForm(true);
       } catch (error) {
         setLoginFailed(true);
@@ -272,7 +276,7 @@ export default function Login(props) {
                 Login Failed ! Please try again
               </span>
             )}
-            <label htmlFor="accType" className={styles.accLabel}>
+            {/* <label htmlFor="accType" className={styles.accLabel}>
               <p className={styles.label}>Log in As</p>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
@@ -361,7 +365,7 @@ export default function Login(props) {
                   </label>
                 </div>
               </div>
-            </label>
+            </label> */}
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 my-2">
               <button
                 type="button"
@@ -513,30 +517,12 @@ export default function Login(props) {
               </div>
             </div>
             <div className={styles.lower}>
-              {type === "user" && (
                 <p className={`${styles.signup}`}>
                   Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/register/client">
+                  <Link className="text-cyan-500" href="/signup">
                     Sign up now
                   </Link>
                 </p>
-              )}
-              {type === "freelancer" && (
-                <p className={`${styles.signup}`}>
-                  Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/register/freelancer">
-                    Register now As a Freelancer
-                  </Link>
-                </p>
-              )}
-              {type === "company" && (
-                <p className={`${styles.signup}`}>
-                  Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/register/company">
-                    Register now As a Company
-                  </Link>
-                </p>
-              )}
             </div>
           </div>
           <div className={styles.presentation}>

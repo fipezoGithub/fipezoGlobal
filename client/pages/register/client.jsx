@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -84,7 +84,6 @@ function Signup(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-
     async function postData() {
       try {
         const response = await fetch(`${process.env.SERVER_URL}/signup`, {
@@ -103,6 +102,10 @@ function Signup(props) {
           }),
         });
         const data = await response.json();
+        if (data.message) {
+          setSignupFailed(true);
+          return;
+        }
         setOtpForm(true);
         localStorage.setItem("user", JSON.stringify(data));
       } catch (error) {
@@ -111,9 +114,28 @@ function Signup(props) {
       }
     }
 
-    postData();
-    startCountdown();
+    async function checkEmail() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/verify/email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
+        if (res.status === 404) {
+          setSignupFailed(true);
+          return;
+        }
+        postData();
+        startCountdown();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    checkEmail();
   }
+
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setSignupFailed(false);

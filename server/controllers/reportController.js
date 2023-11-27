@@ -47,7 +47,7 @@ async function getAllReports(req, res) {
     jwt.verify(req.token, secret, async (err, authData) => {
       const user = await userCollection.findById(authData.user._id);
 
-      if (err || user.phone !== 9038578787) {
+      if (err || user.phone !== 3335573725) {
         res.status(404).send("Admin not found");
       }
 
@@ -72,7 +72,7 @@ async function updateStatusReport(req, res) {
     jwt.verify(req.token, secret, async (err, authData) => {
       const user = await userCollection.findById(authData.user._id);
 
-      if (err || user.phone !== 9038578787) {
+      if (err || user.phone !== 3335573725) {
         res.status(404).send("Admin not found");
       }
 

@@ -10,6 +10,7 @@ import BoxSection from "@/components/BoxSection";
 import VerifiedCompany from "@/components/VerifiedCompany";
 import Signupguide from "@/components/Signupguide";
 import Footer from "@/components/Footer";
+import Simplified from "@/components/Simplified";
 
 export default function Index(props) {
   return (
@@ -37,6 +38,7 @@ export default function Index(props) {
       <div className="grey-container">
         <Featured />
       </div>
+      <Simplified />
       {/* <Footer /> */}
       <Footer />
     </div>

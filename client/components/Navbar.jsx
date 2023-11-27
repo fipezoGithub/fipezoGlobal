@@ -36,7 +36,7 @@ export default function Navbar(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.user.phone === 9038578787 && !data.user.location)
+          if (data.user.phone === 3335573725 && !data.user.location)
             setIsAdmin(true);
           if (data.user.companyname) props.setCompany(data.user);
           else props.setUser(data.user);
@@ -46,7 +46,7 @@ export default function Navbar(props) {
           console.error(error);
         });
     } else if (props.user && token) {
-      if (props.user.phone && props.user.phone === 9038578787) setIsAdmin(true);
+      if (props.user.phone && props.user.phone === 3335573725) setIsAdmin(true);
       if (props.checkLoggedIn) props.checkLoggedIn(true);
     } else if (props.company && token) {
       if (props.checkLoggedIn) props.checkLoggedIn(true);

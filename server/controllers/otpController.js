@@ -16,11 +16,19 @@ async function VerifyFreelancerPhone(req, res) {
       phone: req.body.phone,
       type: req.body.type,
     });
-    const existingUser = await freelancerCollection.findOne({
+    const existingFreelancer = await freelancerCollection.findOne({
       phone: req.body.phone,
     });
 
-    if (existingUser || !otpData) {
+    const existingUser = await userCollection.findOne({
+      phone: req.body.phone,
+    });
+
+    const existingCompany = await companyCollection.findOne({
+      companyphone: req.body.phone,
+    });
+
+    if (existingUser || existingFreelancer || existingCompany || !otpData) {
       return res.sendStatus(403);
     }
 
@@ -91,16 +99,23 @@ async function otpSignupController(req, res) {
       type: req.body.type,
     });
     let existingUser = null;
-    if (req.body.type === "user")
-      existingUser = await userCollection.findOne({ phone: req.body.phone });
-    else if (req.body.type === "freelancer")
-      existingUser = await freelancerCollection.findOne({
-        phone: req.body.phone,
-      });
-    else if (req.body.type === "company")
-      existingUser = await companyCollection.findOne({ phone: req.body.phone });
+    let existingFreelancer;
+    let existingCompany;
+    existingUser = await userCollection.findOne({ phone: phone });
+    existingFreelancer = await freelancerCollection.findOne({ phone: phone });
+    existingCompany = await companyCollection.findOne({
+      companyphone: phone,
+    });
+    // if (req.body.type === "user")
+    //   existingUser = await userCollection.findOne({ phone: req.body.phone });
+    // else if (req.body.type === "freelancer")
+    //   existingUser = await freelancerCollection.findOne({
+    //     phone: req.body.phone,
+    //   });
+    // else if (req.body.type === "company")
+    //   existingUser = await companyCollection.findOne({ phone: req.body.phone });
 
-    if (existingUser || !otpData) {
+    if (existingUser || existingFreelancer || existingCompany || !otpData) {
       return res.sendStatus(403);
     }
 
@@ -151,16 +166,20 @@ const otpController = async (req, res) => {
       phone: req.body.phone,
       type: req.body.type,
     });
-    let user;
-    if (req.body.type === "user")
-      user = await userCollection.findOne({ phone: req.body.phone });
-    else if (req.body.type === "freelancer")
-      user = await freelancerCollection.findOne({ phone: req.body.phone });
-    else if (req.body.type === "company")
-      user = await companyCollection.findOne({ companyphone: req.body.phone });
-
-    if (!user || !otpData) {
+    if (!otpData) {
       return res.sendStatus(403);
+    }
+    let user = await userCollection.findOne({ phone: req.body.phone });
+    if (!user) {
+      user = await freelancerCollection.findOne({ phone: req.body.phone });
+      if (!user) {
+        user = await companyCollection.findOne({
+          companyphone: req.body.phone,
+        });
+        if (!user) {
+          return res.sendStatus(403);
+        }
+      }
     }
 
     const otpCode = otpData.otp;
@@ -222,10 +241,34 @@ const forgetOTPController = async (req, res) => {
   }
 };
 
+//Verify Email
+async function verifyEmail(req, res) {
+  try {
+    let email;
+    if (req.body.companyemail) {
+      email = req.body.companyemail;
+    } else {
+      email = req.body.email;
+    }
+    let user, freelancer, company;
+    user = await userCollection.findOne({ email: email });
+    freelancer = await freelancerCollection.findOne({ email: email });
+    company = await companyCollection.findOne({ companyemail: email });
+    if (user || freelancer || company) {
+      return res.status(404).json({ message: "Email already exists" });
+    }
+    res.status(200).json({ message: "New User" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   otpController,
   otpSignupController,
   VerifyFreelancerPhone,
   VerifyCompanyPhone,
   forgetOTPController,
+  verifyEmail,
 };

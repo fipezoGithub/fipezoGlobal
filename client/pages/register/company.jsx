@@ -48,9 +48,11 @@ export default withRouter(
         passwordError: false,
         pincodeError: false,
         error: false,
+        exist: false,
         form: false,
         phoneError: false,
         panError: false,
+        exist: false,
         incorporationCertificateError: false,
         msmeCertificateError: false,
         tradeLiecenceError: false,
@@ -118,7 +120,9 @@ export default withRouter(
       }
 
       if (this.state.currentPage === 2) {
-        this.getOtp();
+        if (this.state.exist) {
+          return;
+        }
       }
 
       if (this.state.otp === "" && this.state.currentPage === 3) {
@@ -238,6 +242,25 @@ export default withRouter(
       }
 
       this.setState({ currentPage: this.state.currentPage - 1 });
+    };
+
+    checkEmail = async () => {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/verify/email`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ companyemail: this.state.companyemail }),
+        });
+        if (res.status === 404) {
+          this.setState({ exist: true });
+          return;
+        }
+        this.increProgress(11);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     getVerificationDetails = (val, index) => {
@@ -456,7 +479,7 @@ export default withRouter(
     getOtp = () => {
       const postData = async () => {
         try {
-          await fetch(`${process.env.SERVER_URL}/signup`, {
+          const res = await fetch(`${process.env.SERVER_URL}/signup`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -466,14 +489,21 @@ export default withRouter(
               type: "company",
             }),
           });
+          if (res.status === 403) {
+            this.setState({ exist: true });
+            return;
+          } else {
+            this.setState({ exist: false });
+            this.startCountdown();
+            this.setState({ invalidOtp: false });
+            this.increProgress(11);
+          }
         } catch (error) {
           console.error(error);
         }
       };
 
       postData();
-      this.startCountdown();
-      this.setState({ invalidOtp: false });
     };
 
     setPicError = (val, i) => {
@@ -569,6 +599,11 @@ export default withRouter(
                         Invalid OTP. Please try again.
                       </p>
                     )}
+                    {this.state.exist && (
+                      <p className={styles.error}>
+                        Details already exists. Try login.
+                      </p>
+                    )}
                     {this.state.currentPage === 1 && (
                       <div className={styles.inputField} id={styles.firstname}>
                         <label htmlFor="companyname" className={styles.label}>
@@ -611,7 +646,10 @@ export default withRouter(
                           maxLength={10}
                           required
                           onChange={(event) =>
-                            this.setState({ companyphone: event.target.value })
+                            this.setState({
+                              companyphone: event.target.value,
+                              exist: false,
+                            })
                           }
                           value={
                             this.state.companyphone !== "photographer"
@@ -1333,6 +1371,7 @@ export default withRouter(
                               this.setState({
                                 companyemail: event.target.value,
                                 error: false,
+                                exist: false,
                               })
                             }
                             value={this.state.companyemail}
@@ -1471,13 +1510,33 @@ export default withRouter(
                             Back
                           </button>
                         )}
-                        {this.state.currentPage !== 3 && (
+                        {this.state.currentPage !== 2 &&
+                          this.state.currentPage !== 3 &&
+                          this.state.currentPage !== 6 && (
+                            <button
+                              className={styles.NextBtn}
+                              type="button"
+                              onClick={() => this.increProgress(14.25)}
+                            >
+                              {this.state.btn}
+                            </button>
+                          )}
+                        {this.state.currentPage === 2 && (
                           <button
                             className={styles.NextBtn}
                             type="button"
-                            onClick={() => this.increProgress(14.25)}
+                            onClick={this.getOtp}
                           >
-                            {this.state.btn}
+                            Next
+                          </button>
+                        )}
+                        {this.state.currentPage === 6 && (
+                          <button
+                            className={styles.NextBtn}
+                            type="button"
+                            onClick={this.checkEmail}
+                          >
+                            Next
                           </button>
                         )}
                         {this.state.currentPage === 3 && (
@@ -1492,7 +1551,9 @@ export default withRouter(
                         {this.state.resendOtp &&
                           this.state.currentPage === 3 && (
                             <button
-                              className={styles.NextBtn}
+                              className={
+                                styles.NextBtn + " flex items-center gap-2"
+                              }
                               type="button"
                               onClick={this.getOtp}
                             >

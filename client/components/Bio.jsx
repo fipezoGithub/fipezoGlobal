@@ -9,12 +9,14 @@ export default function Bio() {
         <div className={styles.picturesNText}>
           <div className={styles.pictures}>
             <h1 className={styles.heading} id={styles.head}>
-              Your Go-To Platform for Online Freelancer Hiring and Freelance Job
-              Search
+              Unlock Your Potential! Find Freelancers in India and Explore
+              High-Paying Freelance Jobs Online with Fipezo!&quot;
             </h1>
             <p className={styles.subHeading}>
-              Find the Right Freelancer Online for Your Project with Our
-              Easy-to-Use Platform
+              Discover talent on Fipezo - where top freelancers in India await.
+              From freelance graphic designers to freelance content writers and
+              video editors, find the best for your projects. Elevate your work
+              with Fipezo, a booming freelance marketplace.
             </p>
             <button className={styles.button}>
               <span className={styles.location}>

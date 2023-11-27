@@ -54,7 +54,15 @@ export default function BlogCategory(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16">
+      <div className="mt-16 w-full">
+        <Image
+          src="/resource-category-banner.png"
+          width={1000}
+          height={400}
+          className="w-full"
+        />
+      </div>
+      <div className="mt-8">
         <div className="flex items-center justify-between mx-8">
           <h1 className="text-4xl capitalize font-semibold">
             {router.query.category.split("_").join(" ")}

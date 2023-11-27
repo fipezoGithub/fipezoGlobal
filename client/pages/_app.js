@@ -78,10 +78,10 @@ export default function App({ Component, pageProps }) {
     <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
       <div>
         <Head>
-          <title>Fipezo | Online Freelancer Hiring Made Simple</title>
+          <title>Fipezo | Find Freelancers in India & Explore Freelance Jobs - Fipezo</title>
           <meta
             name="description"
-            content="Explore India's best freelance platform, connecting you with skilled freelancers. Find freelance jobs online or hire freelancers on Fipezo."
+            content="Search for freelance jobs or Find Freelancers In India on Fipezo, India's best freelance marketplace, connecting you with skilled freelancers."
           />
 
           <meta property="og:url" content="https://fipezo.com/" />
