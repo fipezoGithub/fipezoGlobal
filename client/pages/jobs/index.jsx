@@ -346,11 +346,19 @@ export default function Jobs(props) {
         setUser={props.setUser}
       />
       <div className="mt-16">
-        <div className="bg-[url('/bg2.png')] bg-no-repeat bg-center bg-cover">
+        {/* <div className="bg-[url('/bg2.png')] bg-no-repeat bg-center bg-cover">
           <p className="text-white text-3xl py-4 text-center drop-shadow-lg shadow-black flex flex-col items-center font-bold gap-2">
             Ab projects ki tension ko bolo bye!
             <span className="text-xl">with Fipezo Jobs</span>
           </p>
+        </div> */}
+        <div className="w-full">
+          <Image
+            src="/Abb Jobs Ki Tension ko bolo bye!.png"
+            width={800}
+            height={300}
+            className="w-full"
+          />
         </div>
       </div>
       <div className="flex items-start justify-center w-full mt-4 relative">

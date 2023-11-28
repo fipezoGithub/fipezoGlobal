@@ -122,7 +122,7 @@ export default function Bloguid(props) {
               src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
               width={1200}
               height={720}
-              className="lg:w-3/4 lg:min-h-[55vh] object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
+              className="object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
               alt="resources-cover"
             />
           </div>

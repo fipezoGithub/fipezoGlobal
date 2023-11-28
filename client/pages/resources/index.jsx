@@ -184,38 +184,39 @@ export default function Blogs(props) {
           <div className="m-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="text-3xl lg:text-5xl font-bold capitalize lg:ml-12 border-b-8 border-rose-500">
                   Featured
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/featured"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {featuredBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={800}
-                    height={800}
-                    className=""
-                  />
-                  <p className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </p>
-                </Link>
-              ))}
+            <section className="flex flex-col items-center justify-center gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {featuredBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      // src={`/How to stat freelancing.png`}
+                      width={800}
+                      height={800}
+                      className=""
+                    />
+                    <p className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/featured"
+                className="bg-red-500 text-white font-semibold tracking-wider rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}
@@ -223,38 +224,38 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="lg:ml-12 text-3xl lg:text-5xl font-bold capitalize border-b-8 border-rose-500">
                   Freelance Insights
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/freelance_insights"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {freelanceInsightsBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className=""
-                  />
-                  <h3 className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              ))}
+            <section className="flex flex-col items-center gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {freelanceInsightsBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      width={400}
+                      height={400}
+                      className=""
+                    />
+                    <h3 className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/freelance_insights"
+                className="bg-red-500 text-white font-semibold tracking-wider rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}
@@ -262,38 +263,38 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="text-3xl lg:text-5xl lg:ml-12 font-bold capitalize border-b-8 border-rose-500">
                   hiring insights
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/hiring_insights"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {hiringInsightsBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className=""
-                  />
-                  <h3 className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              ))}
+            <section className="flex flex-col items-center gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {hiringInsightsBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      width={400}
+                      height={400}
+                      className=""
+                    />
+                    <h3 className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/hiring_insights"
+                className="bg-red-500 text-white font-semibold tracking-wider rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}
@@ -301,38 +302,38 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="text-3xl lg:text-5xl border-b-8 border-red-500 lg:ml-12 font-bold capitalize">
                   fipezo insights
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/fipezo_insights"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {fipezoInsightsBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className=""
-                  />
-                  <h3 className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              ))}
+            <section className="flex flex-col items-center gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {fipezoInsightsBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      width={400}
+                      height={400}
+                      className=""
+                    />
+                    <h3 className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/fipezo_insights"
+                className="bg-red-500 text-white font-semibold rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}
@@ -340,38 +341,38 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="border-b-8 border-red-500 text-3xl lg:text-5xl font-bold capitalize">
                   how to guide
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/how_to_guide"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {howToGuideBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className=""
-                  />
-                  <h3 className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              ))}
+            <section className="flex flex-col items-center gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {howToGuideBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      width={400}
+                      height={400}
+                      className=""
+                    />
+                    <h3 className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/how_to_guide"
+                className="bg-red-500 text-white rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}
@@ -379,38 +380,38 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-2xl lg:text-5xl font-bold capitalize">
+                <li className="border-b-8 border-red-500 text-3xl lg:ml-12 lg:text-5xl font-bold capitalize">
                   success stories
-                </li>
-                <li>
-                  <Link
-                    href="/resources/category/success_stories"
-                    className="border border-black rounded-lg px-3 lg:px-6 py-1 lg:py-3 text-xs whitespace-nowrap lg:text-base capitalize"
-                  >
-                    view more...
-                  </Link>
                 </li>
               </ul>
             </nav>
-            <section className="flex items-start flex-wrap gap-y-12">
-              {successStoryBlogs.map((item, index) => (
-                <Link
-                  href={`/resources/details/${item.uid}`}
-                  onClick={() => viewCount(item._id)}
-                  className="flex flex-col items-start mx-12 gap-2 max-w-sm"
-                  key={index}
-                >
-                  <Image
-                    src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                    width={400}
-                    height={400}
-                    className="w-60"
-                  />
-                  <h3 className="font-bold lg:text-2xl line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              ))}
+            <section className="flex items-center flex-col gap-6">
+              <div className="flex items-start flex-wrap gap-y-12">
+                {successStoryBlogs.map((item, index) => (
+                  <Link
+                    href={`/resources/details/${item.uid}`}
+                    onClick={() => viewCount(item._id)}
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
+                    key={index}
+                  >
+                    <Image
+                      src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      width={400}
+                      height={400}
+                      className=""
+                    />
+                    <h3 className="font-bold lg:text-2xl line-clamp-2">
+                      {item.title}
+                    </h3>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href="/resources/category/success_stories"
+                className="bg-red-500 text-white rounded-lg px-4 lg:px-6 py-2 lg:py-3 text-sm whitespace-nowrap lg:text-base capitalize"
+              >
+                view more...
+              </Link>
             </section>
           </div>
         )}

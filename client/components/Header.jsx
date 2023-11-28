@@ -29,7 +29,7 @@ class Header extends React.Component {
 
     return (
       <div className={styles.header}>
-        <div className={styles.headingText}>
+        <div className={styles.headingText + " montserrat"}>
           Hire Freelancer{" "}
           <span className={styles.AnimationText}>{currentText}</span> Nearby.
         </div>

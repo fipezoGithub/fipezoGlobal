@@ -26,6 +26,9 @@
   font-size: 0.9rem;
   margin-top: 1rem;
   letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media (max-width: 768px) {

@@ -18,7 +18,7 @@ const Signupguide = () => {
         />
       </div>
       <div className="flex flex-col gap-4 mx-4 lg:mx-0 items-center lg:items-start">
-        <h2 className="text-xl lg:text-3xl mt-1 font-semibold">
+        <h2 className="text-xl lg:text-3xl mt-1 font-semibold montserrat">
           Join Fipezo For Free, Begin Your Freelance Journey
         </h2>
         <ul className="flex flex-col gap-6">

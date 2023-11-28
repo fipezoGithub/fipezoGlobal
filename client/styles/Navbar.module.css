@@ -88,10 +88,12 @@
   height: 3rem;
   align-items: center;
   padding: 0.4rem;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
   position: relative;
   letter-spacing: 0.5px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
 }
 
 .navElement:hover {

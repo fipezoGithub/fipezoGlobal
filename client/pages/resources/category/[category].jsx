@@ -57,21 +57,22 @@ export default function BlogCategory(props) {
       <div className="mt-16 w-full">
         <Image
           src="/resource-category-banner.png"
+          // src="/WhatsApp Image 2023-11-28 at 13.39.44.jpeg"
           width={1000}
           height={400}
-          className="w-full"
+          className="w-full h-[13vh] lg:h-auto object-cover"
         />
       </div>
       <div className="mt-8">
         <div className="flex items-center justify-between mx-8">
-          <h1 className="text-4xl capitalize font-semibold">
+          <h1 className="border-b-8 border-red-500 text-3xl lg:text-4xl capitalize font-semibold">
             {router.query.category.split("_").join(" ")}
           </h1>
           <button type="button" onClick={() => setShowSearch(true)}>
             <FaSearch size={"1.5em"} />
           </button>
         </div>
-        <div className="flex items-start gap-12 flex-wrap my-4 gap-y-12 mx-8">
+        <div className="flex items-start justify-center gap-12 flex-wrap my-4 gap-y-12 mx-8">
           {props.data.length > 0 ? (
             props.data.map((item, index) => (
               <Link

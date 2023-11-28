@@ -8,7 +8,7 @@ export default function Bio() {
       <div className={styles.fade}>
         <div className={styles.picturesNText}>
           <div className={styles.pictures}>
-            <h1 className={styles.heading} id={styles.head}>
+            <h1 className={styles.heading + " montserrat"} id={styles.head}>
               Unlock Your Potential! Find Freelancers in India and Explore
               High-Paying Freelance Jobs Online with Fipezo!&quot;
             </h1>
@@ -27,7 +27,9 @@ export default function Bio() {
           </div>
           <div className={styles.Text}>
             <h1 className={styles.boxtext}>Fipezo</h1>
-            <h1 className={styles.boxheading}>All Verified Freelancers</h1>
+            <h1 className={styles.boxheading + " montserrat"}>
+              All Verified Freelancers
+            </h1>
             <div className={styles.container}>
               <p className={styles.boxsubheading}>
                 {" "}

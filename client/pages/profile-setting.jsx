@@ -10,6 +10,7 @@ const Profile = (props) => {
   const [lastname, setLastname] = useState("");
   const [phone, setPhone] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [logintype, setLoginType] = useState("");
   const router = useRouter();
   useEffect(() => {
@@ -28,7 +29,12 @@ const Profile = (props) => {
         .then((data) => {
           setFirstname(data.user.firstname);
           setLastname(data.user.lastname);
-          setPhone(data.user.phone);
+          setCompanyName(data.user.companyname);
+          if (data.user.phone) {
+            setPhone(data.user.phone);
+          } else {
+            setPhone(data.user.companyphone);
+          }
           setProfilePicture(data.user.profilePicture);
         })
         .catch((error) => {
@@ -61,46 +67,56 @@ const Profile = (props) => {
           </div>
 
           <div className={style.profileInfo}>
-            <h1 className={style.name}>
-              {firstname} {lastname}
-            </h1>
-            <p className={style.phone}>
-              <span className={style.phoneValue}>{phone}</span>
-            </p>
+            {props.user && (
+              <h1 className={style.name}>
+                {firstname} {lastname}
+              </h1>
+            )}
+            {props.company && <h1 className={style.name}>{companyName}</h1>}
+            {props.user && (
+              <p className={style.phone}>
+                <span className={style.phoneValue}>{phone}</span>
+              </p>
+            )}
+            {props.company && (
+              <p className={style.phone}>
+                <span className={style.phoneValue}>{phone}</span>
+              </p>
+            )}
           </div>
 
           <div className={style.options}>
-            {logintype === "freelancer" && (
+            {props.user?.uid && (
               <Link className={style.option} href="/my_job">
                 Jobs
               </Link>
             )}
-            {logintype === "company" && (
+            {props.company && (
               <Link className={style.option} href="/posted-jobs">
                 My Job Posts
               </Link>
             )}
-            {logintype === "freelancer" && (
+            {props.user?.uid && (
               <Link className={style.option} href="/my_requests">
                 Hire Requests
               </Link>
             )}
-            {logintype === "company" && (
+            {props.company && (
               <Link className={style.option} href="/my_hires">
                 Hire Requests
               </Link>
             )}
-            {logintype === "freelancer" && (
+            {props.user?.uid && (
               <Link href="/edit-profile" className={style.option}>
                 Edit Profile
               </Link>
             )}
-            {logintype === "company" && (
+            {props.company && (
               <Link href="/edit-company" className={style.option}>
                 Edit Profile
               </Link>
             )}
-            {logintype === "freelancer" && (
+            {props.user?.uid && (
               <Link className={style.option} href="/my_referral">
                 My Referal
               </Link>
