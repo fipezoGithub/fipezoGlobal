@@ -1,5 +1,4 @@
 import styles from "../styles/Header.module.css";
-import SearchBar from "../components/SearchBar";
 import React from "react";
 import SearchBox from "./SearchBox";
 

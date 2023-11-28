@@ -123,10 +123,10 @@ class SearchBox extends React.Component {
     );
 
     return (
-      <div className="flex flex-col lg:flex-row my-4 bg-white lg:bg-inherit px-2 lg:px-0 py-2 lg:py-0 z-[100] shadow-md lg:shadow-none border-b lg:border-b-0 rounded-md lg:rounded-none gap-3 lg:gap-0">
+      <div className="flex flex-col md:flex-row my-4 bg-white md:bg-inherit px-2 md:px-0 py-2 md:py-0 z-[100] shadow-md md:shadow-none border-b md:border-b-0 rounded-md md:rounded-none gap-3 md:gap-0">
         <div className="relative flex flex-col items-start">
           <div
-            className="flex items-center bg-white px-2 lg:px-4 lg:rounded-l-md border lg:border-r lg:border-0 rounded-md lg:rounded-none w-full lg:w-auto"
+            className="flex items-center bg-white px-2 md:px-4 md:rounded-l-md border md:border-r md:border-0 rounded-md md:rounded-none w-full md:w-auto"
             onClick={() => {
               this.setState({ searchTerm: "" });
               this.setState({
@@ -197,7 +197,7 @@ class SearchBox extends React.Component {
           )}
         </div>
         <div className="relative group">
-          <div className="flex items-center bg-white border lg:border-0 rounded-md lg:rounded-none px-4">
+          <div className="flex items-center bg-white border md:border-0 rounded-md md:rounded-none px-4">
             <GoLocation color="#bebebe" size={"1.5em"} />
             <input
               type="text"
@@ -289,7 +289,7 @@ class SearchBox extends React.Component {
           <button
             type="button"
             onClick={this.handleSearch}
-            className="bg-blue-600 text-white py-2 lg:py-4 px-8 lg:px-4 capitalize font-semibold w-full lg:w-auto rounded-md lg:rounded-none lg:rounded-r-md flex items-center text-base gap-2 justify-center lg:justify-normal"
+            className="bg-blue-600 text-white py-2 md:py-4 px-8 md:px-4 capitalize font-semibold w-full md:w-auto rounded-md md:rounded-none md:rounded-r-md flex items-center text-base gap-2 justify-center md:justify-normal"
           >
             find freelancer
           </button>
