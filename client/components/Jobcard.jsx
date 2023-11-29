@@ -632,8 +632,8 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
                     <option value="Mysuru">Mysuru</option>
                     <option value="Nagpur">Nagpur</option>
                     <option value="Nashik">Nashik</option>
-                    <option value="New Delhi">New Delhi</option>
-                    <option value="Navi Mumbai">Navi Mumbai</option>
+                    <option value="New_Delhi">New Delhi</option>
+                    <option value="Navi_Mumbai">Navi Mumbai</option>
                     <option value="Patna">Patna</option>
                     <option value="Prayagraj">Prayagraj</option>
                     <option value="Puducherry">Puducherry</option>

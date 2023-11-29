@@ -16,7 +16,7 @@ const twilio = require("twilio")(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-function sendTextMessage(phoneNumber, message) {
+async function sendTextMessage(phoneNumber, message) {
   if (process.env.CLIENT_URL !== "http://localhost:3001") {
     phoneNumber = "+91" + phoneNumber.toString();
     twilio.messages.create({

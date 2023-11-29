@@ -81,9 +81,11 @@ const SimilarFreelancer = (props) => {
           <AiOutlineRight />
         </button>
       </div>
-      {filtered.map((item, index) => (
-        <ProfileCard key={index} profile={item} />
-      ))}
+      <div className="flex items-start gap-x-4 animate-marquee hover:[animation-play-state:_paused]">
+        {filtered.map((item, index) => (
+          <ProfileCard key={index} profile={item} />
+        ))}
+      </div>
     </div>
   );
 };

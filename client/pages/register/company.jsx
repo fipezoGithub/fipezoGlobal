@@ -988,11 +988,11 @@ export default withRouter(
                                   className={styles.option}
                                   value="New Delhi"
                                 >
-                                  New Delhi
+                                  New_Delhi
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Navi Mumbai"
+                                  value="Navi_Mumbai"
                                 >
                                   Navi Mumbai
                                 </option>

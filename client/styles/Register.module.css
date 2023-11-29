@@ -85,7 +85,6 @@
 
   .image {
     width: 70%;
-    height: 70%;
   }
   .p {
     font-size: 0.8rem;
@@ -95,7 +94,6 @@
 @media (max-width: 940px) {
   .image {
     width: 60%;
-    height: 60%;
   }
 
   .p {
@@ -108,10 +106,7 @@
     align-items: center;
   }
   .image {
-    /* width: 50%;
-        height: 50%; */
     width: 50%;
-    height: auto;
   }
 
   .btn > h1 {
@@ -152,7 +147,6 @@
   }
   .image {
     width: 75%;
-    height: 75%;
     margin-bottom: 2rem;
   }
 }

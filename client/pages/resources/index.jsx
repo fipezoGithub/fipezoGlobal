@@ -21,6 +21,7 @@ export default function Blogs(props) {
   const [fipezoInsightsBlogs, setFipezoInsightsBlogs] = useState([]);
   const [howToGuideBlogs, setHowToGuideBlogs] = useState([]);
   const [successStoryBlogs, setSuccessStoryBlogs] = useState([]);
+  
   useEffect(() => {
     async function getFeaturedBlogs() {
       try {
@@ -184,13 +185,13 @@ export default function Blogs(props) {
           <div className="m-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-3xl lg:text-5xl font-bold capitalize lg:ml-12 border-b-8 border-rose-500">
+                <li className="text-3xl lg:text-5xl font-bold capitalize lg:ml-12 border-b-4 lg:border-b-8 border-rose-500">
                   Featured
                 </li>
               </ul>
             </nav>
             <section className="flex flex-col items-center justify-center gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {featuredBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}
@@ -224,13 +225,13 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="lg:ml-12 text-3xl lg:text-5xl font-bold capitalize border-b-8 border-rose-500">
+                <li className="lg:ml-12 text-3xl lg:text-5xl font-bold capitalize border-b-4 lg:border-b-8 border-rose-500">
                   Freelance Insights
                 </li>
               </ul>
             </nav>
             <section className="flex flex-col items-center gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {freelanceInsightsBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}
@@ -263,18 +264,18 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-3xl lg:text-5xl lg:ml-12 font-bold capitalize border-b-8 border-rose-500">
+                <li className="text-3xl lg:text-5xl lg:ml-12 font-bold capitalize border-b-4 lg:border-b-8 border-rose-500">
                   hiring insights
                 </li>
               </ul>
             </nav>
             <section className="flex flex-col items-center gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {hiringInsightsBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}
                     onClick={() => viewCount(item._id)}
-                    className="flex flex-col items-start mx-12 gap-2 max-w-sm"
+                    className="flex flex-col items-start lg:mx-12 gap-2 max-w-sm"
                     key={index}
                   >
                     <Image
@@ -302,13 +303,13 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="text-3xl lg:text-5xl border-b-8 border-red-500 lg:ml-12 font-bold capitalize">
+                <li className="text-3xl lg:text-5xl border-b-4 lg:border-b-8 border-red-500 lg:ml-12 font-bold capitalize">
                   fipezo insights
                 </li>
               </ul>
             </nav>
             <section className="flex flex-col items-center gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {fipezoInsightsBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}
@@ -341,13 +342,13 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="border-b-8 border-red-500 text-3xl lg:text-5xl font-bold capitalize">
+                <li className="text-3xl lg:text-5xl border-b-4 lg:border-b-8 border-red-500 lg:ml-12 font-bold capitalize">
                   how to guide
                 </li>
               </ul>
             </nav>
             <section className="flex flex-col items-center gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {howToGuideBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}
@@ -380,13 +381,13 @@ export default function Blogs(props) {
           <div className="mx-8 my-8">
             <nav className="my-8">
               <ul className="flex items-center justify-between">
-                <li className="border-b-8 border-red-500 text-3xl lg:ml-12 lg:text-5xl font-bold capitalize">
+                <li className="border-b-4 lg:border-b-8 border-red-500 text-3xl lg:ml-12 lg:text-5xl font-bold capitalize">
                   success stories
                 </li>
               </ul>
             </nav>
             <section className="flex items-center flex-col gap-6">
-              <div className="flex items-start flex-wrap gap-y-12">
+              <div className="flex items-start flex-wrap gap-y-8 lg:gap-y-12">
                 {successStoryBlogs.map((item, index) => (
                   <Link
                     href={`/resources/details/${item.uid}`}

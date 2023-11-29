@@ -10,14 +10,14 @@ class SearchBar extends React.Component {
     this.state = {
       showDropDown: false,
       isInputFocused: false,
-      cityname: "New Delhi",
+      cityname: "New_Delhi",
     };
   }
 
   componentDidMount() {
     const city = localStorage.getItem("city");
     if (city) this.setState({ cityname: city });
-    else localStorage.setItem("city", "New Delhi");
+    else localStorage.setItem("city", "New_Delhi");
   }
 
   toggle = () => {

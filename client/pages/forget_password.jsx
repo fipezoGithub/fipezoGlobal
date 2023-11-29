@@ -12,8 +12,9 @@ const Forget_password = (props) => {
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
   const [passwordBox, setShowPasswordBox] = useState(false);
-  const [type, setType] = useState("user");
+  const [type, setType] = useState("forget");
   const router = useRouter();
+
   const handelOTP = async (e) => {
     e.preventDefault();
     try {
@@ -123,28 +124,16 @@ const Forget_password = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="pt-16 flex items-center w-full justify-center bg-[url('/forget-password-background.jpg')] bg-no-repeat bg-cover">
-        <div className="flex flex-col items-center bg-black text-white rounded-2xl px-4 md:px-10 py-4 md:py-5 h-full">
-          <h2 className="font-bold text-2xl mb-4">Forget Password</h2>
-          <label htmlFor="accType" className="flex gap-2 text-lg relative">
-            <p className="p-2">Log in As</p>
-            <select
-              className="bg-[--primary-color] text-base border border-[rgb(129,_124,_124)] p-2 rounded-2xl text-white"
-              id="accType"
-              name="type"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="user">User</option>
-              <option value="freelancer">Freelancer</option>
-              <option value="company">Company</option>
-            </select>
-          </label>
+      <div className="mt-16 flex justify-center py-12 bg-[url('/bgX.jpg')] bg-no-repeat bg-cover">
+        <div className="flex flex-col items-center justify-center bg-black text-white rounded-2xl px-4 md:px-10 py-4 md:py-5 shadow-lg">
+          <h2 className="font-bold text-3xl mb-4">Forget Password</h2>
           {passwordBox === false && (
             <>
-              <div className="flex items-center flex-col gap-2 mt-4">
+              <div className="flex items-center flex-col gap-4 my-4">
                 <div className="flex items-center gap-2">
-                  <label htmlFor="phone">Phone</label>
+                  <label htmlFor="phone" className="text-lg font-semibold">
+                    Phone
+                  </label>
                   <input
                     type="tel"
                     id="phone"
@@ -160,21 +149,26 @@ const Forget_password = (props) => {
                   <button
                     type="button"
                     onClick={handelOTP}
-                    className="capitalize px-2 py-1 rounded-md bg-white text-black"
+                    className="capitalize px-8 py-2 rounded-md font-semibold bg-white text-black"
                   >
                     send OTP
                   </button>
                 </div>
               </div>
               {showOTP === true && (
-                <div className="flex items-center flex-col gap-2">
+                <div className="flex items-center flex-col gap-4 my-4">
                   <div className="flex items-center gap-2">
-                    <label htmlFor="otpforget">Enter OTP</label>
+                    <label
+                      htmlFor="otpforget"
+                      className="text-lg font-semibold"
+                    >
+                      Enter OTP
+                    </label>
                     <input
                       type="text"
                       name=""
                       id="otpforget"
-                      placeholder="Enter otp here"
+                      placeholder="Enter OTP here"
                       value={otp}
                       className="bg-transparent focus:outline-none p-2 border-b border-slate-500"
                       onChange={(e) => setOTP(e.target.value)}
@@ -183,7 +177,7 @@ const Forget_password = (props) => {
                   <button
                     type="button"
                     onClick={submitOTP}
-                    className="capitalize px-2 py-1 rounded-md bg-white text-black"
+                    className="capitalize px-8 py-2 rounded-md font-semibold bg-white text-black"
                   >
                     submit
                   </button>
@@ -235,8 +229,14 @@ const Forget_password = (props) => {
             </div>
           )}
         </div>
-        <div className="relative hidden md:block">
-          <Image src="/Forgot password-amico.png" width={600} height={600} alt="forget password" />
+        <div className="relative hidden md:flex items-center justify-center p-8 bg-white h-[70vh] shadow-lg rounded-2xl">
+          <Image
+            src="/Forgot password-amico.png"
+            width={600}
+            height={600}
+            alt="forget password"
+            className="w-96"
+          />
         </div>
       </div>
       <Footer />

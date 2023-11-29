@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }) {
           break;
       }
     }
-
+    // getLocation();
     // if (!("Notification" in window)) {
     //   console.log("This browser does not support desktop notification");
     // } else {
@@ -56,6 +56,7 @@ export default function App({ Component, pageProps }) {
     // }
 
     // getLocation();
+    
     const start = () => {
       console.log("start");
       setLoading(true);

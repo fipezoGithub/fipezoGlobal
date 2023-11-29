@@ -343,10 +343,10 @@ const ProfileSetting = (props) => {
                     <option className="p-2 text-black" value="Nashik">
                       Nashik
                     </option>
-                    <option className="p-2 text-black" value="New Delhi">
+                    <option className="p-2 text-black" value="New_Delhi">
                       New Delhi
                     </option>
-                    <option className="p-2 text-black" value="Navi Mumbai">
+                    <option className="p-2 text-black" value="Navi_Mumbai">
                       Navi Mumbai
                     </option>
                     <option className="p-2 text-black" value="Patna">

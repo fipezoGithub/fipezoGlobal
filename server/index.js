@@ -149,6 +149,7 @@ const {
   hiredFreelancers,
   rejectFreelancers,
   jobViewCount,
+  getJobByLocation,
 } = require("./controllers/jobController");
 const {
   requestCallback,
@@ -329,6 +330,7 @@ app.get("/api/job/user", verifyToken, getPostedJobsOfUser);
 app.get("/api/job/get/:uid", getJobById);
 app.get("/api/job/get/", getAllJob);
 app.get("/api/job/profession/:profession", getJobByProfession);
+app.get("/api/job/location/:location", getJobByLocation);
 
 //CallbackController Routes
 app.post("/api/callback", verifyToken, requestCallback);

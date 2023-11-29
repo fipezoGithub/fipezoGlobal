@@ -114,8 +114,8 @@ export default function Bloguid(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16 mx-8 flex flex-col lg:flex-row items-start gap-4">
-        <div className="mx-16"></div>
+      <div className="mt-16 mx-8 flex flex-col lg:flex-row lg:items-start gap-8">
+        <div className="mx-16 hidden lg:block"></div>
         <div className="flex flex-col lg:gap-6 gap-3">
           <div className="">
             <Image
@@ -126,7 +126,7 @@ export default function Bloguid(props) {
               alt="resources-cover"
             />
           </div>
-          <h1 className="text-2xl lg:text-4xl font-bold lg:font-medium">
+          <h1 className="text-2xl lg:text-4xl font-bold">
             {props.data.title}
           </h1>
           <p className="">

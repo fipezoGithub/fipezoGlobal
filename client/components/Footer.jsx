@@ -205,9 +205,7 @@ const Footer = () => {
               </div>
               <div className="hidden lg:block">
                 <p className="text-neutral-500">
-                  Copyright © 2023{" "}
-                  <span className="text-white font-semibold">Fipezo</span> , All
-                  rights reserved.
+                  Copyright © 2023 Fipezo, All rights reserved.
                 </p>
               </div>
             </div>
@@ -427,9 +425,7 @@ const Footer = () => {
         </div>
       </div>
       <p className="text-neutral-500 lg:hidden text-center">
-        Copyright © 2023{" "}
-        <span className="text-white font-semibold">Fipezo</span> , All rights
-        reserved.
+        Copyright © 2023 Fipezo, All rights reserved.
       </p>
       <div className="my-2">
         <h1 className="flex items-center gap-1 font-bold justify-center">

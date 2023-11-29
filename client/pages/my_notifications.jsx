@@ -12,7 +12,7 @@ const My_notifications = (props) => {
     const type = JSON.parse(localStorage.getItem("type"));
     async function getNotifications() {
       let noti;
-      if (type === "company") {
+      if (props.company) {
         const res = await fetch(
           `${process.env.SERVER_URL}/notification/${props.company._id}?type=${type}`,
           {

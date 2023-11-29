@@ -15,12 +15,11 @@ const My_referral = (props) => {
   const referalText = useRef();
   const a = 5;
   useEffect(() => {
-    const loginType = JSON.parse(localStorage.getItem("type"));
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     async function getReferDetails() {
-      if (loginType === "user") {
+      if (props.user && !props.user.uid) {
         const res = await fetch(`${process.env.SERVER_URL}/getrefer/user`, {
           method: "GET",
           headers: {
@@ -30,7 +29,7 @@ const My_referral = (props) => {
         });
         const referalCode = await res.json();
         setReferCode(referalCode);
-      } else if (loginType === "freelancer") {
+      } else if (props.user && props.user.uid) {
         const res = await fetch(
           `${process.env.SERVER_URL}/getrefer/freelancer`,
           {
@@ -57,7 +56,7 @@ const My_referral = (props) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (loginType === "user") {
+    if (props.user && !props.user.uid) {
       const res = await fetch(`${process.env.SERVER_URL}/generaterefer`, {
         method: "POST",
         headers: {
@@ -67,7 +66,7 @@ const My_referral = (props) => {
       });
       const refer = await res.json();
       setReferCode("");
-    } else if (loginType === "freelancer") {
+    } else if (props.user && props.user.uid) {
       const res = await fetch(`${process.env.SERVER_URL}/generaterefer`, {
         method: "POST",
         headers: {
@@ -80,6 +79,7 @@ const My_referral = (props) => {
       setReferCode("");
     }
   }
+
   function copyText() {
     navigator.clipboard.writeText(referalText.current.innerHTML);
   }

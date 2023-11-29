@@ -14,6 +14,7 @@ export default function Navbar(props) {
   const [color, setColor] = useState(props.color);
   const [isAdmin, setIsAdmin] = useState(false);
   const [logInType, setLogInType] = useState("");
+  const [city, setCity] = useState("");
   const [notificationCount, setNotificationCount] = useState(0);
   const [display, setDisplay] = useState("none");
   const [display2, setDisplay2] = useState("none");
@@ -27,6 +28,10 @@ export default function Navbar(props) {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
+    const city = localStorage.getItem("city")
+      ? localStorage.getItem("city")
+      : null;
+    setCity(city);
     if (token && !props.user && !props.company) {
       fetch(`${process.env.SERVER_URL}/navbar`, {
         method: "GET",
@@ -87,7 +92,7 @@ export default function Navbar(props) {
     }
     getNotifications();
     setLogInType(JSON.parse(localStorage.getItem("type")));
-  }, [props.user, props.company]);
+  }, [props.user, props.company, city]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -167,6 +172,11 @@ export default function Navbar(props) {
             </Link>
           </li>
 
+          {/* <li className={styles.navElement}>
+            <Link href={city === null ? `/jobs` : `/jobs/${city}`}>
+              <span id={styles.home}>Browse&nbsp;Jobs&nbsp;&nbsp;</span>
+            </Link>
+          </li> */}
           <li className={styles.navElement}>
             <Link href="/jobs">
               <span id={styles.home}>Browse&nbsp;Jobs&nbsp;&nbsp;</span>

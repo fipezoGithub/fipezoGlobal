@@ -62,8 +62,8 @@ class SearchBox extends React.Component {
         "Mysuru",
         "Nagpur",
         "Nashik",
-        "New Delhi",
-        "Navi Mumbai",
+        "New_Delhi",
+        "Navi_Mumbai",
         "Patna",
         "Prayagraj",
         "Puducherry",
@@ -87,14 +87,14 @@ class SearchBox extends React.Component {
       searchValue: "",
       showDropDownCategory: false,
       showDropDownCity: false,
-      cityname: "New Delhi",
+      cityname: "New_Delhi",
     };
   }
 
   componentDidMount() {
     const city = localStorage.getItem("city");
     if (city) this.setState({ cityname: city });
-    else localStorage.setItem("city", "New Delhi");
+    else localStorage.setItem("city", "New_Delhi");
   }
 
   setSearchTerm = (term) => {

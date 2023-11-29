@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -46,15 +47,32 @@ const RelatedBlogs = () => {
 
   return (
     <div>
-      <h3 className="text-xl font-semibold">Related Posts</h3>
-      {relatedBlogs.slice(0, 6).map((item, index) => (
+      <h3 className="text-xl lg:text-3xl font-semibold">Related Posts</h3>
+      {relatedBlogs.slice(0, 4).map((item, index) => (
         <Link
           href={`/resources/details/${item.uid}`}
           onClick={() => viewCount(item._id)}
           key={index}
-          className="my-4 block text-lg hover:text-blue-600"
+          className="my-4 hover:text-blue-600 flex flex-col gap-4"
         >
-          {item.title}
+          <div className="overflow-hidden">
+            <Image
+              src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+              width={400}
+              height={400}
+              alt={item.title}
+              className="transition-transform hover:scale-110 duration-500"
+            />
+          </div>
+          <div className="flex flex-col items-start gap-2">
+            <p className="text-xl font-medium line-clamp-2">{item.title}</p>
+            <p className="text-neutral-500 text-sm font-semibold">
+              {new Date(item.createdAt).toLocaleString("en-IN", {
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+          </div>
         </Link>
       ))}
     </div>

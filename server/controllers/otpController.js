@@ -210,18 +210,19 @@ const forgetOTPController = async (req, res) => {
       phone: req.body.phone,
       type: req.body.type,
     });
-    let user;
-    if (req.body.type === "user")
-      user = await userCollection.findOne({ phone: req.body.phone });
-    else if (req.body.type === "freelancer")
+
+    let user = await userCollection.findOne({ phone: req.body.phone });
+    if (!user) {
       user = await freelancerCollection.findOne({ phone: req.body.phone });
-    else if (req.body.type === "company")
-      user = await companyCollection.findOne({ companyphone: req.body.phone });
-
-    if (!user || !otpData) {
-      return res.sendStatus(403);
+      if (!user) {
+        user = await companyCollection.findOne({
+          companyphone: req.body.phone,
+        });
+        if (!user || !otpData) {
+          return res.sendStatus(403);
+        }
+      }
     }
-
     const otpCode = otpData.otp;
 
     if (otpCode === parseInt(otp)) {

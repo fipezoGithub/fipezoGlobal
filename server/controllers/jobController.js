@@ -217,6 +217,23 @@ async function getJobByProfession(req, res) {
   }
 }
 
+async function getJobByLocation(req, res) {
+  try {
+    const jobs = await jobsCollection
+      .find({
+        location: req.params.location,
+      })
+      .populate("createdCompany")
+      .populate("appliedFreelancers")
+      .populate("hiredFreelancers")
+      .exec();
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ message: "Job not found" });
+  }
+}
+
 async function hiredFreelancers(req, res) {
   jwt.verify(req.token, secret, async (err, authData) => {
     const company = await companyCollection.findById(authData.user._id);
@@ -300,4 +317,5 @@ module.exports = {
   hiredFreelancers,
   rejectFreelancers,
   jobViewCount,
+  getJobByLocation
 };

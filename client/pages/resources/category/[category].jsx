@@ -57,38 +57,37 @@ export default function BlogCategory(props) {
       <div className="mt-16 w-full">
         <Image
           src="/resource-category-banner.png"
-          // src="/WhatsApp Image 2023-11-28 at 13.39.44.jpeg"
           width={1000}
           height={400}
           className="w-full h-[13vh] lg:h-auto object-cover"
         />
       </div>
       <div className="mt-8">
-        <div className="flex items-center justify-between mx-8">
-          <h1 className="border-b-8 border-red-500 text-3xl lg:text-4xl capitalize font-semibold">
+        <div className="flex items-center justify-between mx-2 lg:mx-8">
+          <h1 className="border-b-4 lg:border-b-8 border-red-500 text-3xl lg:text-4xl capitalize font-semibold">
             {router.query.category.split("_").join(" ")}
           </h1>
           <button type="button" onClick={() => setShowSearch(true)}>
             <FaSearch size={"1.5em"} />
           </button>
         </div>
-        <div className="flex items-start justify-center gap-12 flex-wrap my-4 gap-y-12 mx-8">
+        <div className="flex items-start justify-center gap-12 flex-wrap my-4 gap-y-8 lg:gap-y-12 mx-2 lg:mx-8">
           {props.data.length > 0 ? (
             props.data.map((item, index) => (
               <Link
                 href={`/resources/details/${item.uid}`}
                 onClick={() => viewCount(item._id)}
-                className="flex flex-col items-start gap-2 mx-4 lg:mx-0 max-w-sm"
+                className="flex flex-col items-start gap-2 mx-4 lg:mx-0 max-w-md hover:text-blue-600"
                 key={index}
               >
                 <Image
                   src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
-                  width={400}
-                  height={400}
+                  width={600}
+                  height={350}
                   alt="resource-cover"
                   className=""
                 />
-                <h3 className="lg:text-xl font-medium lg:line-clamp-2">
+                <h3 className="lg:text-xl font-semibold line-clamp-2">
                   {item.title}
                 </h3>
               </Link>
