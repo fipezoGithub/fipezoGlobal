@@ -733,7 +733,7 @@ export default function Navbar(props) {
                   {props.user ? props.user.phone : ""}
                 </p>
                 {props.user.uid &&
-                  (props.user.profilePicture ? (
+                  (props.user.works.length > 0 ? (
                     <Link className={styles.btn} href={`/freelancer_profile`}>
                       My Profile
                     </Link>

@@ -17,17 +17,13 @@ const CompleteYourProfile = (props) => {
   const [termsAndConditions, setTermsAndConditions] = useState(true);
   const [worksError, setWorksError] = useState(false);
   const [addharError, setAddharError] = useState(false);
+  const [completeError, setCompleteError] = useState(false);
   const [panError, setPanError] = useState(false);
   const [coverPicError, setCoverPicError] = useState(false);
   const [profilePicError, setProfilePicError] = useState(false);
   const [warns, setWarns] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    if (!props.user || !props.user.uid || props.user.works.length > 0) {
-      router.push("/");
-    }
-  }, []);
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);
@@ -99,6 +95,10 @@ const CompleteYourProfile = (props) => {
   };
 
   const verificationDetails = async (e) => {
+    if (props.user.works.length > 0) {
+      setCompleteError(false);
+      return;
+    }
     e.preventDefault();
     setLoading(true);
     const token = localStorage.getItem("user")
@@ -154,7 +154,7 @@ const CompleteYourProfile = (props) => {
       />
       {loading === false ? (
         <form
-          className="flex flex-col items-center mb-24 p-16 rounded-[5px] pt-8 relative top-8"
+          className="flex flex-col items-center mb-24 p-8 lg:p-16 rounded-[5px] pt-8 relative top-8"
           onSubmit={verificationDetails}
         >
           <Verification
@@ -178,6 +178,9 @@ const CompleteYourProfile = (props) => {
             setCompany={props.setCompany}
             profession={props.user?.profession}
           />
+          <p className="text-xl capitalize font-bold text-red-600 mt-8">
+            oops! looks like you already completed your profile
+          </p>
         </form>
       ) : (
         <Loading message={"Complete your profile"} />

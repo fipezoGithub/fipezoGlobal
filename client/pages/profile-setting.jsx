@@ -13,6 +13,7 @@ const Profile = (props) => {
   const [companyName, setCompanyName] = useState("");
   const [logintype, setLoginType] = useState("");
   const router = useRouter();
+
   useEffect(() => {
     setLoginType(JSON.parse(localStorage.getItem("type")));
     const token = localStorage.getItem("user")
@@ -42,6 +43,12 @@ const Profile = (props) => {
         });
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    props.setUser(null);
+    router.push("/");
+  };
   return (
     <div className={style.profile}>
       <Head>
@@ -131,7 +138,9 @@ const Profile = (props) => {
           </div>
 
           <div>
-            <button className={style.logout}>Logout</button>
+            <button className={style.logout} onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </div>
       </div>

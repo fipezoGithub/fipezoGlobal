@@ -182,13 +182,13 @@ function User_profile(props) {
               <div
                 className={style.editProfileImage}
                 style={{
-                  backgroundImage: `url(${
+                  backgroundImage: `url('${
                     image
                       ? image
                       : profilePicture
                       ? `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`
                       : "/dp.png"
-                  })`,
+                  }')`,
                 }}
               ></div>
             </div>
