@@ -262,7 +262,7 @@ const Premium = (props) => {
               </div>
               <div>
                 <Image
-                  src="https://fipezo-bucket.s3.ap-south-1.amazonaws.com/profilePicture-1692779304492-525571890-WhatsAppImage2023-08-23at13.55.50-400x300.webp"
+                  src="/rik_testimonial.png"
                   width={120}
                   height={120}
                   className="w-32 lg:w-[30vw] rounded-md"
@@ -314,10 +314,10 @@ const Premium = (props) => {
               </div>
               <div>
                 <Image
-                  src="https://fipezo-bucket.s3.ap-south-1.amazonaws.com/profilePicture-1692788281176-672299601-WhatsAppImage2023-08-22at12.46.34-400x300.webp"
+                  src="/lipika_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw]  rounded-md"
+                  className="w-32 lg:w-[30vw] rounded-md"
                   alt="profile"
                 />
               </div>
@@ -340,7 +340,7 @@ const Premium = (props) => {
               </div>
               <div>
                 <Image
-                  src="https://fipezo-bucket.s3.ap-south-1.amazonaws.com/profilePicture-1693110811498-5646331-IMG_8004-removebg-preview-min-400x300.webp"
+                  src="/aniket_testimonial.png"
                   width={120}
                   height={120}
                   className="w-32 lg:w-[30vw]  rounded-md"

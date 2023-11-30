@@ -329,7 +329,10 @@ app.delete("/api/job/delete/:jobId", verifyToken, deleteJob);
 app.get("/api/job/user", verifyToken, getPostedJobsOfUser);
 app.get("/api/job/get/:uid", getJobById);
 app.get("/api/job/get/", getAllJob);
-app.get("/api/job/profession/:profession", getJobByProfession);
+app.get(
+  "/api/job/location/:location/profession/:profession",
+  getJobByProfession
+);
 app.get("/api/job/location/:location", getJobByLocation);
 
 //CallbackController Routes

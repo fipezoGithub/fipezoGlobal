@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Jobcard from "@/components/Jobcard";
 import Jobfilter from "@/components/Jobfilter";
+import Jobheader from "@/components/Jobheader";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
@@ -354,93 +355,96 @@ export default function Jobs(props) {
         </div> */}
         <div className="w-full">
           <Image
-            src="/Abb Jobs Ki Tension ko bolo bye!.png"
+            src="/Abb Jobs Ki Tension ko bolo bye!.webp"
             width={800}
             height={300}
             className="w-full"
           />
         </div>
       </div>
-      <div className="flex items-start justify-center w-full mt-4 relative">
-        {showSideBar === true && (
-          <Jobfilter
-            showOpenJob={showOpenJob}
-            setShowOpenJob={setShowOpenJob}
-            showClosedJob={showClosedJob}
-            setShowClosedJob={setShowClosedJob}
-            budgetSort={budgetSort}
-            setBudgetSort={setBudgetSort}
-            filterCity={filterCity}
-            setFilterCity={setFilterCity}
-            showAlbumDesign={showAlbumDesign}
-            setShowAlbumDesign={setShowAlbumDesign}
-            showAnchor={showAnchor}
-            setShowAnchor={setShowAnchor}
-            showCinematographers={showCinematographers}
-            setShowCinematographers={setShowCinematographers}
-            showDancer={showDancer}
-            setShowDancer={setShowDancer}
-            showDj={showDj}
-            setShowDj={setShowDj}
-            showDroneOperators={showDroneOperators}
-            setShowDroneOperators={setShowDroneOperators}
-            showGraphicsDesigner={showGraphicsDesigner}
-            setShowGraphicsDesigner={setShowGraphicsDesigner}
-            showInfluencer={showInfluencer}
-            setShowInfluencer={setShowInfluencer}
-            showMakeupArtist={showMakeupArtist}
-            setShowMakeupArtist={setShowMakeupArtist}
-            showMehendiArtist={showMehendiArtist}
-            setShowMehendiArtist={setShowMehendiArtist}
-            showModel={showModel}
-            setShowModel={setShowModel}
-            showPhotographers={showPhotographers}
-            setShowPhotographers={setShowPhotographers}
-            showPhotoEditor={showPhotoEditor}
-            setShowPhotoEditor={setShowPhotoEditor}
-            showVideoEditor={showVideoEditor}
-            setShowVideoEditor={setShowVideoEditor}
-            showWebDeveloper={showWebDeveloper}
-            setShowWebDeveloper={setShowWebDeveloper}
-          />
-        )}
-        <div className="flex flex-col items-center w-auto lg:w-1/2">
-          <h1 className="text-center font-bold text-lg lg:text-2xl mb-4 flex flex-col items-center">
-            {filteredFreelancers.length} Projects
-            <span className="text-sm font-light">
-              Start applying to the latest projects vacancies at leading
-              companies in India below.
-            </span>
-          </h1>
-          <div>
-            <button
-              type="button"
-              onClick={handelFilter}
-              className="md:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md mb-4"
-            >
-              <BiFilter size={"2em"} />
-              Filters
-            </button>
-            <div className="flex flex-col items-center gap-8 w-full h-screen overflow-hidden overflow-y-scroll">
-              {filteredFreelancers.length > 0 ? (
-                filteredFreelancers.map((job, index) => (
-                  <Jobcard
-                    job={job}
-                    key={index}
-                    company={props.company}
-                    user={props.user}
-                  />
-                ))
-              ) : (
-                <div>
-                  <Image
-                    src="/no-job-found.png"
-                    width={400}
-                    height={400}
-                    alt="No job found"
-                  />
-                </div>
-              )}
+      <div className="flex items-center flex-col justify-center w-full mt-4 relative">
+        <h1 className="text-center font-bold text-lg lg:text-2xl mb-4 flex flex-col items-center">
+          {filteredFreelancers.length} Projects
+          <span className="text-sm font-light">
+            Start applying to the latest projects vacancies at leading companies
+            in India below.
+          </span>
+        </h1>
+        <Jobheader />
+        <div className="flex items-start justify-center w-full mt-4 relative">
+          {showSideBar === true && (
+            <Jobfilter
+              showOpenJob={showOpenJob}
+              setShowOpenJob={setShowOpenJob}
+              showClosedJob={showClosedJob}
+              setShowClosedJob={setShowClosedJob}
+              budgetSort={budgetSort}
+              setBudgetSort={setBudgetSort}
+              filterCity={filterCity}
+              setFilterCity={setFilterCity}
+              showAlbumDesign={showAlbumDesign}
+              setShowAlbumDesign={setShowAlbumDesign}
+              showAnchor={showAnchor}
+              setShowAnchor={setShowAnchor}
+              showCinematographers={showCinematographers}
+              setShowCinematographers={setShowCinematographers}
+              showDancer={showDancer}
+              setShowDancer={setShowDancer}
+              showDj={showDj}
+              setShowDj={setShowDj}
+              showDroneOperators={showDroneOperators}
+              setShowDroneOperators={setShowDroneOperators}
+              showGraphicsDesigner={showGraphicsDesigner}
+              setShowGraphicsDesigner={setShowGraphicsDesigner}
+              showInfluencer={showInfluencer}
+              setShowInfluencer={setShowInfluencer}
+              showMakeupArtist={showMakeupArtist}
+              setShowMakeupArtist={setShowMakeupArtist}
+              showMehendiArtist={showMehendiArtist}
+              setShowMehendiArtist={setShowMehendiArtist}
+              showModel={showModel}
+              setShowModel={setShowModel}
+              showPhotographers={showPhotographers}
+              setShowPhotographers={setShowPhotographers}
+              showPhotoEditor={showPhotoEditor}
+              setShowPhotoEditor={setShowPhotoEditor}
+              showVideoEditor={showVideoEditor}
+              setShowVideoEditor={setShowVideoEditor}
+              showWebDeveloper={showWebDeveloper}
+              setShowWebDeveloper={setShowWebDeveloper}
+            />
+          )}
+          <div className="flex flex-col items-center w-auto lg:w-1/2">
+            <div>
+              <button
+                type="button"
+                onClick={handelFilter}
+                className="md:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md mb-4"
+              >
+                <BiFilter size={"2em"} />
+                Filters
+              </button>
+              <div className="flex flex-col items-center gap-8 w-full h-screen overflow-hidden overflow-y-scroll">
+                {filteredFreelancers.length > 0 ? (
+                  filteredFreelancers.map((job, index) => (
+                    <Jobcard
+                      job={job}
+                      key={index}
+                      company={props.company}
+                      user={props.user}
+                    />
+                  ))
+                ) : (
+                  <div>
+                    <Image
+                      src="/no-job-found.png"
+                      width={400}
+                      height={400}
+                      alt="No job found"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

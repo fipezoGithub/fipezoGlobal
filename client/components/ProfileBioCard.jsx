@@ -29,7 +29,7 @@ function ProfileBioCard(props) {
     }
     setLoveCount(props.freelancer.loveCount);
     setUrl(window.location.origin + "/profile/" + props.freelancer.uid);
-  }, [props.user]);
+  }, [props.user, props.freelancer]);
 
   function createParticle(x, y) {
     // Create a custom particle element

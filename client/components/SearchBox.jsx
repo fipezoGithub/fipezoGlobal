@@ -115,9 +115,11 @@ class SearchBox extends React.Component {
       showDropDownCategory,
       showDropDownCity,
     } = this.state;
+
     const filteredOptions = options.filter((option) =>
       option.toLowerCase().includes(searchTerm.toLowerCase())
     );
+    
     const filteredCity = city.filter((option) =>
       option.toLowerCase().includes(cityTerm.toLowerCase())
     );

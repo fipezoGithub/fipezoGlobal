@@ -14,7 +14,6 @@ import DialogBox from "@/components/DialogBox";
 import Modal from "@/components/Modal";
 import Head from "next/head";
 import SimilarFreelancer from "@/components/SimilarFreelancer";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -253,7 +252,7 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {logInType !== "freelancer" && (
+        {!props.user?.uid && (
           <div className={styles.btnBox2}>
             {!loggedIn && (
               <Link href="/login" className={styles.btn} id={styles.hire}>
@@ -322,7 +321,7 @@ export default function Name(props) {
           />
         )}
         <div className={styles.profile_details}>
-          {props.data.links && (
+          {props.data.bio && (
             <ProfileBioCard
               freelancer={props.data}
               copyURL={copyURL}
@@ -341,7 +340,7 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {logInType !== "freelancer" && (
+          {!props.user?.uid && (
             <div className={styles.btnBox}>
               {!loggedIn && (
                 <Link href="/login" className={styles.btn} id={styles.hire}>
@@ -409,7 +408,7 @@ export default function Name(props) {
             />
           </div>
         </div>
-          <Footer />
+        <Footer />
         <div>
           {clickedImg && (
             <Modal

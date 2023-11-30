@@ -207,7 +207,7 @@ function Verification(props) {
         className={styles.imageFields}
         id={styles.profile_pic}
         style={{
-          backgroundImage: images[4] ? `url(${images[4]})` : `url(/dp.png)`,
+          backgroundImage: images[4] ? `url(${images[4]})` : `url('/dp.png')`,
         }}
       >
         {!cameras[1] && (

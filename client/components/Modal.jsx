@@ -16,7 +16,7 @@ const Modal = ({
       <div className="overlay dismiss backdrop-blur z-[2000]">
         <div
           className="image h-full overflow-hidden"
-          style={{ backgroundImage: `url(${clickedImg})` }}
+          style={{ backgroundImage: `url('${clickedImg}')` }}
         >
           <Image
             src={`${clickedImg}`}

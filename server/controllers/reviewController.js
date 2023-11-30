@@ -177,7 +177,7 @@ async function addReviewReply(req, res) {
         reply: req.body.reply,
       });
 
-      res.send(reply);
+      res.status(200).send(reply);
     });
   } catch (error) {
     console.error(error);

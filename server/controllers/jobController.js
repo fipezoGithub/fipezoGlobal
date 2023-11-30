@@ -204,6 +204,7 @@ async function getJobByProfession(req, res) {
   try {
     const jobs = await jobsCollection
       .find({
+        location: req.params.location,
         profession: req.params.profession,
       })
       .populate("createdCompany")
@@ -317,5 +318,5 @@ module.exports = {
   hiredFreelancers,
   rejectFreelancers,
   jobViewCount,
-  getJobByLocation
+  getJobByLocation,
 };

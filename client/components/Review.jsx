@@ -31,6 +31,7 @@ function Review(props) {
   const [minErr1, setMinErr1] = useState(false);
   const [minErr2, setMinErr2] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     if (
       props.review.likeduser.includes(props.user?._id) ||
@@ -123,7 +124,7 @@ function Review(props) {
       const data = await res.json();
       if (res.ok) {
         setReviewReply(false);
-        router.push("/freelancer_profile");
+        router.replace("/freelancer_profile");
       }
     } catch (error) {
       console.log(error);

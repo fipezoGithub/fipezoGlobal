@@ -8,14 +8,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BiFilter } from "react-icons/bi";
+
 export const getServerSideProps = async (ctx) => {
+  console.log(ctx.query);
   const response = await fetch(
-    `${process.env.SERVER_URL}/job/location/${ctx.query.location}`
+    `${process.env.SERVER_URL}/job/location/${ctx.query.location}/profession/${ctx.query.category}`
   );
   const data = await response.json();
   data.reverse();
   return { props: { data } };
 };
+
 export default function Jobs(props) {
   const [showSideBar, setShowSideBar] = useState(false);
   const [showPhotographers, setShowPhotographers] = useState(false);
@@ -336,7 +339,9 @@ export default function Jobs(props) {
   return (
     <>
       <Head>
-        <title>Fipezo | Jobs At {router.query.location}</title>
+        <title>
+          Fipezo | {router.query.category} Jobs At {router.query.location}
+        </title>
       </Head>
       <Navbar
         user={props.user}

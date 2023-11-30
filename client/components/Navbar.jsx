@@ -346,9 +346,9 @@ export default function Navbar(props) {
                 <div
                   className={styles.dp + " overflow-hidden"}
                   style={{
-                    backgroundImage: `url(${
+                    backgroundImage: `url('${
                       props.user.profilePicture
-                        ? `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.profilePicture}`
+                        ? `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.profilePicture}'`
                         : "/dp.png"
                     })`,
                   }}

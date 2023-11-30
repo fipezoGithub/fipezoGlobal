@@ -162,7 +162,7 @@ const ProfileSetting = (props) => {
               style={{
                 backgroundImage: images[1]
                   ? `url('${images[1]}')`
-                  : `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${coverPicture})`,
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${coverPicture}')`,
               }}
             >
               <Image
@@ -194,7 +194,7 @@ const ProfileSetting = (props) => {
               style={{
                 backgroundImage: images[0]
                   ? `url(${images[0]})`
-                  : `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${profilePicture})`,
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${profilePicture}')`,
               }}
             >
               <Image

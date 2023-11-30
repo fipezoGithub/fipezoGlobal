@@ -3,8 +3,8 @@ import styles from "../styles/Jobfilter.module.css";
 import { BiFilter } from "react-icons/bi";
 const Jobfilter = (props) => {
   return (
-    <div className="absolute left-1 top-32 lg:static flex flex-col items-start gap-4 lg:px-4 z-[1100] bg-white lg:bg-transparent">
-      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg lg:mt-16 shadow-xl">
+    <div className="absolute left-1 top-32 lg:static flex flex-col items-start gap-4 lg:px-4 z-[1100] lg:z-auto bg-white lg:bg-transparent">
+      <div className="flex flex-col items-start gap-4 border-[2.2px] border-[#338ef4] p-4 rounded-lg shadow-xl">
         <h3 className="capitalize font-bold text-lg lg:text-2xl w-full flex items-center justify-center">
           <BiFilter /> filter
         </h3>
@@ -67,7 +67,7 @@ const Jobfilter = (props) => {
             />
           </div>
         </div>
-        <hr className="bg-neutral-500 h-px w-full drop-shadow-lg" />
+        {/* <hr className="bg-neutral-500 h-px w-full drop-shadow-lg" />
         <div className="flex flex-col items-start gap-2">
           <label
             htmlFor="location"
@@ -78,7 +78,9 @@ const Jobfilter = (props) => {
           <select
             id="location"
             value={props.filterCity}
-            onChange={(e) => props.setFilterCity(e.target.value)}
+            onChange={(e) => {
+              props.setFilterCity(e.target.value);
+            }}
           >
             <option disabled value="city">
               kolkata
@@ -435,7 +437,7 @@ const Jobfilter = (props) => {
               </label>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
