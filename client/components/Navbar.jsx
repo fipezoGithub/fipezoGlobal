@@ -24,6 +24,8 @@ export default function Navbar(props) {
   const router = useRouter();
   const sideNavRef = useRef();
 
+  console.log(router);
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -90,18 +92,20 @@ export default function Navbar(props) {
       });
       setNotificationCount(filtered.length);
     }
-    getNotifications();
+    if (props.user || props.company) {
+      getNotifications();
+    }
     setLogInType(JSON.parse(localStorage.getItem("type")));
   }, [props.user, props.company, city]);
 
   const handleLogout = () => {
+    router.replace("/");
     localStorage.removeItem("user");
     localStorage.removeItem("type");
     setIsAdmin(false);
     if (props.user) props.setUser(null);
     if (props.company) props.setCompany(null);
     if (props.checkLoggedIn) props.checkLoggedIn(false);
-    router.push("/");
   };
 
   const handelSideNav = () => {
@@ -422,13 +426,15 @@ export default function Navbar(props) {
                     Dashboard
                   </Link>
                 )}
-                <button
-                  className={styles.btn}
-                  type="button"
-                  onClick={handleLogout}
-                >
-                  Log Out
-                </button>
+                {router.pathname !== "/admin/dashboard" && (
+                  <button
+                    className={styles.btn}
+                    type="button"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                )}
               </div>
             </li>
           )}
@@ -766,13 +772,15 @@ export default function Navbar(props) {
                     Dashboard
                   </Link>
                 )}
-                <button
-                  className={styles.btn}
-                  type="button"
-                  onClick={handleLogout}
-                >
-                  Log Out
-                </button>
+                {router.pathname !== "/admin/dashboard" && (
+                  <button
+                    className={styles.btn}
+                    type="button"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                )}
               </div>
             </li>
           )}

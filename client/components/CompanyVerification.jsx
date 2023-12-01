@@ -334,7 +334,6 @@ function Verification(props) {
               setLinks({ ...links, facebook: e.target.value });
             }}
             value={links.facebook}
-            required
           />
         </label>
         <label className={styles.social}>
@@ -348,7 +347,6 @@ function Verification(props) {
               setLinks({ ...links, instagram: e.target.value });
             }}
             value={links.instagram}
-            required
           />
         </label>
         <label className={styles.social}>

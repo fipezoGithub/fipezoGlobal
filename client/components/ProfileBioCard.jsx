@@ -216,7 +216,10 @@ function ProfileBioCard(props) {
         <span className={styles.location + " mr-2"}>
           <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
           &nbsp;
-          {props.freelancer.location}
+          {props.freelancer.location
+            ?.split("_")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")}
         </span>
         <div className="flex items-center gap-2">
           <div className="flex items-center text-sm bg-[#25be25] px-3 py-1 rounded-lg text-white">

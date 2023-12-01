@@ -50,11 +50,16 @@ async function registerCompany(req, res) {
       bio: req.body.bio,
       profilePicture: resizedProfilePicture.filename,
       coverPicture: resizedCoverPicture.filename,
-      panCard: req.files["panCard"][0].filename,
-      incorporationCertificate:
-        req.files["incorporationCertificate"][0].filename,
-      msmeCertificate: req.files["msmeCertificate"][0].filename,
-      tradeLiecence: req.files["tradeLiecence"][0].filename,
+      panCard: req.files["panCard"] ? req.files["panCard"][0].filename : null,
+      incorporationCertificate: req.files["incorporationCertificate"]
+        ? req.files["incorporationCertificate"][0].filename
+        : null,
+      msmeCertificate: req.files["msmeCertificate"]
+        ? req.files["msmeCertificate"][0].filename
+        : null,
+      tradeLiecence: req.files["tradeLiecence"]
+        ? req.files["tradeLiecence"][0].filename
+        : null,
       followers: [],
       links: req.body.links,
       works: worksToStore,
@@ -67,10 +72,18 @@ async function registerCompany(req, res) {
     const filePromises = [];
     filePromises.push(uploadFile(resizedProfilePicture));
     filePromises.push(uploadFile(resizedCoverPicture));
-    filePromises.push(uploadFile(req.files["panCard"][0]));
-    filePromises.push(uploadFile(req.files["incorporationCertificate"][0]));
-    filePromises.push(uploadFile(req.files["msmeCertificate"][0]));
-    filePromises.push(uploadFile(req.files["tradeLiecence"][0]));
+    if (req.files["panCard"]) {
+      filePromises.push(uploadFile(req.files["panCard"][0]));
+    }
+    if (req.files["incorporationCertificate"]) {
+      filePromises.push(uploadFile(req.files["incorporationCertificate"][0]));
+    }
+    if (req.files["msmeCertificate"]) {
+      filePromises.push(uploadFile(req.files["msmeCertificate"][0]));
+    }
+    if (req.files["tradeLiecence"]) {
+      filePromises.push(uploadFile(req.files["tradeLiecence"][0]));
+    }
     req.files["works[]"]?.forEach((file) => {
       filePromises.push(uploadFile(file));
     });
@@ -78,12 +91,21 @@ async function registerCompany(req, res) {
 
     await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
     await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);
-    await unlinkFile("uploads/" + req.files["panCard"][0].filename);
-    await unlinkFile(
-      "uploads/" + req.files["incorporationCertificate"][0].filename
-    );
-    await unlinkFile("uploads/" + req.files["msmeCertificate"][0].filename);
-    await unlinkFile("uploads/" + req.files["tradeLiecence"][0].filename);
+    if (req.files["panCard"]) {
+      await unlinkFile("uploads/" + req.files["panCard"][0].filename);
+    }
+    if (req.files["incorporationCertificate"]) {
+      await unlinkFile(
+        "uploads/" + req.files["incorporationCertificate"][0].filename
+      );
+    }
+    if (req.files["msmeCertificate"]) {
+      await unlinkFile("uploads/" + req.files["msmeCertificate"][0].filename);
+    }
+    if (req.files["tradeLiecence"]) {
+      await unlinkFile("uploads/" + req.files["tradeLiecence"][0].filename);
+    }
+
     await unlinkFile(resizedProfilePicture.path);
     await unlinkFile(resizedCoverPicture.path);
 
@@ -271,10 +293,18 @@ async function deleteCompanyProfileV(req, res) {
     const filePromises = [];
     filePromises.push(deleteFile(user.profilePicture));
     filePromises.push(deleteFile(user.coverPicture));
-    filePromises.push(deleteFile(user.panCard));
-    filePromises.push(deleteFile(user.incorporationCertificate));
-    filePromises.push(deleteFile(user.msmeCertificate));
-    filePromises.push(deleteFile(user.tradeLiecence));
+    if (user.panCard) {
+      filePromises.push(deleteFile(user.panCard));
+    }
+    if (user.incorporationCertificate) {
+      filePromises.push(deleteFile(user.incorporationCertificate));
+    }
+    if (user.msmeCertificate) {
+      filePromises.push(deleteFile(user.msmeCertificate));
+    }
+    if (user.tradeLiecence) {
+      filePromises.push(deleteFile(user.tradeLiecence));
+    }
 
     await Promise.all(filePromises);
 

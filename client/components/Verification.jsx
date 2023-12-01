@@ -309,9 +309,6 @@ function Verification(props) {
             }}
             value={links.facebook}
           />
-          <span className={styles.mandatory}>
-            <s>*</s> This field is mandatory
-          </span>
         </label>
         <label className={styles.social}>
           Instagram : <br />
@@ -325,9 +322,9 @@ function Verification(props) {
             }}
             value={links.instagram}
           />
-          <span className={styles.mandatory}>
+          {/* <span className={styles.mandatory}>
             <s>*</s> This field is mandatory
-          </span>
+          </span> */}
         </label>
         <label className={styles.social}>
           Twitter : <br />

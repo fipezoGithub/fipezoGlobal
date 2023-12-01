@@ -180,6 +180,16 @@ export default withRouter(
         return;
       }
 
+      if (this.state.profilePicture === null && this.state.currentPage === 8) {
+        this.setState({ profilePicError: true });
+        return;
+      }
+
+      if (this.state.coverPicture === null && this.state.currentPage === 9) {
+        this.setState({ coverPicError: true });
+        return;
+      }
+
       if (
         (this.state.bio.length > 200 || this.state.bio.length < 50) &&
         this.state.currentPage === 10
@@ -626,6 +636,7 @@ export default withRouter(
 
       if (index === 4) {
         this.setState({ cameras: true });
+        this.setState({ profilePicError: false });
         this.setState({ profilePicture: file });
       }
 
@@ -637,6 +648,7 @@ export default withRouter(
 
       if (index === 5) {
         this.setState({ cameras: true });
+        this.setState({ coverPicError: false });
         this.setState({ coverPicture: file });
       }
 
@@ -723,6 +735,16 @@ export default withRouter(
                     {this.state.exist && (
                       <p className={styles.error}>
                         Details already exists. Try login.
+                      </p>
+                    )}
+                    {this.state.profilePicError && (
+                      <p className={styles.error}>
+                        Profile picture can&apos;t be blank
+                      </p>
+                    )}
+                    {this.state.coverPicError && (
+                      <p className={styles.error}>
+                        Cover picture can&apos;t be blank
                       </p>
                     )}
                     {this.state.currentPage === 1 && (

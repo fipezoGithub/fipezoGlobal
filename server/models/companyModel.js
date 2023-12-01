@@ -50,7 +50,6 @@ const companySchema = new mongoose.Schema(
     },
     panCard: {
       type: String,
-      required: true,
       default: null,
     },
     jobPosted: {
@@ -60,17 +59,14 @@ const companySchema = new mongoose.Schema(
     },
     incorporationCertificate: {
       type: String,
-      required: true,
       default: null,
     },
     msmeCertificate: {
       type: String,
-      required: true,
       default: null,
     },
     tradeLiecence: {
       type: String,
-      required: true,
       default: null,
     },
     followers: {

@@ -178,9 +178,11 @@ const CompleteYourProfile = (props) => {
             setCompany={props.setCompany}
             profession={props.user?.profession}
           />
-          <p className="text-xl capitalize font-bold text-red-600 mt-8">
-            oops! looks like you already completed your profile
-          </p>
+          {completeError === true && (
+            <p className="text-xl capitalize font-bold text-red-600 mt-8">
+              oops! looks like you already completed your profile
+            </p>
+          )}
         </form>
       ) : (
         <Loading message={"Complete your profile"} />

@@ -163,7 +163,7 @@ const ProfileSetting = (props) => {
               style={{
                 backgroundImage: images[1]
                   ? `url('${images[1]}')`
-                  : `url(https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${coverPicture})`,
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${coverPicture}')`,
               }}
             >
               <Image

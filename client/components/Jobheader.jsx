@@ -114,10 +114,10 @@ const Jobheader = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row my-4 bg-white md:bg-inherit px-2 md:px-0 py-2 md:py-0 z-[100] shadow-md md:shadow-none border-b md:border-b-0 rounded-md md:rounded-none gap-3 md:gap-0">
-      <div className="relative group">
-        <div className="flex items-center bg-[#ff6767] border md:border-0 rounded-md md:rounded-none md:rounded-l-md px-4">
-          <GoLocation color="#ffffff" size={"1.5em"} />
+    <div className="flex flex-col md:flex-row my-4 bg-white md:bg-inherit px-2 md:px-0 py-2 md:py-0 z-[100] shadow-md md:shadow-none rounded-md md:rounded-none gap-3 md:gap-0 border">
+      <div className="relative group overflow-visible lg:max-h-8">
+        <div className="flex items-center border md:border-0 rounded-md md:rounded-none md:rounded-l-md px-4">
+          <GoLocation color="#000000" size={"1.5em"} />
           <input
             type="text"
             name=""
@@ -135,13 +135,13 @@ const Jobheader = () => {
               setShowDropDownCategory(false);
             }}
             placeholder="Select city"
-            className="py-4 px-2 focus:outline-none placeholder:text-white placeholder:font-semibold text-white bg-[#ff6767]"
+            className="py-4 px-2 focus:outline-none placeholder:text-black placeholder:font-semibold"
           />
-          <IoIosArrowDown color="#ffffff" size={"1.5em"} />
+          <IoIosArrowDown color="#000000" size={"1.5em"} />
         </div>
         {showDropDownCity === true && (
-          <div className="bg-[#ff6767] w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll">
-            <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold text-white">
+          <div className=" w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll bg-white border border-t-0 shadow-md">
+            <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold">
               major cities
             </span>
             {filteredCity.length > 0 &&
@@ -160,17 +160,20 @@ const Jobheader = () => {
                       onClick={() => {
                         setCityTerm(option);
                         setShowDropDownCity(false);
+                        if (searchTerm.length <= 0) {
+                          setShowDropDownCategory(true);
+                        }
                       }}
-                      className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100 hover:text-black text-white"
+                      className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100 hover:text-black"
                       key={index}
                     >
-                      <GoLocation color="#ffffff" />
+                      <GoLocation color="#000000" />
                       {option.split("_").join(" ")}
                     </p>
                   );
                 }
               })}
-            <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold text-white">
+            <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold">
               other cities
             </span>
             {filteredCity.length > 0 &&
@@ -189,11 +192,14 @@ const Jobheader = () => {
                       onClick={() => {
                         setCityTerm(option);
                         setShowDropDownCity(false);
+                        if (searchTerm.length <= 0) {
+                          setShowDropDownCategory(true);
+                        }
                       }}
-                      className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100 hover:text-black text-white"
+                      className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100 hover:text-black"
                       key={index}
                     >
-                      <GoLocation color="#bebebe" />
+                      <GoLocation color="#000000" />
                       {option.split("_").join(" ")}
                     </p>
                   );
@@ -202,23 +208,23 @@ const Jobheader = () => {
           </div>
         )}
         <div
-          className="absolute left-0 top-0 bg-red-500 text-white flex items-center p-4 gap-2 justify-center translate-y-0 -z-10 transition-transform duration-500 ease-linear w-full rounded-l-lg"
+          className="absolute left-0 top-0 text-white flex items-center p-4 gap-2 justify-center translate-y-0 -z-10 transition-transform duration-500 ease-linear w-full rounded-l-lg"
           ref={errorBoxRef}
         >
           <IoWarning size={"1.5em"} />
           <h1 className="font-bold">{errorMessage}</h1>
         </div>
       </div>
-      <div className="relative flex flex-col items-start">
+      <div className="relative group overflow-visible lg:max-h-8">
         <div
-          className="flex items-center bg-[#ff6767] px-2 md:px-4 border md:border-r md:border-0 rounded-md md:rounded-none w-full md:w-auto"
+          className="flex items-center px-2 md:px-4 border md:border-r md:border-0 rounded-md md:rounded-none w-full md:w-auto"
           onClick={() => {
             setSearchTerm("");
             setShowDropDownCategory(!showDropDownCategory);
             setShowDropDownCity(false);
           }}
         >
-          <RiStore2Line color="#ffffff" size={"1.5em"} />
+          <RiStore2Line color="#000000" size={"1.5em"} />
           <input
             type="text"
             name=""
@@ -234,17 +240,13 @@ const Jobheader = () => {
             }}
             id="freelancer_category"
             placeholder="Enter freelancer category"
-            className="py-4 px-2 focus:outline-none placeholder:text-white text-white placeholder:font-semibold bg-[#ff6767]"
+            className="py-4 px-2 focus:outline-none placeholder:text-black placeholder:font-semibold"
           />
-          <input
-            type="text"
-            disabled
-            className="hidden lg:block w-20 bg-[#ff6767]"
-          />
-          <IoIosArrowDown color="#ffffff" size={"1.5em"} />
+          <input type="text" disabled className="hidden lg:block w-20" />
+          <IoIosArrowDown color="#000000" size={"1.5em"} />
         </div>
         {showDropDownCategory === true && (
-          <div className="bg-[#ff6767] w-full z-[1100] h-80 overflow-hidden overflow-y-scroll">
+          <div className="w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll bg-white border border-t-0 shadow-md">
             {filteredOptions.length > 0 &&
               filteredOptions.map((option, index) => {
                 let value = option;
@@ -274,10 +276,10 @@ const Jobheader = () => {
                         setShowDropDownCity(true);
                       }
                     }}
-                    className="text-left p-2 cursor-pointer flex items-center gap-2 text-white hover:bg-blue-100 hover:text-black"
+                    className="text-left p-2 cursor-pointer flex items-center gap-2 hover:bg-blue-100 hover:text-black"
                     key={index}
                   >
-                    <RiStore2Line color="#ffffff" />
+                    <RiStore2Line color="#000000" />
                     {option}
                   </p>
                 );
@@ -289,7 +291,7 @@ const Jobheader = () => {
         <button
           type="button"
           onClick={handleSearch}
-          className="bg-blue-600 text-white py-2 md:py-4 px-8 md:px-4 capitalize font-semibold w-full md:w-auto rounded-md md:rounded-none md:rounded-r-md flex items-center text-base gap-2 justify-center md:justify-normal"
+          className="bg-[#ff6767] text-white py-2 md:py-4 px-8 md:px-4 capitalize font-semibold w-full md:w-auto rounded-md md:rounded-none md:rounded-r-md flex items-center text-base gap-2 justify-center md:justify-normal"
         >
           find job
         </button>
