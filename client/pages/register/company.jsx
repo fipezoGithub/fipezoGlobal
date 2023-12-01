@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import React, { useRef } from "react";
+import React from "react";
 import styles from "../../styles/Freelancer.module.css";
 import Image from "next/image";
 import Footer from "@/components/Footer";
@@ -72,7 +72,7 @@ export default withRouter(
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.count === 0 && prevState.currentPage <= 3) {
+      if (prevState.count === 0 && prevState.currentPage === 3) {
         clearInterval(this.state.timerId);
         this.setState({ resendOtp: true });
       }

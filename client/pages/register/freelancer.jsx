@@ -82,7 +82,7 @@ export default withRouter(
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.count === 0 && prevState.currentPage <= 3) {
+      if (prevState.count === 0 && prevState.currentPage === 3) {
         clearInterval(this.state.timerId);
         this.setState({ resendOtp: true });
       }
