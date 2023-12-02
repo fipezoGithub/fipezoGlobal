@@ -9,8 +9,8 @@ import { AiFillProfile } from "react-icons/ai";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { useRouter } from "next/router";
+
 const Jobcard = ({ job, setJobs, company, user, status }) => {
-  const [loginType, setLoginType] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState(500);
@@ -25,6 +25,8 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [eventTime, setEventTime] = useState({ startTime: "", endTime: "" });
   const [hiredFreelancers, setHiredFreelancers] = useState([]);
   const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
+  const [hiredState, setHiredState] = useState(false);
+  const [rejectState, setRejectState] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
   const router = useRouter();
@@ -45,7 +47,6 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       startTime: JSON.parse(job.eventTime)?.startTime,
       endTime: JSON.parse(job.eventTime)?.endTime,
     });
-    setLoginType(JSON.parse(localStorage.getItem("type")));
     job.appliedFreelancers.forEach((element) => {
       if (user?._id === element._id) {
         setIsApplied(true);
@@ -119,6 +120,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       console.log(error);
     }
   };
+
   const markExpire = async () => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -140,6 +142,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       console.log(error);
     }
   };
+
   const hireFreelancer = async (userid) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -172,7 +175,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
           }
         );
         const data = await res.json();
-        setJobs([]);
+        setHiredState(true);
       }
     } catch (error) {
       console.log(error);
@@ -211,7 +214,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
           }
         );
         const data = await res.json();
-        setJobs([]);
+        setRejectState(true);
       }
     } catch (error) {
       console.log(error);
@@ -384,11 +387,13 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
                   job.appliedFreelancers.map((freelancer, index) => {
                     const hired = hiredFreelancers?.some((hire) => {
                       if (hire._id === freelancer._id) {
+                        setHiredState(true);
                         return true;
                       }
                     });
                     const rejected = rejectedFreelancers?.some((reject) => {
                       if (reject === freelancer._id) {
+                        setRejectState(true);
                         return true;
                       }
                     });
@@ -424,24 +429,24 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
                           </a>
                         </div>
                         <div className="flex items-center gap-4">
-                          {rejected === false && (
+                          {rejectState === false && (
                             <button
                               className="capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base"
                               type="button"
                               onClick={() => hireFreelancer(freelancer._id)}
-                              disabled={hired === true ? true : false}
+                              disabled={hiredState === true ? true : false}
                             >
-                              {hired === true ? "hired" : "hire"}
+                              {hiredState === true ? "hired" : "hire"}
                             </button>
                           )}
-                          {hired === false && (
+                          {hiredState === false && (
                             <button
                               className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
                               type="button"
                               onClick={() => rejectFreelancer(freelancer._id)}
-                              disabled={rejected === true ? true : false}
+                              disabled={rejectState === true ? true : false}
                             >
-                              {rejected === true ? "rejected" : "reject"}
+                              {rejectState === true ? "rejected" : "reject"}
                             </button>
                           )}
                         </div>

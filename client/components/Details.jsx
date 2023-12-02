@@ -4,6 +4,7 @@ import Reviews from "@/components/Reviews";
 import PortfolioCard from "@/components/PortfolioCard";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import Image from "next/image";
 
 function Details(props) {
   const [showReviews, setShowReviews] = useState(false);
@@ -45,99 +46,112 @@ function Details(props) {
       )}
       {showPortfolio && (
         <div className={styles.portfolio}>
-          {works.map((work, index) => {
-            if (index > 5 && !showMore) return;
-            return (
-              <>
-                {(props.profession === "photographer" ||
-                  props.profession === "photo_editor" ||
-                  props.profession === "model" ||
-                  props.profession === "makeup_artist" ||
-                  props.profession === "mehendi_artist" ||
-                  props.profession === "album_designer" ||
-                  props.profession === "web_developer" ||
-                  props.profession === "graphics_designer") && (
-                  <PortfolioCard
-                    key={index}
-                    i={index}
-                    work={work}
-                    handleClick={props.handleClick}
-                  />
-                )}
-                {(props?.profession === "cinematographer" ||
-                  props?.profession === "video_editor") && (
-                  <div className="mb-4" key={index}>
-                    <ReactPlayer
-                      controls={true}
-                      width="280px"
-                      height="250px"
-                      url={work}
-                    />
-                  </div>
-                )}
-                {props?.profession === undefined && (
-                  <PortfolioCard
-                    key={index}
-                    i={index}
-                    work={work}
-                    handleClick={props.handleClick}
-                  />
-                )}
-              </>
-            );
-          })}
-          {works.map((work, index) => {
-            if (index >= 0 && index < 4) {
-              return (
-                (props?.profession === "drone_operator" ||
-                  props?.profession === "anchor" ||
-                  props?.profession === "dj" ||
-                  props?.profession === "dancer" ||
-                  props?.profession === "influencer") && (
-                  <div className="mb-4" key={index}>
-                    <ReactPlayer
-                      controls={true}
-                      width="280px"
-                      height="250px"
-                      url={work}
-                    />
-                  </div>
-                )
-              );
-            } else if (index >= 4 && index < 6) {
-              return (
-                (props?.profession === "drone_operator" ||
-                  props?.profession === "anchor" ||
-                  props?.profession === "dj" ||
-                  props?.profession === "dancer" ||
-                  props?.profession === "influencer") && (
-                  <PortfolioCard
-                    key={index}
-                    i={index}
-                    work={work}
-                    handleClick={props.handleClick}
-                  />
-                )
-              );
-            } else if (index >= 6 && index < 8 && showMore) {
-              return (
-                (props?.profession === "drone_operator" ||
-                  props?.profession === "anchor" ||
-                  props?.profession === "dj" ||
-                  props?.profession === "dancer" ||
-                  props?.profession === "influencer") && (
-                  <PortfolioCard
-                    key={index}
-                    i={index}
-                    work={work}
-                    handleClick={props.handleClick}
-                  />
-                )
-              );
-            } else {
-              return;
-            }
-          })}
+          {works.length <= 0 ? (
+            <div className="flex items-center justify-center">
+              <Image
+                src="/no portfolio banner.png"
+                width={400}
+                height={400}
+                alt="no portfolio found"
+              />
+            </div>
+          ) : (
+            <>
+              {works.map((work, index) => {
+                if (index > 5 && !showMore) return;
+                return (
+                  <>
+                    {(props.profession === "photographer" ||
+                      props.profession === "photo_editor" ||
+                      props.profession === "model" ||
+                      props.profession === "makeup_artist" ||
+                      props.profession === "mehendi_artist" ||
+                      props.profession === "album_designer" ||
+                      props.profession === "web_developer" ||
+                      props.profession === "graphics_designer") && (
+                      <PortfolioCard
+                        key={index}
+                        i={index}
+                        work={work}
+                        handleClick={props.handleClick}
+                      />
+                    )}
+                    {(props?.profession === "cinematographer" ||
+                      props?.profession === "video_editor") && (
+                      <div className="mb-4" key={index}>
+                        <ReactPlayer
+                          controls={true}
+                          width="280px"
+                          height="250px"
+                          url={work}
+                        />
+                      </div>
+                    )}
+                    {props?.profession === undefined && (
+                      <PortfolioCard
+                        key={index}
+                        i={index}
+                        work={work}
+                        handleClick={props.handleClick}
+                      />
+                    )}
+                  </>
+                );
+              })}
+              {works.map((work, index) => {
+                if (index >= 0 && index < 4) {
+                  return (
+                    (props?.profession === "drone_operator" ||
+                      props?.profession === "anchor" ||
+                      props?.profession === "dj" ||
+                      props?.profession === "dancer" ||
+                      props?.profession === "influencer") && (
+                      <div className="mb-4" key={index}>
+                        <ReactPlayer
+                          controls={true}
+                          width="280px"
+                          height="250px"
+                          url={work}
+                        />
+                      </div>
+                    )
+                  );
+                } else if (index >= 4 && index < 6) {
+                  return (
+                    (props?.profession === "drone_operator" ||
+                      props?.profession === "anchor" ||
+                      props?.profession === "dj" ||
+                      props?.profession === "dancer" ||
+                      props?.profession === "influencer") && (
+                      <PortfolioCard
+                        key={index}
+                        i={index}
+                        work={work}
+                        handleClick={props.handleClick}
+                      />
+                    )
+                  );
+                } else if (index >= 6 && index < 8 && showMore) {
+                  return (
+                    (props?.profession === "drone_operator" ||
+                      props?.profession === "anchor" ||
+                      props?.profession === "dj" ||
+                      props?.profession === "dancer" ||
+                      props?.profession === "influencer") && (
+                      <PortfolioCard
+                        key={index}
+                        i={index}
+                        work={work}
+                        handleClick={props.handleClick}
+                      />
+                    )
+                  );
+                } else {
+                  return;
+                }
+              })}
+            </>
+          )}
         </div>
       )}
       {/* <div className={styles.cont}>

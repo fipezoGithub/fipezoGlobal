@@ -30,7 +30,6 @@ export default function Jobs(props) {
   const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
-  const [showAllJob, setShowAllJob] = useState(true);
   const [showOpenJob, setShowOpenJob] = useState(false);
   const [showClosedJob, setShowClosedJob] = useState(false);
   const [budgetSort, setBudgetSort] = useState("50000");
@@ -39,9 +38,11 @@ export default function Jobs(props) {
   useEffect(() => {
     window.innerWidth > 640 && setShowSideBar(true);
   }, []);
+
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const fstFilter = props.data.filter((job) => {
     let one_day = 1000 * 60 * 60 * 24;
     let a = new Date(job.dueDate);
@@ -338,7 +339,14 @@ export default function Jobs(props) {
   return (
     <>
       <Head>
-        <title>Fipezo | Jobs</title>
+        <title>
+          Fipezo - Find and apply for freelance jobs in India effortlessly for
+          FREE
+        </title>
+        <meta
+          name="description"
+          content="Are you searching for freelance jobs in India? Fipezo is your platform for freelance jobs online. Join now to find your next gig."
+        />
       </Head>
       <Navbar
         user={props.user}
@@ -362,15 +370,26 @@ export default function Jobs(props) {
           />
         </div>
       </div>
+      <div className="flex flex-col items-center justify-center my-8 gap-2 mx-2">
+        <h1 className="text-2xl text-center md:text-left xl:text-4xl font-bold">
+          Browse and Apply for Freelance Projects at Your Fingertips!
+        </h1>
+        <p className="text-lg text-center md:text-left">
+          Simple, free to use, and diverse in categories - Fipezo, Search
+          freelance jobs in India effortlessly.
+        </p>
+      </div>
+      <div className="flex items-center justify-center">
+        <Jobheader />
+      </div>
       <div className="flex items-center flex-col justify-center w-full mt-4 relative">
-        <h1 className="text-center font-bold text-lg lg:text-2xl mb-4 flex flex-col items-center">
+        <h1 className="text-center font-bold text-lg lg:text-2xl mb-4 flex flex-col items-center border px-4 py-2 border-[#ff6767] rounded shadow">
           {filteredFreelancers.length} Projects
-          <span className="text-sm font-light">
+          {/* <span className="text-sm font-light">
             Start applying to the latest projects vacancies at leading companies
             in India below.
-          </span>
+          </span> */}
         </h1>
-        <Jobheader />
         <div className="flex items-start justify-center w-full mt-4 relative">
           {showSideBar === true && (
             <Jobfilter
@@ -447,6 +466,63 @@ export default function Jobs(props) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="flex flex-col items-start m-10 lg:m-20 xl:mx-96 gap-6">
+        <div>
+          <p className="text-lg xl:text-2xl">
+            Welcome to Fipezo, where freelance opportunities in India come to
+            life! Our platform connects talented individuals with the best
+            online freelance jobs. Explore a world of freelance opportunities in
+            India, post jobs online, and discover freelance gigs nearby that
+            match your unique skills
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          <h2 className="text-2xl font-semibold">
+            Discover Freelance Jobs Online
+          </h2>
+          <p className="text-lg">
+            Start your freelance journey with Fipezo's diverse opportunities.
+            Whether it's gigs online or projects from home, find the ideal
+            freelance job that suits your expertise and preferences
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          <h2 className="text-2xl font-semibold">
+            How Fipezo Works for Job Seekers
+          </h2>
+          <p className="text-lg">
+            Unlock Fipezo's power for freelance success. Create a standout
+            profile, post jobs online, and let opportunities find you. Our
+            user-friendly interface makes finding nearby gigs a breeze, all for
+            free!
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          <h2 className="text-2xl font-semibold">Flexible Freelance Work</h2>
+          <p className="text-lg">
+            Discover the freedom of freelancing on Fipezo. Post jobs, search for
+            gigs, and connect with talent effortlessly. Whether you're a
+            seasoned pro or just starting, Fipezo provides diverse
+            opportunities.
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          <h2 className="text-2xl font-semibold">Job Search Tips</h2>
+          <p className="text-lg">
+            Master finding freelance jobs in India with expert tips on effective
+            keyword use and search filtering. Let Fipezo be your ally in
+            discovering work that aligns with your passion and skills.
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-2">
+          <h2 className="text-2xl font-semibold">Client Expectations Guide</h2>
+          <p className="text-lg">
+            Stand out in freelancing by maintaining top-notch work quality and
+            professionalism. Whether in graphic design or web development,
+            prioritize excellence in your freelance career
+          </p>
         </div>
       </div>
       <Footer />

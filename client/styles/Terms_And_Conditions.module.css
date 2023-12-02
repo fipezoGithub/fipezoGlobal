@@ -1,81 +1,82 @@
-.body{
-    background-color: white;
-    background-image: url(/bg14.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.body {
+  background-color: white;
+  background-image: url(/bg14.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.termsNConditions_form{
-    height: 78.3vh;
-    width: 60vw;
-    background-color: white;
-    box-shadow: var(--shadow);
-    margin: auto;
-    padding: 2rem;
-    overflow: scroll;
+.termsNConditions_form {
+  height: 78.3vh;
+  width: 60vw;
+  background-color: white;
+  box-shadow: var(--shadow);
+  margin: auto;
+  padding: 2rem;
+  overflow: scroll;
 }
 
-.heading{
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
+.heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
 }
 
-.subHeading{
-    font-size: 1.5rem;
-    color: rgb(50, 50, 50);
-    margin-bottom: 1rem;
+.subHeading {
+  font-size: 1.5rem;
+  color: rgb(50, 50, 50);
+  margin-bottom: 1rem;
 }
 
-.title{
-    display: block;
-    font-size: 1.35rem;
-    color: rgb(50, 50, 50);
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+.title {
+  display: block;
+  font-size: 1.35rem;
+  color: rgb(50, 50, 50);
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: 600;
 }
 
-.para{
-    color: rgb(148, 148, 148);
-    font-size: 1.2rem;
+.para {
+  color: rgb(148, 148, 148);
+  font-size: 1.2rem;
 }
 
-.btns{
-    width: 60rem;
-    background-color: white;
-    margin: auto;
-    box-shadow: var(--shadow);
+.btns {
+  width: 60rem;
+  background-color: white;
+  margin: auto;
+  box-shadow: var(--shadow);
 }
 
-.btn{
-    height: 3rem;
-    width: 10rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin: 1rem;
-    color: white;
-    background-color: var(--primary-color);
+.btn {
+  height: 3rem;
+  width: 10rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 1rem;
+  color: white;
+  background-color: var(--primary-color);
 }
 
-.main{
-    padding-top: 4rem;
-    padding-bottom: 6rem;
+.main {
+  padding-top: 4rem;
+  padding-bottom: 6rem;
 }
 
-@media (max-width: 738px){
-    .body{
-        width: 90vw;
-    }
+@media (max-width: 738px) {
+  .body {
+    width: 90vw;
+  }
 
-    .termsNConditions_form{
-        width: 90vw;
-    }
+  .termsNConditions_form {
+    width: 90vw;
+  }
 
-    .btn{
-        width: 8rem
-    }
+  .btn {
+    width: 8rem;
+  }
 }

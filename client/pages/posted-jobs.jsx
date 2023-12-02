@@ -1,4 +1,3 @@
-import Createjob from "@/components/Createjob";
 import Footer from "@/components/Footer";
 import Jobcard from "@/components/Jobcard";
 import Navbar from "@/components/Navbar";
@@ -7,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
+
 const PostedJobs = (props) => {
   const [jobs, setJobs] = useState([]);
   

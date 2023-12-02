@@ -148,12 +148,12 @@ const Jobheader = () => {
               filteredCity.map((option, index) => {
                 if (
                   option === "Bengaluru" ||
+                  option === "Bhubaneswar" ||
                   option === "Chennai" ||
                   option === "Delhi" ||
                   option === "Hyderabad" ||
                   option === "Kolkata" ||
-                  option === "Mumbai" ||
-                  option === "Pune"
+                  option === "Mumbai"
                 ) {
                   return (
                     <p
@@ -180,12 +180,12 @@ const Jobheader = () => {
               filteredCity.map((option, index) => {
                 if (
                   option !== "Bengaluru" &&
+                  option !== "Bhubaneswar" &&
                   option !== "Chennai" &&
                   option !== "Delhi" &&
                   option !== "Hyderabad" &&
                   option !== "Kolkata" &&
-                  option !== "Mumbai" &&
-                  option !== "Pune"
+                  option !== "Mumbai"
                 ) {
                   return (
                     <p

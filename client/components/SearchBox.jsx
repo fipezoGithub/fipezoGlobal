@@ -119,7 +119,7 @@ class SearchBox extends React.Component {
     const filteredOptions = options.filter((option) =>
       option.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    
+
     const filteredCity = city.filter((option) =>
       option.toLowerCase().includes(cityTerm.toLowerCase())
     );
@@ -233,12 +233,12 @@ class SearchBox extends React.Component {
                 filteredCity.map((option, index) => {
                   if (
                     option === "Bengaluru" ||
+                    option === "Bhubaneswar" ||
                     option === "Chennai" ||
                     option === "Delhi" ||
                     option === "Hyderabad" ||
                     option === "Kolkata" ||
-                    option === "Mumbai" ||
-                    option === "Pune"
+                    option === "Mumbai"
                   ) {
                     return (
                       <p
@@ -262,12 +262,12 @@ class SearchBox extends React.Component {
                 filteredCity.map((option, index) => {
                   if (
                     option !== "Bengaluru" &&
+                    option !== "Bhubaneswar" &&
                     option !== "Chennai" &&
                     option !== "Delhi" &&
                     option !== "Hyderabad" &&
                     option !== "Kolkata" &&
-                    option !== "Mumbai" &&
-                    option !== "Pune"
+                    option !== "Mumbai"
                   ) {
                     return (
                       <p

@@ -14,7 +14,6 @@ function Reviews(props) {
             alt="no reviews img"
             className="w-full"
           />
-          <h1 className="text-center capitalize text-2xl">no reviews found</h1>
         </div>
       ) : (
         props.reviews

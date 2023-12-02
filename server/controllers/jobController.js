@@ -53,14 +53,14 @@ async function createJob(req, res) {
       const freelancers = await freelancerCollection.find({
         profession: req.body.profession,
       });
-      if (freelancers.length > 0) {
-        freelancers.forEach((element) => {
-          sendTextMessage(
-            element.phone,
-            `Exclusive opportunity alert! New job posted from ${company.companyname} Be the first to grab it and showcase your skills. Check it out now! at https://fipezo.com/jobs/details/${newJob.uid}`
-          );
-        });
-      }
+      // if (freelancers.length > 0) {
+      //   freelancers.forEach((element) => {
+      //     sendTextMessage(
+      //       element.phone,
+      //       `Exclusive opportunity alert! New job posted from ${company.companyname} Be the first to grab it and showcase your skills. Check it out now! at https://fipezo.com/jobs/details/${newJob.uid}`
+      //     );
+      //   });
+      // }
       res.status(201).json(newJob);
     }
   });

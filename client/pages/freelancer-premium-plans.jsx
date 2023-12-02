@@ -288,7 +288,7 @@ const Premium = (props) => {
               </div>
               <div>
                 <Image
-                  src="https://fipezo-bucket.s3.ap-south-1.amazonaws.com/profilePicture-1692788593453-961059565-WhatsAppImage2023-08-23at16.19.59-400x300.webp"
+                  src="/deba_testimonial.png"
                   width={120}
                   height={120}
                   className="w-32 lg:w-[30vw] rounded-md"

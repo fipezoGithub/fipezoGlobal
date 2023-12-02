@@ -164,6 +164,7 @@ async function editCompanyProfile(req, res) {
       await Promise.all(deletePromises);
       await Promise.all(filePromises);
       user.companyemail = req.body.companyemail || user.companyemail;
+      user.password = req.body.password || user.password;
       user.bio = req.body.bio || user.bio;
       user.profilePicture =
         resizedProfilePicture?.filename || user.profilePicture;
