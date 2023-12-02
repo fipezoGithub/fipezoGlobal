@@ -483,9 +483,10 @@ export default function Jobs(props) {
             Discover Freelance Jobs Online
           </h2>
           <p className="text-lg">
-            Start your freelance journey with Fipezo's diverse opportunities.
-            Whether it's gigs online or projects from home, find the ideal
-            freelance job that suits your expertise and preferences
+            Start your freelance journey with Fipezo&apos;s diverse
+            opportunities. Whether it&apos;s gigs online or projects from home,
+            find the ideal freelance job that suits your expertise and
+            preferences
           </p>
         </div>
         <div className="flex flex-col items-start gap-2">
@@ -493,7 +494,7 @@ export default function Jobs(props) {
             How Fipezo Works for Job Seekers
           </h2>
           <p className="text-lg">
-            Unlock Fipezo's power for freelance success. Create a standout
+            Unlock Fipezo&apos;s power for freelance success. Create a standout
             profile, post jobs online, and let opportunities find you. Our
             user-friendly interface makes finding nearby gigs a breeze, all for
             free!
@@ -503,7 +504,7 @@ export default function Jobs(props) {
           <h2 className="text-2xl font-semibold">Flexible Freelance Work</h2>
           <p className="text-lg">
             Discover the freedom of freelancing on Fipezo. Post jobs, search for
-            gigs, and connect with talent effortlessly. Whether you're a
+            gigs, and connect with talent effortlessly. Whether you&apos;re a
             seasoned pro or just starting, Fipezo provides diverse
             opportunities.
           </p>
