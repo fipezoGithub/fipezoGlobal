@@ -181,6 +181,18 @@ const Sitemap = (props) => {
                     >
                       <SlTarget /> privacy policy
                     </Link>
+                    <Link
+                      href="/cancellation_and_refund"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> cancellation &amp; refund
+                    </Link>
+                    <Link
+                      href="/shipping_and_delivery"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> shipping &amp; delivery
+                    </Link>
                   </li>
                   <li></li>
                 </ul>
@@ -191,6 +203,14 @@ const Sitemap = (props) => {
                   className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                 >
                   <SlTarget /> refer and earn
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/sumit_your_city"
+                  className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                >
+                  <SlTarget /> submit your city
                 </Link>
               </li>
             </ul>
