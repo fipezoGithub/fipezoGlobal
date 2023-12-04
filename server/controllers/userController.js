@@ -125,7 +125,6 @@ const loginController = async (req, res) => {
     }
 
     let code;
-    console.log(typeof phone);
     if (phone === "3335573725") {
       code = 123456;
     } else {
@@ -246,6 +245,7 @@ async function googleLoginController(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 //Forget Password
 async function forgetController(req, res) {
   const phone = req.body.phone;
@@ -423,27 +423,38 @@ async function editUserProfile(req, res) {
 async function updateUserPassword(req, res) {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
-      const userData = await userCollection.findOne({ _id: authData.user._id });
-      if (err && !userData) {
-        return;
-      } else {
-        const user = await userCollection.findById(userData._id);
-        if (user) {
-          user.password = req.body.password;
-          const updatedUser = await user.save();
-
-          const review = await reviewCollection.find({
-            user: updatedUser._id,
+      let userData;
+      userData = await userCollection.findOne({ _id: authData.user._id });
+      if (!userData) {
+        userData = await freelancerCollection.findOne({
+          _id: authData.user._id,
+        });
+        if (!userData) {
+          userData = await companyCollection.findOne({
+            _id: authData.user._id,
           });
-          review.forEach(async (element) => {
-            await reviewCollection.findByIdAndUpdate(element._id, {
-              userDetails: updatedUser,
-            });
-          });
-
-          res.send({ user: updatedUser });
+        }
+        if (err && !userData) {
+          res.status(404).send("Not Found");
+          return;
         } else {
-          res.sendStatus(403);
+          if (userData) {
+            userData.password = req.body.password;
+            const updatedUser = await userData.save();
+
+            const review = await reviewCollection.find({
+              user: updatedUser._id,
+            });
+            review.forEach(async (element) => {
+              await reviewCollection.findByIdAndUpdate(element._id, {
+                userDetails: updatedUser,
+              });
+            });
+
+            res.send({ user: updatedUser });
+          } else {
+            res.sendStatus(403);
+          }
         }
       }
     });
@@ -452,6 +463,7 @@ async function updateUserPassword(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 const getProfile = async (req, res) => {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {

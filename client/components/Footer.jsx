@@ -364,6 +364,16 @@ const Footer = () => {
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/privacy_and_policy">privacy policy</Link>
                 </li>
+                <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
+                  <Link href="/cancellation_and_refund">
+                    Cancellation &amp; Refund
+                  </Link>
+                </li>
+                <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
+                  <Link href="/shipping_and_delivery">
+                    Shipping &amp; Delivery
+                  </Link>
+                </li>
               </ul>
               <ul className="flex flex-col items-start gap-2">
                 <p className="capitalize text-xl font-bold">

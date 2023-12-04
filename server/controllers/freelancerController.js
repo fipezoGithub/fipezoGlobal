@@ -447,116 +447,6 @@ async function editFreelancerProfile(req, res) {
   }
 }
 
-//edit cover picture
-async function editFreelancerCoverPicture(req, res) {
-  try {
-    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
-      const freelancerData = await freelancerCollection.findOne({
-        _id: authData.user._id,
-      });
-      if (err && !freelancerData) {
-        return;
-      } else {
-        const user = await freelancerCollection.findOne({
-          _id: authData.user._id,
-        });
-        if (user) {
-          let updatedUser;
-          if (req.files["coverPicture"]) {
-            const resizedCoverPicture = await resizeImage(
-              req.files["coverPicture"][0],
-              2272,
-              1704
-            );
-            const deletePromises = [];
-            deletePromises.push(deleteFile(user.coverPicture));
-            await Promise.all(deletePromises);
-            const filePromises = [];
-            filePromises.push(uploadFile(resizedCoverPicture));
-            await Promise.all(filePromises);
-            updatedUser = await freelancerCollection.findByIdAndUpdate(
-              user._id,
-              {
-                coverPicture: resizedCoverPicture.filename,
-              }
-            );
-            await freelancerCollection.findByIdAndUpdate(user._id, {
-              pictureStyle: req.body.pictureStyle,
-            });
-            await unlinkFile(
-              "uploads/" + req.files["coverPicture"][0].filename
-            );
-            await unlinkFile(resizedCoverPicture.path);
-          } else {
-            updatedUser = await freelancerCollection.findByIdAndUpdate(
-              user._id,
-              {
-                pictureStyle: req.body.pictureStyle,
-              }
-            );
-          }
-          res.status(200).json(updatedUser);
-        } else {
-          res.status(404).send("Not logged in");
-        }
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal server error");
-  }
-}
-
-//edit profile picture
-async function editFreelancerProfilePicture(req, res) {
-  try {
-    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
-      const freelancerData = await freelancerCollection.findOne({
-        _id: authData.user._id,
-      });
-      if (err && !freelancerData) {
-        return;
-      } else {
-        const user = await freelancerCollection.findOne({
-          _id: authData.user._id,
-        });
-        if (user) {
-          const resizedProfilePicture = await resizeImage(
-            req.files["profilePicture"][0],
-            2272,
-            1704
-          );
-          const deletePromises = [];
-          deletePromises.push(deleteFile(user.profilePicture));
-          await Promise.all(deletePromises);
-          const filePromises = [];
-          filePromises.push(uploadFile(resizedProfilePicture));
-          await Promise.all(filePromises);
-          const updatedUser = await freelancerCollection.findByIdAndUpdate(
-            user._id,
-            {
-              profilePicture: resizedProfilePicture.filename,
-            }
-          );
-          await freelancerCollection.findByIdAndUpdate(user._id, {
-            pictureStyle: req.body.pictureStyle,
-          });
-          await unlinkFile(
-            "uploads/" + req.files["profilePicture"][0].filename
-          );
-          await unlinkFile(resizedProfilePicture.path);
-          res.status(200).json(updatedUser);
-        } else {
-          res.status(404).send("Not logged in");
-        }
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal server error");
-  }
-}
-
 // delete profile
 async function deleteFreelancerProfile(req, res) {
   try {
@@ -992,8 +882,6 @@ module.exports = {
   followCompany,
   unfollowCompany,
   getFeedOfFreelancer,
-  editFreelancerCoverPicture,
-  editFreelancerProfilePicture,
   updateFreelancerPassword,
   getJobsOfUser,
   likeProfile,

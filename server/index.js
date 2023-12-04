@@ -60,8 +60,6 @@ const {
   followCompany,
   unfollowCompany,
   getFeedOfFreelancer,
-  editFreelancerCoverPicture,
-  editFreelancerProfilePicture,
   updateFreelancerPassword,
   getJobsOfUser,
   likeProfile,
@@ -257,18 +255,6 @@ app.get("/api/freelancer/followedcompanies/:id", getFollowedCompanies);
 app.put("/api/follow/company", verifyToken, followCompany);
 app.put("/api/unfollow/company", verifyToken, unfollowCompany);
 app.get("/api/profile/feed", verifyToken, getFeedOfFreelancer);
-app.put(
-  "/api/update/freelancer/cover",
-  upload,
-  verifyToken,
-  editFreelancerCoverPicture
-);
-app.put(
-  "/api/update/freelancer/profile-picture",
-  upload,
-  verifyToken,
-  editFreelancerProfilePicture
-);
 app.put(
   "/api/profile/freelancer/password/change",
   verifyToken,

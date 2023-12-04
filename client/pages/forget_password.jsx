@@ -32,6 +32,7 @@ const Forget_password = (props) => {
       console.log(error);
     }
   };
+
   const submitOTP = async (e) => {
     e.preventDefault();
     try {
@@ -54,53 +55,26 @@ const Forget_password = (props) => {
       console.log(error);
     }
   };
+
   const changePassword = async (e) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     try {
       if (password === conPassword) {
-        if (type === "user") {
-          const res = await fetch(
-            `${process.env.SERVER_URL}/profile/user/password/change`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({ password: password }),
-            }
-          );
-          const data = await res.json();
-          router.push("/");
-        } else if (type === "company") {
-          const res = await fetch(
-            `${process.env.SERVER_URL}/profile/company/password/change`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({ password: password }),
-            }
-          );
-          const data = await res.json();
-          router.push("/");
-        } else if (type === "freelancer") {
-          const res = await fetch(
-            `${process.env.SERVER_URL}/profile/freelancer/password/change`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify({ password: password }),
-            }
-          );
-          const data = await res.json();
+        const res = await fetch(
+          `${process.env.SERVER_URL}/profile/user/password/change`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ password: password }),
+          }
+        );
+        const data = await res.json();
+        if (data) {
           router.push("/");
         }
       }
@@ -108,6 +82,7 @@ const Forget_password = (props) => {
       console.log(error);
     }
   };
+
   return (
     <>
       <Head>
