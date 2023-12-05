@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
 
+
 const PostedJobs = (props) => {
   const [jobs, setJobs] = useState([]);
   
@@ -54,6 +55,7 @@ const PostedJobs = (props) => {
                 setJobs={setJobs}
                 company={props.company}
                 user={props.user}
+                status={true}
               />
             ))
           ) : (

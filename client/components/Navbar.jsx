@@ -24,7 +24,7 @@ export default function Navbar(props) {
   const router = useRouter();
   const sideNavRef = useRef();
 
-  console.log(router);
+
 
   useEffect(() => {
     const token = localStorage.getItem("user")

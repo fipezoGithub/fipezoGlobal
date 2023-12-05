@@ -9,6 +9,7 @@ import { AiFillProfile } from "react-icons/ai";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { useRouter } from "next/router";
+import Applicants from "./Applicants";
 
 const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [title, setTitle] = useState("");
@@ -25,10 +26,12 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [eventTime, setEventTime] = useState({ startTime: "", endTime: "" });
   const [hiredFreelancers, setHiredFreelancers] = useState([]);
   const [rejectedFreelancers, setRejectedFreelancers] = useState([]);
+  const [isApplied, setIsApplied] = useState(false);
   const [hiredState, setHiredState] = useState(false);
   const [rejectState, setRejectState] = useState(false);
-  const [isApplied, setIsApplied] = useState(false);
   const [warn, setWarn] = useState(false);
+  const [profession, setProfession] = useState("");
+  const [finalDate, setFinalDate] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -54,7 +57,18 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
     });
     setHiredFreelancers(job.hiredFreelancers);
     setRejectedFreelancers(job.rejectedFreelancers);
-  }, []);
+    let prof = job.profession
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    setProfession(prof);
+    let one_day = 1000 * 60 * 60 * 24;
+    let a = new Date(job.dueDate);
+    let today = new Date();
+    var Result = Math.round(a.getTime() - today.getTime()) / one_day;
+    var Final_Result = Result.toFixed(0);
+    setFinalDate(Final_Result);
+  }, [job]);
 
   const deleteJob = async () => {
     const token = localStorage.getItem("user")
@@ -235,27 +249,18 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
     }
   };
 
-  const profession = job.profession
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-  let one_day = 1000 * 60 * 60 * 24;
-  let a = new Date(job.dueDate);
-  let today = new Date();
-  var Result = Math.round(a.getTime() - today.getTime()) / one_day;
-  var Final_Result = Result.toFixed(0);
   return (
     <div className="flex flex-col items-start border rounded-lg shadow-md p-4 gap-3 lg:w-full relative">
       <div
         className={
           "p-1 lg:p-2 border  flex items-center gap-2 " +
-          (Final_Result > 0
+          (finalDate > 0
             ? "text-green-600 border-green-600"
             : "text-red-600 border-red-600")
         }
       >
         <BsStopCircle />
-        {Final_Result > 0 ? `${Final_Result} days left` : `Expired`}
+        {finalDate > 0 ? `${finalDate} days left` : `Expired`}
       </div>
       <div className="flex items-start gap-4 justify-between w-full">
         <div className="flex flex-col">
@@ -376,93 +381,25 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
       )}
       {router.asPath === "/posted-jobs" &&
         company?._id === job.createdCompany._id && (
-          <>
-            <hr className="h-[1px] w-full bg-neutral-400" />
-            <div className="flex flex-col items-start gap-4">
-              <h4 className="capitalize font-bold lg:text-xl">
-                applicant freelancers
-              </h4>
-              <ol className="flex flex-col items-start w-full gap-4">
-                {job.appliedFreelancers.length > 0 &&
-                  job.appliedFreelancers.map((freelancer, index) => {
-                    const hired = hiredFreelancers?.some((hire) => {
-                      if (hire._id === freelancer._id) {
-                        setHiredState(true);
-                        return true;
-                      }
-                    });
-                    const rejected = rejectedFreelancers?.some((reject) => {
-                      if (reject === freelancer._id) {
-                        setRejectState(true);
-                        return true;
-                      }
-                    });
-                    return (
-                      <li
-                        key={index}
-                        className="w-full flex flex-col lg:flex-row items-start lg:items-center gap-4 justify-between"
-                      >
-                        <div className="flex items-center gap-4 justify-between">
-                          <p className="font-bold text-sm lg:text-lg">
-                            {index + 1}.
-                          </p>
-                          <Image
-                            src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${freelancer.profilePicture}`}
-                            width={40}
-                            height={40}
-                            alt="pro-pic"
-                            className="rounded-full w-8 lg:w-10 h-8 lg:h-10 object-cover"
-                          />
-                          <Link
-                            className="capitalize hover:font-bold text-xs lg:text-base"
-                            href={`/profile/${freelancer.uid}`}
-                          >
-                            {freelancer.firstname.toLowerCase() +
-                              " " +
-                              freelancer.lastname.toLowerCase()}
-                          </Link>
-                          <a
-                            href={`tel:${freelancer.phone}`}
-                            className="hover:text-cyan-500 text-xs lg:text-base"
-                          >
-                            {freelancer.phone}
-                          </a>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          {rejectState === false && (
-                            <button
-                              className="capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base"
-                              type="button"
-                              onClick={() => hireFreelancer(freelancer._id)}
-                              disabled={hiredState === true ? true : false}
-                            >
-                              {hiredState === true ? "hired" : "hire"}
-                            </button>
-                          )}
-                          {hiredState === false && (
-                            <button
-                              className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
-                              type="button"
-                              onClick={() => rejectFreelancer(freelancer._id)}
-                              disabled={rejectState === true ? true : false}
-                            >
-                              {rejectState === true ? "rejected" : "reject"}
-                            </button>
-                          )}
-                        </div>
-                      </li>
-                    );
-                  })}
-              </ol>
-            </div>
-          </>
+          <Applicants
+            appliedFreelancers={job.appliedFreelancers}
+            hiredFreelancers={hiredFreelancers}
+            rejectedFreelancers={rejectedFreelancers}
+            hiredState={hiredState}
+            setHiredState={setHiredState}
+            rejectState={rejectState}
+            setRejectState={setRejectState}
+            jobId={job._id}
+            companyname={company.companyname}
+            companyId={company._id}
+          />
         )}
       {router.asPath === "/posted-jobs" &&
         company?._id === job.createdCompany._id && (
           <>
             <hr className="h-[1px] w-full bg-neutral-400" />
             <div className="self-end flex items-center gap-4">
-              {Final_Result > 0 && (
+              {finalDate.length > 0 && (
                 <button
                   type="button"
                   className="border-[#338ef4] border capitalize px-4 py-2 text-[#338ef4] font-semibold lg:text-xl rounded-md"
