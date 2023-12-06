@@ -380,7 +380,7 @@ const Footer = () => {
                   help &amp; support
                 </p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/contact">support</Link>
+                  <Link href="/contact_us">support</Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/faqs">FAQs</Link>

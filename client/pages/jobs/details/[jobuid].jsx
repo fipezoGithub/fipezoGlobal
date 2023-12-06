@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { auth } from "@/scripts/firebase";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +32,7 @@ const Jobuid = (props) => {
   const [loginType, setLoginType] = useState("");
   const [isApplied, setIsApplied] = useState(false);
   const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoginType(JSON.parse(localStorage.getItem("type")));
     setUrl(window.location.origin + "/jobs/details/" + props.data.uid);
@@ -41,9 +41,10 @@ const Jobuid = (props) => {
         setIsApplied(true);
       }
     });
-  }, [props.data.appliedFreelancers,props.data.uid]);
+  }, [props.data.appliedFreelancers, props.data.uid]);
 
   const applyJob = async (e) => {
+    setLoading(true);
     e.target.disabled = true;
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -60,6 +61,7 @@ const Jobuid = (props) => {
       const data = await res.json();
       if (data) {
         setIsApplied(true);
+        setLoading(false);
         const res = await fetch(
           `${process.env.SERVER_URL}/notification/create`,
           {
@@ -80,6 +82,7 @@ const Jobuid = (props) => {
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -317,7 +320,7 @@ const Jobuid = (props) => {
               <p>{props.data.createdCompany.jobPosted.length} jobs posted</p>
             </div>
           </div>
-          {!loginType && (
+          {!props.user && !props.company && (
             <>
               <hr className="h-[1px] w-full bg-neutral-400" />
               <div className="self-center">
@@ -330,20 +333,29 @@ const Jobuid = (props) => {
               </div>
             </>
           )}
-          {loginType && loginType !== "company" && (
+          {props.user?.uid && (
             <>
               <hr className="h-[1px] w-full bg-neutral-400" />
               <div className="self-center">
-                <button
-                  type="button"
-                  className="bg-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
-                  disabled={
-                    Final_Result > 0 && isApplied === false ? false : true
-                  }
-                  onClick={applyJob}
-                >
-                  {isApplied === false ? "apply now" : "applied"}
-                </button>
+                {loading === false ? (
+                  <button
+                    type="button"
+                    className="bg-[#338ef4] disabled:bg-neutral-600 disabled:cursor-not-allowed capitalize px-4 py-2 text-white font-semibold lg:text-xl rounded-md"
+                    disabled={
+                      Final_Result > 0 && isApplied === false ? false : true
+                    }
+                    onClick={applyJob}
+                  >
+                    {isApplied === false ? "apply now" : "applied"}
+                  </button>
+                ) : (
+                  <Image
+                    src="/mini-loading.gif"
+                    width={80}
+                    height={80}
+                    alt="loading"
+                  />
+                )}
               </div>
             </>
           )}

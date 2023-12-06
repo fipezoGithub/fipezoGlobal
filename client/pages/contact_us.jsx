@@ -3,7 +3,6 @@ import styles from "../styles/Contact.module.css";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import ReCAPTCHA from "react-google-recaptcha";
-import ReactWhatsapp from "react-whatsapp";
 import { useState, useRef } from "react";
 import Head from "next/head";
 import Link from "next/link";
@@ -227,72 +226,76 @@ function Contact(props) {
           <Image src="/chat.png" height={70} width={70} alt="whatsapp-icon" />
         </ReactWhatsapp> */}
       </div>
-      <div className="mx-8 my-6">
-        <h2 className="text-xl font-bold">Customer Support</h2>
-        <p className="text-base">
-          If you have any questions, concerns, or feedback, our customer support
-          team is ready to assist you. Please email us at{" "}
-          <Link href="mailto:help@fipezo.com" className="text-blue-500">
-            help@fipezo.com
-          </Link>{" "}
-          for prompt assistance.
-        </p>
-      </div>
-      <div className="mx-8 my-6">
-        <h2 className="text-xl font-bold">Business Hours</h2>
-        <p>
-          Our customer support team operates during the following business
-          hours:
-        </p>
-        <ul className="list-disc text-base">
-          <li>
-            Monday to Saturday: {"("} 10:10 - 18:50 {")"}
-          </li>
-          <li>Sunday: Closed</li>
-        </ul>
-      </div>
-      <div className="mx-8 my-6">
-        <h2 className="text-xl font-bold">Social Media</h2>
-        <p className="text-base">
-          Stay connected with Fipezo through our social media channels for
-          updates and announcements:
-        </p>
-        <ul className="flex items-center gap-4">
-          <li>
-            <Link href="https://www.facebook.com/fipezo/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0">
-              <Image
-                src="/facebook.png"
-                width={60}
-                height={60}
-                className="w-12"
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="https://www.instagram.com/fipezoindia">
-              <Image
-                src="/instagramC.png"
-                width={60}
-                height={60}
-                className="w-12"
-              />
-            </Link>
-          </li>
-          <li>
-            <Link href="https://www.linkedin.com/in/fipezo/">
-              <Image
-                src="/linkedinO.png"
-                width={60}
-                height={60}
-                className="w-8"
-              />
-            </Link>
-          </li>
-        </ul>
-        <p className="text-base">
-          We appreciate your trust in Fipezo, and we look forward to serving
-          you!
-        </p>
+      <div className="flex justify-center">
+        <div className="mx-8">
+          <div className="my-6 ">
+            <h2 className="text-xl md:text-3xl font-bold">Customer Support</h2>
+            <p className="text-base">
+              If you have any questions, concerns, or feedback, our customer
+              support team is ready to assist you. Please email us at{" "}
+              <Link href="mailto:help@fipezo.com" className="text-blue-500">
+                help@fipezo.com
+              </Link>{" "}
+              for prompt assistance.
+            </p>
+          </div>
+          <div className="my-6">
+            <h2 className="text-xl md:text-3xl font-bold">Business Hours</h2>
+            <p>
+              Our customer support team operates during the following business
+              hours:
+            </p>
+            <ul className="list-disc text-base">
+              <li>
+                Monday to Saturday: {"("} 10:10 - 18:50 {")"}
+              </li>
+              <li>Sunday: Closed</li>
+            </ul>
+          </div>
+          <div className="my-6 flex flex-col gap-3">
+            <h2 className="text-xl md:text-3xl font-bold">Social Media</h2>
+            <p className="text-base">
+              Stay connected with Fipezo through our social media channels for
+              updates and announcements:
+            </p>
+            <ul className="flex items-center gap-4">
+              <li>
+                <Link href="https://www.facebook.com/fipezo/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0">
+                  <Image
+                    src="/facebook.png"
+                    width={60}
+                    height={60}
+                    className="w-8"
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.instagram.com/fipezoindia">
+                  <Image
+                    src="/instagramC.png"
+                    width={60}
+                    height={60}
+                    className="w-8"
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link href="https://www.linkedin.com/in/fipezo/">
+                  <Image
+                    src="/linkedinO.png"
+                    width={60}
+                    height={60}
+                    className="w-8"
+                  />
+                </Link>
+              </li>
+            </ul>
+            <p className="text-base">
+              We appreciate your trust in Fipezo, and we look forward to serving
+              you!
+            </p>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

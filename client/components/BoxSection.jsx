@@ -61,7 +61,7 @@ function BoxSection() {
               Terms of Service{" "}
             </p>
           </Link>
-          <Link href="/contact" className={styles.right3}>
+          <Link href="/contact_us" className={styles.right3}>
             <div className={styles.plus}>
               <BsFillPlusCircleFill />
             </div>

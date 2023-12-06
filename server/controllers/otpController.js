@@ -101,10 +101,12 @@ async function otpSignupController(req, res) {
     let existingUser = null;
     let existingFreelancer;
     let existingCompany;
-    existingUser = await userCollection.findOne({ phone: phone });
-    existingFreelancer = await freelancerCollection.findOne({ phone: phone });
+    existingUser = await userCollection.findOne({ phone: req.body.phone });
+    existingFreelancer = await freelancerCollection.findOne({
+      phone: req.body.phone,
+    });
     existingCompany = await companyCollection.findOne({
-      companyphone: phone,
+      companyphone: req.body.phone,
     });
     // if (req.body.type === "user")
     //   existingUser = await userCollection.findOne({ phone: req.body.phone });

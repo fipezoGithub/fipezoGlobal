@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Applicants = ({
   appliedFreelancers,
@@ -14,6 +14,12 @@ const Applicants = ({
 }) => {
   const hireRef = useRef();
   const rejectRef = useRef();
+  useEffect(() => {
+    if (!hireRef.current || !rejectRef.current) {
+      console.log("true");
+      return;
+    }
+  }, [hireRef.current, rejectRef.current]);
 
   const hireFreelancer = async (e, userid) => {
     const token = localStorage.getItem("user")
@@ -48,7 +54,7 @@ const Applicants = ({
         );
         const data = await res.json();
         e.target.disabled = true;
-        e.target.innerText = "Hireded";
+        e.target.innerText = "Hired";
         rejectRef.current.style.display = "none";
       }
     } catch (error) {
@@ -164,7 +170,7 @@ const Applicants = ({
                       <button
                         className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
                         type="button"
-                        ref={rejectRef}
+                        ref={(e) => (rejectRef.current = e)}
                         onClick={(e) => rejectFreelancer(e, freelancer._id)}
                         disabled={r === true ? true : false}
                       >

@@ -5,6 +5,7 @@ import Script from "next/script";
 import Loading from "@/components/Loading";
 import { Router } from "next/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);
@@ -56,7 +57,7 @@ export default function App({ Component, pageProps }) {
     // }
 
     // getLocation();
-    
+
     const start = () => {
       console.log("start");
       setLoading(true);
@@ -79,7 +80,9 @@ export default function App({ Component, pageProps }) {
     <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
       <div>
         <Head>
-          <title>Fipezo | Find Freelancers in India & Explore Freelance Jobs - Fipezo</title>
+          <title>
+            Fipezo | Find Freelancers in India & Explore Freelance Jobs - Fipezo
+          </title>
           <meta
             name="description"
             content="Search for freelance jobs or Find Freelancers In India on Fipezo, India's best freelance marketplace, connecting you with skilled freelancers."
@@ -126,6 +129,7 @@ export default function App({ Component, pageProps }) {
           ) : (
             <Loading message={"While Loading your data"} />
           )}
+          <ScrollToTop />
         </div>
         <Script
           async

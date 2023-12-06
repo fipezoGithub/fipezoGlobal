@@ -287,7 +287,7 @@ export default function Navbar(props) {
               id={styles.box}
               style={{ display: display2 }}
             >
-              <Link className={styles.optionBox} href="/contact">
+              <Link className={styles.optionBox} href="/contact_us">
                 <h1 className={styles.mainText}>Contact Us</h1>
                 <p className={styles.subText + " text-orange-500"}>
                   Reach out to use for an query or help
@@ -642,7 +642,7 @@ export default function Navbar(props) {
               id={styles.box}
               style={{ display: display2 }}
             >
-              <Link className={styles.optionBox} href="/contact">
+              <Link className={styles.optionBox} href="/contact_us">
                 <h1 className={styles.mainText}>Contact Us</h1>
                 <p className={styles.subText + " text-orange-500"}>
                   Reach out to use for an query or help

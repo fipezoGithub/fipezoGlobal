@@ -399,7 +399,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
           <>
             <hr className="h-[1px] w-full bg-neutral-400" />
             <div className="self-end flex items-center gap-4">
-              {finalDate.length > 0 && (
+              {finalDate > 0 && (
                 <button
                   type="button"
                   className="border-[#338ef4] border capitalize px-4 py-2 text-[#338ef4] font-semibold lg:text-xl rounded-md"

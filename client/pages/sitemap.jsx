@@ -74,7 +74,7 @@ const Sitemap = (props) => {
                       <SlTarget /> FAQs
                     </Link>
                     <Link
-                      href="/contact"
+                      href="/contact_us"
                       className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                     >
                       <SlTarget /> Contact Us
@@ -142,7 +142,7 @@ const Sitemap = (props) => {
                 <ul className="ml-4">
                   <li>
                     <Link
-                      href="/contact"
+                      href="/contact_us"
                       className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                     >
                       <SlTarget /> support

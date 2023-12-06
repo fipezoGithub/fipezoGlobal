@@ -144,7 +144,7 @@ const Referandearn = (props) => {
           <li className="list-disc ml-6">
             If you have any questions or concerns regarding the &quot;Refer and
             Earn&quot; program, please contact our{" "}
-            <Link href="/contact" className="text-blue-600 font-medium">
+            <Link href="/contact_us" className="text-blue-600 font-medium">
               customer support.
             </Link>
           </li>
