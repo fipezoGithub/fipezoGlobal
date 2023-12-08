@@ -64,6 +64,7 @@ const {
   getJobsOfUser,
   likeProfile,
   verificationProfile,
+  updateWork,
 } = require("./controllers/freelancerController");
 
 const {
@@ -180,6 +181,7 @@ const {
   getAllReports,
   updateStatusReport,
 } = require("./controllers/reportController");
+const updatePortfolio = require("./middlewares/portFolioUpdate");
 
 // Setting up the routes
 
@@ -262,6 +264,12 @@ app.put(
 );
 app.get("/api/freelancer/jobs", verifyToken, getJobsOfUser);
 app.put("/api/profile/love/:id", likeProfile);
+app.put(
+  "/api/profile/protfolio/update",
+  updatePortfolio,
+  verifyToken,
+  updateWork
+);
 
 //Contactcontroller routes
 app.post("/api/contact", contactUs);

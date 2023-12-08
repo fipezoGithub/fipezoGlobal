@@ -35,13 +35,15 @@ function Terms_And_Conditions(props) {
               Terms & Conditions for Fipezo - Freelance Platform
             </h1>
             <p className={styles.para}>
-              Welcome to Fipezo, a freelance platform connecting skilled
-              freelancers with clients seeking their services. These Terms &
-              Conditions govern your use of the Fipezo website and all related
-              services provided by Fipezo. By accessing or using our Website and
-              Services, you agree to be bound by these Terms. If you do not
-              agree with any part of these Terms, please do not use the Website
-              or our Services.
+              Introducing Fipezo, a freelancing platform that establishes
+              connections between proficient freelancers and clients seeking
+              their services. These Terms & Conditions meticulously regulate
+              your utilization of the Fipezo website and all associated
+              services, all of which are provided by Fipezo—a subsidiary owned
+              and managed by{" "}
+              <span className="font-bold text-black">NOZZE ARTE PRIVATE LIMITED</span>, the
+              parent company of Fipezo. By accessing or utilizing our Website
+              and Services, you hereby consent to be bound by these Terms.
               <span className={styles.title}>Contact Information:</span>
               For any inquiries or concerns regarding our Terms and Conditions,
               please contact us at:{" "}

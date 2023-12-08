@@ -32,7 +32,7 @@ const ScrollToTop = () => {
       <button
         type="button"
         onClick={handelScrollTop}
-        className={"text-3xl p-2 bg-gray-600 text-white"}
+        className={"text-3xl p-2 bg-black text-white rounded bg-opacity-50"}
       >
         <IoIosArrowUp />
       </button>

@@ -124,6 +124,11 @@ const Profile = (props) => {
               </Link>
             )}
             {props.user?.uid && (
+              <Link href="/update-portfolio" className={style.option}>
+                Update Portfolio
+              </Link>
+            )}
+            {props.user?.uid && (
               <Link className={style.option} href="/my_referral">
                 My Referal
               </Link>

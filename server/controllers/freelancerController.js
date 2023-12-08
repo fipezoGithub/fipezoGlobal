@@ -447,6 +447,88 @@ async function editFreelancerProfile(req, res) {
   }
 }
 
+async function updateWork(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancerData = await freelancerCollection.findOne({
+        _id: authData.user._id,
+      });
+      if (err && !freelancerData) {
+        return;
+      } else {
+        // const deletePromises = [];
+        // const filePromises = [];
+        // let worksToStore = [];
+        // if (
+        //   freelancerData.profession === "photographer" ||
+        //   freelancerData.profession === "photo_editor" ||
+        //   freelancerData.profession === "model" ||
+        //   freelancerData.profession === "makeup_artist" ||
+        //   freelancerData.profession === "mehendi_artist" ||
+        //   freelancerData.profession === "album_designer" ||
+        //   freelancerData.profession === "web_developer" ||
+        //   freelancerData.profession === "graphics_designer"
+        // ) {
+        //   worksToStore = req.files["works[]"]?.map((file) => file.filename);
+        // } else if (
+        //   freelancerData.profession === "drone_operator" ||
+        //   freelancerData.profession === "anchor" ||
+        //   freelancerData.profession === "dj" ||
+        //   freelancerData.profession === "dancer" ||
+        //   freelancerData.profession === "influencer"
+        // ) {
+        //   const droneWorksFromBody = [
+        //     req.body.works[0],
+        //     req.body.works[1],
+        //     req.body.works[2],
+        //     req.body.works[3],
+        //   ];
+        //   const droneWorksFromFiles = req.files["works[]"]?.map(
+        //     (file) => file.filename
+        //   );
+        //   worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
+        // } else {
+        //   worksToStore = req.body.works;
+        // }
+
+        // await freelancerCollection.findByIdAndUpdate(freelancerData._id, {
+        //   works: worksToStore,
+        // });
+
+        // if (
+        //   freelancerData.profession === "photographer" ||
+        //   freelancerData.profession === "drone_operator" ||
+        //   freelancerData.profession === "photo_editor" ||
+        //   freelancerData.profession === "model" ||
+        //   freelancerData.profession === "makeup_artist" ||
+        //   freelancerData.profession === "mehendi_artist" ||
+        //   freelancerData.profession === "album_designer" ||
+        //   freelancerData.profession === "anchor" ||
+        //   freelancerData.profession === "web_developer" ||
+        //   freelancerData.profession === "dj" ||
+        //   freelancerData.profession === "dancer" ||
+        //   freelancerData.profession === "influencer" ||
+        //   freelancerData.profession === "graphics_designer"
+        // ) {
+        //   req.files["works[]"]?.forEach((file) => {
+        //     filePromises.push(uploadFile(file));
+        //   });
+        // }
+
+        // await Promise.all(filePromises);
+      }
+      
+      // const newAccount = await freelancerCollection.findById(
+      //   freelancerData._id
+      // );
+      res.status(200).json(newAccount);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 // delete profile
 async function deleteFreelancerProfile(req, res) {
   try {
@@ -885,4 +967,5 @@ module.exports = {
   updateFreelancerPassword,
   getJobsOfUser,
   likeProfile,
+  updateWork
 };

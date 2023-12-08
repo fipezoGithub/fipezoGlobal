@@ -356,7 +356,9 @@ const Footer = () => {
               <ul className="flex flex-col items-start gap-2">
                 <p className="capitalize text-xl font-bold">law &amp; order</p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/terms_and_conditions">terms of service</Link>
+                  <Link href="/terms_and_conditions">
+                    terms &amp; conditions
+                  </Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/data_protection">data protection</Link>
