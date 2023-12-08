@@ -17,7 +17,7 @@ import Loading from "@/components/Loading";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
-  const [type, setType] = useState("user");
+  const [type, setType] = useState("login");
   const [otpForm, setOtpForm] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -129,6 +129,10 @@ export default function Login(props) {
           }),
         });
         const data = await response.json();
+        if (!data) {
+          setLoading(false);
+          setOtpFailed(true);
+        }
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("type", JSON.stringify(type));
         router.push("/");
@@ -169,6 +173,7 @@ export default function Login(props) {
         }
       } catch (error) {
         setLoginFailed(true);
+        setLoading(false);
         console.error(error);
       }
     }
