@@ -48,13 +48,13 @@ function Careers(props) {
             </span>
           </h2>
           <p className="text-base md:text-xl flex flex-col items-start justify-between gap-8 self-end py-2">
-            Are you ready to be part of an exciting journey? At Fipezo, we're
-            not just offering jobs; we're inviting passionate individuals to
-            join our dynamic team. If you're enthusiastic, innovative, and ready
-            to make a meaningful impact in the world of freelancing, Fipezo is
-            the place for you!
+            Are you ready to be part of an exciting journey? At Fipezo,
+            we&apos;re not just offering jobs; we&apos;re inviting passionate
+            individuals to join our dynamic team. If you&apos;re enthusiastic,
+            innovative, and ready to make a meaningful impact in the world of
+            freelancing, Fipezo is the place for you!
             <span className="font-bold md:text-3xl">
-              Join Fipezo Team today and let's create success together!
+              Join Fipezo Team today and let&apos;s create success together!
             </span>
           </p>
         </div>
