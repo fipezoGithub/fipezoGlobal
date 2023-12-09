@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/Verification.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import Navbar from "@/components/Navbar";
+import { useRouter } from "next/router";
 
 const UpdatePortfolio = (props) => {
   const [images, setImages] = useState([]);
   const [worksError, setWorksError] = useState(false);
   const [warns, setWarns] = useState([]);
   const [works, setWorks] = useState([]);
+  const [workIndex, setWorkIndex] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     if (!props.user?.works) {
       return;
     }
-    setImages(props.user?.works);
+    setWorks(props.user?.works);
   }, [props.user]);
 
   const handleImageChange = (e, index) => {
@@ -24,42 +28,8 @@ const UpdatePortfolio = (props) => {
       return;
     }
 
-    if (file.size > 10485760 && index === 5) {
-      setWarns(true, 1);
-      setPicError(false, 2);
-      return;
-    }
-
-    if (index === 5) {
-      setCameras([true, cameras[1]]);
-      props.getVerificationDetails(file, 5);
-      setCoverPicture(file);
-    }
-
-    if (file.size > 10485760 && index === 6) {
-      props.setWarns(true, 2);
-      props.setPicError(false, 3);
-      return;
-    }
-
-    if (index === 6) {
-      props.getVerificationDetails(file, 6);
-      setAadhaarCard(file);
-    }
-
-    if (file.size > 10485760 && index === 7) {
-      props.setWarns(true, 3);
-      props.setPicError(false, 4);
-      return;
-    }
-
-    if (index === 7) {
-      getVerificationDetails(file, 7);
-      setPanCard(file);
-    }
-
     if (file.size > 10485760) {
-      props.setWarns(true, index);
+      setWarns(true, index);
       return;
     }
 
@@ -74,7 +44,6 @@ const UpdatePortfolio = (props) => {
       index === 11
     ) {
       getVerificationDetails(file, index);
-      setWorks([...works, file]);
     }
 
     reader.onloadend = () => {
@@ -98,38 +67,18 @@ const UpdatePortfolio = (props) => {
     ) {
       checkWorks(1);
     }
-
-    if (index === 4) {
-      checkWorks(4);
-    }
-
-    if (index === 5) {
-      checkWorks(5);
-    }
-
-    if (index === 6) {
-      checkWorks(2);
-    }
-
-    if (index === 7) {
-      checkWorks(3);
-    }
   };
 
   const getVerificationDetails = (val, index) => {
     if (index === 8 || index === 9 || index === 10 || index === 11) {
       const newIndex = index - 4;
-      setWorks((prevState) => [
-        ...prevState.slice(0, newIndex),
-        val,
-        ...prevState.slice(newIndex),
-      ]);
+      const newWorks = [...works];
+      newWorks[newIndex] = val;
+      setWorks(newWorks);
     } else if (index === 0 || index === 1 || index === 2 || index === 3) {
-      setWorks((prevState) => [
-        ...prevState.slice(0, index),
-        val,
-        ...prevState.slice(index),
-      ]);
+      const newWorks = [...works];
+      newWorks[index] = val;
+      setWorks(newWorks);
     }
     if (
       index === 17 ||
@@ -143,23 +92,18 @@ const UpdatePortfolio = (props) => {
       index === 25
     ) {
       const newIndex = index - 17;
-      setWorks((prevState) => [
-        ...prevState.slice(0, newIndex),
-        val,
-        ...prevState.slice(newIndex),
-      ]);
+      const newWorks = [...works];
+      newWorks[newIndex] = val;
+      setWorks(newWorks);
     }
   };
 
   const checkWorks = (val) => {
     if (val === 1) setWorksError(false);
-    if (val === 2) setAddharError(false);
-    if (val === 3) setPanError(false);
-    if (val === 4) setProfilePicError(false);
-    if (val === 5) setCoverPicError(false);
   };
 
   const updateWorks = async (e) => {
+    console.log(works);
     e.preventDefault();
     setLoading(true);
     const token = localStorage.getItem("user")
@@ -171,6 +115,7 @@ const UpdatePortfolio = (props) => {
         works.forEach((element) => {
           data.append("works[]", element);
         });
+        data.append("index", workIndex);
         // data.append("works[]", works[1]);
         // data.append("works[]", works[2]);
         // data.append("works[]", works[3]);
@@ -208,7 +153,7 @@ const UpdatePortfolio = (props) => {
         setCompany={props?.setCompany}
         setUser={props?.setUser}
       />
-      <div className="mt-16 flex flex-col items-center justify-center">
+      <div className="mt-16 mx-8 flex flex-col items-center justify-center">
         <h1 className={styles.heading}>
           Update Your Works
           {worksError && (
@@ -228,8 +173,8 @@ const UpdatePortfolio = (props) => {
               className={styles.addBox}
               style={{
                 backgroundImage: images[0]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[0]}')`
-                  : `none`,
+                  ? `url(${images[0]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[0]}')`,
               }}
             >
               <input
@@ -257,8 +202,8 @@ const UpdatePortfolio = (props) => {
               className={styles.addBox}
               style={{
                 backgroundImage: images[1]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[1]}')`
-                  : `none`,
+                  ? `url('${images[1]}')`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[1]}')`,
               }}
             >
               <input
@@ -271,7 +216,7 @@ const UpdatePortfolio = (props) => {
               {!images[1] && (
                 <label htmlFor="workimg2" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -286,8 +231,8 @@ const UpdatePortfolio = (props) => {
               className={styles.addBox}
               style={{
                 backgroundImage: images[2]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[2]}')`
-                  : `none`,
+                  ? `url(${images[2]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[2]}')`,
               }}
             >
               <input
@@ -300,7 +245,7 @@ const UpdatePortfolio = (props) => {
               {!images[2] && (
                 <label htmlFor="workimg3" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -315,8 +260,8 @@ const UpdatePortfolio = (props) => {
               className={styles.addBox}
               style={{
                 backgroundImage: images[3]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[3]}')`
-                  : `none`,
+                  ? `url(${images[3]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[3]}')`,
               }}
             >
               <input
@@ -329,7 +274,7 @@ const UpdatePortfolio = (props) => {
               {!images[3] && (
                 <label htmlFor="workimg4" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -343,9 +288,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[4]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[4]}')`
-                  : `none`,
+                backgroundImage: images[8]
+                  ? `url(${images[8]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[4]}')`,
               }}
             >
               <input
@@ -358,7 +303,7 @@ const UpdatePortfolio = (props) => {
               {!images[8] && (
                 <label htmlFor="workimg5" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -372,9 +317,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[5]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[5]}')`
-                  : `none`,
+                backgroundImage: images[9]
+                  ? `url(${images[9]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[5]}')`,
               }}
             >
               <input
@@ -387,7 +332,7 @@ const UpdatePortfolio = (props) => {
               {!images[9] && (
                 <label htmlFor="workimg6" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -401,9 +346,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[6]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[6]}')`
-                  : `none`,
+                backgroundImage: images[10]
+                  ? `url(${images[10]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[6]}')`,
               }}
             >
               <input
@@ -416,7 +361,7 @@ const UpdatePortfolio = (props) => {
               {!images[10] && (
                 <label htmlFor="workimg7" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -430,9 +375,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[7]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[7]}')`
-                  : `none`,
+                backgroundImage: images[11]
+                  ? `url(${images[11]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[7]}')`,
               }}
             >
               <input
@@ -445,7 +390,7 @@ const UpdatePortfolio = (props) => {
               {!images[11] && (
                 <label htmlFor="workimg8" className="cursor-pointer">
                   <AiOutlinePlus
-                    className={styles.plus}
+                    className={styles.plus + " hidden"}
                     style={{ color: "#1f1c1c" }}
                   />
                 </label>
@@ -468,8 +413,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={props.user?.works[0]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 17);
+                getVerificationDetails(e.target.value, 17);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -484,8 +430,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={props.user?.works[1]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 18);
+                getVerificationDetails(e.target.value, 18);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -499,9 +446,10 @@ const UpdatePortfolio = (props) => {
             <input
               type="url"
               className={styles.input}
+              value={props.user?.works[2]}
               placeholder="https://www.youtube.com/example"
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 19);
+                getVerificationDetails(e.target.value, 19);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -515,9 +463,10 @@ const UpdatePortfolio = (props) => {
             <input
               type="url"
               className={styles.input}
+              value={props.user?.works[3]}
               placeholder="https://www.youtube.com/example"
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 20);
+                getVerificationDetails(e.target.value, 20);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -531,9 +480,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[4]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[4]}')`
-                  : `none`,
+                backgroundImage: images[8]
+                  ? `url(${images[8]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[4]}')`,
               }}
             >
               <input
@@ -544,11 +493,11 @@ const UpdatePortfolio = (props) => {
               />
               {!images[8] && (
                 <AiOutlinePlus
-                  className={styles.plus}
+                  className={styles.plus + " hidden"}
                   style={{ color: "#1f1c1c" }}
                 />
               )}
-              {props.warns[8] && (
+              {warns[8] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -557,9 +506,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[5]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[5]}')`
-                  : `none`,
+                backgroundImage: images[9]
+                  ? `url(${images[9]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[5]}')`,
               }}
             >
               <input
@@ -570,11 +519,11 @@ const UpdatePortfolio = (props) => {
               />
               {!images[9] && (
                 <AiOutlinePlus
-                  className={styles.plus}
+                  className={styles.plus + " hidden"}
                   style={{ color: "#1f1c1c" }}
                 />
               )}
-              {props.warns[9] && (
+              {warns[9] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -583,9 +532,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[6]
-                  ? `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${images[6]}')`
-                  : `none`,
+                backgroundImage: images[10]
+                  ? `url(${images[10]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[6]}')`,
               }}
             >
               <input
@@ -596,11 +545,11 @@ const UpdatePortfolio = (props) => {
               />
               {!images[10] && (
                 <AiOutlinePlus
-                  className={styles.plus}
+                  className={styles.plus + " hidden"}
                   style={{ color: "#1f1c1c" }}
                 />
               )}
-              {props.warns[10] && (
+              {warns[10] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -609,7 +558,9 @@ const UpdatePortfolio = (props) => {
             <div
               className={styles.addBox}
               style={{
-                backgroundImage: images[11] ? `url(${images[11]})` : `none`,
+                backgroundImage: images[11]
+                  ? `url(${images[11]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[7]}')`,
               }}
             >
               <input
@@ -620,11 +571,11 @@ const UpdatePortfolio = (props) => {
               />
               {!images[11] && (
                 <AiOutlinePlus
-                  className={styles.plus}
+                  className={styles.plus + " hidden"}
                   style={{ color: "#1f1c1c" }}
                 />
               )}
-              {props.warns[11] && (
+              {warns[11] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -639,8 +590,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[0]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 17);
+                getVerificationDetails(e.target.value, 17);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -655,8 +607,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[1]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 18);
+                getVerificationDetails(e.target.value, 18);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -671,8 +624,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[2]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 19);
+                getVerificationDetails(e.target.value, 19);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -687,8 +641,26 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[3]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 20);
+                getVerificationDetails(e.target.value, 20);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              value={works[4]}
+              placeholder="https://www.youtube.com/example"
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 21);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -703,8 +675,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[5]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 21);
+                getVerificationDetails(e.target.value, 22);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -719,8 +692,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[6]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 22);
+                getVerificationDetails(e.target.value, 23);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {
@@ -735,24 +709,9 @@ const UpdatePortfolio = (props) => {
               type="url"
               className={styles.input}
               placeholder="https://www.youtube.com/example"
+              value={works[7]}
               onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 23);
-                e.target.removeAttribute("style");
-              }}
-              onBlur={(e) => {
-                if (!e.target.value.includes("https://youtu")) {
-                  e.target.style.border = "1px solid red";
-                  e.target.value = "";
-                  e.target.placeholder = "url must be a youtube link";
-                }
-              }}
-            />
-            <input
-              type="url"
-              className={styles.input}
-              placeholder="https://www.youtube.com/example"
-              onChange={(e) => {
-                props.getVerificationDetails(e.target.value, 24);
+                getVerificationDetails(e.target.value, 24);
                 e.target.removeAttribute("style");
               }}
               onBlur={(e) => {

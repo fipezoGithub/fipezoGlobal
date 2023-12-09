@@ -4,6 +4,7 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState, useRef } from "react";
+import { HiBuildingOffice2 } from "react-icons/hi2";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -250,6 +251,15 @@ function Contact(props) {
                 Monday to Saturday: {"("} 10:10 - 18:50 {")"}
               </li>
               <li>Sunday: Closed</li>
+            </ul>
+          </div>
+          <div className="my-6">
+            <h2 className="text-xl md:text-3xl font-bold">Office Address</h2>
+            <ul className="list-disc text-base">
+              <li className="flex gap-2 items-center text-xl my-2">
+                <HiBuildingOffice2 />
+                2nd Floor, 17/40A, Dakshindari Road, West Bengal, Kolkata 700048
+              </li>
             </ul>
           </div>
           <div className="my-6 flex flex-col gap-3">

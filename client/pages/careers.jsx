@@ -23,59 +23,152 @@ function Careers(props) {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className={styles.body}>
-        <h1 className={styles.h1}>Join Our Team</h1>
-        <div className={styles.imageContainer}>
-          <Image
-            src="/careers.webp"
-            alt="No Jobs Available"
-            width={500}
-            height={500}
-          />
+      <div className="bg-[url('/carrer-bg.png')] bg-fixed bg-cover bg-bottom bg-no-repeat h-screen flex items-start mt-20 justify-center">
+        <div className="flex flex-col items-center justify-center gap-10">
+          <h1 className="capitalize text-3xl text-center md:text-6xl mt-16 font-bold montserrat">
+            Making freelancing simplified<span className="text-red-500">!</span>
+          </h1>
+          <a
+            href="#open"
+            className="capitalize px-6 py-3 text-xl bg-blue-500 text-white rounded-lg font-semibold"
+          >
+            explore openings
+          </a>
         </div>
-
-        <div className={`flex flex-col items-center ${styles.p}`}>
-          <h2 className="text-center text-xl font-semibold">
-            Current Job Openings:
+      </div>
+      <div
+        className="h-screen bg-black text-white px-8 md:px-28 flex flex-col items-center justify-center"
+        id="open"
+      >
+        <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-8">
+          <h2 className="text-6xl md:text-8xl capitalize font-bold ">
+            Join Fipezo{" "}
+            <span className="inline-block [-webkit-box-reflect:_below_0px_linear-gradient(to_bottom,_rgba(0,0,0,0.0),_rgba(0,0,0,0.35))]">
+              team.
+            </span>
           </h2>
-          <br />
-          <ul className="flex flex-wrap gap-4 justify-center lg:w-2/3">
-            <li className="my-2">
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-xs">
-                Web Developer
-              </button>
-            </li>
-            <li className="my-2">
-              <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded text-xs">
-                UI/UX Designer
-              </button>
-            </li>
-            <li className="my-2">
-              <button className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded text-xs">
-                App Developer
-              </button>
-            </li>
-            <li className="my-2">
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded text-xs">
-                Management
-              </button>
-            </li>
-            <li className="my-2">
-              <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded text-xs">
-                Operations Head
-              </button>
-            </li>
-          </ul>
+          <p className="text-base md:text-xl flex flex-col items-start justify-between gap-8 self-end py-2">
+            Are you ready to be part of an exciting journey? At Fipezo, we're
+            not just offering jobs; we're inviting passionate individuals to
+            join our dynamic team. If you're enthusiastic, innovative, and ready
+            to make a meaningful impact in the world of freelancing, Fipezo is
+            the place for you!
+            <span className="font-bold md:text-3xl">
+              Join Fipezo Team today and let's create success together!
+            </span>
+          </p>
         </div>
-
-        <p className={styles.p}>
-          We are hiring! If you are a talented individual looking for exciting
-          opportunities, we&apos;d love to hear from you.
-        </p>
-        <p className={styles.p}>
-          Feel free to send us your resume for future consideration at{" "}
-          <Link href="mailto:careers@fipezo.com">careers@fipezo.com</Link>.
-        </p>
+      </div>
+      <div className="m-4 flex flex-col items-center gap-4">
+        <h2 className="text-3xl md:text-5xl my-4 capitalize font-bold">
+          open vacancies
+        </h2>
+        <div className="flex flex-wrap items-center justify-around gap-8">
+          <div className="flex items-center flex-col">
+            <Image
+              src="/app_dev_carrer.png"
+              width={500}
+              height={315}
+              alt="app developer"
+              className="w-40 md:w-80"
+            />
+            <div className="flex flex-col">
+              <p className="text-2xl md:text-4xl capitalize font-bold my-4">
+                App developer
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                experience: <span className="font-normal">1 year</span>
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                mode: <span className="font-normal">work from office</span>
+              </p>
+              <Link
+                href=""
+                className="text-base md:text-xl capitalize px-2 py-1 bg-blue-600 font-bold my-4 text-white self-center rounded-lg"
+              >
+                learn more...
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center flex-col">
+            <Image
+              src="/web_dev_career.png"
+              width={500}
+              height={315}
+              alt="app developer"
+              className="w-40 md:w-80"
+            />
+            <div className="flex flex-col">
+              <p className="text-2xl md:text-4xl capitalize font-bold my-4">
+                web developer
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                experience: <span className="font-normal">1 year</span>
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                mode: <span className="font-normal">work from office</span>
+              </p>
+              <Link
+                href=""
+                className="text-base md:text-xl capitalize px-2 py-1 bg-blue-600 font-bold my-4 text-white self-center rounded-lg"
+              >
+                learn more...
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center flex-col">
+            <Image
+              src="/project-manager.png"
+              width={500}
+              height={315}
+              alt="project manager"
+              className="w-40 md:w-80"
+            />
+            <div className="flex flex-col">
+              <p className="text-2xl md:text-4xl capitalize font-bold my-4">
+                project manager
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                experience: <span className="font-normal">1 year</span>
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                mode: <span className="font-normal">work from office</span>
+              </p>
+              <Link
+                href=""
+                className="text-base md:text-xl capitalize px-2 py-1 bg-blue-600 font-bold my-4 text-white self-center rounded-lg"
+              >
+                learn more...
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center flex-col">
+            <Image
+              src="/social-media-executive-career.png"
+              width={500}
+              height={315}
+              alt="social media executive"
+              className="w-40 md:w-80"
+            />
+            <div className="flex flex-col">
+              <p className="text-2xl md:text-4xl capitalize font-bold my-4">
+                social media executive
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                experience: <span className="font-normal">1 year</span>
+              </p>
+              <p className="capitalize text-base md:text-xl font-semibold">
+                mode: <span className="font-normal">work from office</span>
+              </p>
+              <Link
+                href=""
+                className="text-base md:text-xl capitalize px-2 py-1 bg-blue-600 font-bold my-4 text-white self-center rounded-lg"
+              >
+                learn more...
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

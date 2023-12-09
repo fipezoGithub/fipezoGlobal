@@ -7,6 +7,7 @@ import Head from "next/head";
 function VerificationPanel(props) {
   const [freelancers, setFreelancers] = useState([]);
   const [companies, setCompanies] = useState([]);
+  
   useEffect(() => {
     async function fetchFreelancer() {
       const token = localStorage.getItem("user")
