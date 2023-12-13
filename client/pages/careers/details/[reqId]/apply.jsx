@@ -13,7 +13,7 @@ const Apply = (props) => {
   const [fileAttached, setFileAttached] = useState(false);
   const [cv, setCV] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showDialogBox, setShowDialogBox] = useState(true);
+  const [showDialogBox, setShowDialogBox] = useState(false);
   const router = useRouter();
 
   const submitResume = async (e) => {
