@@ -73,8 +73,8 @@ function Careers(props) {
             Tough, but worth it
           </h2>
           <p className="text-base md:text-lg font-medium md:w-[30rem]">
-            At Fipezo, we face challenges together, and create a team that's
-            collaborative and supportive.
+            At Fipezo, we face challenges together, and create a team
+            that&apos;s collaborative and supportive.
             <br />
             <br />
             Join a family that promotes growth, and is dedicated to shaping the

@@ -118,10 +118,10 @@ const ReqId = (props) => {
               we&apos;re committed to your well-being with perks like stocked
               pantries, provided meals, and comprehensive health coverage. At
               Fipezo, transparency reigns - no rigid schedules or traditional
-              job titles. We trust you, and that's evident from day one - your
-              salary arrives before you do. Join us for a career that&apos;s not
-              just a job, but a uniquely Fipezo experience. If this feels like
-              your kind of workplace, let&apos;s connect!
+              job titles. We trust you, and that&apos;s evident from day one -
+              your salary arrives before you do. Join us for a career
+              that&apos;s not just a job, but a uniquely Fipezo experience. If
+              this feels like your kind of workplace, let&apos;s connect!
             </p>
           </div>
           <Link
