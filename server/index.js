@@ -182,6 +182,14 @@ const {
   updateStatusReport,
 } = require("./controllers/reportController");
 const updatePortfolio = require("./middlewares/portFolioUpdate");
+const {
+  applyFipezoJob,
+  deleteFipezoJobRequest,
+  getAllFipezoJobRequest,
+  createFipezoJob,
+  getFipezoJobRequestById,
+} = require("./controllers/carrerController");
+const carrerCVUpoload = require("./middlewares/careerCV");
 
 // Setting up the routes
 
@@ -360,6 +368,13 @@ app.put("/api/report/:repId", verifyToken, updateStatusReport);
 app.post("/api/request", requestCityRaise);
 app.get("/api/request", getAllRequests);
 app.delete("/api/request/:requestid", deleteCityRequest);
+
+//Carrer Routes
+app.post("/api/carrer/post", createFipezoJob);
+app.put("/api/carrer/apply/:requestId", carrerCVUpoload, applyFipezoJob);
+app.delete("/api/carrer/delete/:requestId", deleteFipezoJobRequest);
+app.get("/api/carrer", getAllFipezoJobRequest);
+app.get("/api/carrer/:requestId", getFipezoJobRequestById);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

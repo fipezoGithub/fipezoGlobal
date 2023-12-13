@@ -24,8 +24,6 @@ export default function Navbar(props) {
   const router = useRouter();
   const sideNavRef = useRef();
 
-
-
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -143,6 +141,11 @@ export default function Navbar(props) {
       <div className={styles.left}>
         <Link href="/">
           <i className={styles.fipezo}>Fipezo</i>
+          {router.asPath === "/careers" && (
+            <i className="uppercase font-bold not-italic text-xl ml-2 text-neutral-600">
+              careers
+            </i>
+          )}
         </Link>
       </div>
       <div className="lg:hidden flex gap-2">

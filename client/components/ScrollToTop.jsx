@@ -6,7 +6,7 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       let screenHeight = currentScrollPercentage();
-      if (screenHeight >= 50) {
+      if (screenHeight >= 30) {
         scrollRef.current.style.transform = "translateX(0%)";
       } else {
         scrollRef.current.removeAttribute("style");
@@ -32,7 +32,7 @@ const ScrollToTop = () => {
       <button
         type="button"
         onClick={handelScrollTop}
-        className={"text-3xl p-2 bg-black text-white rounded bg-opacity-50"}
+        className={"text-3xl p-2 bg-black text-white rounded-l bg-opacity-50"}
       >
         <IoIosArrowUp />
       </button>

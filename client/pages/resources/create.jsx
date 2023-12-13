@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import React, { useMemo, useState } from "react";
 import "quill/dist/quill.snow.css";
-// import ReactQuill from "react-quill";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
