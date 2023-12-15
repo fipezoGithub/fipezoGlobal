@@ -99,15 +99,41 @@ const ReqId = (props) => {
             <h3 className="text-lg font-semibold">
               You should apply if you have:
             </h3>
-            <ul className="text-sm font-medium leading-7 list-disc">
-              <li>
-                1 year of experience in website desigining, graphics desigining,
-                or a related field.
-              </li>
-              <li>
-                Adept with Figma, Adobe Illustrator, Adobe Photoshop, Canva
-              </li>
-            </ul>
+            {props.data.category === "designer" && (
+              <ul className="text-sm font-medium leading-7 list-disc">
+                <li>
+                  1 year of experience in website desigining, graphics
+                  desigining, or a related field.
+                </li>
+                <li>
+                  Adept with Figma, Adobe Illustrator, Adobe Photoshop, Canva
+                </li>
+              </ul>
+            )}
+            {props.data.category === "development" && (
+              <ul className="text-sm font-medium leading-7 list-disc">
+                <li>
+                  1 year of experience in frontend developing, backend
+                  developing, or a related field.
+                </li>
+                <li>
+                  Adept with HTML, CSS, JavaScript, React, Next, Tailwind,
+                  MongoDb
+                </li>
+              </ul>
+            )}
+            {props.data.category === "marketing" && (
+              <ul className="text-sm font-medium leading-7 list-disc">
+                <li>
+                  6 months of experience in digital marketing, social marketing
+                  or a related field.
+                </li>
+                <li>
+                  Adept with Analytical Skills, Content Creation and Marketing,
+                  SEO, Social Media Management, Email Marketing
+                </li>
+              </ul>
+            )}
           </div>
           <div className="flex flex-col items-start gap-4">
             <h3 className="text-lg font-semibold">How life is at Fipezo?</h3>

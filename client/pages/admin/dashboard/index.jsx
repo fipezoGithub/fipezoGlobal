@@ -11,7 +11,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
-import { FaCity } from "react-icons/fa";
+import { FaCity, FaWpforms } from "react-icons/fa";
 
 const Dashboard = (props) => {
   const [freelancers, setFreelancers] = useState([]);
@@ -20,11 +20,13 @@ const Dashboard = (props) => {
   const [messages, setMessages] = useState([]);
   const [requestedCities, setRequestedCities] = useState([]);
   const [reports, setReports] = useState([]);
+  const [applicants, setApplicants] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
   const [submittedCityBox, setSubmittedCityBox] = useState(false);
   const [reportBox, setReportBox] = useState(false);
+  const [jobApplicationBox, setJobApplicationBox] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
   const router = useRouter();
 
@@ -40,6 +42,7 @@ const Dashboard = (props) => {
     if (window.innerWidth > 700) {
       setOptionBox(true);
     }
+
     async function fetchFreelancer() {
       try {
         if (token) {
@@ -138,12 +141,29 @@ const Dashboard = (props) => {
       }
     }
 
+    async function getJobApplications() {
+      try {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/carrer/all/applicants`
+        );
+        const allApplicants = await res.json();
+        let data = [];
+        allApplicants.forEach((element) => {
+          data.push(JSON.parse(element));
+        });
+        setApplicants(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     fetchFreelancer();
     fetchCompany();
     getCallbacks();
     fetchMessages();
     getRequestedCities();
     getReports();
+    getJobApplications();
   }, [props.user, router]);
 
   const updateFreelancers = (id) => {
@@ -216,6 +236,7 @@ const Dashboard = (props) => {
                     setSubmittedCityBox(false);
                     setReportBox(false);
                     setVerificationBox(true);
+                    setJobApplicationBox(false);
                   }}
                 >
                   <MdVerified />
@@ -237,6 +258,7 @@ const Dashboard = (props) => {
                     setSubmittedCityBox(false);
                     setReportBox(false);
                     setCallbackBox(true);
+                    setJobApplicationBox(false);
                   }}
                 >
                   <IoCall />
@@ -258,6 +280,7 @@ const Dashboard = (props) => {
                     setSubmittedCityBox(false);
                     setReportBox(false);
                     setContactRequestBox(true);
+                    setJobApplicationBox(false);
                   }}
                 >
                   <MdContactPhone />
@@ -279,6 +302,7 @@ const Dashboard = (props) => {
                     setContactRequestBox(false);
                     setReportBox(false);
                     setSubmittedCityBox(true);
+                    setJobApplicationBox(false);
                   }}
                 >
                   <FaCity />
@@ -300,10 +324,33 @@ const Dashboard = (props) => {
                     setContactRequestBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(true);
+                    setJobApplicationBox(false);
                   }}
                 >
                   <MdReport />
                   reports
+                </button>
+              </li>
+              <li
+                className={`px-4 py-2 ${
+                  jobApplicationBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  onClick={() => {
+                    setVerificationBox(false);
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
+                    setJobApplicationBox(true);
+                  }}
+                >
+                  <FaWpforms />
+                  job applicants
                 </button>
               </li>
               <li className={`px-4 py-2`}>
@@ -522,6 +569,54 @@ const Dashboard = (props) => {
                     <button type="button">mark as solved</button>
                   </div>
                 ))}
+            </div>
+          )}
+          {jobApplicationBox === true && (
+            <div
+              id="applicants"
+              className="flex items-center justify-center w-full"
+            >
+              <table className="w-full mt-8 border border-collapse">
+                <thead className="">
+                  <tr className="py-4">
+                    <th className="capitalize text-sm lg:text-2xl">name</th>
+                    <th className="capitalize text-sm lg:text-2xl">
+                      profession
+                    </th>
+                    <th className="capitalize text-sm lg:text-2xl">phone</th>
+                    <th className="capitalize text-sm lg:text-2xl">email</th>
+                    <th className="uppercase text-sm lg:text-2xl">cv</th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {applicants.length > 0 &&
+                    applicants.map((it, i) => (
+                      <tr key={i} className="border-b">
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <p>{it.name}</p>
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          {it.proffesion}
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <a href={`tel:${it.phone}`}>{it.phone}</a>
+                        </th>
+                        <th className="text-sm lg:text-xl font-medium py-4">
+                          {it.email}
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <a
+                            href={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.cv}`}
+                            target="_blank"
+                            className="hover:text-blue-500"
+                          >
+                            download
+                          </a>
+                        </th>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>

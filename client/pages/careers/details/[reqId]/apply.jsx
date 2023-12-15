@@ -5,6 +5,13 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
+export const getServerSideProps = async (ctx) => {
+  const response = await fetch(
+    `${process.env.SERVER_URL}/carrer/${ctx.query.reqId}`
+  );
+  const data = await response.json();
+  return { props: { data } };
+};
 const Apply = (props) => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -25,7 +32,7 @@ const Apply = (props) => {
       data.append("name", fname + " " + lname);
       data.append("email", email);
       data.append("carrerCV", cv);
-      data.append("proffesion", "Drop CV");
+      data.append("proffesion", props.data.title);
       const res = await fetch(
         `${process.env.SERVER_URL}/carrer/apply/${router.query.reqId}`,
         {

@@ -44,7 +44,7 @@ async function applyFipezoJob(req, res) {
       uid: req.params.requestId,
     });
     const response = await careerCollection.findByIdAndUpdate(job._id, {
-      applicants: applicantData,
+      $push: { applicants: applicantData },
     });
     await uploadFile(req.file);
     await unlinkFile("uploads/" + req.file.filename);
@@ -82,6 +82,16 @@ async function getAllFipezoJobRequest(req, res) {
   }
 }
 
+async function getFipezoJobRequestByCategory(req, res) {
+  try {
+    const jobs = await careerCollection.find({ category: req.params.category });
+    res.status(200).json(jobs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 async function getFipezoJobRequestById(req, res) {
   try {
     const jobDetails = await careerCollection.findOne({
@@ -98,10 +108,30 @@ async function getFipezoJobRequestById(req, res) {
   }
 }
 
+async function getAllApplications(req, res) {
+  try {
+    const jobs = await careerCollection.find({});
+    let applicants = [];
+    jobs.forEach((element) => {
+      if (element.applicants) {
+        element.applicants.forEach((elem) => {
+          applicants.push(elem);
+        });
+      }
+    });
+    res.status(200).json(applicants);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   createFipezoJob,
   applyFipezoJob,
   deleteFipezoJobRequest,
   getAllFipezoJobRequest,
   getFipezoJobRequestById,
+  getFipezoJobRequestByCategory,
+  getAllApplications,
 };

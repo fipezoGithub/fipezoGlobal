@@ -31,6 +31,7 @@ const Footer = () => {
             <div className="flex items-center justify-center relative">
               <Image
                 src="/footermap.png"
+                alt="india map"
                 width={800}
                 height={800}
                 className="w-[30rem]"
@@ -382,7 +383,7 @@ const Footer = () => {
                   help &amp; support
                 </p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/contact_us">support</Link>
+                  <Link href="/contact_us">contact us</Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/faqs">FAQs</Link>

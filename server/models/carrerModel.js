@@ -23,7 +23,7 @@ const carrerSchema = new mongoose.Schema(
       required: true,
     },
     applicants: {
-      type: Object,
+      type: [Object],
     },
   },
   {

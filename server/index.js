@@ -188,6 +188,8 @@ const {
   getAllFipezoJobRequest,
   createFipezoJob,
   getFipezoJobRequestById,
+  getFipezoJobRequestByCategory,
+  getAllApplications,
 } = require("./controllers/carrerController");
 const carrerCVUpoload = require("./middlewares/careerCV");
 
@@ -375,6 +377,8 @@ app.put("/api/carrer/apply/:requestId", carrerCVUpoload, applyFipezoJob);
 app.delete("/api/carrer/delete/:requestId", deleteFipezoJobRequest);
 app.get("/api/carrer", getAllFipezoJobRequest);
 app.get("/api/carrer/:requestId", getFipezoJobRequestById);
+app.get("/api/carrer/cat/:category", getFipezoJobRequestByCategory);
+app.get("/api/carrer/all/applicants", getAllApplications);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

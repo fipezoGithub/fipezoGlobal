@@ -4,14 +4,34 @@ import JobPostViewBox from "@/components/JobPostViewBox";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
-export const getServerSideProps = async () => {
-  const response = await fetch(`${process.env.SERVER_URL}/carrer`);
+export const getServerSideProps = async (ctx) => {
+  let response;
+  if (ctx.query.cat === "all") {
+    response = await fetch(`${process.env.SERVER_URL}/carrer`);
+  } else {
+    response = await fetch(
+      `${process.env.SERVER_URL}/carrer/cat/${ctx.query.cat}`
+    );
+  }
   const data = await response.json();
   return { props: { data } };
 };
+
 const FipezoJobDetails = (props) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [jobs, setJobs] = useState(props.data);
+
+  const searchResults = () => {
+    let newResults = [];
+    props.data.forEach((element) => {
+      if (element.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+        newResults.push(element);
+      }
+    });
+    setJobs(newResults);
+  };
   return (
     <>
       <Head>
@@ -40,11 +60,14 @@ const FipezoJobDetails = (props) => {
         <div className="flex justify-between items-center peer-focus:outline-2 outline-blue-500 bg-neutral-100 mx-4 md:mx-0 md:px-4 py-2 rounded-2xl w-auto md:w-[40rem]">
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="search for jobs"
             className="peer focus:outline-none bg-transparent placeholder:font-bold placeholder:text-lg md:placeholder:text-3xl py-2 md:py-4 text-xl md:text-3xl font-bold"
           />
           <button
             type="button"
+            onClick={searchResults}
             className="text-lg md:text-2xl bg-blue-800 text-white px-2 md:px-4 py-2 rounded-lg"
           >
             search
@@ -52,15 +75,17 @@ const FipezoJobDetails = (props) => {
         </div>
         <div>
           <h3 className="text-lg md:text-2xl font-semibold text-neutral-600">
-            viewing 4 job requiremnets
+            viewing {props.data.length} job requiremnets
           </h3>
         </div>
-        <div className="flex flex-col md:flex-row items-start border-t md:gap-8">
+        <div className="flex flex-col md:flex-row items-start border-t md:gap-8 md:mx-16">
           <CareerFilter />
-          {props.data.length > 0 &&
-            props.data.map((item, index) => (
-              <JobPostViewBox job={item} key={index} />
-            ))}
+          <div className="flex justify-center items-start flex-wrap gap-4">
+            {jobs.length > 0 &&
+              jobs.map((item, index) => (
+                <JobPostViewBox job={item} key={index} />
+              ))}
+          </div>
         </div>
       </div>
       <Footer />
