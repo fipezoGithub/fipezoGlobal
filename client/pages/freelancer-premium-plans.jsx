@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
@@ -12,6 +13,8 @@ const Premium = (props) => {
   const [index, setIndex] = useState(1);
   const [callBack, setCallBack] = useState(false);
   const testimonalRef = useRef();
+  const router = useRouter();
+
   const handelTestimonail = (range, direct) => {
     testimonalRef.current.scrollBy(range, 0);
 
@@ -30,6 +33,10 @@ const Premium = (props) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
+    if (!token) {
+      router.replace("/login");
+      return;
+    }
     try {
       const res = await fetch(`${process.env.SERVER_URL}/callback`, {
         method: "POST",

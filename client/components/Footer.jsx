@@ -400,6 +400,9 @@ const Footer = () => {
               <ul className="flex flex-col items-start gap-2">
                 <p className="capitalize text-xl font-bold">useful links</p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
+                  <Link href="/freelancer-premium-plans">Fipezo premium</Link>
+                </li>
+                <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/referandearn">refer &amp; earn</Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">

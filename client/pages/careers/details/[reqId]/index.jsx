@@ -39,12 +39,12 @@ const ReqId = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div className="mt-16 flex flex-col items-center justify-center gap-6 py-4 bg-[url('/jobDetailsPageBG.png')] bg-cover bg-center bg-no-repeat min-h-[60vh] text-white">
-        <h1 className="text-3xl font-bold">{props.data.title}</h1>
-        <p className="text-2xl font-bold">{props.data.location}</p>
+      <div className="mt-16 flex flex-col items-center justify-center gap-6 py-4 bg-[url('/jobDetailsPageBG.png')] bg-cover bg-center bg-no-repeat min-h-[40vh] md:min-h-[60vh] text-white">
+        <h1 className="text-2xl md:text-3xl font-bold">{props.data.title}</h1>
+        <p className="text-xl md:text-2xl font-bold">{props.data.location}</p>
         <Link
           href={`/careers/details/${props.data.uid}/apply`}
-          className="bg-white text-black px-6 py-4 rounded-lg font-bold text-xl shadow-xl"
+          className="bg-white text-black px-4 md:px-6 py-2 md:py-4 rounded-lg font-bold text-base md:text-xl shadow-xl"
         >
           Apply to this job
         </Link>
