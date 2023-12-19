@@ -71,9 +71,9 @@ const Premium = (props) => {
       merchantTransactionId: transactionid,
       merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
       amount: ammount,
-      redirectUrl: `http://localhost:3001/status/${transactionid}`,
+      redirectUrl: `${process.env.CLIENT_URL}/status/${transactionid}`,
       redirectMode: "POST",
-      callbackUrl: `http://localhost:3001/status/${transactionid}`,
+      callbackUrl: `${process.env.CLIENT_URL}/status/${transactionid}`,
       mobileNumber: props.user.phone,
       paymentInstrument: {
         type: "PAY_PAGE",
