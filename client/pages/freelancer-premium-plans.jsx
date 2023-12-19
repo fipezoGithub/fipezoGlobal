@@ -8,6 +8,9 @@ import React, { useRef, useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import sha256 from "crypto-js/sha256";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const Premium = (props) => {
   const [index, setIndex] = useState(1);
@@ -33,7 +36,7 @@ const Premium = (props) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (!token) {
+    if (!props.user || !props.user?.uid) {
       router.replace("/login");
       return;
     }
@@ -52,6 +55,58 @@ const Premium = (props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const makePayment = async (e, ammount) => {
+    if (!props.user || !props.user?.uid) {
+      router.replace("/login");
+      return;
+    }
+    e.preventDefault();
+
+    const transactionid = "Tr-" + uuidv4().toString(36).slice(-6);
+
+    const payload = {
+      merchantId: process.env.PHONEPE_MERCHANT_ID,
+      merchantTransactionId: transactionid,
+      merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
+      amount: ammount,
+      redirectUrl: `http://localhost:3001/status/${transactionid}`,
+      redirectMode: "POST",
+      callbackUrl: `http://localhost:3001/status/${transactionid}`,
+      mobileNumber: props.user.phone,
+      paymentInstrument: {
+        type: "PAY_PAGE",
+      },
+    };
+
+    const dataPayload = JSON.stringify(payload);
+
+    const dataBase64 = Buffer.from(dataPayload).toString("base64");
+
+    const fullURL = dataBase64 + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY;
+    const dataSha256 = sha256(fullURL);
+
+    const checksum = dataSha256 + "###" + 1;
+
+    const UAT_PAY_API_URL = process.env.PHONEPE_URL;
+
+    const response = await axios.post(
+      UAT_PAY_API_URL,
+      {
+        request: dataBase64,
+      },
+      {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          "X-VERIFY": checksum,
+        },
+      }
+    );
+
+    const redirect = response.data.data.instrumentResponse.redirectInfo.url;
+    router.push(redirect);
   };
 
   return (
@@ -94,12 +149,37 @@ const Premium = (props) => {
             <button
               // href="/payment"
               type="button"
+              onClick={(e) => makePayment(e, 9900)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
             </button>
           </div>
           <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
+            <h3 className="lg:text-xl text-neutral-500 font-bold">
+              1 month plan
+            </h3>
+            <hr className="w-full h-px" />
+            <p className="font-bold text-6xl lg:text-5xl">₹499</p>
+            <div className="flex items-center gap-4">
+              <p className="line-through text-base lg:text-xl text-neutral-500">
+                ₹700
+              </p>
+              <p className="px-2 py-1 bg-yellow-500 rounded-2xl text-white">
+                Save 40%
+              </p>
+            </div>
+            <div className="h-1/3"></div>
+            <button
+              // href="/payment"
+              type="button"
+              onClick={(e) => makePayment(e, 49900)}
+              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
+            >
+              Buy now
+            </button>
+          </div>
+          {/* <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
             <h3 className="lg:text-xl text-neutral-500 font-bold">
               Custom plan
             </h3>
@@ -118,7 +198,7 @@ const Premium = (props) => {
             >
               {callBack === false ? "Request a callback" : "Callback requested"}
             </button>
-          </div>
+          </div> */}
         </div>
         <p className="text-center mb-8 mt-12 text-lg">
           Reach out to us on <a href="tel:9038578787">+91 90385 78787</a> or
@@ -140,8 +220,11 @@ const Premium = (props) => {
                 <th scope="col" className="uppercase lg:px-10 py-6">
                   free
                 </th>
-                <th scope="col" className="uppercase lg:px-10 py-6">
-                  premium
+                <th scope="col" className="uppercase lg:px-12 py-6">
+                  @99
+                </th>
+                <th scope="col" className="uppercase lg:px-12 py-6">
+                  @499
                 </th>
               </tr>
             </thead>
@@ -160,6 +243,9 @@ const Premium = (props) => {
                 <td className="px-8 lg:px-16 py-4">
                   <FaCheck color="#12c96b" />
                 </td>
+                <td className="px-8 lg:px-16 py-4">
+                  <FaCheck color="#12c96b" />
+                </td>
               </tr>
               <tr className="bg-white border-b">
                 <th
@@ -169,6 +255,9 @@ const Premium = (props) => {
                   Portfolio photos or videos upload
                 </th>
                 <td className="px-6 lg:px-12 py-6 text-sm lg:text-lg">8</td>
+                <td className="lg:px-8 py-4 capitalize text-sm lg:text-lg">
+                  unlimited
+                </td>
                 <td className="lg:px-8 py-4 capitalize text-sm lg:text-lg">
                   unlimited
                 </td>
@@ -186,6 +275,9 @@ const Premium = (props) => {
                 <td className="px-8 lg:px-16 py-4 capitalize">
                   <FaCheck color="#12c96b" />
                 </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
+                  <FaCheck color="#12c96b" />
+                </td>
               </tr>
               <tr className="bg-white border-b">
                 <th
@@ -196,6 +288,9 @@ const Premium = (props) => {
                 </th>
                 <td className="px-5 lg:px-10 py-6">
                   <IoClose color="#dddddd" size={"1.4em"} />
+                </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
+                  <FaCheck color="#12c96b" />
                 </td>
                 <td className="px-8 lg:px-16 py-4 capitalize">
                   <FaCheck color="#12c96b" />
@@ -215,6 +310,9 @@ const Premium = (props) => {
                 <td className="px-8 lg:px-16 py-4 capitalize">
                   <FaCheck color="#12c96b" />
                 </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
+                  <FaCheck color="#12c96b" />
+                </td>
               </tr>
               <tr className="bg-white border-b">
                 <th
@@ -224,6 +322,29 @@ const Premium = (props) => {
                   Dedicated Relationship Manager
                 </th>
                 <td className="px-5 lg:px-10 py-6">
+                  <IoClose color="#dddddd" size={"1.4em"} />
+                </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
+                  <FaCheck color="#12c96b" />
+                </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
+                  <FaCheck color="#12c96b" />
+                </td>
+              </tr>
+              <tr className="bg-white border-b">
+                <th
+                  scope="row"
+                  className="px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg w-1/2 lg:w-auto"
+                >
+                  5 lead{" "}
+                  <span className="text-orange-600 font-bold capitalize">
+                    assured
+                  </span>
+                </th>
+                <td className="px-5 lg:px-10 py-6">
+                  <IoClose color="#dddddd" size={"1.4em"} />
+                </td>
+                <td className="px-8 lg:px-16 py-4 capitalize">
                   <IoClose color="#dddddd" size={"1.4em"} />
                 </td>
                 <td className="px-8 lg:px-16 py-4 capitalize">
@@ -350,7 +471,7 @@ const Premium = (props) => {
                   src="/aniket_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw]  rounded-md"
+                  className="w-32 lg:w-[30vw] rounded-md"
                   alt="profile"
                 />
               </div>
@@ -365,14 +486,14 @@ const Premium = (props) => {
                 </p>
                 <div className="flex flex-col items-start">
                   <p className="capitalize font-bold text-neutral-600">
-                    suparna sharma
+                    tumpa biswas
                   </p>
-                  <p className="capitalize">video editor, kolkata</p>
+                  <p className="capitalize">model, kolkata</p>
                 </div>
               </div>
               <div>
                 <Image
-                  src="https://fipezo-bucket.s3.ap-south-1.amazonaws.com/profilePicture-1692853129581-947098973-WhatsAppImage2023-08-22at12.55.01PM-400x300.webp"
+                  src="tumpa_testimonial.png"
                   width={120}
                   height={120}
                   className="w-32 lg:w-[30vw] rounded-md"
@@ -429,12 +550,17 @@ const Premium = (props) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center mb-16 bg-gray-200 p-20">
-        <a
-          href="#price"
-          className="text-white bg-[#00a5ec] px-16 lg:px-24 py-4 font-semibold text-xl rounded-md whitespace-nowrap"
+        <h1 className="text-2xl md:text-4xl my-6 font-semibold text-center">
+          Explore the best solutions and offers for your hiring requirements.
+        </h1>
+        <button
+          type="button"
+          className="bg-orange-500 text-white px-4 lg:px-24 py-2 font-semibold rounded-lg disabled:bg-neutral-600 hover:shadow-md"
+          disabled={callBack === false ? false : true}
+          onClick={handelCallback}
         >
-          Choose a plan
-        </a>
+          {callBack === false ? "Request us a callback" : "Callback requested"}
+        </button>
         <p className="text-center my-12 text-sm lg:text-lg lg:w-1/2">
           For any queries, reach out to us at{" "}
           <a href="tel:9038578787" className="font-semibold">

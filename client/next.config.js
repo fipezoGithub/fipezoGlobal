@@ -23,6 +23,9 @@ const nextConfig = {
     SERVER_URL: process.env.SERVER_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     FB_APP_ID: process.env.FB_APP_ID,
+    PHONEPE_MERCHANT_ID: process.env.PHONEPE_MERCHANT_ID,
+    PHONEPE_SALT_KEY: process.env.PHONEPE_SALT_KEY,
+    PHONEPE_URL: process.env.PHONEPE_URL,
   },
 };
 

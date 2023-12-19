@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { RiVipCrownFill } from "react-icons/ri";
 
 const Profile = (props) => {
   const [firstname, setFirstname] = useState("");
@@ -93,6 +94,14 @@ const Profile = (props) => {
           </div>
 
           <div className={style.options}>
+            {props.user?.uid && (
+              <Link
+                className={style.option + " flex items-center gap-2"}
+                href=""
+              >
+                Fipezo Premium <RiVipCrownFill color="#007ae2" />
+              </Link>
+            )}
             {props.user?.uid && (
               <Link className={style.option} href="/my_job">
                 Jobs
