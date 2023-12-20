@@ -97,6 +97,7 @@ const Profile = (props) => {
             {props.user?.uid && (
               <Link
                 className={style.option + " flex items-center gap-2"}
+                // href="/fipezopremium"
                 href=""
               >
                 Fipezo Premium <RiVipCrownFill color="#007ae2" />

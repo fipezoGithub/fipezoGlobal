@@ -26,6 +26,7 @@ const nextConfig = {
     PHONEPE_MERCHANT_ID: process.env.PHONEPE_MERCHANT_ID,
     PHONEPE_SALT_KEY: process.env.PHONEPE_SALT_KEY,
     PHONEPE_URL: process.env.PHONEPE_URL,
+    MAILERLITE_KEY: process.env.MAILERLITE_KEY,
   },
 };
 

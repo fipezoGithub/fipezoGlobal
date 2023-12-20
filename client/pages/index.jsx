@@ -11,6 +11,7 @@ import VerifiedCompany from "@/components/VerifiedCompany";
 import Signupguide from "@/components/Signupguide";
 import Footer from "@/components/Footer";
 import Simplified from "@/components/Simplified";
+import Newsletter from "@/components/Newsletter";
 
 export default function Index(props) {
   return (
@@ -38,6 +39,7 @@ export default function Index(props) {
       <div className="grey-container">
         <Featured />
       </div>
+      <Newsletter />
       <Simplified />
       {/* <Footer /> */}
       <Footer />

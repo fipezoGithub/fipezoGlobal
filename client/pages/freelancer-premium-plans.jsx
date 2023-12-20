@@ -83,11 +83,13 @@ const Premium = (props) => {
     const dataPayload = JSON.stringify(payload);
 
     const dataBase64 = Buffer.from(dataPayload).toString("base64");
+    console.log(dataBase64);
 
     const fullURL = dataBase64 + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY;
     const dataSha256 = sha256(fullURL);
 
     const checksum = dataSha256 + "###" + 1;
+    console.log(checksum);
 
     const UAT_PAY_API_URL = process.env.PHONEPE_URL;
 
@@ -393,7 +395,7 @@ const Premium = (props) => {
                   src="/rik_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw] rounded-md"
+                  className="w-32 lg:w-[30rem] h-auto lg:h-48 rounded-md"
                   alt="profile"
                 />
               </div>
@@ -419,7 +421,7 @@ const Premium = (props) => {
                   src="/deba_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw] rounded-md"
+                  className="w-32 lg:w-[30rem] h-auto lg:h-48  rounded-md"
                   alt="profile"
                 />
               </div>
@@ -445,7 +447,7 @@ const Premium = (props) => {
                   src="/lipika_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw] rounded-md"
+                  className="w-32 lg:w-[30rem] h-auto lg:h-48 rounded-md"
                   alt="profile"
                 />
               </div>
@@ -471,7 +473,7 @@ const Premium = (props) => {
                   src="/aniket_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw] rounded-md"
+                  className="w-32 lg:w-[30rem] h-auto lg:h-48 rounded-md"
                   alt="profile"
                 />
               </div>
@@ -496,7 +498,7 @@ const Premium = (props) => {
                   src="tumpa_testimonial.png"
                   width={120}
                   height={120}
-                  className="w-32 lg:w-[30vw] rounded-md"
+                  className="w-32 lg:w-[30rem] h-auto lg:h-48 rounded-md"
                   alt="profile"
                 />
               </div>
