@@ -182,15 +182,21 @@ const Premium = (props) => {
               </p>
             </div>
             <div className="h-1/3"></div>
-            <button
+            {/* <button
               // href="/payment"
               type="button"
-              // onClick={(e) => makePayment(e, 9900)}
-              onClick={(e) => openPaymentWindow(99)}
+              // onClick={(e) => openPaymentWindow(99)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </button>
+            </button> */}
+            <Link
+              href="https://rzp.io/l/flSSU8x"
+              target="_blank"
+              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
+            >
+              Buy now
+            </Link>
           </div>
           <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
             <h3 className="lg:text-xl text-neutral-500 font-bold">
@@ -207,34 +213,21 @@ const Premium = (props) => {
               </p>
             </div>
             <div className="h-1/3"></div>
-            <button
+            {/* <button
               type="button"
               onClick={(e) => openPaymentWindow(499)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </button>
-          </div>
-          {/* <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
-            <h3 className="lg:text-xl text-neutral-500 font-bold">
-              Custom plan
-            </h3>
-            <hr className="w-full h-px" />
-            <p className="font-semibold text-2xl">
-              {callBack === false
-                ? "Explore the best solutions and offers for your hiring requirements"
-                : "Thank you! Our representative will get back to you shortly."}
-            </p>
-            <div className="h-1/3"></div>
-            <button
-              type="button"
-              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg disabled:bg-neutral-600"
-              disabled={callBack === false ? false : true}
-              onClick={handelCallback}
+            </button> */}
+            <Link
+              href="https://rzp.io/l/Qqp6x1ZLeO"
+              target="_blank"
+              className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
-              {callBack === false ? "Request a callback" : "Callback requested"}
-            </button>
-          </div> */}
+              Buy now
+            </Link>
+          </div>
         </div>
         <p className="text-center mb-8 mt-12 text-lg">
           Reach out to us on <a href="tel:9038578787">+91 90385 78787</a> or

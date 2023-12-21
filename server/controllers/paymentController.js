@@ -60,18 +60,18 @@ async function checkPaymentDetails(req, res) {
   }
 }
 
-async function resizeImage(file, width, height) {
-  const filename = path.parse(file.filename).name;
-  const ext = ".webp";
-  const resizedFilename = filename + "-" + width + "x" + height + ext;
-  const outputPath = "uploads/" + resizedFilename;
-
-  await sharp(file.path).toFormat("webp", { quality: 50 }).toFile(outputPath);
-
-  return {
-    filename: resizedFilename,
-    path: outputPath,
-  };
+async function getPaymentDetails(req, res) {
+  try {
+    const payment = await paymentCollection.findById(req.params.paymentId);
+    if (!payment) {
+      res.status(404).json({ message: "payment not found" });
+    } else {
+      res.status(200).json(payment);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server error" });
+  }
 }
 
 async function submitPayment(req, res) {
@@ -111,5 +111,6 @@ module.exports = {
   submitPayment,
   getPaymentDetails,
   newPayment,
-  checkPaymentDetails
+  checkPaymentDetails,
+  getPaymentDetails,
 };

@@ -1,13 +1,33 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaPhotoVideo, FaRegEye } from "react-icons/fa";
-import { GrUserManager } from "react-icons/gr";
 import { IoNotificationsCircle, IoWomanSharp } from "react-icons/io5";
 import { MdFeaturedVideo, MdLeaderboard } from "react-icons/md";
 
 const Fipezopremium = (props) => {
+  useEffect(() => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    async function getFreelancer() {
+      const res = await fetch(`${process.env.SERVER_URL}/navbar`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      const paymentRes = await fetch(
+        `${process.env.SERVER_URL}/paymentdetails/${data.paymentDetails}`
+      );
+      const paymentDetails = await paymentRes.json();
+      console.log(paymentDetails);
+    }
+    getFreelancer();
+  }, []);
+
   return (
     <>
       <Head>
@@ -67,29 +87,32 @@ const Fipezopremium = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center">
-        <table class="table-auto border-spacing-5">
-          <thead>
-            <tr>
-              <th className="capitalize">package name</th>
-              <th className="capitalize">transaction id</th>
-              <th className="capitalize">prize</th>
-              <th className="capitalize">start date</th>
-              <th className="capitalize">end date</th>
-              <th className="capitalize">status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>@499</td>
-              <td>t12454eer15484754</td>
-              <td>499</td>
-              <td>01/01/2023</td>
-              <td>31/01/2023</td>
-              <td>expire</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="flex flex-col items-center justify-center gap-8 py-8">
+        <h1 className="text-3xl capitalize font-semibold">package details</h1>
+        <div className="flex items-center justify-center">
+          <table class="table-auto">
+            <thead>
+              <tr>
+                <th className="capitalize px-4 text-lg">package name</th>
+                <th className="capitalize px-4 text-lg">transaction id</th>
+                <th className="capitalize px-4 text-lg">prize</th>
+                <th className="capitalize px-4 text-lg">start date</th>
+                <th className="capitalize px-4 text-lg">end date</th>
+                <th className="capitalize px-4 text-lg">status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="px-4 text-lg text-center">@499</td>
+                <td className="px-4 text-lg text-center">t12454eer15484754</td>
+                <td className="px-4 text-lg text-center">499</td>
+                <td className="px-4 text-lg text-center">01/01/2023</td>
+                <td className="px-4 text-lg text-center">31/01/2023</td>
+                <td className="px-4 text-lg uppercase text-center">expire</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <Footer />
     </>

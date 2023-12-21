@@ -159,6 +159,7 @@ const {
   submitPayment,
   newPayment,
   checkPaymentDetails,
+  getPaymentDetails,
 } = require("./controllers/paymentController");
 const {
   createNotification,
@@ -351,7 +352,8 @@ app.delete("/api/callback/:callbackId", deleteCallback);
 //Paymentcontroller Routes
 app.post("/api/payment", verifyToken, submitPayment);
 app.post("/api/pay/razorpay", newPayment);
-app.get("/api/checkpaymnet/:transacId", checkPaymentDetails)
+app.get("/api/checkpaymnet/:transacId", checkPaymentDetails);
+app.get("/api/paymentdetails/:paymentId", getPaymentDetails);
 
 //Notification Routes
 app.post("/api/notification/create", createNotification);
