@@ -102,10 +102,8 @@ const app = express();
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 })
-);
-app.use(express.json({ limit: "10mb", extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: true }));
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 const upload = require("./middlewares/storage");
@@ -157,7 +155,11 @@ const {
   getAllCallback,
   deleteCallback,
 } = require("./controllers/callbackController");
-const { submitPayment } = require("./controllers/paymentController");
+const {
+  submitPayment,
+  newPayment,
+  checkPaymentDetails,
+} = require("./controllers/paymentController");
 const {
   createNotification,
   getNotificationOfUser,
@@ -348,6 +350,8 @@ app.delete("/api/callback/:callbackId", deleteCallback);
 
 //Paymentcontroller Routes
 app.post("/api/payment", verifyToken, submitPayment);
+app.post("/api/pay/razorpay", newPayment);
+app.get("/api/checkpaymnet/:transacId", checkPaymentDetails)
 
 //Notification Routes
 app.post("/api/notification/create", createNotification);

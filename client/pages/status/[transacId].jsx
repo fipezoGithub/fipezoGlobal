@@ -2,8 +2,6 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import sha256 from "crypto-js/sha256";
-import axios from "axios";
 import { FaCheck, FaExclamation } from "react-icons/fa";
 import ReactToPrint from "react-to-print";
 import Link from "next/link";
@@ -19,69 +17,22 @@ const TransacId = (props) => {
 
   useEffect(() => {
     async function POST() {
-      const merchantId = process.env.PHONEPE_MERCHANT_ID;
-      const transactionId = router.query.transacId;
-
-      const st =
-        `/pg/v1/status/${merchantId}/${transactionId}` +
-        process.env.PHONEPE_SALT_KEY;
-      const dataSha256 = sha256(st);
-
-      const checksum = dataSha256 + "###" + 1;
-
-      const options = {
-        method: "GET",
-        url: `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/${merchantId}/${transactionId}`,
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          "X-VERIFY": checksum,
-          "X-MERCHANT-ID": `${merchantId}`,
-        },
-      };
-
-      // CHECK PAYMENT STATUS
-      const response = await axios.request(options);
-      if (response.data && response.data.code === "PAYMENT_SUCCESS") {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/checkpaymnet/${router.query.transacId}`
+      );
+      const data = await res.json();
+      if (data) {
         setPaymentSuccess(true);
-        setPaymentType(response.data.data.paymentInstrument?.type);
-        setMobile(props.user?.phone);
-        setAmount(response.data.data.amount / 100);
-        setTransacId(response.data.data.transactionId);
+        setPaymentType(data.method);
+        setMobile(data.contact);
+        setAmount(data.amount / 100);
+        setTransacId(data.acquirer_data.upi_transaction_id);
       } else {
         setPaymentSuccess(false);
       }
     }
     POST();
-  }, [props.user]);
-
-  async function subMitPaymentDetails() {
-    const token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-    let paymentPack;
-    if (amount < 499) {
-      paymentPack = "99";
-    } else {
-      paymentPack = "499";
-    }
-    try {
-      const res = await fetch(`${process.env.SERVER_URL}/payment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          paymentPack: paymentPack,
-          transactionId: router.query.transacId,
-        }),
-      });
-      const message = await res.json();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  }, [router]);
 
   return (
     <>
@@ -94,10 +45,7 @@ const TransacId = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <div
-        id="report_left_inner"
-        className="flex items-center justify-center h-screen relative"
-      >
+      <div className="flex items-center justify-center h-screen relative">
         <div
           className="flex flex-col items-center md:w-[35rem] gap-6 border px-3 md:px-6 py-3 shadow-md rounded print:absolute print:top-1/2 print:left-1/2 print:-translate-x-1/2 print:-translate-y-1/2"
           ref={(el) => (componentRef = el)}
@@ -141,7 +89,6 @@ const TransacId = (props) => {
                   trigger={() => (
                     <button
                       type="button"
-                      onClick={subMitPaymentDetails}
                       className="text-base md:text-xl capitalize bg-blue-600 text-white px-2 md:px-4 py-1 md:py-2 rounded"
                     >
                       print
@@ -151,7 +98,6 @@ const TransacId = (props) => {
                 />
                 <Link
                   href="/"
-                  onClick={subMitPaymentDetails}
                   className="text-base md:text-xl capitalize bg-blue-600 text-white px-2 md:px-4 py-1 md:py-2 rounded"
                 >
                   close

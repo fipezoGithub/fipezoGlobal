@@ -8,15 +8,29 @@ import React, { useRef, useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import sha256 from "crypto-js/sha256";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 const Premium = (props) => {
   const [index, setIndex] = useState(1);
   const [callBack, setCallBack] = useState(false);
   const testimonalRef = useRef();
   const router = useRouter();
+
+  const initializeRazorpaySDK = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true); //handle load success event here
+      };
+
+      script.onerror = () => {
+        resolve(false); //handle load error event
+      };
+
+      document.body.appendChild(script);
+    });
+  };
 
   const handelTestimonail = (range, direct) => {
     testimonalRef.current.scrollBy(range, 0);
@@ -57,58 +71,78 @@ const Premium = (props) => {
     }
   };
 
-  const makePayment = async (e, ammount) => {
-    if (!props.user || !props.user?.uid) {
-      router.replace("/login");
-      return;
+  const openPaymentWindow = async (price) => {
+    const res = await initializeRazorpaySDK(); //here we are calling function we just written before
+    if (!res) {
+      alert("Razorpay SDK Failed to load"); //you can also call any ui to show this error.
+      return; //this return stops this function from loading if SDK is not loaded
     }
-    e.preventDefault();
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
 
-    const transactionid = "Tr-" + uuidv4().toString(36).slice(-6);
+    // Make API call to the serverless API
+    const data = await fetch(`${process.env.SERVER_URL}/pay/razorpay`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price: price,
+      }),
+    })
+      .then((res) =>
+        res.json((response) => {
+          console.log(response);
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
 
-    const payload = {
-      merchantId: process.env.PHONEPE_MERCHANT_ID,
-      merchantTransactionId: transactionid,
-      merchantUserId: "MUID-" + uuidv4().toString(36).slice(-6),
-      amount: ammount,
-      redirectUrl: `${process.env.CLIENT_URL}/status/${transactionid}`,
-      redirectMode: "POST",
-      callbackUrl: `${process.env.CLIENT_URL}/status/${transactionid}`,
-      mobileNumber: props.user.phone,
-      paymentInstrument: {
-        type: "PAY_PAGE",
+    var options = {
+      key: process.env.RAZORPAY_KEY,
+      name: "Fipezo",
+      currency: data.currency,
+      amount: data.amount,
+      order_id: data.id,
+      description: "Payment for Fipezo premium",
+      image: "/favi.png", //put secure url of the logo you wish to display
+      handler: async function (response) {
+        // Validate payment at server - using webhooks is a better idea.
+        const res = await fetch(`${process.env.SERVER_URL}/payment`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            paymentPack: `${price}`,
+            transactionId: response.razorpay_payment_id,
+          }),
+        });
+        const message = await res.json();
+        console.log(response);
+        router.push(`/status/${response.razorpay_payment_id}`);
+      },
+      ondismiss: () => {
+        /*handle payment window close or dismiss here */
+      },
+
+      prefill: {
+        name: "Name of the Customer", //you can prefill Name of the Customer
+        email: "Email of the Customer", //you can prefill Email of the Customer
+        contact: 9007000328, //Mobile Number can also be prefilled to fetch available payment accounts.
+      },
+      readonly: {
+        email: true, //edit this to allow editing of info
+        name: true, //edit this to allow editing of info
       },
     };
 
-    const dataPayload = JSON.stringify(payload);
-
-    const dataBase64 = Buffer.from(dataPayload).toString("base64");
-    console.log(dataBase64);
-
-    const fullURL = dataBase64 + "/pg/v1/pay" + process.env.PHONEPE_SALT_KEY;
-    const dataSha256 = sha256(fullURL);
-
-    const checksum = dataSha256 + "###" + 1;
-    console.log(checksum);
-
-    const UAT_PAY_API_URL = process.env.PHONEPE_URL;
-
-    const response = await axios.post(
-      UAT_PAY_API_URL,
-      {
-        request: dataBase64,
-      },
-      {
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          "X-VERIFY": checksum,
-        },
-      }
-    );
-
-    const redirect = response.data.data.instrumentResponse.redirectInfo.url;
-    router.push(redirect);
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
   };
 
   return (
@@ -151,7 +185,8 @@ const Premium = (props) => {
             <button
               // href="/payment"
               type="button"
-              onClick={(e) => makePayment(e, 9900)}
+              // onClick={(e) => makePayment(e, 9900)}
+              onClick={(e) => openPaymentWindow(99)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
@@ -173,9 +208,8 @@ const Premium = (props) => {
             </div>
             <div className="h-1/3"></div>
             <button
-              // href="/payment"
               type="button"
-              onClick={(e) => makePayment(e, 49900)}
+              onClick={(e) => openPaymentWindow(499)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
