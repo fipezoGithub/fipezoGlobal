@@ -1007,6 +1007,31 @@ async function likeProfile(req, res) {
   }
 }
 
+//Get Payment Details
+async function getPaymentDetailsOFUser(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancer = await freelancerCollection.findById(authData.user._id);
+      if (err || !freelancer) {
+        res.status(404).send("Freelancer not found");
+      } else {
+        const paymentDetails = await freelancerCollection
+          .findById(freelancer._id)
+          .populate("paymentDetails")
+          .exec();
+        if (!paymentDetails) {
+          res.status(404).send("Not Found");
+        } else {
+          res.status(200).json(paymentDetails.paymentDetails);
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
 module.exports = {
   registerFreelancer,
   verificationProfile,
@@ -1031,4 +1056,5 @@ module.exports = {
   getJobsOfUser,
   likeProfile,
   updateWork,
+  getPaymentDetailsOFUser,
 };

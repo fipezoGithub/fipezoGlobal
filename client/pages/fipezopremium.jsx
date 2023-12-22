@@ -1,29 +1,69 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPhotoVideo, FaRegEye } from "react-icons/fa";
 import { IoNotificationsCircle, IoWomanSharp } from "react-icons/io5";
 import { MdFeaturedVideo, MdLeaderboard } from "react-icons/md";
 
 const Fipezopremium = (props) => {
+  const [packageName, setPackageName] = useState("");
+  const [transacId, setTransacId] = useState("");
+  const [prize, setPrize] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [status, setStatus] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     async function getFreelancer() {
-      const res = await fetch(`${process.env.SERVER_URL}/navbar`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
       const paymentRes = await fetch(
-        `${process.env.SERVER_URL}/paymentdetails/${data.paymentDetails}`
+        `${process.env.SERVER_URL}/freelancer/paymentdetails`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const paymentDetails = await paymentRes.json();
-      console.log(paymentDetails);
+      if (paymentDetails) {
+        if (paymentDetails.paymentPack === "99") {
+          setPackageName("@99");
+          setPrize(99);
+        } else {
+          setPackageName("@499");
+          setPrize(499);
+        }
+        setTransacId(paymentDetails.transactionId);
+        const start = new Date(paymentDetails.createdAt);
+        setStartDate(
+          new Date(paymentDetails.createdAt).toLocaleString("en-IN", {
+            day: "numeric",
+            month: "numeric",
+            year: "numeric",
+          })
+        );
+        const d = new Date(paymentDetails.createdAt);
+        const end = new Date(d.setDate(d.getDate() + 30));
+        setEndDate(
+          new Date(d.setDate(d.getDate() + 30)).toLocaleString("en-IN", {
+            day: "numeric",
+            month: "numeric",
+            year: "numeric",
+          })
+        );
+        const remainDays = Math.floor(
+          (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
+        );
+        if (remainDays <= 30 && remainDays >= 0) {
+          setStatus("Active");
+        } else {
+          setStatus("Expired");
+        }
+      }
     }
     getFreelancer();
   }, []);
@@ -44,74 +84,126 @@ const Fipezopremium = (props) => {
         <h1 className="text-4xl font-bold [text-shadow:2px_4px_#000000]">
           Congratulation!
         </h1>
-        <p className="text-xl drop-shadow-md">
+        <p className="text-xl drop-shadow-md text-center md:text-left">
           You have unlocked fipezo premium for your account.
         </p>
       </div>
-      <div className="flex flex-col items-center justify-center gap-8 py-8 bg-[#f6f7f8]">
-        <h1 className="text-4xl font-semibold">You have unlocked</h1>
-        <div className="grid grid-cols-3 items-center justify-center flex-wrap">
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-80 h-40">
-            <FaPhotoVideo size={"1.8rem"} />
-            <h2 className="text-lg font-semibold">
-              Unlimited photos or videos upload
-            </h2>
-          </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-80 h-40">
-            <FaRegEye size={"1.8rem"} />
-            <h2 className="text-xl font-semibold">
-              Extra visibility all over website
-            </h2>
-          </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-80 h-40">
-            <IoNotificationsCircle size={"1.8rem"} />
-            <h2 className="text-xl font-semibold">
-              Smart priority notification for all latest jobs
-            </h2>
-          </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-80 h-40">
-            <MdFeaturedVideo size={"1.8rem"} />
-            <h2 className="text-xl font-semibold">
-              Featured tag, explore page top list
-            </h2>
-          </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-80 h-40">
-            <IoWomanSharp size={"1.8rem"} />
-            <h2 className="text-xl font-semibold">
-              Dedicated Relationship Manager
-            </h2>
-          </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-80 h-40">
-            <MdLeaderboard size={"1.8rem"} />
-            <h2 className="text-xl font-semibold">5 leads</h2>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col items-center justify-center gap-8 py-8">
+      <div className="flex flex-col items-center justify-center gap-8 py-8 md:h-[50vh]">
         <h1 className="text-3xl capitalize font-semibold">package details</h1>
         <div className="flex items-center justify-center">
-          <table class="table-auto">
-            <thead>
-              <tr>
-                <th className="capitalize px-4 text-lg">package name</th>
-                <th className="capitalize px-4 text-lg">transaction id</th>
-                <th className="capitalize px-4 text-lg">prize</th>
-                <th className="capitalize px-4 text-lg">start date</th>
-                <th className="capitalize px-4 text-lg">end date</th>
-                <th className="capitalize px-4 text-lg">status</th>
+          <table class="w-full text-center rtl:text-right text-gray-600">
+            <thead className="text-gray-700 uppercase bg-gray-50 align-top md:align-middle table-cell md:table-row-group">
+              <tr className="table-cell md:table-row">
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  package name
+                </th>
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  transaction id
+                </th>
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  prize
+                </th>
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  start date
+                </th>
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  end date
+                </th>
+                <th
+                  scope="col"
+                  className="capitalize md:px-6 py-3 block md:table-cell"
+                >
+                  status
+                </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td className="px-4 text-lg text-center">@499</td>
-                <td className="px-4 text-lg text-center">t12454eer15484754</td>
-                <td className="px-4 text-lg text-center">499</td>
-                <td className="px-4 text-lg text-center">01/01/2023</td>
-                <td className="px-4 text-lg text-center">31/01/2023</td>
-                <td className="px-4 text-lg uppercase text-center">expire</td>
+            <tbody className="align-top md:align-middle table-cell md:table-row-group">
+              <tr className="table-cell md:table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 font-bold">
+                <td
+                  scope="row"
+                  className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell"
+                >
+                  {packageName}
+                </td>
+                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  {transacId}
+                </td>
+                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  {prize}
+                </td>
+                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  {startDate}
+                </td>
+                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  {endDate}
+                </td>
+                <td
+                  className={
+                    "px-2 md:px-4 h-[3.2rem] md:h-auto text-lg uppercase text-center block md:table-cell " +
+                    (status === "Active" ? "text-green-600" : "text-red-600")
+                  }
+                >
+                  {status}
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="flex flex-col items-center justify-center gap-8 py-8 bg-[#f6f7f8]">
+        <h1 className="text-4xl font-semibold">You have unlocked</h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 items-center justify-center flex-wrap">
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+            <FaPhotoVideo className="text-xl md:text-3xl" />
+            <h2 className="text-base md:text-lg font-semibold">
+              Unlimited photos or videos upload
+            </h2>
+          </div>
+          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+            <FaRegEye className="text-xl md:text-3xl" />
+            <h2 className="text-base md:text-xl font-semibold">
+              Extra visibility all over website
+            </h2>
+          </div>
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+            <IoNotificationsCircle className="text-xl md:text-3xl" />
+            <h2 className="text-base md:text-xl font-semibold">
+              Smart priority notification for all latest jobs
+            </h2>
+          </div>
+          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+            <MdFeaturedVideo className="text-xl md:text-3xl" />
+            <h2 className="text-base md:text-xl font-semibold">
+              Featured tag, explore page top list
+            </h2>
+          </div>
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+            <IoWomanSharp className="text-xl md:text-3xl" />
+            <h2 className="text-base md:text-xl font-semibold">
+              Dedicated Relationship Manager
+            </h2>
+          </div>
+          {prize === 499 && (
+            <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+              <MdLeaderboard className="text-xl md:text-3xl" />
+              <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

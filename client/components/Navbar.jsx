@@ -21,6 +21,7 @@ export default function Navbar(props) {
   const [display3, setDisplay3] = useState("none");
   const [display4, setDisplay4] = useState("none");
   const [display5, setDisplay5] = useState("none");
+  const [premium, setPremium] = useState(false);
   const router = useRouter();
   const sideNavRef = useRef();
 
@@ -59,6 +60,30 @@ export default function Navbar(props) {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
 
+    if (token) {
+      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((paymentDetails) => {
+          if (paymentDetails) {
+            const d = new Date(paymentDetails.createdAt);
+            const end = new Date(d.setDate(d.getDate() + 30));
+            const remainDays = Math.floor(
+              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
+            );
+            if (remainDays <= 30 && remainDays >= 0) {
+              setPremium(true);
+            } else {
+              setPremium(false);
+            }
+          }
+        })
+        .catch((err) => console.log(err));
+    }
     const type = JSON.parse(localStorage.getItem("type"));
 
     async function getNotifications() {
@@ -398,7 +423,11 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link
                     className={styles.btn}
-                    href={`/freelancer-premium-plans`}
+                    href={
+                      premium === true
+                        ? "/fipezopremium"
+                        : "/freelancer-premium-plans"
+                    }
                   >
                     Premium{" "}
                     <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase">
@@ -757,7 +786,11 @@ export default function Navbar(props) {
                 {props.user.uid && (
                   <Link
                     className={styles.btn}
-                    href={`/freelancer-premium-plans`}
+                    href={
+                      premium === true
+                        ? "/fipezopremium"
+                        : "/freelancer-premium-plans"
+                    }
                   >
                     Premium{" "}
                     <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase text-sm">

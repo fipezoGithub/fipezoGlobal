@@ -65,6 +65,7 @@ const {
   likeProfile,
   verificationProfile,
   updateWork,
+  getPaymentDetailsOFUser,
 } = require("./controllers/freelancerController");
 
 const {
@@ -285,6 +286,7 @@ app.put(
   verifyToken,
   updateWork
 );
+app.get("/api/freelancer/paymentdetails", verifyToken, getPaymentDetailsOFUser);
 
 //Contactcontroller routes
 app.post("/api/contact", contactUs);

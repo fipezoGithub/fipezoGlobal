@@ -7,12 +7,14 @@ import Head from "next/head";
 import { RiVipCrownFill } from "react-icons/ri";
 
 const Profile = (props) => {
+  const [pageData, setPageData] = useState({});
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [phone, setPhone] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [logintype, setLoginType] = useState("");
+  const [premium, setPremium] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,21 +31,48 @@ const Profile = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setFirstname(data.user.firstname);
-          setLastname(data.user.lastname);
-          setCompanyName(data.user.companyname);
-          if (data.user.phone) {
-            setPhone(data.user.phone);
+          setPageData(data.user);
+          setFirstname(data.user?.firstname);
+          setLastname(data.user?.lastname);
+          setCompanyName(data.user?.companyname);
+          if (data.user?.phone) {
+            setPhone(data.user?.phone);
           } else {
-            setPhone(data.user.companyphone);
+            setPhone(data.user?.companyphone);
           }
-          setProfilePicture(data.user.profilePicture);
+          setProfilePicture(data.user?.profilePicture);
         })
         .catch((error) => {
           console.error(error);
         });
+
+      fetch(
+        `${process.env.SERVER_URL}/freelancer/paymentdetails`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((paymentDetails) => {
+          if (paymentDetails) {
+            const d = new Date(paymentDetails.createdAt);
+            const end = new Date(d.setDate(d.getDate() + 30));
+            const remainDays = Math.floor(
+              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
+            );
+            if (remainDays <= 30 && remainDays >= 0) {
+              setPremium(true);
+            } else {
+              setPremium(false);
+            }
+          }
+        })
+        .catch((err) => console.log(err));
     }
-  }, []);
+  }, [!pageData]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -69,7 +98,7 @@ const Profile = (props) => {
             <div
               className={style.editProfileImage}
               style={{
-                backgroundImage: `url(${`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${profilePicture}`})`,
+                backgroundImage: `url('${`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${profilePicture}`}')`,
               }}
             ></div>
           </div>
@@ -97,8 +126,12 @@ const Profile = (props) => {
             {props.user?.uid && (
               <Link
                 className={style.option + " flex items-center gap-2"}
-                // href="/fipezopremium"
-                href=""
+                href={
+                  premium === true
+                    ? "/fipezopremium"
+                    : "/freelancer-premium-plans"
+                }
+                // href=""
               >
                 Fipezo Premium <RiVipCrownFill color="#007ae2" />
               </Link>

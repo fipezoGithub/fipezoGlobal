@@ -154,13 +154,13 @@ function Details(props) {
           )}
         </div>
       )}
-      {/* <div className={styles.cont}>
-        {showPortfolio && works.length > 5 && !showMore && (
+      <div className={styles.cont}>
+        {showPortfolio && works.length > 8 && !showMore && (
           <button className={styles.showMore} onClick={() => setShowMore(true)}>
             Show More...
           </button>
         )}
-        {showPortfolio && works.length > 5 && showMore && (
+        {showPortfolio && works.length > 8 && showMore && (
           <button
             className={styles.showMore}
             onClick={() => setShowMore(false)}
@@ -168,7 +168,7 @@ function Details(props) {
             Show Less
           </button>
         )}
-      </div> */}
+      </div>
       {showReviews && (
         <Reviews
           reviews={props.reviews}

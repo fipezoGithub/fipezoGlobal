@@ -78,7 +78,7 @@ const FipezoJobDetails = (props) => {
             viewing {props.data.length} job requiremnets
           </h3>
         </div>
-        <div className="flex flex-col md:flex-row items-start border-t md:gap-8 md:mx-16">
+        <div className="flex flex-col md:flex-row items-start border-t md:gap-8 md:w-[75rem]">
           <CareerFilter />
           <div className="flex justify-center items-start flex-wrap gap-4">
             {jobs.length > 0 &&

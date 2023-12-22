@@ -43,28 +43,28 @@ const Referandearn = (props) => {
           every successful freelancer joining
         </h2>
         <div className="flex items-center justify-center mx-8 lg:mx-16 gap-4 my-6 flex-wrap md:flex-nowrap">
-          <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
+          <div className="flex items-start flex-col gap-2 border rounded-md px-4 pt-2 shadow-md w-80 h-48">
             <BsFingerprint className="text-4xl" />
             <p className="text-2xl">Step 1:</p>
             <p className="text-lg">
               Login to Fipezo and navigate to refer and earn page
             </p>
           </div>
-          <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
+          <div className="flex items-start flex-col gap-2 border rounded-md px-4 pt-2 shadow-md w-80 h-48">
             <BsPersonPlus className="text-4xl" />
             <p className="text-2xl">Step 2:</p>
             <p className="text-lg">
               Copy the invition code and send it to your freelancer friend
             </p>
           </div>
-          <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
+          <div className="flex items-start flex-col gap-2 border rounded-md px-4 pt-2 shadow-md w-80 h-48">
             <AiOutlineStar className="text-4xl" />
             <p className="text-2xl">Step 3:</p>
             <p className="text-lg">
               Once a referall create a new account, you get paid 50 as reward
             </p>
           </div>
-          <div className="flex items-start flex-col gap-2 border rounded-md px-4 py-2 shadow-md">
+          <div className="flex items-start flex-col gap-2 border rounded-md px-4 pt-2 shadow-md w-80 h-48">
             <BiMoneyWithdraw className="text-4xl" />
             <p className="text-2xl">Step 4:</p>
             <p className="text-lg">

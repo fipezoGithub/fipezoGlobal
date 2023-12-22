@@ -103,7 +103,6 @@ const UpdatePortfolio = (props) => {
   };
 
   const updateWorks = async (e) => {
-    console.log(works);
     e.preventDefault();
     setLoading(true);
     const token = localStorage.getItem("user")
