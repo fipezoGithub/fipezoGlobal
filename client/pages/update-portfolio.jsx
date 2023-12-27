@@ -3,6 +3,8 @@ import styles from "../styles/Verification.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/router";
+import Footer from "@/components/Footer";
+import Link from "next/link";
 
 const UpdatePortfolio = (props) => {
   const [images, setImages] = useState([]);
@@ -11,13 +13,41 @@ const UpdatePortfolio = (props) => {
   const [works, setWorks] = useState([]);
   const [workIndex, setWorkIndex] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [premium, setPremium] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
     if (!props.user?.works) {
       return;
     }
     setWorks(props.user?.works);
+    if (token) {
+      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((paymentDetails) => {
+          if (paymentDetails) {
+            const d = new Date(paymentDetails.createdAt);
+            const end = new Date(d.setDate(d.getDate() + 30));
+            const remainDays = Math.floor(
+              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
+            );
+            if (remainDays <= 30 && remainDays >= 0) {
+              setPremium(true);
+            } else {
+              setPremium(false);
+            }
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, [props.user]);
 
   const handleImageChange = (e, index) => {
@@ -731,6 +761,600 @@ const UpdatePortfolio = (props) => {
           submit
         </button>
       </div>
+      <div className="flex items-center justify-center my-16">
+        <hr className="h-0.5 w-40 border-gray-700" />
+      </div>
+      <div className="mt-16 mx-8 flex flex-col items-center justify-center relative">
+        {premium === false && (
+          <div className="absolute w-full h-full flex items-center justify-center z-10 backdrop-blur-sm">
+            <Link
+              href="/freelancer-premium-plans"
+              className="text-3xl capitalize px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold"
+            >
+              unlock now
+            </Link>
+          </div>
+        )}
+        <h1 className={styles.heading}>
+          Add new Works
+          {worksError && (
+            <p className={styles.err}>Please Provide atleast 8 Works for you</p>
+          )}
+        </h1>
+        {(props.user?.profession === "photographer" ||
+          props.user?.profession === "photo_editor" ||
+          props.user?.profession === "model" ||
+          props.user?.profession === "makeup_artist" ||
+          props.user?.profession === "album_designer" ||
+          props.user?.profession === "web_developer" ||
+          props.user?.profession === "graphics_designer" ||
+          props.user?.profession === "mehendi_artist") && (
+          <div className={styles.portfolio}>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[0]
+                  ? `url(${images[0]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[0]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                id="workimg1"
+                onChange={(e) => handleImageChange(e, 0)}
+                accept="image/jpeg,image/png"
+              />
+              {!images[0] && (
+                <label htmlFor="workimg1" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[1]
+                  ? `url('${images[1]}')`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[1]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 1)}
+                accept="image/jpeg,image/png"
+                id="workimg2"
+              />
+              {!images[1] && (
+                <label htmlFor="workimg2" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[2]
+                  ? `url(${images[2]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[2]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 2)}
+                accept="image/jpeg,image/png"
+                id="workimg3"
+              />
+              {!images[2] && (
+                <label htmlFor="workimg3" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[3]
+                  ? `url(${images[3]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[3]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 3)}
+                accept="image/jpeg,image/png"
+                id="workimg4"
+              />
+              {!images[3] && (
+                <label htmlFor="workimg4" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[8]
+                  ? `url(${images[8]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[4]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 8)}
+                accept="image/jpeg,image/png"
+                id="workimg5"
+              />
+              {!images[8] && (
+                <label htmlFor="workimg5" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[9]
+                  ? `url(${images[9]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[5]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 9)}
+                accept="image/jpeg,image/png"
+                id="workimg6"
+              />
+              {!images[9] && (
+                <label htmlFor="workimg6" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[10]
+                  ? `url(${images[10]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[6]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 10)}
+                accept="image/jpeg,image/png"
+                id="workimg7"
+              />
+              {!images[10] && (
+                <label htmlFor="workimg7" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[11]
+                  ? `url(${images[11]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[7]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 11)}
+                accept="image/jpeg,image/png"
+                id="workimg8"
+              />
+              {!images[11] && (
+                <label htmlFor="workimg8" className="cursor-pointer">
+                  <AiOutlinePlus
+                    className={styles.plus + " hidden"}
+                    style={{ color: "#1f1c1c" }}
+                  />
+                </label>
+              )}
+              {props.warns && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+        {(props.user?.profession === "drone_operator" ||
+          props.user?.profession === "anchor" ||
+          props.user?.profession === "dj" ||
+          props.user?.profession === "dancer" ||
+          props.user?.profession === "influencer") && (
+          <div className={styles.portfolio}>
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={props.user?.works[0]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 17);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={props.user?.works[1]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 18);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              value={props.user?.works[2]}
+              placeholder="https://www.youtube.com/example"
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 19);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              value={props.user?.works[3]}
+              placeholder="https://www.youtube.com/example"
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 20);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[8]
+                  ? `url(${images[8]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user.works[4]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 8)}
+                accept="image/jpeg,image/png"
+              />
+              {!images[8] && (
+                <AiOutlinePlus
+                  className={styles.plus + " hidden"}
+                  style={{ color: "#1f1c1c" }}
+                />
+              )}
+              {warns[8] && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[9]
+                  ? `url(${images[9]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[5]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 9)}
+                accept="image/jpeg,image/png"
+              />
+              {!images[9] && (
+                <AiOutlinePlus
+                  className={styles.plus + " hidden"}
+                  style={{ color: "#1f1c1c" }}
+                />
+              )}
+              {warns[9] && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[10]
+                  ? `url(${images[10]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[6]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 10)}
+                accept="image/jpeg,image/png"
+              />
+              {!images[10] && (
+                <AiOutlinePlus
+                  className={styles.plus + " hidden"}
+                  style={{ color: "#1f1c1c" }}
+                />
+              )}
+              {warns[10] && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+            <div
+              className={styles.addBox}
+              style={{
+                backgroundImage: images[11]
+                  ? `url(${images[11]})`
+                  : `url('https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.user?.works[7]}')`,
+              }}
+            >
+              <input
+                type="file"
+                className={styles.work}
+                onChange={(e) => handleImageChange(e, 11)}
+                accept="image/jpeg,image/png"
+              />
+              {!images[11] && (
+                <AiOutlinePlus
+                  className={styles.plus + " hidden"}
+                  style={{ color: "#1f1c1c" }}
+                />
+              )}
+              {warns[11] && (
+                <p className={styles.warn} id={styles.warn}>
+                  File size exceeds maximum limit of 10mb
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+        {(props.user?.profession === "cinematographer" ||
+          props.user?.profession === "video_editor") && (
+          <div className={styles.portfolio}>
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[0]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 17);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[1]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 18);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[2]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 19);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[3]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 20);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              value={works[4]}
+              placeholder="https://www.youtube.com/example"
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 21);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[5]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 22);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[6]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 23);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+            <input
+              type="url"
+              className={styles.input}
+              placeholder="https://www.youtube.com/example"
+              value={works[7]}
+              onChange={(e) => {
+                getVerificationDetails(e.target.value, 24);
+                e.target.removeAttribute("style");
+              }}
+              onBlur={(e) => {
+                if (!e.target.value.includes("https://youtu")) {
+                  e.target.style.border = "1px solid red";
+                  e.target.value = "";
+                  e.target.placeholder = "url must be a youtube link";
+                }
+              }}
+            />
+          </div>
+        )}
+        <button
+          type="button"
+          className="px-6 py-3 text-xl capitalize font-semibold rounded-lg bg-blue-600 text-white shadow-lg shadow-[var(--shadow)]"
+          onClick={updateWorks}
+        >
+          submit
+        </button>
+      </div>
+      <div className="w-full mt-8"></div>
+      <Footer />
     </>
   );
 };

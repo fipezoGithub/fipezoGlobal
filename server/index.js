@@ -161,6 +161,7 @@ const {
   newPayment,
   checkPaymentDetails,
   getPaymentDetails,
+  newPhonePayPayment,
 } = require("./controllers/paymentController");
 const {
   createNotification,
@@ -356,6 +357,7 @@ app.post("/api/payment", verifyToken, submitPayment);
 app.post("/api/pay/razorpay", newPayment);
 app.get("/api/checkpaymnet/:transacId", checkPaymentDetails);
 app.get("/api/paymentdetails/:paymentId", getPaymentDetails);
+app.post("/api/payment/phonepay", newPhonePayPayment);
 
 //Notification Routes
 app.post("/api/notification/create", createNotification);

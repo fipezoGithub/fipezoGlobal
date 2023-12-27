@@ -39,9 +39,8 @@ export default function Index(props) {
       <div className="grey-container">
         <Featured />
       </div>
-      <Newsletter />
       <Simplified />
-      {/* <Footer /> */}
+      <Newsletter />
       <Footer />
     </div>
   );

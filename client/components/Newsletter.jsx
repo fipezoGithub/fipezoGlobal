@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaCloud } from "react-icons/fa";
 import DialogBox from "./DialogBox";
 
 const Newsletter = () => {
@@ -19,8 +19,7 @@ const Newsletter = () => {
           headers: {
             "Content-Type": "application/json",
             accept: "application/json",
-            Authorization:
-              `Bearer ${process.env.MAILERLITE_KEY}`,
+            Authorization: `Bearer ${process.env.MAILERLITE_KEY}`,
           },
           body: JSON.stringify({
             email: email,
@@ -39,23 +38,30 @@ const Newsletter = () => {
   };
 
   return (
-    <main className="bg-[url('/psychedelic-paper-shapes-with-copy-space.jpg')] w-full bg-no-repeat bg-cover flex flex-col items-center md:items-start justify-center gap-4 h-[20rem] md:h-[30rem] md:px-12">
-      <h1 className="text-[#2960a6] text-3xl md:text-6xl font-bold">
-        Don&apos;t miss any chance
+    <main className="bg-[#293546] w-full bg-no-repeat bg-cover flex flex-col items-center justify-center gap-4 h-[20rem] md:h-[30rem] md:px-12">
+      <h1 className="text-[#d9d2c8] text-xl md:text-3xl font-bold">
+        Something cool is coming soon
       </h1>
-      <p className="text-[#2960a6] text-xl md:text-4xl font-medium tracking-wider">
-        Subscribe our NewsLetter
+      <p className="text-[#d9d2c8] text-3xl md:text-6xl font-medium tracking-wider italic">
+        Intrested? Join our list.
       </p>
-      <div className="border-b flex items-center justify-between px-4 py-1 my-6 w-80">
+      <div className="border-2 rounded-3xl border-white flex items-center justify-between pl-4 my-6 gap-4">
+        <button>
+          <FaCloud color="#FFFFFF" size={"1.5em"} />
+        </button>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-transparent placeholder:text-neutral-500 focus:outline-none placeholder:text-lg text-lg"
-          placeholder="Enter your email"
+          className="bg-transparent placeholder:text-[#d9d2c8] text-[#d9d2c8] focus:outline-none placeholder:text-lg text-lg"
+          placeholder="name@example.com"
         />
-        <button type="button" className="" onClick={subscribe}>
-          <FaArrowRight color="#2960a6" size="1.3rem" />
+        <button
+          type="button"
+          className="uppercase bg-white rounded-r-3xl px-4 py-3 tracking-wider font-semibold text-2xl"
+          onClick={subscribe}
+        >
+          submit
         </button>
       </div>
       {dialogBox === true && (

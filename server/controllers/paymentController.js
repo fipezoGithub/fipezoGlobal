@@ -1,16 +1,11 @@
 const jwt = require("jsonwebtoken");
 const paymentCollection = require("../models/paymentModel");
-const { uploadFile, deleteFile } = require("../middlewares/s3");
-const sharp = require("sharp");
-const path = require("path");
-const fs = require("fs");
-const util = require("util");
-const unlinkFile = util.promisify(fs.unlink);
 const axios = require("axios");
 const Razorpay = require("razorpay");
 const { uid } = require("uid");
 const freelancerCollection = require("../models/freelancerModel");
 const secret = process.env.JWT_SECRET;
+const crypto = require("crypto");
 
 // Initialize razorpay object
 const razorpay = new Razorpay({
@@ -39,6 +34,61 @@ async function newPayment(req, res) {
     });
   }
 }
+
+const newPhonePayPayment = async (req, res) => {
+  try {
+    const merchantTransactionId = "M" + Date.now();
+    const { user_id, price, phone, name } = req.body;
+    const data = {
+      merchantId: "M22H3K65TXNNT",
+      merchantTransactionId: merchantTransactionId,
+      merchantUserId: "MUID" + user_id,
+      name: name,
+      amount: price * 100,
+      redirectUrl: `http://localhost:3001/api/v1/status/${merchantTransactionId}`,
+      redirectMode: "POST",
+      mobileNumber: phone,
+      paymentInstrument: {
+        type: "PAY_PAGE",
+      },
+    };
+    const payload = JSON.stringify(data);
+    const payloadMain = Buffer.from(payload).toString("base64");
+    const keyIndex = 1;
+    const string =
+      payloadMain + "/pg/v1/pay" + "f36d58f8-3ab8-45c0-ab42-0f791fe404e1";
+    const sha256 = crypto.createHash("sha256").update(string).digest("hex");
+    const checksum = sha256 + "###" + keyIndex;
+    const prod_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
+    const options = {
+      method: "POST",
+      url: prod_URL,
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        "X-VERIFY": checksum,
+      },
+      data: {
+        request: payloadMain,
+      },
+    };
+    axios
+      .request(options)
+      .then(function (response) {
+        return res.redirect(
+          response.data.data.instrumentResponse.redirectInfo.url
+        );
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      success: false,
+    });
+  }
+};
 
 async function checkPaymentDetails(req, res) {
   try {
@@ -113,4 +163,5 @@ module.exports = {
   newPayment,
   checkPaymentDetails,
   getPaymentDetails,
+  newPhonePayPayment,
 };

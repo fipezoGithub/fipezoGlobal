@@ -67,7 +67,6 @@ const Fipezopremium = (props) => {
     }
     getFreelancer();
   }, []);
-
   return (
     <>
       <Head>
