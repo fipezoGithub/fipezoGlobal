@@ -38,7 +38,7 @@ const Newsletter = () => {
   };
 
   return (
-    <main className="bg-[#293546] w-full bg-no-repeat bg-cover flex flex-col items-center justify-center gap-4 h-[20rem] md:h-[30rem] md:px-12">
+    <main className="bg-[#293546] w-full bg-no-repeat bg-cover flex flex-col items-center justify-center gap-4 h-[20rem] md:h-[26rem] md:px-12">
       <h1 className="text-[#d9d2c8] text-xl md:text-3xl font-bold">
         Something cool is coming soon
       </h1>

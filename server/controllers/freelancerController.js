@@ -198,7 +198,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "mehendi_artist" ||
         freelancer.profession === "album_designer" ||
         freelancer.profession === "web_developer" ||
-        freelancer.profession === "graphics_designer"
+        freelancer.profession === "graphics_designer" ||
+        freelancer.profession === "private_tutor"
       ) {
         worksToStore = req.files["works[]"]?.map((file) => file.filename);
       } else if (
@@ -256,7 +257,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
         freelancer.profession === "influencer" ||
-        freelancer.profession === "graphics_designer"
+        freelancer.profession === "graphics_designer" ||
+        freelancer.profession === "private_tutor"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -468,7 +470,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "mehendi_artist" ||
           freelancerData.profession === "album_designer" ||
           freelancerData.profession === "web_developer" ||
-          freelancerData.profession === "graphics_designer"
+          freelancerData.profession === "graphics_designer" ||
+          freelancer.profession === "private_tutor"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -571,7 +574,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "dj" ||
           freelancerData.profession === "dancer" ||
           freelancerData.profession === "influencer" ||
-          freelancerData.profession === "graphics_designer"
+          freelancerData.profession === "graphics_designer" ||
+          freelancer.profession === "private_tutor"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));

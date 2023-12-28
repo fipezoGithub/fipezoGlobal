@@ -321,6 +321,24 @@ class Sidebar extends React.Component {
                   className={styles.checkbox}
                   type="checkbox"
                   onChange={(e) => {
+                    this.props.setShowPrivateTutor(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="private_tutor"
+                  checked={this.props.showPrivateTutor}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="private_tutor"
+                >
+                  Private Tutor
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
                     this.props.setShowVideoEditor(e.target.checked);
                     this.props.setCurrentPage(1);
                   }}
@@ -374,32 +392,6 @@ class Sidebar extends React.Component {
           />
         </div>
 
-        {/* <hr className={styles.divider} />
-
-        <div className={styles.filter}>
-          <div className={styles.title}>
-            Search Freelancer{" "}
-            <MdKeyboardArrowDown
-              style={{ fontSize: "20" }}
-              onClick={this.toggleSearch}
-              className={styles.arrow}
-            />
-          </div>
-          {this.state.showDropDownSearch && (
-            <div>
-              <input
-                type="search"
-                placeholder="type freelancer name here"
-                className="p-2 placeholder:capitalize w-full focus:outline-none border border-solid text-xs sm:text-base"
-                value={this.props.searchQuery}
-                onChange={(e) => {
-                  this.props.setSearchQuery(e.target.value);
-                  this.handleSearch(e.target.value);
-                }}
-              />
-            </div>
-          )}
-        </div> */}
         <hr className={styles.divider} />
 
         <div className={styles.filter} id={styles.rating}>

@@ -20,7 +20,7 @@ function Explore(props) {
   const [showVideoEditor, setShowVideoEditor] = useState(false);
   const [showAlbumDesign, setShowAlbumDesign] = useState(false);
   const [showModel, setShowModel] = useState(false);
-  const [showMakeupArtist, setShowMakeupArtist] = useState(true);
+  const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
   const [showAnchor, setShowAnchor] = useState(false);
   const [showWebDeveloper, setShowWebDeveloper] = useState(false);
@@ -29,7 +29,7 @@ function Explore(props) {
   const [showInfluencer, setShowInfluencer] = useState(false);
   const [showGraphicsDesigner, setShowGraphicsDesigner] = useState(false);
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
-  const [showPrivateTutor, setShowPrivateTutor] = useState(false);
+  const [showPrivateTutor, setShowPrivateTutor] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -58,23 +58,6 @@ function Explore(props) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
-  };
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: searchQuery }),
-      }
-    );
-    const data = await response.json();
-    setFreelancers(data);
-    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -119,6 +102,23 @@ function Explore(props) {
 
     fetchFreelancer();
   }, [searchQuery]);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.SERVER_URL}/freelancer/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      }
+    );
+    const data = await response.json();
+    setFreelancers(data);
+    setCurrentPage(1);
+  };
 
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (
@@ -450,11 +450,11 @@ function Explore(props) {
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Makeup Artist is loading"} />
+    <Loading message={"Web Developer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Makeup Artists</title>
+        <title>Fipezo | Explore Web Developers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -565,17 +565,6 @@ function Explore(props) {
                       Back
                     </button>
                   )}
-                  {/* {Array.from({ length: pages }, (_, index) => ( */}
-                  {/* <div
-                    className={styles.page}
-                    style={
-                      currentPage === 1
-                        ? { backgroundColor: "black", color: "white" }
-                        : {}
-                    }
-                    // onClick={() => setCurrentPage(index + 1)}
-                    // key={index}
-                  > */}
                   {currentPage > 1 && (
                     <span
                       className={styles.page}
@@ -613,8 +602,6 @@ function Explore(props) {
                       {currentPage + 1}
                     </span>
                   )}
-                  {/* </div> */}
-                  {/* )).slice(0, 3)} */}
                   {currentPage < pages - 1 && (
                     <>
                       {"..."}

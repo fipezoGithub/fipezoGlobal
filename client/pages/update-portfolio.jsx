@@ -788,7 +788,8 @@ const UpdatePortfolio = (props) => {
           props.user?.profession === "album_designer" ||
           props.user?.profession === "web_developer" ||
           props.user?.profession === "graphics_designer" ||
-          props.user?.profession === "mehendi_artist") && (
+          props.user?.profession === "mehendi_artist" ||
+          props.user?.profession === "private_tutor") && (
           <div className={styles.portfolio}>
             <div
               className={styles.addBox}

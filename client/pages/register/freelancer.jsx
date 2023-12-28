@@ -1511,7 +1511,8 @@ export default withRouter(
                         this.state.profession === "anchor" ||
                         this.state.profession === "dj" ||
                         this.state.profession === "dancer" ||
-                        this.state.profession === "influencer") && (
+                        this.state.profession === "influencer" ||
+                        this.state.profession === "private_tutor") && (
                         <div
                           className={styles.inputField}
                           id={styles.equipment}
