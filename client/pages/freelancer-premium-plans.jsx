@@ -182,21 +182,21 @@ const Premium = (props) => {
               </p>
             </div>
             <div className="h-1/3"></div>
-            {/* <button
+            <button
               // href="/payment"
               type="button"
-              // onClick={(e) => openPaymentWindow(99)}
+              onClick={(e) => openPaymentWindow(99)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </button> */}
-            <Link
+            </button>
+            {/* <Link
               href="https://rzp.io/l/flSSU8x"
               target="_blank"
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </Link>
+            </Link> */}
           </div>
           <div className="flex flex-col items-start gap-4 px-4 py-2 bg-white text-black rounded-xl w-72 h-72">
             <h3 className="lg:text-xl text-neutral-500 font-bold">
@@ -213,20 +213,20 @@ const Premium = (props) => {
               </p>
             </div>
             <div className="h-1/3"></div>
-            {/* <button
+            <button
               type="button"
               onClick={(e) => openPaymentWindow(499)}
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </button> */}
-            <Link
+            </button>
+            {/* <Link
               href="https://rzp.io/l/Qqp6x1ZLeO"
               target="_blank"
               className="bg-orange-500 text-white px-4 py-2 w-full font-semibold rounded-lg text-center"
             >
               Buy now
-            </Link>
+            </Link> */}
           </div>
         </div>
         <p className="text-center mb-8 mt-12 text-lg">
