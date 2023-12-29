@@ -691,9 +691,13 @@ export default withRouter(
                 className={`${this.state?.form ? styles.newBody : styles.body}`}
               >
                 <div
-                  className={`${
-                    this.state.form ? styles.newLeft : styles.left
-                  }`}
+                  className={
+                    `${this.state.form ? styles.newLeft : styles.left}` +
+                    ` ${
+                      this.state.currentPage === 9 &&
+                      " [width:100%_!important] [max-width:1024px_!important]"
+                    }`
+                  }
                 >
                   {!this.state.form && (
                     <h1 className={styles.heading}>
@@ -1103,6 +1107,12 @@ export default withRouter(
                           <option className={styles.option} value="dancer">
                             Dancer
                           </option>
+                          <option
+                            className={styles.option}
+                            value="dance_teacher"
+                          >
+                            Dance Teacher
+                          </option>
                           <option className={styles.option} value="dj">
                             DJ
                           </option>
@@ -1147,6 +1157,12 @@ export default withRouter(
                             value="photo_editor"
                           >
                             Photo Editor
+                          </option>
+                          <option
+                            className={styles.option}
+                            value="private_tutor"
+                          >
+                            Private Tutor
                           </option>
                           <option
                             className={styles.option}
@@ -1512,7 +1528,8 @@ export default withRouter(
                         this.state.profession === "dj" ||
                         this.state.profession === "dancer" ||
                         this.state.profession === "influencer" ||
-                        this.state.profession === "private_tutor") && (
+                        this.state.profession === "private_tutor" ||
+                        this.state.profession === "dance_teacher") && (
                         <div
                           className={styles.inputField}
                           id={styles.equipment}
@@ -1723,7 +1740,7 @@ export default withRouter(
                     </div>
                   )}
                 </div>
-                {!this.state.form && (
+                {!this.state.form && this.state.currentPage !== 9 && (
                   <div className={styles.right}>
                     <div className={styles.title}>
                       <h1 className={styles.heading}>

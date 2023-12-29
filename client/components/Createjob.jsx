@@ -244,6 +244,9 @@ const Createjob = (props) => {
               <option value="dancer" className="capitalize">
                 dancer
               </option>
+              <option value="dance_teacher" className="capitalize">
+                dance teacher
+              </option>
               <option value="dj" className="capitalize">
                 dj
               </option>
@@ -268,6 +271,9 @@ const Createjob = (props) => {
               </option>
               <option value="photo_editor" className="capitalize">
                 photo editor
+              </option>
+              <option value="private_tutor" className="capitalize">
+                private tutor
               </option>
               <option value="video_editor" className="capitalize">
                 video editor

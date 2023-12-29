@@ -25,6 +25,7 @@ class SearchBox extends React.Component {
         "Graphics Designer",
         "Mehendi Artist",
         "Private Tutor",
+        "Dance Teacher",
       ],
       city: [
         "Agra",
@@ -177,6 +178,7 @@ class SearchBox extends React.Component {
                   else if (value === "Dancer") value = "dancer";
                   else if (value === "Influencer") value = "influencer";
                   else if (value === "Private Tutor") value = "private_tutor";
+                  else if (value === "Dance Teacher") value = "dance_teacher";
                   else if (value === "Graphics Designer")
                     value = "graphics_designer";
                   return (

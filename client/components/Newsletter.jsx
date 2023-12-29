@@ -42,7 +42,7 @@ const Newsletter = () => {
       <h1 className="text-[#d9d2c8] text-xl md:text-3xl font-bold">
         Something cool is coming soon
       </h1>
-      <p className="text-[#d9d2c8] text-3xl md:text-6xl font-medium tracking-wider italic">
+      <p className="text-[#d9d2c8] text-3xl md:text-6xl font-medium tracking-wider italic text-center md:text-left">
         Intrested? Join our list.
       </p>
       <div className="border-2 rounded-3xl border-white flex items-center justify-between pl-4 my-6 gap-4">
@@ -53,12 +53,12 @@ const Newsletter = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-transparent placeholder:text-[#d9d2c8] text-[#d9d2c8] focus:outline-none placeholder:text-lg text-lg"
+          className="bg-transparent placeholder:text-[#d9d2c8] text-[#d9d2c8] focus:outline-none placeholder:text-sm md:placeholder:text-lg text-sm md:text-lg "
           placeholder="name@example.com"
         />
         <button
           type="button"
-          className="uppercase bg-white rounded-r-3xl px-4 py-3 tracking-wider font-semibold text-2xl"
+          className="uppercase bg-white rounded-r-3xl px-2 md:px-4 py-1 md:py-3 tracking-wider font-semibold md:text-2xl"
           onClick={subscribe}
         >
           submit

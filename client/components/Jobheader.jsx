@@ -23,6 +23,7 @@ const Jobheader = () => {
     "Graphics Designer",
     "Mehendi Artist",
     "Private Tutor",
+    "Dance Teacher",
   ]);
   const [searchTerm, setSearchTerm] = useState("");
   const [city, setCity] = useState([
@@ -266,6 +267,7 @@ const Jobheader = () => {
                 else if (value === "Dancer") value = "dancer";
                 else if (value === "Influencer") value = "influencer";
                 else if (value === "Private Tutor") value = "private_tutor";
+                else if (value === "Dance Teacher") value = "dance_teacher";
                 else if (value === "Graphics Designer")
                   value = "graphics_designer";
                 return (

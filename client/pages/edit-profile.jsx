@@ -26,6 +26,8 @@ const ProfileSetting = (props) => {
   const [warns, setWarns] = useState({
     profilePictureWarn: false,
     coverPictureWarn: false,
+    bioError: false,
+    equipmentsError: false,
   });
   const [showConfirmBox, setShowConfirmBox] = useState(false);
   const router = useRouter();
@@ -90,6 +92,14 @@ const ProfileSetting = (props) => {
 
   const updateProfile = async (e) => {
     e.preventDefault();
+    if (bio.length > 200 || bio.length < 50) {
+      setWarns((prev) => [...prev, { bioError: true }]);
+      return;
+    }
+    if (equipments.length > 200 || equipments.length < 50) {
+      setWarns((prev) => [...prev, { equipmentsError: true }]);
+      return;
+    }
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -569,7 +579,7 @@ const ProfileSetting = (props) => {
               </div>
               <hr className="h-px w-full my-4" />
               <div className="flex justify-between w-full flex-col">
-                <div className="flex flex-col justify-center w-full">
+                <div className="flex flex-col justify-center w-full relative">
                   <label
                     htmlFor="bio"
                     className="text-base lg:text-lg p-4 pl-0 capitalize text-center lg:text-left"
@@ -585,8 +595,13 @@ const ProfileSetting = (props) => {
                     onChange={(e) => setBio(e.target.value)}
                     className="border border-[#d3d3d3] p-4 h-40 resize-none"
                   ></textarea>
+                  {warns.bioError && (
+                    <p className="text-xs font-bold text-red-600 mt-2 text-center md:absolute bottom-0 left-0">
+                      Bio length should be greater than 50 and less than 200
+                    </p>
+                  )}
                 </div>
-                <div className="flex flex-col justify-center w-full">
+                <div className="flex flex-col justify-center w-full relative">
                   <label
                     htmlFor="equipments"
                     className="text-base lg:text-lg p-4 pl-0 capitalize text-center lg:text-left"
@@ -602,7 +617,9 @@ const ProfileSetting = (props) => {
                       profession === "anchor" ||
                       profession === "dj" ||
                       profession === "dancer" ||
-                      profession === "influencer") &&
+                      profession === "influencer" ||
+                      profession === "private_tutor" ||
+                      profession === "dance_teacher") &&
                       "Describe work experience"}
                     {(profession === "photo_editor" ||
                       profession === "video_editor" ||
@@ -620,6 +637,31 @@ const ProfileSetting = (props) => {
                     onChange={(e) => setEquipments(e.target.value)}
                     className="border border-[#d3d3d3] p-4 h-40 resize-none"
                   ></textarea>
+                  {warns.equipmentsError && (
+                    <p className="text-xs font-bold text-red-600 mt-2 text-center md:absolute bottom-0 left-0">
+                      {(profession === "photgrapher" ||
+                        profession === "drone_operator" ||
+                        profession === "cinematographer") &&
+                        "equipments length should be greater than 50 and less than 200"}
+                      {(profession === "makeup_artist" ||
+                        profession === "mehendi_artist") &&
+                        "Products Use length should be  50 and less  200"}
+                      {(profession === "model" ||
+                        profession === "anchor" ||
+                        profession === "dj" ||
+                        profession === "dancer" ||
+                        profession === "influencer" ||
+                        profession === "private_tutor") &&
+                        "Describe work experience length should be  50 and less  200"}
+                      {(profession === "photo_editor" ||
+                        profession === "video_editor" ||
+                        profession === "album_designer" ||
+                        profession === "graphics_designer") &&
+                        "Software Knowledge length should be  50 and less  200"}
+                      {profession === "web_developer" &&
+                        "Fimiliar Language length should be  50 and less  200"}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

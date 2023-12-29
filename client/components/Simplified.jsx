@@ -171,6 +171,18 @@ const Simplified = () => {
             >
               Freelance Mehndi Artist
             </Link>
+            <Link
+              href="/explore/freelancers/private_tutor"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Private Tutor
+            </Link>
+            <Link
+              href="/explore/freelancers/dance_teacher"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Dance Teacher
+            </Link>
           </div>
         </div>
       </div>

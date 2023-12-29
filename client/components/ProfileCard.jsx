@@ -4,7 +4,7 @@ import { AiOutlineThunderbolt } from "react-icons/ai";
 import { ImCamera } from "react-icons/im";
 import { FaVideo, FaStar } from "react-icons/fa";
 import { TbDrone, TbPhotoEdit } from "react-icons/tb";
-import { GiPaintBrush } from "react-icons/gi";
+import { GiPaintBrush, GiTeacher } from "react-icons/gi";
 import { BiPhotoAlbum } from "react-icons/bi";
 import Link from "next/link";
 import { useState } from "react";
@@ -165,7 +165,7 @@ export default function ProfileCard(props) {
         )}
         {profession === "Graphics Designer" && (
           <Image
-            src="/graphics-designer.jpeg"
+            src="/graphics-designer.png"
             className={styles.logo + " w-[0.7rem] md:w-6"}
             alt="graphics-designer-logo"
             width={200}
@@ -180,6 +180,18 @@ export default function ProfileCard(props) {
             width={200}
             height={200}
           />
+        )}
+        {profession === "Dance Teacher" && (
+          <Image
+            src="/dance-teacher.png"
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt="dance-teacher-logo"
+            width={200}
+            height={200}
+          />
+        )}
+        {profession === "Private Tutor" && (
+          <GiTeacher className={styles.logo + " w-[0.7rem] md:w-6"} />
         )}
         <h4>{profession}</h4>
         <div className={styles.rate}>

@@ -402,7 +402,7 @@ export default function Login(props) {
                   onSubmit={handelLoginEmail}
                 >
                   <div className="flex flex-col gap-4 mt-4 items-center">
-                    <div className="flex flex-col md:flex-row gap-1 items-center text-lg">
+                    <div className="flex flex-col md:flex-row gap-1 items-stretch md:items-center text-lg">
                       <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
                         <label htmlFor="email" className="p-1 capitalize">
                           email
