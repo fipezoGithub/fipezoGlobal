@@ -619,7 +619,8 @@ const ProfileSetting = (props) => {
                       profession === "dancer" ||
                       profession === "influencer" ||
                       profession === "private_tutor" ||
-                      profession === "dance_teacher") &&
+                      profession === "dance_teacher" ||
+                      profession === "music_teacher") &&
                       "Describe work experience"}
                     {(profession === "photo_editor" ||
                       profession === "video_editor" ||

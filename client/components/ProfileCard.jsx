@@ -8,7 +8,7 @@ import { GiPaintBrush, GiTeacher } from "react-icons/gi";
 import { BiPhotoAlbum } from "react-icons/bi";
 import Link from "next/link";
 import { useState } from "react";
-import { MdMovieEdit, MdWebhook } from "react-icons/md";
+import { MdMovieEdit, MdOutlineQueueMusic, MdWebhook } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
 
 export default function ProfileCard(props) {
@@ -192,6 +192,9 @@ export default function ProfileCard(props) {
         )}
         {profession === "Private Tutor" && (
           <GiTeacher className={styles.logo + " w-[0.7rem] md:w-6"} />
+        )}
+        {profession === "Music Teacher" && (
+          <MdOutlineQueueMusic className={styles.logo + " w-[0.7rem] md:w-6"} />
         )}
         <h4>{profession}</h4>
         <div className={styles.rate}>

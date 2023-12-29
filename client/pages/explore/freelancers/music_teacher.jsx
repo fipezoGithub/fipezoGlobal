@@ -18,7 +18,7 @@ function Explore(props) {
   const [showDroneOperators, setShowDroneOperators] = useState(false);
   const [showPhotoEditor, setShowPhotoEditor] = useState(false);
   const [showVideoEditor, setShowVideoEditor] = useState(false);
-  const [showAlbumDesign, setShowAlbumDesign] = useState(true);
+  const [showAlbumDesign, setShowAlbumDesign] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [showMakeupArtist, setShowMakeupArtist] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
@@ -31,7 +31,7 @@ function Explore(props) {
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
   const [showPrivateTutor, setShowPrivateTutor] = useState(false);
   const [showDanceTeacher, setShowDanceTeacher] = useState(false);
-  const [showMusicTeacher, setShowMusicTeacher] = useState(false);
+  const [showMusicTeacher, setShowMusicTeacher] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -92,7 +92,7 @@ function Explore(props) {
           );
           const data = await response.json();
           setFreelancers(data);
-          if (window.innerWidth < 640) {
+          if (window.innerWidth <= 640) {
             setNoOfPages(Math.ceil(data.length / 10));
           } else {
             setNoOfPages(Math.ceil(data.length / 12));
@@ -450,6 +450,7 @@ function Explore(props) {
     }
     return false;
   });
+
   const locationFilter = filtered.filter((freelancer) => {
     if (
       filterCity === "none" &&
@@ -460,6 +461,7 @@ function Explore(props) {
       return true;
     return false;
   });
+
   const finalFiltered = locationFilter.filter((freelancer) => {
     if (!fourStars && !threeStars) {
       return true;
@@ -481,23 +483,24 @@ function Explore(props) {
   });
 
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth <= 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
     } else {
       setNoOfPages(Math.ceil(finalFiltered.length / 12));
     }
   }, [finalFiltered]);
+
   const pages = noOfPages;
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Album Designer is loading"} />
+    <Loading message={"Freelancer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Album Designer</title>
+        <title>Fipezo | Explore Freelancers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -554,6 +557,7 @@ function Explore(props) {
               setShowDj={setShowDj}
               setShowDancer={setShowDancer}
               setShowInfluencer={setShowInfluencer}
+              showGraphicsDesigner={showGraphicsDesigner}
               setShowGraphicsDesigner={setShowGraphicsDesigner}
               showMehendiArtist={showMehendiArtist}
               setShowMehendiArtist={setShowMehendiArtist}
@@ -577,7 +581,6 @@ function Explore(props) {
               showDj={showDj}
               showDancer={showDancer}
               showInfluencer={showInfluencer}
-              showGraphicsDesigner={showGraphicsDesigner}
               searchQuery={searchQuery}
               setRateSort={setRateSort}
               rateSort={rateSort}
@@ -592,7 +595,12 @@ function Explore(props) {
         <div className={styles.main}>
           {final.length === 0 ? (
             <div className={styles.empty}>
-              <Image src="/nobody.webp" width={500} height={500} alt="nobody" />
+              <Image
+                src="/nobody.webp"
+                width={500}
+                height={500}
+                alt="nobody-pic"
+              />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>
                 Try changing the filters or search for a different city.
@@ -612,6 +620,17 @@ function Explore(props) {
                       Back
                     </button>
                   )}
+                  {/* {Array.from({ length: pages }, (_, index) => ( */}
+                  {/* <div
+                    className={styles.page}
+                    style={
+                      currentPage === 1
+                        ? { backgroundColor: "black", color: "white" }
+                        : {}
+                    }
+                    // onClick={() => setCurrentPage(index + 1)}
+                    // key={index}
+                  > */}
                   {currentPage > 1 && (
                     <span
                       className={styles.page}

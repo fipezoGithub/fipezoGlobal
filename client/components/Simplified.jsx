@@ -183,6 +183,12 @@ const Simplified = () => {
             >
               Freelance Dance Teacher
             </Link>
+            <Link
+              href="/explore/freelancers/music_teacher"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Music Teacher
+            </Link>
           </div>
         </div>
       </div>
