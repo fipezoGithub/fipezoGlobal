@@ -1137,6 +1137,9 @@ export default withRouter(
                           <option className={styles.option} value="influencer">
                             Influencer
                           </option>
+                          <option className={styles.option} value="lyricist">
+                            Lyricist
+                          </option>
                           <option
                             className={styles.option}
                             value="makeup_artist"
@@ -1547,7 +1550,8 @@ export default withRouter(
                         this.state.profession === "dance_teacher" ||
                         this.state.profession === "music_teacher" ||
                         this.state.profession === "drawing_teacher" ||
-                        this.state.profession === "painter") && (
+                        this.state.profession === "painter" ||
+                        this.state.profession === "lyricist") && (
                         <div
                           className={styles.inputField}
                           id={styles.equipment}

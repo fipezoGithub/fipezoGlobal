@@ -13,6 +13,8 @@ export default function Categories() {
     "dancer",
     "dj",
     "influencer",
+    "lyricist",
+    "painter",
   ]);
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -36,10 +38,28 @@ export default function Categories() {
           {item === "photographer" && (
             <Image
               src="/photographer-cat.png"
+              width={100}
+              height={100}
+              className={styles.image}
+              alt="photographer logo"
+            />
+          )}
+          {item === "lyricist" && (
+            <Image
+              src="/lyricist-cat.png"
+              width={100}
+              height={100}
+              className={styles.image}
+              alt="lyricist logo"
+            />
+          )}
+          {item === "painter" && (
+            <Image
+              src="/painter-cat.png"
               width={75}
               height={75}
               className={styles.image}
-              alt="photographer logo"
+              alt="lyricist logo"
             />
           )}
           {item === "anchor" && (
@@ -72,8 +92,8 @@ export default function Categories() {
           {item === "influencer" && (
             <Image
               src="/influencer-cat.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="influencer logo"
             />
@@ -81,8 +101,8 @@ export default function Categories() {
           {item === "photo_editor" && (
             <Image
               src="/photo_editor.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="photo editor logo"
             />
@@ -90,8 +110,8 @@ export default function Categories() {
           {item === "video_editor" && (
             <Image
               src="/video_editor.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="video editor logo"
             />
@@ -99,8 +119,8 @@ export default function Categories() {
           {item === "model" && (
             <Image
               src="/model-illus.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="model logo"
             />
@@ -121,6 +141,8 @@ export default function Categories() {
             <p className={styles.minText}>Video Editor</p>
           )}
           {item === "model" && <p className={styles.minText}>Model</p>}
+          {item === "lyricist" && <p className={styles.minText}>Lyricist</p>}
+          {item === "painter" && <p className={styles.minText}>Painter</p>}
         </Link>
       ))}
     </div>

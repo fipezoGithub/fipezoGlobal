@@ -201,6 +201,12 @@ const Simplified = () => {
             >
               Freelance Painter
             </Link>
+            <Link
+              href="/explore/freelancers/lyricist"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Lyricist
+            </Link>
           </div>
         </div>
       </div>
