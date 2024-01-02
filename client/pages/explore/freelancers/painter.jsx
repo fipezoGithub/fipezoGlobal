@@ -31,9 +31,9 @@ function Explore(props) {
   const [showMehendiArtist, setShowMehendiArtist] = useState(false);
   const [showPrivateTutor, setShowPrivateTutor] = useState(false);
   const [showDanceTeacher, setShowDanceTeacher] = useState(false);
-  const [showMusicTeacher, setShowMusicTeacher] = useState(true);
+  const [showMusicTeacher, setShowMusicTeacher] = useState(false);
   const [showDrawingTeacher, setShowDrawingTeacher] = useState(false);
-  const [showPainter, setShowPainter] = useState(false);
+  const [showPainter, setShowPainter] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);

@@ -7,25 +7,26 @@ import { RiStore2Line } from "react-icons/ri";
 
 const Jobheader = () => {
   const [options, setOptions] = useState([
-    "Photographer",
-    "Video Editor",
     "Album Designer",
-    "Photo Editor",
-    "Cinematographer",
-    "Drone Operator",
-    "Model",
-    "Makeup Artist",
     "Anchor",
-    "Web Developer",
-    "DJ",
+    "Cinematographer",
     "Dancer",
-    "Influencer",
-    "Graphics Designer",
-    "Mehendi Artist",
-    "Private Tutor",
     "Dance Teacher",
-    "Music Teacher",
+    "DJ",
     "Drawing Teacher",
+    "Drone Operator",
+    "Graphics Designer",
+    "Influencer",
+    "Makeup Artist",
+    "Mehendi Artist",
+    "Model",
+    "Music Teacher",
+    "Painter",
+    "Photographer",
+    "Photo Editor",
+    "Private Tutor",
+    "Video Editor",
+    "Web Developer",
   ]);
   const [searchTerm, setSearchTerm] = useState("");
   const [city, setCity] = useState([
@@ -272,6 +273,7 @@ const Jobheader = () => {
                 else if (value === "Dance Teacher") value = "dance_teacher";
                 else if (value === "Music Teacher") value = "music_teacher";
                 else if (value === "Drawing Teacher") value = "drawing_teacher";
+                else if (value === "Painter") value = "painter";
                 else if (value === "Graphics Designer")
                   value = "graphics_designer";
                 return (

@@ -1,5 +1,5 @@
 
-![Screenshot 2023-08-22 171747 final](https://github.com/fipezoGithub/fipezoGlobal/assets/142802496/d623d68f-4b0c-4a99-8730-8717b39304ab)
+![Untitled design (5)](https://github.com/fipezoGithub/fipezoGlobal/assets/142802496/75f34fe2-fa34-4aa7-90a5-2b9ae8932022)
 
 ## A Website For Connecting Freelancers with Clients
 

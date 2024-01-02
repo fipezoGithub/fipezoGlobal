@@ -200,7 +200,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "web_developer" ||
         freelancer.profession === "graphics_designer" ||
         freelancer.profession === "private_tutor" ||
-        freelancer.profession === "drawing_teacher"
+        freelancer.profession === "drawing_teacher" ||
+        freelancer.profession === "painter"
       ) {
         worksToStore = req.files["works[]"]?.map((file) => file.filename);
       } else if (
@@ -260,7 +261,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "influencer" ||
         freelancer.profession === "graphics_designer" ||
         freelancer.profession === "private_tutor" ||
-        freelancer.profession === "drawing_teacher"
+        freelancer.profession === "drawing_teacher" ||
+        freelancer.profession === "painter"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -474,7 +476,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "web_developer" ||
           freelancerData.profession === "graphics_designer" ||
           freelancerData.profession === "private_tutor" ||
-          freelancerData.profession === "drawing_teacher"
+          freelancerData.profession === "drawing_teacher" ||
+          freelancerData.profession === "painter"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -579,7 +582,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "influencer" ||
           freelancerData.profession === "graphics_designer" ||
           freelancerData.profession === "private_tutor" ||
-          freelancerData.profession === "drawing_teacher"
+          freelancerData.profession === "drawing_teacher" ||
+          freelancerData.profession === "painter"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));

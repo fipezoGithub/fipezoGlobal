@@ -9,25 +9,26 @@ class SearchBox extends React.Component {
     super(props);
     this.state = {
       options: [
-        "Photographer",
-        "Video Editor",
         "Album Designer",
-        "Photo Editor",
-        "Cinematographer",
-        "Drone Operator",
-        "Model",
-        "Makeup Artist",
         "Anchor",
-        "Web Developer",
-        "DJ",
+        "Cinematographer",
         "Dancer",
-        "Influencer",
-        "Graphics Designer",
-        "Mehendi Artist",
-        "Private Tutor",
         "Dance Teacher",
-        "Music Teacher",
+        "DJ",
         "Drawing Teacher",
+        "Drone Operator",
+        "Graphics Designer",
+        "Influencer",
+        "Makeup Artist",
+        "Mehendi Artist",
+        "Model",
+        "Music Teacher",
+        "Painter",
+        "Photographer",
+        "Photo Editor",
+        "Private Tutor",
+        "Video Editor",
+        "Web Developer",
       ],
       city: [
         "Agra",
@@ -182,6 +183,7 @@ class SearchBox extends React.Component {
                   else if (value === "Private Tutor") value = "private_tutor";
                   else if (value === "Dance Teacher") value = "dance_teacher";
                   else if (value === "Music Teacher") value = "music_teacher";
+                  else if (value === "Painter") value = "painter";
                   else if (value === "Drawing Teacher")
                     value = "drawing_teacher";
                   else if (value === "Graphics Designer")
