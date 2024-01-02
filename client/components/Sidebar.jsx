@@ -195,6 +195,24 @@ class Sidebar extends React.Component {
                   className={styles.checkbox}
                   type="checkbox"
                   onChange={(e) => {
+                    this.props.setShowDrawingTeacher(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="drawing_teacher"
+                  checked={this.props.showDrawingTeacher}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="drawing_teacher"
+                >
+                  Drawing Teacher
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
                     this.props.setShowDroneOperators(e.target.checked);
                     this.props.setCurrentPage(1);
                   }}

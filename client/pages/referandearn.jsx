@@ -73,7 +73,7 @@ const Referandearn = (props) => {
             </p>
           </div>
         </div>
-        {type === "user" || type === "freelancer" ? (
+        {props.user ? (
           <Link
             href="/my_referral"
             className="px-4 py-2 border-[1.8px] shadow capitalize font-semibold w-fit border-[#00aaff] hover:bg-[#00aaff] hover:text-white"

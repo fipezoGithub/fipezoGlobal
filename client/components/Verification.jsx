@@ -504,7 +504,8 @@ function Verification(props) {
         props.profession === "web_developer" ||
         props.profession === "graphics_designer" ||
         props.profession === "mehendi_artist" ||
-        props.profession === "private_tutor") && (
+        props.profession === "private_tutor" ||
+        props.profession === "drawing_teacher") && (
         <div className={styles.portfolio}>
           <div
             className={styles.addBox}

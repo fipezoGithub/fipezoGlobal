@@ -32,6 +32,7 @@ function Explore(props) {
   const [showPrivateTutor, setShowPrivateTutor] = useState(false);
   const [showDanceTeacher, setShowDanceTeacher] = useState(false);
   const [showMusicTeacher, setShowMusicTeacher] = useState(false);
+  const [showDrawingTeacher, setShowDrawingTeacher] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -141,7 +142,8 @@ function Explore(props) {
       !showMehendiArtist &&
       !showPrivateTutor &&
       !showDanceTeacher &&
-      !showMusicTeacher
+      !showMusicTeacher &&
+      !showDrawingTeacher
     ) {
       return true;
     }
@@ -163,7 +165,8 @@ function Explore(props) {
       showMehendiArtist &&
       showPrivateTutor &&
       showDanceTeacher &&
-      showMusicTeacher
+      showMusicTeacher &&
+      showDrawingTeacher
     ) {
       return (
         freelancer.profession === "photographer" ||
@@ -183,7 +186,8 @@ function Explore(props) {
         freelancer.profession === "mehendi_artist" ||
         freelancer.profession === "private_tutor" ||
         freelancer.profession === "dance_teacher" ||
-        freelancer.profession === "music_teacher"
+        freelancer.profession === "music_teacher" ||
+        freelancer.profession === "drawing_teacher"
       );
     }
     if (showPhotographers && showCinematographers) {
@@ -288,6 +292,12 @@ function Explore(props) {
         freelancer.profession === "music_teacher"
       );
     }
+    if (showPhotographers && showDrawingTeacher) {
+      return (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "drawing_teacher"
+      );
+    }
     if (showCinematographers && showDroneOperators) {
       return (
         freelancer.profession === "cinematographer" ||
@@ -384,6 +394,12 @@ function Explore(props) {
         freelancer.profession === "music_teacher"
       );
     }
+    if (showCinematographers && showDrawingTeacher) {
+      return (
+        freelancer.profession === "cinematographer" ||
+        freelancer.profession === "drawing_teacher"
+      );
+    }
     if (showPhotographers) {
       return freelancer.profession === "photographer";
     }
@@ -437,6 +453,9 @@ function Explore(props) {
     }
     if (showMusicTeacher) {
       return freelancer.profession === "music_teacher";
+    }
+    if (showDrawingTeacher) {
+      return freelancer.profession === "drawing_teacher";
     }
     return true;
   });
@@ -559,6 +578,8 @@ function Explore(props) {
               setShowDanceTeacher={setShowDanceTeacher}
               showMusicTeacher={showMusicTeacher}
               setShowMusicTeacher={setShowMusicTeacher}
+              showDrawingTeacher={showDrawingTeacher}
+              setShowDrawingTeacher={setShowDrawingTeacher}
               setSearchQuery={setSearchQuery}
               showPhotographers={showPhotographers}
               showCinematographers={showCinematographers}

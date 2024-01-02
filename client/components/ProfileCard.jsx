@@ -181,6 +181,15 @@ export default function ProfileCard(props) {
             height={200}
           />
         )}
+        {profession === "Drawing Teacher" && (
+          <Image
+            src="/drawing_teacher.png"
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt="drawing-teacher-logo"
+            width={200}
+            height={200}
+          />
+        )}
         {profession === "Dance Teacher" && (
           <Image
             src="/dance-teacher.png"

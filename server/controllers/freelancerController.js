@@ -199,7 +199,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "album_designer" ||
         freelancer.profession === "web_developer" ||
         freelancer.profession === "graphics_designer" ||
-        freelancer.profession === "private_tutor"
+        freelancer.profession === "private_tutor" ||
+        freelancer.profession === "drawing_teacher"
       ) {
         worksToStore = req.files["works[]"]?.map((file) => file.filename);
       } else if (
@@ -258,7 +259,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "dancer" ||
         freelancer.profession === "influencer" ||
         freelancer.profession === "graphics_designer" ||
-        freelancer.profession === "private_tutor"
+        freelancer.profession === "private_tutor" ||
+        freelancer.profession === "drawing_teacher"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -471,7 +473,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "album_designer" ||
           freelancerData.profession === "web_developer" ||
           freelancerData.profession === "graphics_designer" ||
-          freelancer.profession === "private_tutor"
+          freelancerData.profession === "private_tutor" ||
+          freelancerData.profession === "drawing_teacher"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -575,7 +578,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "dancer" ||
           freelancerData.profession === "influencer" ||
           freelancerData.profession === "graphics_designer" ||
-          freelancer.profession === "private_tutor"
+          freelancerData.profession === "private_tutor" ||
+          freelancerData.profession === "drawing_teacher"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));
