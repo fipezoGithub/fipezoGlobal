@@ -169,11 +169,6 @@ async function verificationProfile(req, res) {
         return;
       }
 
-      if (freelancer.verified === true) {
-        res.status(400).send("User already verified");
-        return;
-      }
-
       let resizedAadhaarCard;
 
       if (req.files["aadhaarCard"]) {
@@ -201,7 +196,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "graphics_designer" ||
         freelancer.profession === "private_tutor" ||
         freelancer.profession === "drawing_teacher" ||
-        freelancer.profession === "painter"
+        freelancer.profession === "painter" ||
+        freelancer.profession === "fashion_designer"
       ) {
         worksToStore = req.files["works[]"]?.map((file) => file.filename);
       } else if (
@@ -262,7 +258,8 @@ async function verificationProfile(req, res) {
         freelancer.profession === "graphics_designer" ||
         freelancer.profession === "private_tutor" ||
         freelancer.profession === "drawing_teacher" ||
-        freelancer.profession === "painter"
+        freelancer.profession === "painter" ||
+        freelancer.profession === "fashion_designer"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -477,7 +474,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "graphics_designer" ||
           freelancerData.profession === "private_tutor" ||
           freelancerData.profession === "drawing_teacher" ||
-          freelancerData.profession === "painter"
+          freelancerData.profession === "painter" ||
+          freelancerData.profession === "fashion_designer"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -583,7 +581,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "graphics_designer" ||
           freelancerData.profession === "private_tutor" ||
           freelancerData.profession === "drawing_teacher" ||
-          freelancerData.profession === "painter"
+          freelancerData.profession === "painter" ||
+          freelancerData.profession === "fashion_designer"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));

@@ -235,6 +235,15 @@ export default function ProfileCard(props) {
             height={200}
           />
         )}
+        {profession === "Fashion Designer" && (
+          <Image
+            src="/fashion-designer.png"
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt="fashion-designer-logo"
+            width={200}
+            height={200}
+          />
+        )}
         {profession === "Private Tutor" && (
           <GiTeacher className={styles.logo + " w-[0.7rem] md:w-6"} />
         )}

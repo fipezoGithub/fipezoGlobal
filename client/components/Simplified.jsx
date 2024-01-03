@@ -219,6 +219,12 @@ const Simplified = () => {
             >
               Freelance Voice Over Artist
             </Link>
+            <Link
+              href="/explore/freelancers/fashion_designer"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Fashion Designer
+            </Link>
           </div>
         </div>
       </div>

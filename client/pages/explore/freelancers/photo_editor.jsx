@@ -37,6 +37,7 @@ function Explore(props) {
   const [showLyricist, setShowLyricist] = useState(false);
   const [showMusician, setShowMusician] = useState(false);
   const [showVoiceOverArtist, setShowVoiceOverArtist] = useState(false);
+  const [showFashionDesigner, setShowFashionDesigner] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -45,6 +46,7 @@ function Explore(props) {
   const [filterCity, setFilterCity] = useState("");
   const [divider, setDivider] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
   const increPage = (e) => {
     if (currentPage !== noOfPages) {
       setCurrentPage(currentPage + 1);
@@ -57,14 +59,33 @@ function Explore(props) {
     window.innerWidth > 640 && setShowSideBar(true);
     setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
+
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const decrePage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `${process.env.SERVER_URL}/freelancer/search`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: searchQuery }),
+      }
+    );
+    const data = await response.json();
+    setFreelancers(data);
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -77,7 +98,7 @@ function Explore(props) {
           );
           const data = await response.json();
           setFreelancers(data);
-          if (window.innerWidth < 640) {
+          if (window.innerWidth <= 640) {
             setNoOfPages(Math.ceil(data.length / 10));
           } else {
             setNoOfPages(Math.ceil(data.length / 12));
@@ -109,22 +130,7 @@ function Explore(props) {
 
     fetchFreelancer();
   }, [searchQuery]);
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: searchQuery }),
-      }
-    );
-    const data = await response.json();
-    setFreelancers(data);
-    setCurrentPage(1);
-  };
+
   const filteredFreelancers = freelancers.filter((freelancer) => {
     if (
       !showPhotographers &&
@@ -149,7 +155,8 @@ function Explore(props) {
       !showPainter &&
       !showLyricist &&
       !showMusician &&
-      !showVoiceOverArtist
+      !showVoiceOverArtist &&
+      !showFashionDesigner
     ) {
       return true;
     }
@@ -176,7 +183,8 @@ function Explore(props) {
       showPainter &&
       showLyricist &&
       showMusician &&
-      showVoiceOverArtist
+      showVoiceOverArtist &&
+      showFashionDesigner
     ) {
       return (
         freelancer.profession === "photographer" ||
@@ -201,7 +209,8 @@ function Explore(props) {
         freelancer.profession === "painter" ||
         freelancer.profession === "lyricist" ||
         freelancer.profession === "musician" ||
-        freelancer.profession === "voice_over_artist"
+        freelancer.profession === "voice_over_artist" ||
+        freelancer.profession === "fashion_designer"
       );
     }
     if (showPhotographers && showCinematographers) {
@@ -336,10 +345,10 @@ function Explore(props) {
         freelancer.profession === "voice_over_artist"
       );
     }
-    if (showCinematographers && showGraphicsDesigner) {
+    if (showPhotographers && showFashionDesigner) {
       return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "graphics_designer"
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "fashion_designer"
       );
     }
     if (showCinematographers && showDroneOperators) {
@@ -408,6 +417,12 @@ function Explore(props) {
         freelancer.profession === "influencer"
       );
     }
+    if (showCinematographers && showGraphicsDesigner) {
+      return (
+        freelancer.profession === "cinematographer" ||
+        freelancer.profession === "graphics_designer"
+      );
+    }
     if (showCinematographers && showMehendiArtist) {
       return (
         freelancer.profession === "cinematographer" ||
@@ -460,6 +475,12 @@ function Explore(props) {
       return (
         freelancer.profession === "cinematographer" ||
         freelancer.profession === "voice_over_artist"
+      );
+    }
+    if (showCinematographers && showFashionDesigner) {
+      return (
+        freelancer.profession === "cinematographer" ||
+        freelancer.profession === "fashion_designer"
       );
     }
     if (showPhotographers) {
@@ -531,7 +552,9 @@ function Explore(props) {
     if (showVoiceOverArtist) {
       return freelancer.profession === "voice_over_artist";
     }
-
+    if (showFashionDesigner) {
+      return freelancer.profession === "fashion_designer";
+    }
     return true;
   });
 
@@ -541,6 +564,7 @@ function Explore(props) {
     }
     return false;
   });
+
   const locationFilter = filtered.filter((freelancer) => {
     if (
       filterCity === "none" &&
@@ -551,6 +575,7 @@ function Explore(props) {
       return true;
     return false;
   });
+
   const finalFiltered = locationFilter.filter((freelancer) => {
     if (!fourStars && !threeStars) {
       return true;
@@ -566,27 +591,30 @@ function Explore(props) {
   finalFiltered.sort((a, b) => {
     return b.rating * b.reviewCount - a.rating * a.reviewCount;
   });
+
   finalFiltered.sort((a, b) => {
     return Number(b.featured) - Number(a.featured);
   });
+
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth <= 640) {
       setNoOfPages(Math.ceil(finalFiltered.length / 10));
     } else {
       setNoOfPages(Math.ceil(finalFiltered.length / 12));
     }
   }, [finalFiltered]);
+
   const pages = noOfPages;
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
   const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = displayedFreelancers;
   return isLoading === true ? (
-    <Loading message={"Photo Editor is loading"} />
+    <Loading message={"Freelancer is loading"} />
   ) : (
     <div className={styles.explore}>
       <Head>
-        <title>Fipezo | Explore Photo Editors</title>
+        <title>Fipezo | Explore Freelancers</title>
       </Head>
       <Navbar
         user={props.user}
@@ -643,6 +671,7 @@ function Explore(props) {
               setShowDj={setShowDj}
               setShowDancer={setShowDancer}
               setShowInfluencer={setShowInfluencer}
+              showGraphicsDesigner={showGraphicsDesigner}
               setShowGraphicsDesigner={setShowGraphicsDesigner}
               showMehendiArtist={showMehendiArtist}
               setShowMehendiArtist={setShowMehendiArtist}
@@ -662,6 +691,8 @@ function Explore(props) {
               setShowMusician={setShowMusician}
               showVoiceOverArtist={showVoiceOverArtist}
               setShowVoiceOverArtist={setShowVoiceOverArtist}
+              showFashionDesigner={showFashionDesigner}
+              setShowFashionDesigner={setShowFashionDesigner}
               setSearchQuery={setSearchQuery}
               showPhotographers={showPhotographers}
               showCinematographers={showCinematographers}
@@ -676,7 +707,6 @@ function Explore(props) {
               showDj={showDj}
               showDancer={showDancer}
               showInfluencer={showInfluencer}
-              showGraphicsDesigner={showGraphicsDesigner}
               searchQuery={searchQuery}
               setRateSort={setRateSort}
               rateSort={rateSort}
@@ -691,7 +721,12 @@ function Explore(props) {
         <div className={styles.main}>
           {final.length === 0 ? (
             <div className={styles.empty}>
-              <Image src="/nobody.webp" width={500} height={500} alt="nobody" />
+              <Image
+                src="/nobody.webp"
+                width={500}
+                height={500}
+                alt="nobody-pic"
+              />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>
                 Try changing the filters or search for a different city.
@@ -711,6 +746,17 @@ function Explore(props) {
                       Back
                     </button>
                   )}
+                  {/* {Array.from({ length: pages }, (_, index) => ( */}
+                  {/* <div
+                    className={styles.page}
+                    style={
+                      currentPage === 1
+                        ? { backgroundColor: "black", color: "white" }
+                        : {}
+                    }
+                    // onClick={() => setCurrentPage(index + 1)}
+                    // key={index}
+                  > */}
                   {currentPage > 1 && (
                     <span
                       className={styles.page}

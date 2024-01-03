@@ -347,7 +347,8 @@ function ProfileBioCard(props) {
           props.freelancer.profession === "music_teacher" ||
           props.freelancer.profession === "drawing_teacher" ||
           props.freelancer.profession === "painter" ||
-          props.freelancer.profession === "lyricist") && (
+          props.freelancer.profession === "lyricist" ||
+          props.freelancer.profession === "fashion_designer") && (
           <h1 className={styles.title + " text-left"}>Experience</h1>
         )}
         {(props.freelancer.profession === "makeup_artist" ||
