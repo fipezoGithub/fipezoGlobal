@@ -272,6 +272,9 @@ const Createjob = (props) => {
               <option value="model" className="capitalize">
                 model
               </option>
+              <option value="musician" className="capitalize">
+                musician
+              </option>
               <option value="music_teacher" className="capitalize">
                 music teacher
               </option>

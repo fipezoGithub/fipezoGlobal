@@ -15,6 +15,7 @@ export default function Categories() {
     "influencer",
     "lyricist",
     "painter",
+    "musician",
   ]);
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -62,6 +63,15 @@ export default function Categories() {
               alt="lyricist logo"
             />
           )}
+          {item === "musician" && (
+            <Image
+              src="/musician-cat.png"
+              width={75}
+              height={75}
+              className={styles.image}
+              alt="musician logo"
+            />
+          )}
           {item === "anchor" && (
             <Image
               src="/anchor-cat.png"
@@ -83,8 +93,8 @@ export default function Categories() {
           {item === "dj" && (
             <Image
               src="/dj-cat.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="dj logo"
             />
@@ -143,6 +153,7 @@ export default function Categories() {
           {item === "model" && <p className={styles.minText}>Model</p>}
           {item === "lyricist" && <p className={styles.minText}>Lyricist</p>}
           {item === "painter" && <p className={styles.minText}>Painter</p>}
+          {item === "musician" && <p className={styles.minText}>Musician</p>}
         </Link>
       ))}
     </div>

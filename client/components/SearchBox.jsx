@@ -23,6 +23,7 @@ class SearchBox extends React.Component {
         "Makeup Artist",
         "Mehendi Artist",
         "Model",
+        "Musician",
         "Music Teacher",
         "Painter",
         "Photographer",
@@ -184,6 +185,7 @@ class SearchBox extends React.Component {
                   else if (value === "Private Tutor") value = "private_tutor";
                   else if (value === "Dance Teacher") value = "dance_teacher";
                   else if (value === "Music Teacher") value = "music_teacher";
+                  else if (value === "Musician") value = "musician";
                   else if (value === "Painter") value = "painter";
                   else if (value === "Lyricist") value = "lyricist";
                   else if (value === "Drawing Teacher")

@@ -21,6 +21,7 @@ const Jobheader = () => {
     "Makeup Artist",
     "Mehendi Artist",
     "Model",
+    "Musician",
     "Music Teacher",
     "Painter",
     "Photographer",
@@ -273,6 +274,7 @@ const Jobheader = () => {
                 else if (value === "Private Tutor") value = "private_tutor";
                 else if (value === "Dance Teacher") value = "dance_teacher";
                 else if (value === "Music Teacher") value = "music_teacher";
+                else if (value === "Musician") value = "musician";
                 else if (value === "Drawing Teacher") value = "drawing_teacher";
                 else if (value === "Painter") value = "painter";
                 else if (value === "Lyricist") value = "lyricist";

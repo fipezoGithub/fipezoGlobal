@@ -46,15 +46,12 @@ const Profile = (props) => {
           console.error(error);
         });
 
-      fetch(
-        `${process.env.SERVER_URL}/freelancer/paymentdetails`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
         .then((res) => res.json())
         .then((paymentDetails) => {
           if (paymentDetails) {
@@ -128,7 +125,7 @@ const Profile = (props) => {
                 className={style.option + " flex items-center gap-2"}
                 href={
                   premium === true
-                    ? "/fipezopremium"
+                    ? "/subscriptionstatus"
                     : "/freelancer-premium-plans"
                 }
                 // href=""

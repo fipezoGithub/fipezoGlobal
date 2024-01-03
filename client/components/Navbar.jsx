@@ -425,7 +425,7 @@ export default function Navbar(props) {
                     className={styles.btn}
                     href={
                       premium === true
-                        ? "/fipezopremium"
+                        ? "/subscriptionstatus"
                         : "/freelancer-premium-plans"
                     }
                   >
@@ -788,7 +788,7 @@ export default function Navbar(props) {
                     className={styles.btn}
                     href={
                       premium === true
-                        ? "/fipezopremium"
+                        ? "/subscriptionstatus"
                         : "/freelancer-premium-plans"
                     }
                   >

@@ -898,7 +898,8 @@ function Verification(props) {
         props.profession === "video_editor" ||
         props.profession === "dance_teacher" ||
         props.profession === "music_teacher" ||
-        props.profession === "lyricist") && (
+        props.profession === "lyricist" ||
+        props.profession === "musician") && (
         <div className={styles.portfolio}>
           <input
             type="url"
