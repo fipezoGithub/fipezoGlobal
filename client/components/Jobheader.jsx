@@ -28,6 +28,7 @@ const Jobheader = () => {
     "Photo Editor",
     "Private Tutor",
     "Video Editor",
+    "Voice Over Artist",
     "Web Developer",
   ]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -278,6 +279,8 @@ const Jobheader = () => {
                 else if (value === "Drawing Teacher") value = "drawing_teacher";
                 else if (value === "Painter") value = "painter";
                 else if (value === "Lyricist") value = "lyricist";
+                else if (value === "Voice Over Artist")
+                  value = "voice_over_artist";
                 else if (value === "Graphics Designer")
                   value = "graphics_designer";
                 return (

@@ -465,6 +465,24 @@ class Sidebar extends React.Component {
                   className={styles.checkbox}
                   type="checkbox"
                   onChange={(e) => {
+                    this.props.setShowVoiceOverArtist(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="video_editor"
+                  checked={this.props.showVoiceOverArtist}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="video_editor"
+                >
+                  Voice Over Artist
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
                     this.props.setShowWebDeveloper(e.target.checked);
                     this.props.setCurrentPage(1);
                   }}

@@ -1193,6 +1193,12 @@ export default withRouter(
                           </option>
                           <option
                             className={styles.option}
+                            value="voice_over_artist"
+                          >
+                            Voice Over Artist
+                          </option>
+                          <option
+                            className={styles.option}
                             value="web_developer"
                           >
                             Web Developer
@@ -1555,7 +1561,8 @@ export default withRouter(
                         this.state.profession === "music_teacher" ||
                         this.state.profession === "drawing_teacher" ||
                         this.state.profession === "painter" ||
-                        this.state.profession === "lyricist") && (
+                        this.state.profession === "lyricist" ||
+                        this.state.profession === "voice_over_artist") && (
                         <div
                           className={styles.inputField}
                           id={styles.equipment}

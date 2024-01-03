@@ -293,6 +293,9 @@ const Createjob = (props) => {
               <option value="video_editor" className="capitalize">
                 video editor
               </option>
+              <option value="voice_over_artist" className="capitalize">
+                voice over artist
+              </option>
               <option value="web_developer" className="capitalize">
                 web developer
               </option>
