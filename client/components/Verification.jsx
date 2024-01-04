@@ -507,7 +507,9 @@ function Verification(props) {
         props.profession === "private_tutor" ||
         props.profession === "drawing_teacher" ||
         props.profession === "painter" ||
-        props.profession === "fashion_designer") && (
+        props.profession === "fashion_designer" ||
+        props.profession === "babysitter" ||
+        props.profession === "maid") && (
         <div className={styles.portfolio}>
           <div
             className={styles.addBox}
@@ -731,7 +733,10 @@ function Verification(props) {
         props.profession === "anchor" ||
         props.profession === "dj" ||
         props.profession === "dancer" ||
-        props.profession === "influencer") && (
+        props.profession === "influencer" ||
+        props.profession === "actor" ||
+        props.profession === "actress" ||
+        props.profession === "interior_designer") && (
         <div className={styles.portfolio}>
           <input
             type="url"
@@ -901,7 +906,8 @@ function Verification(props) {
         props.profession === "music_teacher" ||
         props.profession === "lyricist" ||
         props.profession === "musician" ||
-        props.profession === "voice_over_artist") && (
+        props.profession === "voice_over_artist" ||
+        props.profession === "vocalist") && (
         <div className={styles.portfolio}>
           <input
             type="url"

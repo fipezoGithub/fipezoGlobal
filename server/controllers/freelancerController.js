@@ -197,7 +197,9 @@ async function verificationProfile(req, res) {
         freelancer.profession === "private_tutor" ||
         freelancer.profession === "drawing_teacher" ||
         freelancer.profession === "painter" ||
-        freelancer.profession === "fashion_designer"
+        freelancer.profession === "fashion_designer" ||
+        freelancer.profession === "babysitter" ||
+        freelancer.profession === "maid"
       ) {
         worksToStore = req.files["works[]"]?.map((file) => file.filename);
       } else if (
@@ -205,7 +207,10 @@ async function verificationProfile(req, res) {
         freelancer.profession === "anchor" ||
         freelancer.profession === "dj" ||
         freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer"
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "actor" ||
+        freelancer.profession === "actress" ||
+        freelancer.profession === "interior_design"
       ) {
         const droneWorksFromBody = [
           req.body.works[0],
@@ -259,7 +264,10 @@ async function verificationProfile(req, res) {
         freelancer.profession === "private_tutor" ||
         freelancer.profession === "drawing_teacher" ||
         freelancer.profession === "painter" ||
-        freelancer.profession === "fashion_designer"
+        freelancer.profession === "fashion_designer" ||
+        freelancer.profession === "actor" ||
+        freelancer.profession === "actress" ||
+        freelancer.profession === "babysitter"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -321,6 +329,20 @@ async function getFeaturedFreelancerProfiles(req, res) {
     const freelancers = await freelancerCollection.find({
       featured: true,
       verified: true,
+    });
+    res.send(freelancers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+//Profiles by profession
+async function getFreelancerProfilesByProfession(req, res) {
+  try {
+    console.log(req.query.q);
+    const freelancers = await freelancerCollection.find({
+      $and: [{ verified: true }, { profession: { $in: req.query.q } }],
     });
     res.send(freelancers);
   } catch (error) {
@@ -475,7 +497,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "private_tutor" ||
           freelancerData.profession === "drawing_teacher" ||
           freelancerData.profession === "painter" ||
-          freelancerData.profession === "fashion_designer"
+          freelancerData.profession === "fashion_designer" ||
+          freelancerData.profession === "babysitter"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -528,7 +551,9 @@ async function updateWork(req, res) {
           freelancerData.profession === "anchor" ||
           freelancerData.profession === "dj" ||
           freelancerData.profession === "dancer" ||
-          freelancerData.profession === "influencer"
+          freelancerData.profession === "influencer" ||
+          freelancer.profession === "actor" ||
+          freelancer.profession === "actress"
         ) {
           const droneWorksFromBody = req.body.works;
           const droneWorksFromFiles = req.files["works[]"]?.map(
@@ -582,7 +607,10 @@ async function updateWork(req, res) {
           freelancerData.profession === "private_tutor" ||
           freelancerData.profession === "drawing_teacher" ||
           freelancerData.profession === "painter" ||
-          freelancerData.profession === "fashion_designer"
+          freelancerData.profession === "fashion_designer" ||
+          freelancerData.profession === "actor" ||
+          freelancerData.profession === "actress" ||
+          freelancerData.profession === "babysitter"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));
@@ -1068,4 +1096,5 @@ module.exports = {
   likeProfile,
   updateWork,
   getPaymentDetailsOFUser,
+  getFreelancerProfilesByProfession,
 };

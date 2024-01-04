@@ -7,8 +7,11 @@ import { RiStore2Line } from "react-icons/ri";
 
 const Jobheader = () => {
   const [options, setOptions] = useState([
+    "Actor",
+    "Actress",
     "Album Designer",
     "Anchor",
+    "Babysitter",
     "Cinematographer",
     "Dancer",
     "Dance Teacher",
@@ -18,7 +21,9 @@ const Jobheader = () => {
     "Fashion Designer",
     "Graphics Designer",
     "Influencer",
+    "Interior Designer",
     "Lyricist",
+    "Maid",
     "Makeup Artist",
     "Mehendi Artist",
     "Model",
@@ -29,6 +34,7 @@ const Jobheader = () => {
     "Photo Editor",
     "Private Tutor",
     "Video Editor",
+    "Vocalist",
     "Voice Over Artist",
     "Web Developer",
   ]);
@@ -280,6 +286,13 @@ const Jobheader = () => {
                 else if (value === "Drawing Teacher") value = "drawing_teacher";
                 else if (value === "Painter") value = "painter";
                 else if (value === "Lyricist") value = "lyricist";
+                else if (value === "Vocalist") value = "vocalist";
+                else if (value === "Actor") value = "actor";
+                else if (value === "Actress") value = "actress";
+                else if (value === "Babysitter") value = "babysitter";
+                else if (value === "Maid") value = "maid";
+                else if (value === "Interior Designer")
+                  value = "interior_designer";
                 else if (value === "Fashion Designer")
                   value = "fashion_designer";
                 else if (value === "Voice Over Artist")

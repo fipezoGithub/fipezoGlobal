@@ -109,7 +109,7 @@ const Fipezopremium = (props) => {
                   scope="col"
                   className="capitalize md:px-6 py-3 block md:table-cell"
                 >
-                  prize
+                  price
                 </th>
                 <th
                   scope="col"

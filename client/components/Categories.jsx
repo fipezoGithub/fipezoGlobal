@@ -16,6 +16,11 @@ export default function Categories() {
     "lyricist",
     "painter",
     "musician",
+    "vocalist",
+    "actor",
+    "actress",
+    "babysitter",
+    "maid",
   ]);
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -66,8 +71,8 @@ export default function Categories() {
           {item === "musician" && (
             <Image
               src="/musician-cat.png"
-              width={75}
-              height={75}
+              width={100}
+              height={100}
               className={styles.image}
               alt="musician logo"
             />
@@ -81,6 +86,42 @@ export default function Categories() {
               alt="anchor logo"
             />
           )}
+          {item === "maid" && (
+            <Image
+              src="/maid-cat.png"
+              width={50}
+              height={50}
+              className={styles.image}
+              alt="maid logo"
+            />
+          )}
+          {item === "babysitter" && (
+            <Image
+              src="/babysitter-cat.png"
+              width={75}
+              height={75}
+              className={styles.image}
+              alt="babysitter logo"
+            />
+          )}
+          {item === "actor" && (
+            <Image
+              src="/actor-cat.png"
+              width={60}
+              height={60}
+              className={styles.image}
+              alt="actor logo"
+            />
+          )}
+          {item === "actress" && (
+            <Image
+              src="/actress-cat.png"
+              width={75}
+              height={75}
+              className={styles.image}
+              alt="actress logo"
+            />
+          )}
           {item === "dancer" && (
             <Image
               src="/dancer-cat.png"
@@ -88,6 +129,15 @@ export default function Categories() {
               height={75}
               className={styles.image}
               alt="dancer logo"
+            />
+          )}
+          {item === "vocalist" && (
+            <Image
+              src="/vocalist-cat.png"
+              width={75}
+              height={75}
+              className={styles.image}
+              alt="vocalist logo"
             />
           )}
           {item === "dj" && (
@@ -139,6 +189,11 @@ export default function Categories() {
             <p className={styles.minText}>Photographer</p>
           )}
           {item === "anchor" && <p className={styles.minText}>Anchor</p>}
+          {item === "actor" && <p className={styles.minText}>Actor</p>}
+          {item === "babysitter" && (
+            <p className={styles.minText}>Babysitter</p>
+          )}
+          {item === "actress" && <p className={styles.minText}>Actress</p>}
           {item === "dancer" && <p className={styles.minText}>Dancer</p>}
           {item === "dj" && <p className={styles.minText}>DJ</p>}
           {item === "influencer" && (
@@ -151,9 +206,11 @@ export default function Categories() {
             <p className={styles.minText}>Video Editor</p>
           )}
           {item === "model" && <p className={styles.minText}>Model</p>}
+          {item === "maid" && <p className={styles.minText}>Maid</p>}
           {item === "lyricist" && <p className={styles.minText}>Lyricist</p>}
           {item === "painter" && <p className={styles.minText}>Painter</p>}
           {item === "musician" && <p className={styles.minText}>Musician</p>}
+          {item === "vocalist" && <p className={styles.minText}>Vocalist</p>}
         </Link>
       ))}
     </div>

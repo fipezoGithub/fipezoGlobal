@@ -225,6 +225,42 @@ const Simplified = () => {
             >
               Freelance Fashion Designer
             </Link>
+            <Link
+              href="/explore/freelancers/vocalist"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Vocalist
+            </Link>
+            <Link
+              href="/explore/freelancers/actor"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Actor
+            </Link>
+            <Link
+              href="/explore/freelancers/actress"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Actress
+            </Link>
+            <Link
+              href="/explore/freelancers/babysitter"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Babysitter
+            </Link>
+            <Link
+              href="/explore/freelancers/maid"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Maid
+            </Link>
+            <Link
+              href="/explore/freelancers/interior_designer"
+              className="text-blue-500 font-bold text-lg hover:text-blue-900"
+            >
+              Freelance Interior Designer
+            </Link>
           </div>
         </div>
       </div>

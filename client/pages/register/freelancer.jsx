@@ -1089,6 +1089,12 @@ export default withRouter(
                           value={this.state.profession}
                           onKeyDown={this.handleEnterKeyPress}
                         >
+                          <option className={styles.option} value="actor">
+                            Actor
+                          </option>
+                          <option className={styles.option} value="actress">
+                            Actress
+                          </option>
                           <option
                             className={styles.option}
                             value="album_designer"
@@ -1097,6 +1103,9 @@ export default withRouter(
                           </option>
                           <option className={styles.option} value="anchor">
                             Anchor
+                          </option>
+                          <option className={styles.option} value="babysitter">
+                            Babysitter
                           </option>
                           <option
                             className={styles.option}
@@ -1143,8 +1152,17 @@ export default withRouter(
                           <option className={styles.option} value="influencer">
                             Influencer
                           </option>
+                          <option
+                            className={styles.option}
+                            value="interior_designer"
+                          >
+                            Interior Designer
+                          </option>
                           <option className={styles.option} value="lyricist">
                             Lyricist
+                          </option>
+                          <option className={styles.option} value="maid">
+                            Maid
                           </option>
                           <option
                             className={styles.option}
@@ -1196,6 +1214,9 @@ export default withRouter(
                             value="video_editor"
                           >
                             Video Editor
+                          </option>
+                          <option className={styles.option} value="vocalist">
+                            Vocalist
                           </option>
                           <option
                             className={styles.option}
@@ -1569,7 +1590,13 @@ export default withRouter(
                         this.state.profession === "painter" ||
                         this.state.profession === "lyricist" ||
                         this.state.profession === "voice_over_artist" ||
-                        this.state.profession === "fashion_designer") && (
+                        this.state.profession === "fashion_designer" ||
+                        this.state.profession === "vocalist" ||
+                        this.state.profession === "actor" ||
+                        this.state.profession === "actress" ||
+                        this.state.profession === "babysitter" ||
+                        this.state.profession === "maid" ||
+                        this.state.profession === "interior_designer") && (
                         <div
                           className={styles.inputField}
                           id={styles.equipment}

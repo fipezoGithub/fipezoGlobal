@@ -333,8 +333,7 @@ function ProfileBioCard(props) {
           props.freelancer.profession === "cinematographer" ||
           props.freelancer.profession === "drone_operator" ||
           props.freelancer.profession === "cinematographer" ||
-          props.freelancer.profession === "musician" ||
-          props.freelancer.profession === "voice_over_artist") && (
+          props.freelancer.profession === "musician") && (
           <h1 className={styles.title + " text-left"}>Equipments Available</h1>
         )}
         {(props.freelancer.profession === "model" ||
@@ -348,7 +347,14 @@ function ProfileBioCard(props) {
           props.freelancer.profession === "drawing_teacher" ||
           props.freelancer.profession === "painter" ||
           props.freelancer.profession === "lyricist" ||
-          props.freelancer.profession === "fashion_designer") && (
+          props.freelancer.profession === "fashion_designer" ||
+          props.freelancer.profession === "voice_over_artist" ||
+          props.freelancer.profession === "vocalist" ||
+          props.freelancer.profession === "actor" ||
+          props.freelancer.profession === "actress" ||
+          props.freelancer.profession === "babysitter" ||
+          props.freelancer.profession === "maid" ||
+          props.freelancer.profession === "interior_designer") && (
           <h1 className={styles.title + " text-left"}>Experience</h1>
         )}
         {(props.freelancer.profession === "makeup_artist" ||

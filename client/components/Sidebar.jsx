@@ -85,6 +85,42 @@ class Sidebar extends React.Component {
               <div className={styles.inputs + " snap-center"}>
                 <input
                   className={styles.checkbox}
+                  id="actor"
+                  type="checkbox"
+                  onChange={(e) => {
+                    this.props.setShowActor(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  checked={this.props.showActor}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="actor"
+                >
+                  Actor
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  id="actress"
+                  type="checkbox"
+                  onChange={(e) => {
+                    this.props.setShowActress(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  checked={this.props.showActress}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="actress"
+                >
+                  Actress
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
                   id="album_designer"
                   type="checkbox"
                   onChange={(e) => {
@@ -116,6 +152,24 @@ class Sidebar extends React.Component {
                   htmlFor="anchor"
                 >
                   Anchor
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
+                    this.props.setShowBabySitter(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="babysitter"
+                  checked={this.props.showBabySitter}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="babysitter"
+                >
+                  Babysitter
                 </label>
               </div>
               <div className={styles.inputs + " snap-center"}>
@@ -285,6 +339,24 @@ class Sidebar extends React.Component {
                   className={styles.checkbox}
                   type="checkbox"
                   onChange={(e) => {
+                    this.props.setShowInteriorDesigner(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="interior_designer"
+                  checked={this.props.showInteriorDesigner}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="interior_designer"
+                >
+                  Interior Designer
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
                     this.props.setShowLyricist(e.target.checked);
                     this.props.setCurrentPage(1);
                   }}
@@ -296,6 +368,24 @@ class Sidebar extends React.Component {
                   htmlFor="lyricist"
                 >
                   Lyricist
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
+                    this.props.setShowMaid(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="maid"
+                  checked={this.props.showMaid}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="maid"
+                >
+                  Maid
                 </label>
               </div>
               <div className={styles.inputs + " snap-center"}>
@@ -476,6 +566,24 @@ class Sidebar extends React.Component {
                   htmlFor="video_editor"
                 >
                   Video Editor
+                </label>
+              </div>
+              <div className={styles.inputs + " snap-center"}>
+                <input
+                  className={styles.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
+                    this.props.setShowVocalist(e.target.checked);
+                    this.props.setCurrentPage(1);
+                  }}
+                  id="video_editor"
+                  checked={this.props.showVocalist}
+                />
+                <label
+                  className={styles.label + " cursor-pointer"}
+                  htmlFor="video_editor"
+                >
+                  Vocalist
                 </label>
               </div>
               <div className={styles.inputs + " snap-center"}>

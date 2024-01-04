@@ -9,6 +9,7 @@ import Image from "next/image";
 import Head from "next/head";
 import Loading from "@/components/Loading";
 import { IoSearch } from "react-icons/io5";
+import { useRouter } from "next/router";
 
 function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,12 +33,18 @@ function Explore(props) {
   const [showPrivateTutor, setShowPrivateTutor] = useState(false);
   const [showDanceTeacher, setShowDanceTeacher] = useState(false);
   const [showMusicTeacher, setShowMusicTeacher] = useState(false);
-  const [showDrawingTeacher, setShowDrawingTeacher] = useState(true);
+  const [showDrawingTeacher, setShowDrawingTeacher] = useState(false);
   const [showPainter, setShowPainter] = useState(false);
   const [showLyricist, setShowLyricist] = useState(false);
   const [showMusician, setShowMusician] = useState(false);
   const [showVoiceOverArtist, setShowVoiceOverArtist] = useState(false);
   const [showFashionDesigner, setShowFashionDesigner] = useState(false);
+  const [showVocalist, setShowVocalist] = useState(false);
+  const [showActor, setShowActor] = useState(false);
+  const [showActress, setShowActress] = useState(false);
+  const [showBabySitter, setShowBabySitter] = useState(false);
+  const [showMaid, setShowMaid] = useState(false);
+  const [showInteriorDesigner, setShowInteriorDesigner] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
@@ -46,6 +53,73 @@ function Explore(props) {
   const [filterCity, setFilterCity] = useState("");
   const [divider, setDivider] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.profession === "album_designer") {
+      setShowAlbumDesign(true);
+    } else if (router.query.profession === "anchor") {
+      setShowAnchor(true);
+    } else if (router.query.profession === "cinematographer") {
+      setShowCinematographers(true);
+    } else if (router.query.profession === "dancer") {
+      setShowDancer(true);
+    } else if (router.query.profession === "dance_teacher") {
+      setShowDanceTeacher(true);
+    } else if (router.query.profession === "dj") {
+      setShowDj(true);
+    } else if (router.query.profession === "drone_operator") {
+      setShowDroneOperators(true);
+    } else if (router.query.profession === "drawing_teacher") {
+      setShowDrawingTeacher(true);
+    } else if (router.query.profession === "drone_operator") {
+      setShowDroneOperators(true);
+    } else if (router.query.profession === "fashion_designer") {
+      setShowFashionDesigner(true);
+    } else if (router.query.profession === "graphics_designer") {
+      setShowGraphicsDesigner(true);
+    } else if (router.query.profession === "influencer") {
+      setShowInfluencer(true);
+    } else if (router.query.profession === "lyricist") {
+      setShowLyricist(true);
+    } else if (router.query.profession === "makeup_artist") {
+      setShowMakeupArtist(true);
+    } else if (router.query.profession === "mehendi_artist") {
+      setShowMehendiArtist(true);
+    } else if (router.query.profession === "model") {
+      setShowModel(true);
+    } else if (router.query.profession === "musician") {
+      setShowMusician(true);
+    } else if (router.query.profession === "music_teacher") {
+      setShowMusicTeacher(true);
+    } else if (router.query.profession === "painter") {
+      setShowPainter(true);
+    } else if (router.query.profession === "photographer") {
+      setShowPhotographers(true);
+    } else if (router.query.profession === "photo_editor") {
+      setShowPhotoEditor(true);
+    } else if (router.query.profession === "private_tutor") {
+      setShowPrivateTutor(true);
+    } else if (router.query.profession === "video_editor") {
+      setShowVideoEditor(true);
+    } else if (router.query.profession === "voice_over_artist") {
+      setShowVoiceOverArtist(true);
+    } else if (router.query.profession === "vocalist") {
+      setShowVocalist(true);
+    } else if (router.query.profession === "web_developer") {
+      setShowWebDeveloper(true);
+    } else if (router.query.profession === "actor") {
+      setShowActor(true);
+    } else if (router.query.profession === "actress") {
+      setShowActress(true);
+    } else if (router.query.profession === "babysitter") {
+      setShowBabySitter(true);
+    } else if (router.query.profession === "maid") {
+      setShowMaid(true);
+    } else if (router.query.profession === "interior_designer") {
+      setShowInteriorDesigner(true);
+    }
+  }, [router.query]);
 
   const increPage = (e) => {
     if (currentPage !== noOfPages) {
@@ -93,7 +167,7 @@ function Explore(props) {
       try {
         if (searchQuery.length === 0) {
           const response = await fetch(
-            `${process.env.SERVER_URL}/profiles/verified/freelancer`,
+            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}`,
             { cache: "no-store" }
           );
           const data = await response.json();
@@ -131,434 +205,196 @@ function Explore(props) {
     fetchFreelancer();
   }, [searchQuery]);
 
-  const filteredFreelancers = freelancers.filter((freelancer) => {
-    if (
-      !showPhotographers &&
-      !showCinematographers &&
-      !showDroneOperators &&
-      !showPhotoEditor &&
-      !showVideoEditor &&
-      !showAlbumDesign &&
-      !showModel &&
-      !showMakeupArtist &&
-      !showAnchor &&
-      !showWebDeveloper &&
-      !showDj &&
-      !showDancer &&
-      !showInfluencer &&
-      !showGraphicsDesigner &&
-      !showMehendiArtist &&
-      !showPrivateTutor &&
-      !showDanceTeacher &&
-      !showMusicTeacher &&
-      !showDrawingTeacher &&
-      !showPainter &&
-      !showLyricist &&
-      !showMusician &&
-      !showVoiceOverArtist &&
-      !showFashionDesigner
-    ) {
-      return true;
+  useEffect(() => {
+    async function fetchFreelancer() {
+      try {
+        if (
+          !showPhotographers &&
+          !showCinematographers &&
+          !showDroneOperators &&
+          !showPhotoEditor &&
+          !showVideoEditor &&
+          !showAlbumDesign &&
+          !showModel &&
+          !showMakeupArtist &&
+          !showAnchor &&
+          !showWebDeveloper &&
+          !showDj &&
+          !showDancer &&
+          !showInfluencer &&
+          !showGraphicsDesigner &&
+          !showMehendiArtist &&
+          !showPrivateTutor &&
+          !showDanceTeacher &&
+          !showMusicTeacher &&
+          !showDrawingTeacher &&
+          !showPainter &&
+          !showLyricist &&
+          !showMusician &&
+          !showVoiceOverArtist &&
+          !showFashionDesigner &&
+          !showVocalist &&
+          !showActor &&
+          !showActress &&
+          !showBabySitter &&
+          !showMaid &&
+          !showInteriorDesigner
+        ) {
+          const response = await fetch(
+            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}`,
+            { cache: "no-store" }
+          );
+          const data = await response.json();
+          setFreelancers(data);
+          if (window.innerWidth <= 640) {
+            setNoOfPages(Math.ceil(data.length / 10));
+          } else {
+            setNoOfPages(Math.ceil(data.length / 12));
+          }
+        } else {
+          let queryStr = "";
+          if (showPhotographers) {
+            queryStr = queryStr + "q[]=photographer&";
+          }
+          if (showCinematographers) {
+            queryStr = queryStr + "q[]=cinematographer&";
+          }
+          if (showDroneOperators) {
+            queryStr = queryStr + "q[]=drone_operator&";
+          }
+          if (showPhotoEditor) {
+            queryStr = queryStr + "q[]=photo_editor&";
+          }
+          if (showVideoEditor) {
+            queryStr = queryStr + "q[]=video_editor&";
+          }
+          if (showAlbumDesign) {
+            queryStr = queryStr + "q[]=album_designer&";
+          }
+          if (showModel) {
+            queryStr = queryStr + "q[]=model&";
+          }
+          if (showMakeupArtist) {
+            queryStr = queryStr + "q[]=makeup_artist&";
+          }
+          if (showAnchor) {
+            queryStr = queryStr + "q[]=anchor&";
+          }
+          if (showWebDeveloper) {
+            queryStr = queryStr + "q[]=web_developer&";
+          }
+          if (showDj) {
+            queryStr = queryStr + "q[]=dj&";
+          }
+          if (showDancer) {
+            queryStr = queryStr + "q[]=dancer&";
+          }
+          if (showInfluencer) {
+            queryStr = queryStr + "q[]=influencer&";
+          }
+          if (showGraphicsDesigner) {
+            queryStr = queryStr + "q[]=graphics_designer&";
+          }
+          if (showMehendiArtist) {
+            queryStr = queryStr + "q[]=mehendi_artist&";
+          }
+          if (showPrivateTutor) {
+            queryStr = queryStr + "q[]=private_tutor&";
+          }
+          if (showDanceTeacher) {
+            queryStr = queryStr + "q[]=dance_teacher&";
+          }
+          if (showMusicTeacher) {
+            queryStr = queryStr + "q[]=music_teacher&";
+          }
+          if (showDrawingTeacher) {
+            queryStr = queryStr + "q[]=drawing_teacher&";
+          }
+          if (showPainter) {
+            queryStr = queryStr + "q[]=painter&";
+          }
+          if (showLyricist) {
+            queryStr = queryStr + "q[]=lyricist&";
+          }
+          if (showMusician) {
+            queryStr = queryStr + "q[]=musician&";
+          }
+          if (showVoiceOverArtist) {
+            queryStr = queryStr + "q[]=voice_over_artist&";
+          }
+          if (showFashionDesigner) {
+            queryStr = queryStr + "q[]=fashion_designer&";
+          }
+          if (showVocalist) {
+            queryStr = queryStr + "q[]=vocalist&";
+          }
+          if (showActor) {
+            queryStr = queryStr + "q[]=actor&";
+          }
+          if (showActress) {
+            queryStr = queryStr + "q[]=actress&";
+          }
+          if (showBabySitter) {
+            queryStr = queryStr + "q[]=babysitter&";
+          }
+          if (showMaid) {
+            queryStr = queryStr + "q[]=maid&";
+          }
+          if (showInteriorDesigner) {
+            queryStr = queryStr + "q[]=interior_designer&";
+          }
+          const response = await fetch(
+            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}`
+          );
+          const data = await response.json();
+          setFreelancers(data);
+          if (window.innerWidth < 640) {
+            setNoOfPages(Math.ceil(data.length / 10));
+          } else {
+            setNoOfPages(Math.ceil(data.length / 12));
+          }
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    if (
-      showPhotographers &&
-      showCinematographers &&
-      showDroneOperators &&
-      showPhotoEditor &&
-      showVideoEditor &&
-      showAlbumDesign &&
-      showModel &&
-      showMakeupArtist &&
-      showAnchor &&
-      showWebDeveloper &&
-      showDj &&
-      showDancer &&
-      showInfluencer &&
-      showGraphicsDesigner &&
-      showMehendiArtist &&
-      showPrivateTutor &&
-      showDanceTeacher &&
-      showMusicTeacher &&
-      showDrawingTeacher &&
-      showPainter &&
-      showLyricist &&
-      showMusician &&
-      showVoiceOverArtist &&
-      showFashionDesigner
-    ) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "drone_operator" ||
-        freelancer.profession === "photo_editor" ||
-        freelancer.profession === "video_editor" ||
-        freelancer.profession === "album_designer" ||
-        freelancer.profession === "model" ||
-        freelancer.profession === "makeup_artist" ||
-        freelancer.profession === "anchor" ||
-        freelancer.profession === "web_developer" ||
-        freelancer.profession === "dj" ||
-        freelancer.profession === "dancer" ||
-        freelancer.profession === "influencer" ||
-        freelancer.profession === "graphics_designer" ||
-        freelancer.profession === "mehendi_artist" ||
-        freelancer.profession === "private_tutor" ||
-        freelancer.profession === "dance_teacher" ||
-        freelancer.profession === "music_teacher" ||
-        freelancer.profession === "drawing_teacher" ||
-        freelancer.profession === "painter" ||
-        freelancer.profession === "lyricist" ||
-        freelancer.profession === "musician" ||
-        freelancer.profession === "voice_over_artist" ||
-        freelancer.profession === "fashion_designer"
-      );
-    }
-    if (showPhotographers && showCinematographers) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "cinematographer"
-      );
-    }
-    if (showPhotographers && showDroneOperators) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "drone_operator"
-      );
-    }
-    if (showPhotographers && showPhotoEditor) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "photo_editor"
-      );
-    }
-    if (showPhotographers && showAlbumDesign) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "album_designer"
-      );
-    }
-    if (showPhotographers && showAnchor) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "anchor"
-      );
-    }
-    if (showPhotographers && showDancer) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "dancer"
-      );
-    }
-    if (showPhotographers && showDj) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "dj"
-      );
-    }
-    if (showPhotographers && showMakeupArtist) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "makeup_artist"
-      );
-    }
-    if (showPhotographers && showModel) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "model"
-      );
-    }
-    if (showPhotographers && showVideoEditor) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "video_editor"
-      );
-    }
-    if (showPhotographers && showWebDeveloper) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "web_developer"
-      );
-    }
-    if (showPhotographers && showInfluencer) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "influencer"
-      );
-    }
-    if (showPhotographers && showGraphicsDesigner) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "graphics_designer"
-      );
-    }
-    if (showPhotographers && showMehendiArtist) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "mehendi_artist"
-      );
-    }
-    if (showPhotographers && showPrivateTutor) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "private_tutor"
-      );
-    }
-    if (showPhotographers && showDanceTeacher) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "dance_teacher"
-      );
-    }
-    if (showPhotographers && showMusicTeacher) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "music_teacher"
-      );
-    }
-    if (showPhotographers && showDrawingTeacher) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "drawing_teacher"
-      );
-    }
-    if (showPhotographers && showPainter) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "painter"
-      );
-    }
-    if (showPhotographers && showLyricist) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "lyricist"
-      );
-    }
-    if (showPhotographers && showMusician) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "musician"
-      );
-    }
-    if (showPhotographers && showVoiceOverArtist) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "voice_over_artist"
-      );
-    }
-    if (showPhotographers && showFashionDesigner) {
-      return (
-        freelancer.profession === "photographer" ||
-        freelancer.profession === "fashion_designer"
-      );
-    }
-    if (showCinematographers && showDroneOperators) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "drone_operator"
-      );
-    }
-    if (showCinematographers && showPhotoEditor) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "photo_editor"
-      );
-    }
-    if (showCinematographers && showAlbumDesign) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "album_designer"
-      );
-    }
-    if (showCinematographers && showAnchor) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "anchor"
-      );
-    }
-    if (showCinematographers && showDancer) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "dancer"
-      );
-    }
-    if (showCinematographers && showDj) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "dj"
-      );
-    }
-    if (showCinematographers && showMakeupArtist) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "makeup_artist"
-      );
-    }
-    if (showCinematographers && showModel) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "model"
-      );
-    }
-    if (showCinematographers && showVideoEditor) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "video_editor"
-      );
-    }
-    if (showCinematographers && showWebDeveloper) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "web_developer"
-      );
-    }
-    if (showCinematographers && showInfluencer) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "influencer"
-      );
-    }
-    if (showCinematographers && showGraphicsDesigner) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "graphics_designer"
-      );
-    }
-    if (showCinematographers && showMehendiArtist) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "mehendi_artist"
-      );
-    }
-    if (showCinematographers && showPrivateTutor) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "private_tutor"
-      );
-    }
-    if (showCinematographers && showDanceTeacher) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "dance_teacher"
-      );
-    }
-    if (showCinematographers && showMusicTeacher) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "music_teacher"
-      );
-    }
-    if (showCinematographers && showDrawingTeacher) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "drawing_teacher"
-      );
-    }
-    if (showCinematographers && showPainter) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "painter"
-      );
-    }
-    if (showCinematographers && showLyricist) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "lyricist"
-      );
-    }
-    if (showCinematographers && showMusician) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "musician"
-      );
-    }
-    if (showCinematographers && showVoiceOverArtist) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "voice_over_artist"
-      );
-    }
-    if (showCinematographers && showFashionDesigner) {
-      return (
-        freelancer.profession === "cinematographer" ||
-        freelancer.profession === "fashion_designer"
-      );
-    }
-    if (showPhotographers) {
-      return freelancer.profession === "photographer";
-    }
-    if (showCinematographers) {
-      return freelancer.profession === "cinematographer";
-    }
-    if (showDroneOperators) {
-      return freelancer.profession === "drone_operator";
-    }
-    if (showPhotoEditor) {
-      return freelancer.profession === "photo_editor";
-    }
-    if (showVideoEditor) {
-      return freelancer.profession === "video_editor";
-    }
-    if (showAlbumDesign) {
-      return freelancer.profession === "album_designer";
-    }
-    if (showModel) {
-      return freelancer.profession === "model";
-    }
-    if (showMakeupArtist) {
-      return freelancer.profession === "makeup_artist";
-    }
-    if (showAnchor) {
-      return freelancer.profession === "anchor";
-    }
-    if (showWebDeveloper) {
-      return freelancer.profession === "web_developer";
-    }
-    if (showDj) {
-      return freelancer.profession === "dj";
-    }
-    if (showDancer) {
-      return freelancer.profession === "dancer";
-    }
-    if (showInfluencer) {
-      return freelancer.profession === "influencer";
-    }
-    if (showGraphicsDesigner) {
-      return freelancer.profession === "graphics_designer";
-    }
-    if (showMehendiArtist) {
-      return freelancer.profession === "mehendi_artist";
-    }
-    if (showPrivateTutor) {
-      return freelancer.profession === "private_tutor";
-    }
-    if (showDanceTeacher) {
-      return freelancer.profession === "dance_teacher";
-    }
-    if (showMusicTeacher) {
-      return freelancer.profession === "music_teacher";
-    }
-    if (showDrawingTeacher) {
-      return freelancer.profession === "drawing_teacher";
-    }
-    if (showPainter) {
-      return freelancer.profession === "painter";
-    }
-    if (showLyricist) {
-      return freelancer.profession === "lyricist";
-    }
-    if (showMusician) {
-      return freelancer.profession === "musician";
-    }
-    if (showVoiceOverArtist) {
-      return freelancer.profession === "voice_over_artist";
-    }
-    if (showFashionDesigner) {
-      return freelancer.profession === "fashion_designer";
-    }
-    return true;
-  });
 
-  const filtered = filteredFreelancers.filter((freelancer) => {
+    fetchFreelancer();
+  }, [
+    showPhotographers,
+    showCinematographers,
+    showDroneOperators,
+    showPhotoEditor,
+    showVideoEditor,
+    showAlbumDesign,
+    showModel,
+    showMakeupArtist,
+    showAnchor,
+    showWebDeveloper,
+    showDj,
+    showDancer,
+    showInfluencer,
+    showGraphicsDesigner,
+    showMehendiArtist,
+    showPrivateTutor,
+    showDanceTeacher,
+    showMusicTeacher,
+    showDrawingTeacher,
+    showPainter,
+    showLyricist,
+    showMusician,
+    showVoiceOverArtist,
+    showFashionDesigner,
+    showVocalist,
+    showActor,
+    showActress,
+    showBabySitter,
+    showMaid,
+    showInteriorDesigner,
+  ]);
+
+  const filtered = freelancers.filter((freelancer) => {
     if (freelancer.rate <= rateSort) {
       return true;
     }
@@ -693,6 +529,18 @@ function Explore(props) {
               setShowVoiceOverArtist={setShowVoiceOverArtist}
               showFashionDesigner={showFashionDesigner}
               setShowFashionDesigner={setShowFashionDesigner}
+              showVocalist={showVocalist}
+              setShowVocalist={setShowVocalist}
+              showActor={showActor}
+              setShowActor={setShowActor}
+              showActress={showActress}
+              setShowActress={setShowActress}
+              showBabySitter={showBabySitter}
+              setShowBabySitter={setShowBabySitter}
+              showInteriorDesigner={showInteriorDesigner}
+              setShowInteriorDesigner={setShowInteriorDesigner}
+              showMaid={showMaid}
+              setShowMaid={setShowMaid}
               setSearchQuery={setSearchQuery}
               showPhotographers={showPhotographers}
               showCinematographers={showCinematographers}

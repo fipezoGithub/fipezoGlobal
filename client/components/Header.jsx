@@ -6,7 +6,22 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      texts: ["Photographer", "Model", "Anchor", "Dancer", "DJ", "Influencer"],
+      texts: [
+        "Photographer",
+        "Model",
+        "Anchor",
+        "Dancer",
+        "DJ",
+        "Influencer",
+        "Lyricist",
+        "Musician",
+        "Painter",
+        "Vocalist",
+        "Actor",
+        "Actress",
+        "Babysitter",
+        "Maid",
+      ],
       backgroundImages: [
         "/photographer-header.png",
         "/web-developer-header.png",

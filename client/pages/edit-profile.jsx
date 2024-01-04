@@ -608,7 +608,8 @@ const ProfileSetting = (props) => {
                   >
                     {(profession === "photgrapher" ||
                       profession === "drone_operator" ||
-                      profession === "cinematographer") &&
+                      profession === "cinematographer" ||
+                      profession === "musician") &&
                       "equipments"}
                     {(profession === "makeup_artist" ||
                       profession === "mehendi_artist") &&
@@ -620,7 +621,18 @@ const ProfileSetting = (props) => {
                       profession === "influencer" ||
                       profession === "private_tutor" ||
                       profession === "dance_teacher" ||
-                      profession === "music_teacher") &&
+                      profession === "music_teacher" ||
+                      profession === "drawing_teacher" ||
+                      profession === "painter" ||
+                      profession === "lyricist" ||
+                      profession === "voice_over_artist" ||
+                      profession === "vocalist" ||
+                      profession === "fashion_designer" ||
+                      profession === "actor" ||
+                      profession === "actress" ||
+                      profession === "babysitter" ||
+                      profession === "interior_designer" ||
+                      profession === "maid") &&
                       "Describe work experience"}
                     {(profession === "photo_editor" ||
                       profession === "video_editor" ||

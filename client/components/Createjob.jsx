@@ -232,11 +232,20 @@ const Createjob = (props) => {
               <option disabled value="profession" className="capitalize">
                 photographer
               </option>
+              <option value="actor" className="capitalize">
+                actor
+              </option>
+              <option value="actress" className="capitalize">
+                actress
+              </option>
               <option value="album_designer" className="capitalize">
                 album designer
               </option>
               <option value="anchor" className="capitalize">
                 anchor
+              </option>
+              <option value="babysitter" className="capitalize">
+                babysitter
               </option>
               <option value="cinematographer" className="capitalize">
                 cinematographer
@@ -263,8 +272,14 @@ const Createjob = (props) => {
               <option value="influencer" className="capitalize">
                 influencer
               </option>
+              <option value="interior_designer" className="capitalize">
+                interior designer
+              </option>
               <option value="lyricist" className="capitalize">
                 lyricist
+              </option>
+              <option value="maid" className="capitalize">
+                maid
               </option>
               <option value="makeup_artist" className="capitalize">
                 makeup artist
@@ -295,6 +310,9 @@ const Createjob = (props) => {
               </option>
               <option value="video_editor" className="capitalize">
                 video editor
+              </option>
+              <option value="vocalist" className="capitalize">
+                vocalist
               </option>
               <option value="voice_over_artist" className="capitalize">
                 voice over artist

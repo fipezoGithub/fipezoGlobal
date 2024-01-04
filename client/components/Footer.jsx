@@ -221,6 +221,22 @@ const Footer = () => {
               <ul className="grid grid-cols-2 gap-4 lg:gap-0">
                 <li>
                   <Link
+                    href="/explore/freelancers/actor"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    actor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/actress"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    actress
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/explore/freelancers/album_designer"
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
@@ -233,6 +249,14 @@ const Footer = () => {
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
                     anchor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/babysitter"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    babysitter
                   </Link>
                 </li>
                 <li>
@@ -253,6 +277,14 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    href="/explore/freelancers/dance_teacher"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    dance teacher
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/explore/freelancers/dj"
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
@@ -261,10 +293,26 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    href="/explore/freelancers/drawing_teacher"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    drawing teacher
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/explore/freelancers/drone_operator"
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
                     drone operator
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/fashion_designer"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    fashion designer
                   </Link>
                 </li>
                 <li>
@@ -281,6 +329,30 @@ const Footer = () => {
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
                     influencer
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/interior_designer"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    interior designer
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/lyricist"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    lyricist
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/maid"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    maid
                   </Link>
                 </li>
                 <li>
@@ -309,6 +381,30 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    href="/explore/freelancers/musician"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    musician
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/music_teacher"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    music teacher
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/painter"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    painter
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/explore/freelancers/photographer"
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
@@ -325,10 +421,34 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    href="/explore/freelancers/private_tutor"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    Private Tutor
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/explore/freelancers/video_editor"
                     className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
                   >
                     video editor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/vocalist"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    vocalist
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/explore/freelancers/voice_over_artist"
+                    className="capitalize text-lg text-neutral-500 hover:text-yellow-400"
+                  >
+                    voice over artist
                   </Link>
                 </li>
                 <li>
