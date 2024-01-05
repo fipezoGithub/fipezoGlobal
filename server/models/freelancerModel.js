@@ -134,6 +134,10 @@ const freelancerSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "paymentcollection",
     },
+    premium: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

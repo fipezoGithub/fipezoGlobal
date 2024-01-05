@@ -31,6 +31,7 @@ const Profile = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data.user);
           setPageData(data.user);
           setFirstname(data.user?.firstname);
           setLastname(data.user?.lastname);
@@ -40,34 +41,14 @@ const Profile = (props) => {
           } else {
             setPhone(data.user?.companyphone);
           }
+          if (data.user?.premium) {
+            setPremium(true);
+          }
           setProfilePicture(data.user?.profilePicture);
         })
         .catch((error) => {
           console.error(error);
         });
-
-      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((paymentDetails) => {
-          if (paymentDetails) {
-            const d = new Date(paymentDetails.createdAt);
-            const end = new Date(d.setDate(d.getDate() + 30));
-            const remainDays = Math.floor(
-              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
-            );
-            if (remainDays <= 30 && remainDays >= 0) {
-              setPremium(true);
-            } else {
-              setPremium(false);
-            }
-          }
-        })
-        .catch((err) => console.log(err));
     }
   }, [!pageData]);
 
@@ -76,6 +57,7 @@ const Profile = (props) => {
     props.setUser(null);
     router.push("/");
   };
+  
   return (
     <div className={style.profile}>
       <Head>
@@ -128,7 +110,6 @@ const Profile = (props) => {
                     ? "/subscriptionstatus"
                     : "/freelancer-premium-plans"
                 }
-                // href=""
               >
                 Fipezo Premium <RiVipCrownFill color="#007ae2" />
               </Link>

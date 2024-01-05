@@ -97,8 +97,7 @@ async function checkPaymentDetails(req, res) {
       {
         method: "GET",
         headers: {
-          Authorization:
-            "Basic cnpwX3Rlc3RfMzYzN1NpMVg5bkVZMDE6anNra3NYVXhOaUtjdG44Vmp1NjNDUTM1",
+          Authorization: `Basic ${process.env.BASIC_RAZORPAY_AUTH}`,
         },
       }
     );
@@ -136,10 +135,14 @@ async function submitPayment(req, res) {
         freelancer: freelancerData._id,
         paymentPack: req.body.paymentPack,
         transactionId: req.body.transactionId,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
       });
       const newPayment = await paymentData.save();
       await freelancerCollection.findByIdAndUpdate(freelancerData._id, {
         paymentDetails: newPayment._id,
+        featured: true,
+        premium: true,
       });
 
       res.status(201).json({ message: "Payment submit successfully" });

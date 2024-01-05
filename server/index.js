@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./db/db");
+const nodeCron = require("node-cron");
 const {
   signupController,
   loginController,
@@ -200,6 +201,7 @@ const {
   getAllApplications,
 } = require("./controllers/carrerController");
 const carrerCVUpoload = require("./middlewares/careerCV");
+const freelancerCollection = require("./models/freelancerModel");
 
 // Setting up the routes
 
@@ -408,6 +410,30 @@ app.get("/api/images/:key", async (req, res) => {
 app.get("/api", (req, res) => {
   res.send("Hello From Fipezo Server");
 });
+
+const job = nodeCron.schedule("01 1 00 * * *", async () => {
+  console.log(new Date().toLocaleString());
+  const paidLancers = await freelancerCollection
+    .find({})
+    .populate("paymentDetails")
+    .exec();
+  paidLancers.forEach(async (elm) => {
+    if (elm.paymentDetails) {
+      strtDate = new Date();
+      endDate = Date.parse(elm.paymentDetails.endDate);
+      const difference = Math.round((endDate - strtDate) / (1000 * 3600 * 24));
+      console.log(difference);
+      if (difference <= 0) {
+        freelancerCollection.findByIdAndUpdate(elm._id, {
+          featured: false,
+          premium: false,
+        });
+      }
+    }
+  });
+});
+
+job.start();
 
 const ip = "0.0.0.0";
 

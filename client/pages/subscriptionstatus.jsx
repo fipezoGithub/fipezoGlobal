@@ -1,6 +1,8 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaPhotoVideo, FaRegEye } from "react-icons/fa";
 import { IoNotificationsCircle, IoWomanSharp } from "react-icons/io5";
@@ -13,12 +15,14 @@ const Fipezopremium = (props) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     async function getFreelancer() {
+      setLoading(true);
       const paymentRes = await fetch(
         `${process.env.SERVER_URL}/freelancer/paymentdetails`,
         {
@@ -64,6 +68,7 @@ const Fipezopremium = (props) => {
           setStatus("Expired");
         }
       }
+      setLoading(false);
     }
     getFreelancer();
   }, []);
@@ -90,7 +95,12 @@ const Fipezopremium = (props) => {
       <div className="flex flex-col items-center justify-center gap-8 py-8 md:h-[50vh]">
         <h1 className="text-3xl capitalize font-semibold">package details</h1>
         <div className="flex items-center justify-center">
-          <table class="w-full text-center rtl:text-right text-gray-600">
+          <table
+            className={
+              "w-full text-center rtl:text-right text-gray-600" +
+              (!loading ? " " : " flex md:flex-col items-center")
+            }
+          >
             <thead className="text-gray-700 uppercase bg-gray-50 align-top md:align-middle table-cell md:table-row-group">
               <tr className="table-cell md:table-row">
                 <th
@@ -109,7 +119,7 @@ const Fipezopremium = (props) => {
                   scope="col"
                   className="capitalize md:px-6 py-3 block md:table-cell"
                 >
-                  price
+                  amount
                 </th>
                 <th
                   scope="col"
@@ -131,36 +141,47 @@ const Fipezopremium = (props) => {
                 </th>
               </tr>
             </thead>
-            <tbody className="align-top md:align-middle table-cell md:table-row-group">
-              <tr className="table-cell md:table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 font-bold">
-                <td
-                  scope="row"
-                  className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell"
-                >
-                  {packageName}
-                </td>
-                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
-                  {transacId}
-                </td>
-                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
-                  {prize}
-                </td>
-                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
-                  {startDate}
-                </td>
-                <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
-                  {endDate}
-                </td>
-                <td
-                  className={
-                    "px-2 md:px-4 h-[3.2rem] md:h-auto text-lg uppercase text-center block md:table-cell " +
-                    (status === "Active" ? "text-green-600" : "text-red-600")
-                  }
-                >
-                  {status}
-                </td>
-              </tr>
-            </tbody>
+            {!loading ? (
+              <tbody className="align-top md:align-middle table-cell md:table-row-group">
+                <tr className="table-cell md:table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 font-bold">
+                  <td
+                    scope="row"
+                    className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell"
+                  >
+                    {packageName}
+                  </td>
+                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                    {transacId}
+                  </td>
+                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                    {prize}
+                  </td>
+                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                    {startDate}
+                  </td>
+                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                    {endDate}
+                  </td>
+                  <td
+                    className={
+                      "px-2 md:px-4 h-[3.2rem] md:h-auto text-lg uppercase text-center block md:table-cell " +
+                      (status === "Active" ? "text-green-600" : "text-red-600")
+                    }
+                  >
+                    {status}
+                  </td>
+                </tr>
+              </tbody>
+            ) : (
+              <div className="flex items-center justify-center w-full">
+                <Image
+                  src="/mini-loading.gif"
+                  width={75}
+                  height={50}
+                  className=""
+                />
+              </div>
+            )}
           </table>
         </div>
       </div>
@@ -197,10 +218,28 @@ const Fipezopremium = (props) => {
               Dedicated Relationship Manager
             </h2>
           </div>
-          {prize === 499 && (
+          {prize === 499 ? (
             <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
               <MdLeaderboard className="text-xl md:text-3xl" />
               <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
+            </div>
+          ) : (
+            <div className="flex items-start flex-col gap-1 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40 relative">
+              <MdLeaderboard className="text-xl md:text-3xl" />
+              <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
+              <p className="text-sm font-semibold text-center">
+                For pack @499 only{" "}
+                <Link
+                  href="/freelancer-premium-plans"
+                  className="text-lg capitalize"
+                >
+                  upgrade now
+                </Link>
+              </p>
+              <p className="text-xs">
+                Your @99 plan will expire immediately after pay 499. you will
+                not get any refund for upgrade.
+              </p>
             </div>
           )}
         </div>

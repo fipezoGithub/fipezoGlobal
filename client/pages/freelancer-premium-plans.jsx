@@ -15,6 +15,7 @@ const Premium = (props) => {
   const testimonalRef = useRef();
   const router = useRouter();
 
+
   const initializeRazorpaySDK = () => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -80,7 +81,8 @@ const Premium = (props) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-
+    const d = new Date();
+    const date = d.setDate(d.getDate() + 30);
     // Make API call to the serverless API
     const data = await fetch(`${process.env.SERVER_URL}/pay/razorpay`, {
       method: "POST",
@@ -120,23 +122,24 @@ const Premium = (props) => {
           body: JSON.stringify({
             paymentPack: `${price}`,
             transactionId: response.razorpay_payment_id,
+            startDate: new Date().toISOString(),
+            endDate: new Date(date).toISOString(),
           }),
         });
         const message = await res.json();
-        console.log(response);
-        router.push(`/status/${response.razorpay_payment_id}`);
+        console.log(message);
+        router.push(`/subscriptionstatus`);
       },
       ondismiss: () => {
         /*handle payment window close or dismiss here */
       },
 
       prefill: {
-        name: "Name of the Customer", //you can prefill Name of the Customer
-        email: "Email of the Customer", //you can prefill Email of the Customer
-        contact: 9007000328, //Mobile Number can also be prefilled to fetch available payment accounts.
+        name: props.user.firstname + props.user.lastname, //you can prefill Name of the Customer
+        contact: props.user.phone, //Mobile Number can also be prefilled to fetch available payment accounts.
       },
       readonly: {
-        email: true, //edit this to allow editing of info
+        contact: true, //edit this to allow editing of info
         name: true, //edit this to allow editing of info
       },
     };
