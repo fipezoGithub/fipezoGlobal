@@ -691,7 +691,6 @@ async function updateWork(req, res) {
         } else {
           worksToStore = req.body.works;
         }
-        console.log(worksToStore);
         await freelancerCollection.findByIdAndUpdate(freelancerData._id, {
           works: worksToStore,
         });

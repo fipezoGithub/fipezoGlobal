@@ -383,6 +383,7 @@ const UpdatePortfolio = (props) => {
                     type="url"
                     className={styles.input}
                     placeholder={work}
+                    key={i}
                     // value={work}
                     onChange={(e) => {
                       e.target.removeAttribute("style");
@@ -402,6 +403,7 @@ const UpdatePortfolio = (props) => {
                 return (
                   <div
                     className={styles.addBox}
+                    key={i}
                     style={{
                       backgroundImage: images[i]
                         ? `url(${images[i]})`
@@ -615,6 +617,7 @@ const UpdatePortfolio = (props) => {
             {currentWorks.map((work, i) => (
               <input
                 type="url"
+                key={i}
                 className={styles.input}
                 placeholder={work}
                 onChange={(e) => {
