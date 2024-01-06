@@ -188,50 +188,50 @@ const Fipezopremium = (props) => {
       <div className="flex flex-col items-center justify-center gap-8 py-8 bg-[#f6f7f8]">
         <h1 className="text-4xl font-semibold">You have unlocked</h1>
         <div className="grid grid-cols-2 md:grid-cols-3 items-center justify-center flex-wrap">
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-60 md:h-40">
             <FaPhotoVideo className="text-xl md:text-3xl" />
             <h2 className="text-base md:text-lg font-semibold">
               Unlimited photos or videos upload
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-60 md:h-40">
             <FaRegEye className="text-xl md:text-3xl" />
             <h2 className="text-base md:text-xl font-semibold">
               Extra visibility all over website
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-60 md:h-40">
             <IoNotificationsCircle className="text-xl md:text-3xl" />
             <h2 className="text-base md:text-xl font-semibold">
               Smart priority notification for all latest jobs
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-60 md:h-40">
             <MdFeaturedVideo className="text-xl md:text-3xl" />
             <h2 className="text-base md:text-xl font-semibold">
               Featured tag, explore page top list
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
+          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-60 md:h-40">
             <IoWomanSharp className="text-xl md:text-3xl" />
             <h2 className="text-base md:text-xl font-semibold">
               Dedicated Relationship Manager
             </h2>
           </div>
           {prize === 499 ? (
-            <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
+            <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-60 md:h-40">
               <MdLeaderboard className="text-xl md:text-3xl" />
               <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
             </div>
           ) : (
-            <div className="flex items-start flex-col gap-1 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40 relative">
+            <div className="flex items-start flex-col gap-1 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-60 md:h-40 relative">
               <MdLeaderboard className="text-xl md:text-3xl" />
               <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
-              <p className="text-sm font-semibold text-center">
+              <p className="text-sm font-semibold md:text-center">
                 For pack @499 only{" "}
                 <Link
                   href="/freelancer-premium-plans"
-                  className="text-lg capitalize"
+                  className="md:text-lg capitalize"
                 >
                   upgrade now
                 </Link>

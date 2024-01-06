@@ -335,6 +335,7 @@ export default function Name(props) {
               profession={props.data?.profession}
               works={props.data?.works}
               reviews={reviews}
+              premium={props.data?.premium}
               user={props.user}
               company={props.company}
               handleClick={handleClick}

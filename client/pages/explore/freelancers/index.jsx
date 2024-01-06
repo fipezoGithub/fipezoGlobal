@@ -96,6 +96,7 @@ function Explore(props) {
 
   useEffect(() => {
     async function fetchFreelancer() {
+      setIsLoading(true);
       try {
         if (searchQuery.length === 0) {
           const response = await fetch(
@@ -109,27 +110,10 @@ function Explore(props) {
           } else {
             setNoOfPages(Math.ceil(data.length / 12));
           }
-        } else {
-          const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/search`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ query: searchQuery }),
-            }
-          );
-          const data = await response.json();
-          setFreelancers(data);
-          if (window.innerWidth < 640) {
-            setNoOfPages(Math.ceil(data.length / 10));
-          } else {
-            setNoOfPages(Math.ceil(data.length / 12));
-          }
         }
         setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         console.error(error);
       }
     }
@@ -140,6 +124,7 @@ function Explore(props) {
   useEffect(() => {
     async function fetchFreelancer() {
       try {
+        setIsLoading(true);
         if (
           !showPhotographers &&
           !showCinematographers &&
@@ -288,6 +273,7 @@ function Explore(props) {
         }
         setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         console.error(error);
       }
     }

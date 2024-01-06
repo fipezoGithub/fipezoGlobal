@@ -22,7 +22,11 @@ function Details(props) {
   };
 
   useEffect(() => {
-    setWorks(props.works);
+    if (props.premium === true) {
+      setWorks(props.works);
+    } else {
+      setWorks(props.works.slice(0, 8));
+    }
   }, [props.works]);
 
   return (

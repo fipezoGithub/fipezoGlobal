@@ -297,6 +297,105 @@ async function verificationProfile(req, res) {
   }
 }
 
+//Profile Verification
+async function premiumWorkUpload(req, res) {
+  try {
+    jwt.verify(req.token, secret, async (err, authData) => {
+      const freelancer = await freelancerCollection.findById(authData.user._id);
+
+      if (err || !freelancer || !freelancer.premium) {
+        res.status(404).send("User not found");
+        return;
+      }
+
+      let worksToStore = [];
+      if (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "photo_editor" ||
+        freelancer.profession === "model" ||
+        freelancer.profession === "makeup_artist" ||
+        freelancer.profession === "mehendi_artist" ||
+        freelancer.profession === "album_designer" ||
+        freelancer.profession === "web_developer" ||
+        freelancer.profession === "graphics_designer" ||
+        freelancer.profession === "private_tutor" ||
+        freelancer.profession === "drawing_teacher" ||
+        freelancer.profession === "painter" ||
+        freelancer.profession === "fashion_designer" ||
+        freelancer.profession === "babysitter" ||
+        freelancer.profession === "maid"
+      ) {
+        worksToStore = req.files["works[]"]?.map((file) => file.filename);
+      } else if (
+        freelancer.profession === "drone_operator" ||
+        freelancer.profession === "anchor" ||
+        freelancer.profession === "dj" ||
+        freelancer.profession === "dancer" ||
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "actor" ||
+        freelancer.profession === "actress" ||
+        freelancer.profession === "interior_design"
+      ) {
+        const droneWorksFromBody = [
+          req.body.works[0],
+          req.body.works[1],
+          req.body.works[2],
+          req.body.works[3],
+        ];
+        const droneWorksFromFiles = req.files["works[]"]?.map(
+          (file) => file.filename
+        );
+        worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
+      } else {
+        worksToStore = req.body.works;
+      }
+
+      const verificationDetails = await freelancerCollection.findByIdAndUpdate(
+        freelancer._id,
+        {
+          $push: { works: worksToStore },
+        }
+      );
+
+      const filePromises = [];
+
+      if (
+        freelancer.profession === "photographer" ||
+        freelancer.profession === "drone_operator" ||
+        freelancer.profession === "photo_editor" ||
+        freelancer.profession === "model" ||
+        freelancer.profession === "makeup_artist" ||
+        freelancer.profession === "mehendi_artist" ||
+        freelancer.profession === "album_designer" ||
+        freelancer.profession === "anchor" ||
+        freelancer.profession === "web_developer" ||
+        freelancer.profession === "dj" ||
+        freelancer.profession === "dancer" ||
+        freelancer.profession === "influencer" ||
+        freelancer.profession === "graphics_designer" ||
+        freelancer.profession === "private_tutor" ||
+        freelancer.profession === "drawing_teacher" ||
+        freelancer.profession === "painter" ||
+        freelancer.profession === "fashion_designer" ||
+        freelancer.profession === "actor" ||
+        freelancer.profession === "actress" ||
+        freelancer.profession === "babysitter"
+      ) {
+        req.files["works[]"]?.forEach((file) => {
+          filePromises.push(uploadFile(file));
+        });
+      }
+
+      await Promise.all(filePromises);
+
+      res.status(200).json(verificationDetails);
+    });
+  } catch (error) {
+    console.error(error.stack);
+    res.status(500).send("Internal server error");
+  }
+}
+
 //profile Data
 
 async function getFreelancerProfile(req, res) {
@@ -340,7 +439,6 @@ async function getFeaturedFreelancerProfiles(req, res) {
 //Profiles by profession
 async function getFreelancerProfilesByProfession(req, res) {
   try {
-    console.log(req.query.q);
     const freelancers = await freelancerCollection.find({
       $and: [{ verified: true }, { profession: { $in: req.query.q } }],
     });
@@ -552,13 +650,16 @@ async function updateWork(req, res) {
           freelancerData.profession === "dj" ||
           freelancerData.profession === "dancer" ||
           freelancerData.profession === "influencer" ||
-          freelancer.profession === "actor" ||
-          freelancer.profession === "actress"
+          freelancerData.profession === "actor" ||
+          freelancerData.profession === "actress"
         ) {
           const droneWorksFromBody = req.body.works;
-          const droneWorksFromFiles = req.files["works[]"]?.map(
-            (file) => file.filename
-          );
+          let droneWorksFromFiles;
+          if (req.files["works[]"]) {
+            droneWorksFromFiles = req.files["works[]"]?.map(
+              (file) => file.filename
+            );
+          }
           const oldWorks = [...freelancerData.works];
           indexes.forEach((element) => {
             if (element === "4") {
@@ -582,11 +683,15 @@ async function updateWork(req, res) {
               }
             }
           });
-
-          worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
+          if (droneWorksFromFiles) {
+            worksToStore = droneWorksFromBody.concat(droneWorksFromFiles);
+          } else {
+            worksToStore = droneWorksFromBody;
+          }
         } else {
           worksToStore = req.body.works;
         }
+        console.log(worksToStore);
         await freelancerCollection.findByIdAndUpdate(freelancerData._id, {
           works: worksToStore,
         });
@@ -1097,4 +1202,5 @@ module.exports = {
   updateWork,
   getPaymentDetailsOFUser,
   getFreelancerProfilesByProfession,
+  premiumWorkUpload,
 };

@@ -31,7 +31,6 @@ const Profile = (props) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.user);
           setPageData(data.user);
           setFirstname(data.user?.firstname);
           setLastname(data.user?.lastname);
@@ -57,7 +56,7 @@ const Profile = (props) => {
     props.setUser(null);
     router.push("/");
   };
-  
+
   return (
     <div className={style.profile}>
       <Head>

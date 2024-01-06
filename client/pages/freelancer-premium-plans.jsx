@@ -15,7 +15,6 @@ const Premium = (props) => {
   const testimonalRef = useRef();
   const router = useRouter();
 
-
   const initializeRazorpaySDK = () => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -73,6 +72,10 @@ const Premium = (props) => {
   };
 
   const openPaymentWindow = async (price) => {
+    if (!props.user && !props.user?.uid) {
+      router.replace("/login");
+      return;
+    }
     const res = await initializeRazorpaySDK(); //here we are calling function we just written before
     if (!res) {
       alert("Razorpay SDK Failed to load"); //you can also call any ui to show this error.

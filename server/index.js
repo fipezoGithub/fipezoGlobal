@@ -68,6 +68,7 @@ const {
   updateWork,
   getPaymentDetailsOFUser,
   getFreelancerProfilesByProfession,
+  premiumWorkUpload,
 } = require("./controllers/freelancerController");
 
 const {
@@ -267,6 +268,12 @@ app.put("/api/verify/freelancer/:id", verifyFreelancerProfile);
 app.get("/api/profiles/featured/freelancer", getFeaturedFreelancerProfiles);
 app.put("/api/edit/freelancer", upload, verifyToken, editFreelancerProfile);
 app.put("/api/freelancer/verify", upload, verifyToken, verificationProfile);
+app.put(
+  "/api/freelancer/premiumupload",
+  upload,
+  verifyToken,
+  premiumWorkUpload
+);
 app.put("/api/follow/freelancer", verifyToken, followProfile);
 app.put("/api/unfollow/freelancer", verifyToken, unFollowProfile);
 app.get("/api/freelancer/followers/:id", getFollowers);
