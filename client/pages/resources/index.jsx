@@ -21,7 +21,7 @@ export default function Blogs(props) {
   const [fipezoInsightsBlogs, setFipezoInsightsBlogs] = useState([]);
   const [howToGuideBlogs, setHowToGuideBlogs] = useState([]);
   const [successStoryBlogs, setSuccessStoryBlogs] = useState([]);
-  
+
   useEffect(() => {
     async function getFeaturedBlogs() {
       try {
@@ -128,6 +128,7 @@ export default function Blogs(props) {
           <div>
             <Image
               src="/cinematographer-cat-logo.png"
+              alt="cinematographer-category-logo"
               width={800}
               height={800}
               className="lg:w-[40vw]"
@@ -201,6 +202,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       // src={`/How to stat freelancing.png`}
                       width={800}
                       height={800}
@@ -241,6 +243,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       width={400}
                       height={400}
                       className=""
@@ -280,6 +283,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       width={400}
                       height={400}
                       className=""
@@ -319,6 +323,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       width={400}
                       height={400}
                       className=""
@@ -358,6 +363,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       width={400}
                       height={400}
                       className=""
@@ -397,6 +403,7 @@ export default function Blogs(props) {
                   >
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${item.cover}`}
+                      alt="cover image"
                       width={400}
                       height={400}
                       className=""

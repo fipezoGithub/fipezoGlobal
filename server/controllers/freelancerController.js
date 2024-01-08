@@ -210,7 +210,7 @@ async function verificationProfile(req, res) {
         freelancer.profession === "influencer" ||
         freelancer.profession === "actor" ||
         freelancer.profession === "actress" ||
-        freelancer.profession === "interior_design"
+        freelancer.profession === "interior_designer"
       ) {
         const droneWorksFromBody = [
           req.body.works[0],
@@ -229,10 +229,6 @@ async function verificationProfile(req, res) {
       const verificationDetails = await freelancerCollection.findByIdAndUpdate(
         freelancer._id,
         {
-          bio: req.body.bio,
-          equipments: req.body.equipments,
-          aadhaarCard: resizedAadhaarCard?.filename || null,
-          panCard: resizedPanCard?.filename || null,
           works: worksToStore,
           links: req.body.links,
           termsAndConditions: req.body.termsAndConditions,
@@ -240,12 +236,6 @@ async function verificationProfile(req, res) {
       );
 
       const filePromises = [];
-      if (req.files["aadhaarCard"]) {
-        filePromises.push(uploadFile(resizedAadhaarCard));
-      }
-      if (req.files["panCard"]) {
-        filePromises.push(uploadFile(resizedPanCard));
-      }
 
       if (
         freelancer.profession === "photographer" ||
@@ -267,7 +257,9 @@ async function verificationProfile(req, res) {
         freelancer.profession === "fashion_designer" ||
         freelancer.profession === "actor" ||
         freelancer.profession === "actress" ||
-        freelancer.profession === "babysitter"
+        freelancer.profession === "babysitter" ||
+        freelancer.profession === "maid" ||
+        freelancer.profession === "interior_designer"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -297,7 +289,7 @@ async function verificationProfile(req, res) {
   }
 }
 
-//Profile Verification
+//Profile Premium Work Upload
 async function premiumWorkUpload(req, res) {
   try {
     jwt.verify(req.token, secret, async (err, authData) => {
@@ -334,14 +326,17 @@ async function premiumWorkUpload(req, res) {
         freelancer.profession === "influencer" ||
         freelancer.profession === "actor" ||
         freelancer.profession === "actress" ||
-        freelancer.profession === "interior_design"
+        freelancer.profession === "interior_designer"
       ) {
-        const droneWorksFromBody = [
-          req.body.works[0],
-          req.body.works[1],
-          req.body.works[2],
-          req.body.works[3],
-        ];
+        let droneWorksFromBody;
+        if (req.body.works) {
+          droneWorksFromBody = [
+            req.body.works[0],
+            req.body.works[1],
+            req.body.works[2],
+            req.body.works[3],
+          ];
+        }
         const droneWorksFromFiles = req.files["works[]"]?.map(
           (file) => file.filename
         );
@@ -379,7 +374,9 @@ async function premiumWorkUpload(req, res) {
         freelancer.profession === "fashion_designer" ||
         freelancer.profession === "actor" ||
         freelancer.profession === "actress" ||
-        freelancer.profession === "babysitter"
+        freelancer.profession === "babysitter" ||
+        freelancer.profession === "maid" ||
+        freelancer.profession === "interior_designer"
       ) {
         req.files["works[]"]?.forEach((file) => {
           filePromises.push(uploadFile(file));
@@ -412,9 +409,25 @@ async function getFreelancerProfile(req, res) {
 //profiles Data
 
 async function getFreelancerProfiles(req, res) {
+  const { page, loc } = req.query;
+  const limit = 12;
   try {
-    const freelancers = await freelancerCollection.find({ verified: true });
-    res.send(freelancers);
+    const freelancers = await freelancerCollection
+      .find({
+        $and: [{ verified: true }, { location: loc }],
+      })
+      .sort({ featured: -1, _id: 1 })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+    const count = await freelancerCollection.countDocuments({
+      $and: [{ verified: true }, { location: loc }],
+    });
+    res.status(200).json({
+      freelancers,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -438,11 +451,34 @@ async function getFeaturedFreelancerProfiles(req, res) {
 
 //Profiles by profession
 async function getFreelancerProfilesByProfession(req, res) {
+  const { page, loc } = req.query;
+  const limit = 12;
   try {
-    const freelancers = await freelancerCollection.find({
-      $and: [{ verified: true }, { profession: { $in: req.query.q } }],
+    const freelancers = await freelancerCollection
+      .find({
+        $and: [
+          { verified: true },
+          { profession: { $in: req.query.q } },
+          { location: req.query.loc },
+        ],
+      })
+      .sort({ featured: -1, _id: 1 })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+    const count = await freelancerCollection.countDocuments({
+      $and: [
+        { verified: true },
+        { profession: { $in: req.query.q } },
+        { location: loc },
+      ],
     });
-    res.send(freelancers);
+
+    res.status(200).json({
+      freelancers,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
@@ -596,7 +632,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "drawing_teacher" ||
           freelancerData.profession === "painter" ||
           freelancerData.profession === "fashion_designer" ||
-          freelancerData.profession === "babysitter"
+          freelancerData.profession === "babysitter" ||
+          freelancerData.profession === "maid"
         ) {
           const prevWorks = req.body.works;
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
@@ -651,7 +688,8 @@ async function updateWork(req, res) {
           freelancerData.profession === "dancer" ||
           freelancerData.profession === "influencer" ||
           freelancerData.profession === "actor" ||
-          freelancerData.profession === "actress"
+          freelancerData.profession === "actress" ||
+          freelancerData.profession === "interior_designer"
         ) {
           const droneWorksFromBody = req.body.works;
           let droneWorksFromFiles;
@@ -714,7 +752,9 @@ async function updateWork(req, res) {
           freelancerData.profession === "fashion_designer" ||
           freelancerData.profession === "actor" ||
           freelancerData.profession === "actress" ||
-          freelancerData.profession === "babysitter"
+          freelancerData.profession === "babysitter" ||
+          freelancerData.profession === "maid" ||
+          freelancerData.profession === "interior_designer"
         ) {
           req.files["works[]"]?.forEach((file) => {
             filePromises.push(uploadFile(file));
@@ -760,7 +800,9 @@ async function deleteFreelancerProfile(req, res) {
     }
     if (user.works.length > 0) {
       user.works.forEach((file) => {
-        filePromises.push(deleteFile(file));
+        if (!file.includes("https://")) {
+          filePromises.push(deleteFile(file));
+        }
       });
     }
 
@@ -882,7 +924,6 @@ async function followCompany(req, res) {
               },
             }
           );
-          console.log(req.body.companyid, authData.user._id);
           res.send({ message: `following successfully ${req.body.companyid}` });
         } else {
           res.sendStatus(403);
@@ -1039,18 +1080,32 @@ async function getFollowedCompanies(req, res) {
 
 // Search Freelancer by name
 async function getFreelancerByName(req, res) {
+  const { page, loc } = req.query;
+  const limit = 12;
   try {
     const data = await freelancerCollection
       .find({
         firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
         verified: true,
+        location: loc,
       })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
       .exec();
-    // if (!data || data.length === 0) {
-    //   res.status(404).json({ message: "no freelancer found" });
-    // }
 
-    res.json(data);
+    const count = await freelancerCollection.countDocuments({
+      $and: [
+        { firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" } },
+        { verified: true },
+        { location: loc },
+      ],
+    });
+
+    res.status(200).json({
+      data,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (error) {
     console.log(error);
     res.status(500);

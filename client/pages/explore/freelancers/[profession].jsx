@@ -129,9 +129,7 @@ function Explore(props) {
   };
 
   useEffect(() => {
-    setFilterCity("none");
     window.innerWidth > 640 && setShowSideBar(true);
-    setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
 
   const handelFilter = () => {
@@ -147,8 +145,14 @@ function Explore(props) {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    const location = localStorage.getItem("city");
+    if (!location) {
+      setFilterCity("Kolkata");
+    } else {
+      setFilterCity(location);
+    }
     const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search`,
+      `${process.env.SERVER_URL}/freelancer/search?loc=${filterCity}&page=${currentPage}`,
       {
         method: "POST",
         headers: {
@@ -158,26 +162,29 @@ function Explore(props) {
       }
     );
     const data = await response.json();
-    setFreelancers(data);
+    setFreelancers(data.data);
+    setNoOfPages(data.totalPages);
     setCurrentPage(1);
   };
 
   useEffect(() => {
+    const location = localStorage.getItem("city");
+    if (!location) {
+      setFilterCity("Kolkata");
+    } else {
+      setFilterCity(location);
+    }
     async function fetchFreelancer() {
       setIsLoading(true);
       try {
         if (searchQuery.length === 0) {
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}`,
+            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}&loc=${filterCity}&page=${currentPage}`,
             { cache: "no-store" }
           );
           const data = await response.json();
-          setFreelancers(data);
-          if (window.innerWidth <= 640) {
-            setNoOfPages(Math.ceil(data.length / 10));
-          } else {
-            setNoOfPages(Math.ceil(data.length / 12));
-          }
+          setFreelancers(data.freelancers);
+          setNoOfPages(data.totalPages);
         }
         setIsLoading(false);
       } catch (error) {
@@ -187,9 +194,15 @@ function Explore(props) {
     }
 
     fetchFreelancer();
-  }, [searchQuery]);
+  }, [searchQuery, filterCity, currentPage]);
 
   useEffect(() => {
+    const location = localStorage.getItem("city");
+    if (!location) {
+      setFilterCity("Kolkata");
+    } else {
+      setFilterCity(location);
+    }
     async function fetchFreelancer() {
       try {
         setIsLoading(true);
@@ -226,16 +239,12 @@ function Explore(props) {
           !showInteriorDesigner
         ) {
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}`,
+            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}&loc=${filterCity}&page=${currentPage}`,
             { cache: "no-store" }
           );
           const data = await response.json();
-          setFreelancers(data);
-          if (window.innerWidth <= 640) {
-            setNoOfPages(Math.ceil(data.length / 10));
-          } else {
-            setNoOfPages(Math.ceil(data.length / 12));
-          }
+          setFreelancers(data.freelancers);
+          setNoOfPages(data.totalPages);
         } else {
           let queryStr = "";
           if (showPhotographers) {
@@ -329,15 +338,11 @@ function Explore(props) {
             queryStr = queryStr + "q[]=interior_designer&";
           }
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}`
+            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}&loc=${filterCity}&page=${currentPage}`
           );
           const data = await response.json();
-          setFreelancers(data);
-          if (window.innerWidth < 640) {
-            setNoOfPages(Math.ceil(data.length / 10));
-          } else {
-            setNoOfPages(Math.ceil(data.length / 12));
-          }
+          setFreelancers(data.freelancers);
+          setNoOfPages(data.totalPages);
         }
         setIsLoading(false);
       } catch (error) {
@@ -378,6 +383,8 @@ function Explore(props) {
     showBabySitter,
     showMaid,
     showInteriorDesigner,
+    filterCity,
+    currentPage,
   ]);
 
   const filtered = freelancers.filter((freelancer) => {
@@ -387,18 +394,7 @@ function Explore(props) {
     return false;
   });
 
-  const locationFilter = filtered.filter((freelancer) => {
-    if (
-      filterCity === "none" &&
-      freelancer.location === localStorage.getItem("city")
-    ) {
-      return true;
-    } else if (filterCity !== "none" && freelancer.location === filterCity)
-      return true;
-    return false;
-  });
-
-  const finalFiltered = locationFilter.filter((freelancer) => {
+  const finalFiltered = filtered.filter((freelancer) => {
     if (!fourStars && !threeStars) {
       return true;
     } else if (fourStars && threeStars) {
@@ -418,19 +414,19 @@ function Explore(props) {
     return Number(b.featured) - Number(a.featured);
   });
 
-  useEffect(() => {
-    if (window.innerWidth <= 640) {
-      setNoOfPages(Math.ceil(finalFiltered.length / 10));
-    } else {
-      setNoOfPages(Math.ceil(finalFiltered.length / 12));
-    }
-  }, [finalFiltered]);
+  // useEffect(() => {
+  //   if (window.innerWidth <= 640) {
+  //     setNoOfPages(Math.ceil(finalFiltered.length / 10));
+  //   } else {
+  //     setNoOfPages(Math.ceil(finalFiltered.length / 12));
+  //   }
+  // }, [finalFiltered]);
 
-  const pages = noOfPages;
-  const startIndex = (currentPage - 1) * divider;
-  const endIndex = startIndex + divider;
-  const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
-  const final = displayedFreelancers;
+  // const pages = noOfPages;
+  // const startIndex = (currentPage - 1) * divider;
+  // const endIndex = startIndex + divider;
+  // const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
+  const final = finalFiltered;
   return isLoading === true ? (
     <Loading message={"Freelancer is loading"} />
   ) : (
@@ -630,23 +626,23 @@ function Explore(props) {
                   )}
                   {/* </div> */}
                   {/* )).slice(0, 3)} */}
-                  {currentPage < pages - 1 && (
+                  {currentPage < noOfPages - 1 && (
                     <>
                       {"..."}
                       <span
-                        onClick={() => setCurrentPage(pages)}
+                        onClick={() => setCurrentPage(noOfPages)}
                         className={styles.page}
                         style={
-                          currentPage === pages
+                          currentPage === noOfPages
                             ? { backgroundColor: "black", color: "white" }
                             : {}
                         }
                       >
-                        {pages}
+                        {noOfPages}
                       </span>
                     </>
                   )}
-                  {currentPage !== pages && (
+                  {currentPage !== noOfPages && (
                     <button className={styles.btn} onClick={increPage}>
                       Next
                     </button>

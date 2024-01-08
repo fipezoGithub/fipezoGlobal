@@ -182,6 +182,7 @@ function Freelancer_Profile(props) {
           <Details
             profession={freelancer.profession}
             works={freelancer.works}
+            premium={freelancer.premium}
             reviews={reviews}
             user={props.user}
             handleClick={handleClick}

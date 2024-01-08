@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileCard from "./ProfileCard";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 const SimilarFreelancer = (props) => {
   const [freelancers, setFreelancers] = useState([]);
@@ -10,11 +9,13 @@ const SimilarFreelancer = (props) => {
     async function fetchFreelancer() {
       try {
         const response = await fetch(
-          `${process.env.SERVER_URL}/profiles/verified/freelancer`,
+          `${process.env.SERVER_URL}/freelancer/professions?q[]=${
+            props.profession
+          }&loc=${props.location}&page=${1}`,
           { cache: "no-store" }
         );
         const data = await response.json();
-        setFreelancers(data);
+        setFreelancers(data.freelancers);
       } catch (error) {
         console.error(error);
       }
@@ -23,15 +24,7 @@ const SimilarFreelancer = (props) => {
     fetchFreelancer();
   }, []);
 
-  const filteredFreelancers = freelancers.filter((freelancer) => {
-    return freelancer.profession === props.profession;
-  });
-
-  const locationFilter = filteredFreelancers.filter((freelancer) => {
-    return freelancer.location === props.location;
-  });
-
-  const filtered = locationFilter.filter((freelancer) => {
+  const filtered = freelancers.filter((freelancer) => {
     if (freelancer.rate <= rateSort) {
       return true;
     }

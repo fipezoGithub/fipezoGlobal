@@ -34,6 +34,8 @@ function Details(props) {
       {props?.profession !== undefined && (
         <ProfileNav
           handleReviews={handleReviews}
+          showReviews={showReviews}
+          showPortfolio={showPortfolio}
           handlePortfolio={handlePortfolio}
         />
       )}
@@ -72,7 +74,14 @@ function Details(props) {
                       props.profession === "mehendi_artist" ||
                       props.profession === "album_designer" ||
                       props.profession === "web_developer" ||
-                      props.profession === "graphics_designer") && (
+                      props.profession === "graphics_designer" ||
+                      props.profession === "mehendi_artist" ||
+                      props.profession === "private_tutor" ||
+                      props.profession === "drawing_teacher" ||
+                      props.profession === "painter" ||
+                      props.profession === "fashion_designer" ||
+                      props.profession === "babysitter" ||
+                      props.profession === "maid") && (
                       <PortfolioCard
                         key={index}
                         i={index}
@@ -81,7 +90,13 @@ function Details(props) {
                       />
                     )}
                     {(props?.profession === "cinematographer" ||
-                      props?.profession === "video_editor") && (
+                      props?.profession === "video_editor" ||
+                      props?.profession === "dance_teacher" ||
+                      props?.profession === "music_teacher" ||
+                      props?.profession === "lyricist" ||
+                      props?.profession === "musician" ||
+                      props?.profession === "voice_over_artist" ||
+                      props?.profession === "vocalist") && (
                       <div className="mb-4" key={index}>
                         <ReactPlayer
                           controls={true}
@@ -103,13 +118,17 @@ function Details(props) {
                 );
               })}
               {works.map((work, index) => {
-                if (index >= 0 && index < 4) {
+                if (index > 5 && !showMore) return;
+                if (work?.includes("https://yout")) {
                   return (
                     (props?.profession === "drone_operator" ||
                       props?.profession === "anchor" ||
                       props?.profession === "dj" ||
                       props?.profession === "dancer" ||
-                      props?.profession === "influencer") && (
+                      props?.profession === "influencer" ||
+                      props?.profession === "actor" ||
+                      props?.profession === "actress" ||
+                      props?.profession === "interior_designer") && (
                       <div className="mb-4" key={index}>
                         <ReactPlayer
                           controls={true}
@@ -120,28 +139,16 @@ function Details(props) {
                       </div>
                     )
                   );
-                } else if (index >= 4 && index < 6) {
+                } else if (work?.includes("works[]-")) {
                   return (
                     (props?.profession === "drone_operator" ||
                       props?.profession === "anchor" ||
                       props?.profession === "dj" ||
                       props?.profession === "dancer" ||
-                      props?.profession === "influencer") && (
-                      <PortfolioCard
-                        key={index}
-                        i={index}
-                        work={work}
-                        handleClick={props.handleClick}
-                      />
-                    )
-                  );
-                } else if (index >= 6 && index < 8 && showMore) {
-                  return (
-                    (props?.profession === "drone_operator" ||
-                      props?.profession === "anchor" ||
-                      props?.profession === "dj" ||
-                      props?.profession === "dancer" ||
-                      props?.profession === "influencer") && (
+                      props?.profession === "influencer" ||
+                      props?.profession === "actor" ||
+                      props?.profession === "actress" ||
+                      props?.profession === "interior_designer") && (
                       <PortfolioCard
                         key={index}
                         i={index}

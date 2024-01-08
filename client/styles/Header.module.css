@@ -77,6 +77,7 @@
     /* opacity: 1; */
   }
 }
+
 @media (max-width: 1024px) {
   .headingText {
     font-size: 3rem;
@@ -88,6 +89,7 @@
     background-image: url(/headerIMGBg.jpeg);
     background-attachment: scroll;
     padding-top: 4rem;
+    justify-content: space-around;
   }
 
   .headingText {

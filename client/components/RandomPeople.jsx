@@ -25,7 +25,7 @@ const RandomPeople = (props) => {
     async function fetchFreelancer() {
       try {
         const response = await fetch(
-          `${process.env.SERVER_URL}/profiles/verified/freelancer`,
+          `${process.env.SERVER_URL}/profiles/verified/freelancer?loc=${props.location}`,
           { cache: "no-store" }
         );
         const data = await response.json();

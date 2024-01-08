@@ -152,7 +152,7 @@ class SearchBox extends React.Component {
               this.setState({ showDropDownCity: false });
             }}
           >
-            <RiStore2Line color="#bebebe" size={"1.5em"} />
+            <RiStore2Line color="#bebebe" className="md:w-6 md:h-6" />
             <input
               type="text"
               name=""
@@ -165,10 +165,10 @@ class SearchBox extends React.Component {
               }}
               id="freelancer_category"
               placeholder="Enter freelancer category"
-              className="py-4 px-2 focus:outline-none placeholder:text-black"
+              className="py-2 md:py-4 px-2 focus:outline-none placeholder:text-black"
             />
             <input type="text" disabled className="hidden lg:block w-20" />
-            <IoIosArrowDown color="#bebebe" size={"1.5em"} />
+            <IoIosArrowDown color="#bebebe" className="md:w-6 md:h-6" />
           </div>
           {showDropDownCategory === true && (
             <div className="bg-white w-full z-[1100] h-80 overflow-hidden overflow-y-scroll">
@@ -224,7 +224,7 @@ class SearchBox extends React.Component {
                       className="text-left p-2 cursor-pointer flex items-center gap-2 hover:bg-blue-100"
                       key={index}
                     >
-                      <RiStore2Line color="#bebebe" />
+                      <RiStore2Line color="#bebebe" className="md:w-6 md:h-6" />
                       {option}
                     </p>
                   );
@@ -234,7 +234,7 @@ class SearchBox extends React.Component {
         </div>
         <div className="relative group">
           <div className="flex items-center bg-white border md:border-0 rounded-md md:rounded-none px-4">
-            <GoLocation color="#bebebe" size={"1.5em"} />
+            <GoLocation color="#bebebe" className="md:w-6 md:h-6" />
             <input
               type="text"
               name=""
@@ -254,9 +254,9 @@ class SearchBox extends React.Component {
                 this.setState({ showDropDownCategory: false });
               }}
               placeholder="Select city"
-              className="py-4 px-2 focus:outline-none placeholder:text-black"
+              className="py-2 md:py-4 px-2 focus:outline-none placeholder:text-black"
             />
-            <IoIosArrowDown color="#bebebe" size={"1.5em"} />
+            <IoIosArrowDown color="#bebebe" className="md:w-6 md:h-6" />
           </div>
           {showDropDownCity === true && (
             <div className="bg-white w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll">
@@ -283,7 +283,7 @@ class SearchBox extends React.Component {
                         className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100"
                         key={index}
                       >
-                        <GoLocation color="#bebebe" />
+                        <GoLocation color="#bebebe" className="md:w-6 md:h-6" />
                         {option}
                       </p>
                     );
@@ -312,7 +312,7 @@ class SearchBox extends React.Component {
                         className="cursor-pointer text-left p-2 flex items-center gap-2 hover:bg-blue-100"
                         key={index}
                       >
-                        <GoLocation color="#bebebe" />
+                        <GoLocation color="#bebebe" className="md:w-6 md:h-6" />
                         {option}
                       </p>
                     );
