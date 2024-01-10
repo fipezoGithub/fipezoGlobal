@@ -14,6 +14,9 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import Loading from "@/components/Loading";
+import { loginWithGoogle, signIn } from "@/firebase/auth/signup";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/scripts/firebase";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
@@ -133,6 +136,7 @@ export default function Login(props) {
           setLoading(false);
           setOtpFailed(true);
         }
+        await signIn(email, password);
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("type", JSON.stringify(type));
         router.push("/");
@@ -146,8 +150,9 @@ export default function Login(props) {
     postData();
   };
 
-  function handelLoginEmail(e) {
+  async function handelLoginEmail(e) {
     e.preventDefault();
+    // const user = await signIn(email, password);
     async function postData() {
       setLoading(true);
       try {

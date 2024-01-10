@@ -16,7 +16,6 @@ export default function Navbar(props) {
   const [logInType, setLogInType] = useState("");
   const [city, setCity] = useState("");
   const [notificationCount, setNotificationCount] = useState(0);
-  const [display, setDisplay] = useState("none");
   const [display2, setDisplay2] = useState("none");
   const [display3, setDisplay3] = useState("none");
   const [display4, setDisplay4] = useState("none");

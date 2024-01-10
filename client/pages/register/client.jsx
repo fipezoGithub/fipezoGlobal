@@ -11,6 +11,7 @@ import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Loading from "@/components/Loading";
+import { signUp } from "@/firebase/auth/signup";
 
 function Signup(props) {
   const [phone, setPhone] = useState("");
@@ -75,7 +76,8 @@ function Signup(props) {
             type: "user",
           }),
         });
-        const data = await response.json();
+        // const resp = await signUp(email, password);
+        // const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data));
         router.push("/");
       } catch (error) {
@@ -139,6 +141,7 @@ function Signup(props) {
         console.log(error);
       }
     }
+
     checkEmail();
   }
 
@@ -161,7 +164,6 @@ function Signup(props) {
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
       setSignupFailed(false);
-      console.log(codeResponse);
       fetch(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
         {
@@ -174,7 +176,6 @@ function Signup(props) {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setFirstname(data.given_name);
           setLastname(data.family_name);
           setEmail(data.email);
@@ -184,7 +185,6 @@ function Signup(props) {
   });
 
   const responseFacebook = async (response) => {
-    console.log(response);
     setSignupFailed(false);
     if (response.status === "unknown") {
       setSignupFailed(true);

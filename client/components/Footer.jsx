@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +13,24 @@ const Footer = () => {
   const [showAmritsar, setShowAmritsar] = useState(false);
   const [showGuwahati, setShowGuwahati] = useState(false);
   const [showAhemdabad, setShowAhemdabad] = useState(false);
+  const [premium, setPremium] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    fetch(`${process.env.SERVER_URL}/navbar`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) =>
+        data.user.premium ? setPremium(true) : setPremium(false)
+      )
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <footer className="bg-black text-white w-full pt-4 lg:pt-8">
@@ -520,7 +538,15 @@ const Footer = () => {
               <ul className="flex flex-col items-start gap-2">
                 <p className="capitalize text-xl font-bold">useful links</p>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
-                  <Link href="/freelancer-premium-plans">Fipezo premium</Link>
+                  <Link
+                    href={
+                      premium
+                        ? "/subscriptionstatus"
+                        : "/freelancer-premium-plans"
+                    }
+                  >
+                    Fipezo premium
+                  </Link>
                 </li>
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link href="/referandearn">refer &amp; earn</Link>
