@@ -4,7 +4,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { BiChevronDown } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import Image from "next/image";
 import { FaBell } from "react-icons/fa";
 
@@ -41,6 +41,7 @@ export default function Navbar(props) {
       })
         .then((res) => res.json())
         .then((data) => {
+          data.user.premium ? setPremium(true) : setPremium(false);
           if (data.user.phone === 3335573725 && !data.user.location)
             setIsAdmin(true);
           if (data.user.companyname) props.setCompany(data.user);
@@ -59,30 +60,6 @@ export default function Navbar(props) {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
 
-    if (token) {
-      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((paymentDetails) => {
-          if (paymentDetails) {
-            const d = new Date(paymentDetails.createdAt);
-            const end = new Date(d.setDate(d.getDate() + 30));
-            const remainDays = Math.floor(
-              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
-            );
-            if (remainDays <= 30 && remainDays >= 0) {
-              setPremium(true);
-            } else {
-              setPremium(false);
-            }
-          }
-        })
-        .catch((err) => console.log(err));
-    }
     const type = JSON.parse(localStorage.getItem("type"));
 
     async function getNotifications() {
@@ -114,6 +91,7 @@ export default function Navbar(props) {
       });
       setNotificationCount(filtered.length);
     }
+
     if (props.user || props.company) {
       getNotifications();
     }

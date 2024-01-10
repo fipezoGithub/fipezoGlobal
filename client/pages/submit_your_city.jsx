@@ -140,7 +140,7 @@ const SubmitYourCity = (props) => {
           />
         </div>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
       {dialogBox === true && (
         <DialogBox
           title="Your request is registered"

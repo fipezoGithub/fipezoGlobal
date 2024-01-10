@@ -691,7 +691,7 @@ const ProfileSetting = (props) => {
       ) : (
         <Loading message={"Updating your data"} />
       )}
-      <Footer />
+      <Footer user={props.user} company={props.company} />
       {showConfirmBox === true && (
         <DialogBox
           title="Profile Upadated Successfully!"

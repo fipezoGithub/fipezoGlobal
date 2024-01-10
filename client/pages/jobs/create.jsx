@@ -29,7 +29,7 @@ const Create = (props) => {
       <div className="mt-16 flex items-center justify-center ">
         <Createjob setShowConfirmBox={setShowConfirmBox} />
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
       {showConfirmBox === true && (
         <DialogBox
           title="Job Posted Successfully!"

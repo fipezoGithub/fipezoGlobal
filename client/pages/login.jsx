@@ -136,7 +136,6 @@ export default function Login(props) {
           setLoading(false);
           setOtpFailed(true);
         }
-        await signIn(email, password);
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("type", JSON.stringify(type));
         router.push("/");
@@ -152,7 +151,6 @@ export default function Login(props) {
 
   async function handelLoginEmail(e) {
     e.preventDefault();
-    // const user = await signIn(email, password);
     async function postData() {
       setLoading(true);
       try {
@@ -626,7 +624,7 @@ export default function Login(props) {
         ) : (
           <Loading message={"While we find your information"} />
         ))}
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }

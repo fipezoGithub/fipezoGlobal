@@ -425,7 +425,7 @@ export default function Blogs(props) {
         )}
       </div>
       {showSearch === true && <SearchBlog setShowSearch={setShowSearch} />}
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 }

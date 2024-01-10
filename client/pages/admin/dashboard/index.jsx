@@ -621,7 +621,7 @@ const Dashboard = (props) => {
           )}
         </div>
       </main>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

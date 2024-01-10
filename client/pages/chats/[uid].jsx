@@ -86,7 +86,7 @@ const Uid = (props) => {
           <button type="submit">Send</button>
         </form>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

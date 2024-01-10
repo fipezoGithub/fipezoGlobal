@@ -3,7 +3,7 @@ import styles from "../styles/Footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { AiTwotoneHeart } from "react-icons/ai";
-const Footer = () => {
+const Footer = (props) => {
   const [showBengaluru, setShowBengaluru] = useState(false);
   const [showChennai, setShowChennai] = useState(false);
   const [showDelhi, setShowDelhi] = useState(false);
@@ -30,7 +30,7 @@ const Footer = () => {
         data.user.premium ? setPremium(true) : setPremium(false)
       )
       .catch((err) => console.log(err));
-  }, []);
+  }, [props.user, props.company]);
 
   return (
     <footer className="bg-black text-white w-full pt-4 lg:pt-8">

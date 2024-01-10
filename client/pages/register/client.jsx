@@ -457,7 +457,7 @@ function Signup(props) {
       ) : (
         <Loading message={"While we gather your information"} />
       )}
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }

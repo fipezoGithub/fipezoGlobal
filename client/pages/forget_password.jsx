@@ -214,7 +214,7 @@ const Forget_password = (props) => {
           />
         </div>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

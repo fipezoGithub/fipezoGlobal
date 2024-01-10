@@ -191,7 +191,7 @@ export default function Bloguid(props) {
           className="w-full"
         />
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 }

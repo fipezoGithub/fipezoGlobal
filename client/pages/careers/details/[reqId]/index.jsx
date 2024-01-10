@@ -158,7 +158,7 @@ const ReqId = (props) => {
           </Link>
         </div>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

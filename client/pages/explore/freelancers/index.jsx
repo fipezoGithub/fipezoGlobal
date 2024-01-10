@@ -585,7 +585,7 @@ function Explore(props) {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }

@@ -262,7 +262,7 @@ export default function My_requests(props) {
           </div>
         )}
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }

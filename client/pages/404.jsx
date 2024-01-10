@@ -31,7 +31,7 @@ const Custom404 = (props) => {
           Back to home
         </Link>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

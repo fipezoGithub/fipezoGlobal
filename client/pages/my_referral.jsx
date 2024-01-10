@@ -338,7 +338,7 @@ const My_referral = (props) => {
         )}
       </div>
       <hr className="my-8 border border-[#eaeaea]" />
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

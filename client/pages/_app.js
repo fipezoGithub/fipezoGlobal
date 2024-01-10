@@ -8,11 +8,8 @@ import { Router } from "next/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ScrollToTop from "@/components/ScrollToTop";
 import { auth } from "@/scripts/firebase";
-import { AuthContextProvider } from "@/context/AuthContext";
-import { ChatContextProvider } from "@/context/ChatContext";
 
 export default function App({ Component, pageProps }) {
-  const [fireBaseUser, setFireBaseUser] = useState({});
   const [user, setUser] = useState(null);
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -128,10 +125,8 @@ export default function App({ Component, pageProps }) {
               {...pageProps}
               user={user}
               company={company}
-              fireBaseUser={fireBaseUser}
               setCompany={setCompany}
               setUser={setUser}
-              setFireBaseUser={setFireBaseUser}
             />
           ) : (
             <Loading message={"While Loading your data"} />

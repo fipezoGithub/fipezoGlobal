@@ -240,7 +240,7 @@ const Create = (props) => {
           </div>
         </form>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

@@ -41,7 +41,7 @@ export default function Index(props) {
       </div>
       <Simplified />
       <Newsletter />
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }

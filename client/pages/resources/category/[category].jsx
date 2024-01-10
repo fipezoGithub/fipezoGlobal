@@ -102,7 +102,7 @@ export default function BlogCategory(props) {
           )}
         </div>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
       {showSearch === true && <SearchBlog setShowSearch={setShowSearch} />}
     </>
   );

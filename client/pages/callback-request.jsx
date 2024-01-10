@@ -90,7 +90,7 @@ const CallbackRequest = (props) => {
           </tbody>
         </table>
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </>
   );
 };

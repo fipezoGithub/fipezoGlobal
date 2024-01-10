@@ -191,7 +191,7 @@ export default function My_hires(props) {
           </div>
         )}
       </div>
-      <Footer />
+      <Footer user={props.user} company={props.company} />
     </div>
   );
 }
