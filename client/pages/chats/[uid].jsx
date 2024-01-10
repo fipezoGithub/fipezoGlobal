@@ -19,44 +19,44 @@ const Uid = (props) => {
   const [messages, setMessages] = useState([]);
   const router = useRouter();
 
-  const { currentUser } = useContext(AuthContext);
-  const { data, dispatch } = useContext(ChatContext);
+  // const { currentUser } = useContext(AuthContext);
+  // const { data, dispatch } = useContext(ChatContext);
 
-  useEffect(() => {
-    // dispatch({ type: "CHANGE_USER", payload: router.query.uid });
-    // console.log(data.chatId);
-    // const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-    //   doc.exists() && setMessages(doc.data().messages);
-    // });
+  // useEffect(() => {
+  //   // dispatch({ type: "CHANGE_USER", payload: router.query.uid });
+  //   // console.log(data.chatId);
+  //   // const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+  //   //   doc.exists() && setMessages(doc.data().messages);
+  //   // });
 
-    // return () => {
-    //   unSub();
-    // };
-  }, [data.chatId]);
+  //   // return () => {
+  //   //   unSub();
+  //   // };
+  // }, [data.chatId]);
 
   const handleSend = async (e) => {
     e.preventDefault();
-    await updateDoc(doc(db, "chats", data.chatId), {
-      messages: arrayUnion({
-        text,
-        senderId: currentUser.uid,
-        date: Timestamp.now(),
-      }),
-    });
+    // await updateDoc(doc(db, "chats", data.chatId), {
+    //   messages: arrayUnion({
+    //     text,
+    //     senderId: currentUser.uid,
+    //     date: Timestamp.now(),
+    //   }),
+    // });
 
-    await updateDoc(doc(db, "userChats", currentUser.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
+    // await updateDoc(doc(db, "userChats", currentUser.uid), {
+    //   [data.chatId + ".lastMessage"]: {
+    //     text,
+    //   },
+    //   [data.chatId + ".date"]: serverTimestamp(),
+    // });
 
-    await updateDoc(doc(db, "userChats", data.user.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
+    // await updateDoc(doc(db, "userChats", data.user.uid), {
+    //   [data.chatId + ".lastMessage"]: {
+    //     text,
+    //   },
+    //   [data.chatId + ".date"]: serverTimestamp(),
+    // });
 
     setText("");
   };
