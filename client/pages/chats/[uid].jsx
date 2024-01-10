@@ -23,15 +23,15 @@ const Uid = (props) => {
   const { data, dispatch } = useContext(ChatContext);
 
   useEffect(() => {
-    dispatch({ type: "CHANGE_USER", payload: router.query.uid });
-    console.log(data.chatId);
-    const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-      doc.exists() && setMessages(doc.data().messages);
-    });
+    // dispatch({ type: "CHANGE_USER", payload: router.query.uid });
+    // console.log(data.chatId);
+    // const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
+    //   doc.exists() && setMessages(doc.data().messages);
+    // });
 
-    return () => {
-      unSub();
-    };
+    // return () => {
+    //   unSub();
+    // };
   }, [data.chatId]);
 
   const handleSend = async (e) => {
