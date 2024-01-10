@@ -1851,7 +1851,7 @@ export default withRouter(
                   ></div>
                 </div>
               )}
-              <Footer user={props.user} company={props.company} />
+              <Footer user={this.props.user} company={this.props.company} />
             </div>
           )}
         </>
