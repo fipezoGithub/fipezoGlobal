@@ -280,6 +280,7 @@ const Fipezopremium = (props) => {
               <div className="flex items-center justify-center w-40 md:w-full">
                 <Image
                   src="/mini-loading.gif"
+                  alt="loading"
                   width={75}
                   height={50}
                   className=""

@@ -57,6 +57,7 @@ export default function BlogCategory(props) {
       <div className="mt-16 w-full">
         <Image
           src="/resource-category-banner.png"
+          alt="category-banner"
           width={1000}
           height={400}
           className="w-full h-[13vh] lg:h-auto object-cover"
@@ -94,7 +95,7 @@ export default function BlogCategory(props) {
             ))
           ) : (
             <div className="flex flex-col items-center justify-center my-4">
-              <Image src="/no-blogs.png" width={1080} height={1080} />
+              <Image src="/no-blogs.png" alt="no-blogs" width={1080} height={1080} />
               <p className="text-lg">
                 No blogs found. Try different categories
               </p>

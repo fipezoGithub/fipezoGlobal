@@ -90,6 +90,7 @@ const Apply = (props) => {
         <div className="self-stretch hidden md:block rounded-l-lg">
           <Image
             src="/jobApplyPageBG.png"
+            alt="Apply Job"
             width={307}
             height={150}
             className="h-full"

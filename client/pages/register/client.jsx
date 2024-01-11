@@ -75,6 +75,7 @@ function Signup(props) {
             type: "user",
           }),
         });
+        const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data));
         router.push("/");
       } catch (error) {

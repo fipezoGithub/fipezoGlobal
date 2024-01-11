@@ -59,6 +59,7 @@ const SubmitYourCity = (props) => {
             </p>
             <Image
               src="/city-not-found.png"
+              alt="city not found"
               width={400}
               height={250}
               className="w-1/2 mt-8 lg:mt-16 self-center"
@@ -134,6 +135,7 @@ const SubmitYourCity = (props) => {
         <div className="w-full">
           <Image
             src="/submit-page-bg.png"
+            alt="submit page"
             width={1280}
             height={520}
             className="w-full"

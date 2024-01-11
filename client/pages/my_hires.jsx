@@ -141,7 +141,7 @@ export default function My_hires(props) {
         <h1 className={styles.heading}>My Requests</h1>
         {hires.length === 0 ? (
           <div className={styles.noRequestsImage}>
-            <Image src="/noRequests.webp" width={500} height={500} />
+            <Image src="/noRequests.webp" alt="no-request" width={500} height={500} />
             <p
               style={{
                 fontSize: "18px",

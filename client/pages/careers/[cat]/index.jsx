@@ -52,6 +52,7 @@ const FipezoJobDetails = (props) => {
         <div className="w-full">
           <Image
             src="/Lets_Grow_with_Fipezo.png"
+            alt="Fipezo carrer banner"
             width={1963}
             height={700}
             className="w-full"

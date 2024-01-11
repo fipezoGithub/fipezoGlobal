@@ -11,7 +11,7 @@ import Modal from "@/components/Modal";
 import Link from "next/link";
 import Head from "next/head";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-
+export const getServerSideProps = async () => {};
 function Freelancer_Profile(props) {
   const router = useRouter();
   const [freelancer, setFreelancer] = useState({});
@@ -170,14 +170,12 @@ function Freelancer_Profile(props) {
         user={props.user}
         position={picturePosition}
       />
-      {/* <div className='w-full'><Link className={styles.btn} style={{width: '100%'}} id={styles.hire} href='/my_requests'>My Requests</Link></div> */}
       <div className={styles.profile_details}>
         <ProfileBioCard
           freelancer={freelancer}
           handleClick={handleClick}
           user={props.user}
         />
-
         {isFreelancerLoaded && (
           <Details
             profession={freelancer.profession}
@@ -197,28 +195,8 @@ function Freelancer_Profile(props) {
           >
             My Requests
           </Link>
-          {/* <div className={styles.btn} id={styles.logout} onClick={handleLogout}>
-            Log Out
-          </div> */}
         </div>
       </div>
-      {/* <div className="flex flex-col">
-        <h2 className="py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold">
-          my feeds
-        </h2>
-        <div className="flex items-center flex-wrap justify-center">
-          {feeds.length !== 0 &&
-            feeds.map((feed, index) => (
-              <RandomFeeds
-                feed={feed}
-                key={index}
-                user={freelancer}
-                height={"12.5rem"}
-                editDelete={true}
-              />
-            ))}
-        </div>
-      </div> */}
       <div className={styles.footer}>
         <Footer premium={props.user?.premium} />
       </div>

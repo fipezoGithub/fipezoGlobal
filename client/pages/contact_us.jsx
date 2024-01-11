@@ -273,6 +273,7 @@ function Contact(props) {
                 <Link href="https://www.facebook.com/fipezo/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0">
                   <Image
                     src="/facebook.png"
+                    alt="facebook-logo"
                     width={60}
                     height={60}
                     className="w-8"
@@ -283,6 +284,7 @@ function Contact(props) {
                 <Link href="https://www.instagram.com/fipezoindia">
                   <Image
                     src="/instagramC.png"
+                    alt="instagram-logo"
                     width={60}
                     height={60}
                     className="w-8"
@@ -293,6 +295,7 @@ function Contact(props) {
                 <Link href="https://www.linkedin.com/in/fipezo/">
                   <Image
                     src="/linkedinO.png"
+                    alt="linkedin-logo"
                     width={60}
                     height={60}
                     className="w-8"

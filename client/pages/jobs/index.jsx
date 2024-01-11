@@ -364,6 +364,7 @@ export default function Jobs(props) {
         <div className="w-full">
           <Image
             src="/Abb Jobs Ki Tension ko bolo bye!.webp"
+            alt="Job Banner"
             width={800}
             height={300}
             className="w-full"

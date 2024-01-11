@@ -84,6 +84,7 @@ function Careers(props) {
         <div className="relative min-w-fit hidden md:block">
           <Image
             src="/india_map_career.png"
+            alt="India Map"
             width={550}
             height={950}
             className="w-[30rem] opacity-60"
