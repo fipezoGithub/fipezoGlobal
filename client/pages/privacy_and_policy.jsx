@@ -121,7 +121,7 @@ function Privacy_And_Policy(props) {
           <h2 className="text-3xl font-bold text-center my-4">Thank you for choosing Fipezo!</h2>
         </div>
       </div>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </div>
   );
 }

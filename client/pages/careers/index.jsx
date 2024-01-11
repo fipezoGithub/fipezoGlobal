@@ -149,7 +149,7 @@ function Careers(props) {
         </Link>
         <div className="w-full h-16"></div>
       </div>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
       {/* {showJoinForm === true && <CVSubmit closeModal={setShowJoinForm} />} */}
     </div>
   );

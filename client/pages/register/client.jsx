@@ -11,7 +11,6 @@ import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Loading from "@/components/Loading";
-import { signUp } from "@/firebase/auth/signup";
 
 function Signup(props) {
   const [phone, setPhone] = useState("");
@@ -76,8 +75,6 @@ function Signup(props) {
             type: "user",
           }),
         });
-        // const resp = await signUp(email, password);
-        // const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data));
         router.push("/");
       } catch (error) {
@@ -457,7 +454,7 @@ function Signup(props) {
       ) : (
         <Loading message={"While we gather your information"} />
       )}
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </div>
   );
 }

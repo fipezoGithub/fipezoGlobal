@@ -151,7 +151,7 @@ const Referandearn = (props) => {
         </ul>
       </div>
       <hr className="my-8 border border-[#eaeaea]" />
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

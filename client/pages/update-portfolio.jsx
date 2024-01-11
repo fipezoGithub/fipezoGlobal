@@ -1376,7 +1376,7 @@ const UpdatePortfolio = (props) => {
         </button>
       </div>
       <div className="w-full mt-8"></div>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

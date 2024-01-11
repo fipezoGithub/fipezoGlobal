@@ -106,7 +106,7 @@ const Payment = (props) => {
           </div>
         </div>
       </main>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

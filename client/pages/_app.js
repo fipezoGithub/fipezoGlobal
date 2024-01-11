@@ -1,13 +1,11 @@
 import "@/styles/globals.css";
 import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import Head from "next/head";
 import Script from "next/script";
 import Loading from "@/components/Loading";
 import { Router } from "next/router";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ScrollToTop from "@/components/ScrollToTop";
-import { auth } from "@/scripts/firebase";
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);

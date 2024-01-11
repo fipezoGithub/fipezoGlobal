@@ -42,7 +42,7 @@ function About_Us(props) {
           </div>
         </div>
       </div >
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </div >
   )
 }

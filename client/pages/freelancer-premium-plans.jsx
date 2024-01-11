@@ -618,7 +618,7 @@ const Premium = (props) => {
           Have a question?
         </Link>
       </div>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

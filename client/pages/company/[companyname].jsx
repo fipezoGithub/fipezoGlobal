@@ -180,7 +180,7 @@ const Companyname = (props) => {
             handleClick={handleClick}
           />
         </div>
-        <Footer user={props.user} company={props.company} />
+        <Footer premium={props.user?.premium} />
         <div>
           {clickedImg && (
             <Modal

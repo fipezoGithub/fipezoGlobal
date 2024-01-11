@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../styles/Footer.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,23 +14,6 @@ const Footer = (props) => {
   const [showGuwahati, setShowGuwahati] = useState(false);
   const [showAhemdabad, setShowAhemdabad] = useState(false);
   const [premium, setPremium] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-    fetch(`${process.env.SERVER_URL}/navbar`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) =>
-        data.user.premium ? setPremium(true) : setPremium(false)
-      )
-      .catch((err) => console.log(err));
-  }, [props.user, props.company]);
 
   return (
     <footer className="bg-black text-white w-full pt-4 lg:pt-8">
@@ -540,7 +523,7 @@ const Footer = (props) => {
                 <li className="text-base text-neutral-500 hover:text-yellow-400 capitalize">
                   <Link
                     href={
-                      premium
+                      props.premium
                         ? "/subscriptionstatus"
                         : "/freelancer-premium-plans"
                     }

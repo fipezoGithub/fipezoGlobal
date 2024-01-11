@@ -220,7 +220,7 @@ function Freelancer_Profile(props) {
         </div>
       </div> */}
       <div className={styles.footer}>
-        <Footer user={props.user} company={props.company} />
+        <Footer premium={props.user?.premium} />
       </div>
       <div>
         {clickedImg && (

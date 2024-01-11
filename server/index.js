@@ -440,7 +440,7 @@ const job = nodeCron.schedule("01 1 00 * * *", async () => {
   });
 });
 
-job.start();
+// job.start();
 
 const ip = "0.0.0.0";
 

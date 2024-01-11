@@ -187,7 +187,7 @@ const CompleteYourProfile = (props) => {
       ) : (
         <Loading message={"Complete your profile"} />
       )}
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

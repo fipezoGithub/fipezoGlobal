@@ -1598,7 +1598,7 @@ class Faqs extends React.Component {
             </p>
           </div>
         </div>
-        <Footer user={this.props.user} company={this.props.company} />
+        <Footer premium={this.props.user?.premium} />
       </div>
     );
   }

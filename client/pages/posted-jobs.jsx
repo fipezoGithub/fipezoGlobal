@@ -78,7 +78,7 @@ const PostedJobs = (props) => {
           <BiBookAdd color="white" className="w-6 lg:w-12 h-6 lg:h-12" />
         </Link>
       </div>
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </>
   );
 };

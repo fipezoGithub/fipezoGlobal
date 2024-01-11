@@ -14,9 +14,6 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import Loading from "@/components/Loading";
-import { loginWithGoogle, signIn } from "@/firebase/auth/signup";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/scripts/firebase";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
@@ -624,7 +621,7 @@ export default function Login(props) {
         ) : (
           <Loading message={"While we find your information"} />
         ))}
-      <Footer user={props.user} company={props.company} />
+      <Footer premium={props.user?.premium} />
     </div>
   );
 }
