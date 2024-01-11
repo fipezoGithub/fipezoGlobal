@@ -11,7 +11,7 @@ import Modal from "@/components/Modal";
 import Link from "next/link";
 import Head from "next/head";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-export const getServerSideProps = async () => {};
+
 function Freelancer_Profile(props) {
   const router = useRouter();
   const [freelancer, setFreelancer] = useState({});

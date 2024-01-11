@@ -4,7 +4,7 @@ import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { BiChevronDown } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaBell } from "react-icons/fa";
 
@@ -13,7 +13,6 @@ export default function Navbar(props) {
   const [border, setBorder] = useState("0px");
   const [color, setColor] = useState(props.color);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [logInType, setLogInType] = useState("");
   const [city, setCity] = useState("");
   const [notificationCount, setNotificationCount] = useState(0);
   const [display2, setDisplay2] = useState("none");
@@ -41,7 +40,6 @@ export default function Navbar(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          data.user.premium ? setPremium(true) : setPremium(false);
           if (data.user.phone === 3335573725 && !data.user.location)
             setIsAdmin(true);
           if (data.user.companyname) props.setCompany(data.user);
@@ -95,8 +93,13 @@ export default function Navbar(props) {
     if (props.user || props.company) {
       getNotifications();
     }
-    setLogInType(JSON.parse(localStorage.getItem("type")));
   }, [props.user, props.company, city]);
+
+  useEffect(() => {
+    if (props.user?.premium === true) {
+      setPremium(true);
+    }
+  }, []);
 
   const handleLogout = () => {
     router.replace("/");
@@ -551,13 +554,6 @@ export default function Navbar(props) {
               <span id={styles.home}>Browse Jobs&nbsp;&nbsp;</span>
             </Link>
           </li>
-          {/* {logInType === "freelancer" && (
-            <li className={styles.navElement}>
-              <Link href={"/feed/"}>
-                <span id={styles.home}>Feed&nbsp;&nbsp;</span>
-              </Link>
-            </li>
-          )} */}
           <li
             className={styles.navElement}
             onClick={() => {
@@ -597,40 +593,6 @@ export default function Navbar(props) {
               <span id={styles.home}>Resources&nbsp;&nbsp;</span>
             </Link>
           </li>
-
-          {/* <li
-            className={styles.navElement}
-            onClick={() => {
-              if (display === "none") setDisplay("flex");
-              else setDisplay("none");
-            }}
-            onMouseEnter={() => setDisplay("flex")}
-            onMouseLeave={() => setDisplay("none")}
-          >
-            <span>Register&nbsp;&nbsp;</span>
-            <BiChevronDown
-              className={styles.icon}
-              style={{ fontSize: 15, color: "white" }}
-            />
-            <div
-              className={styles.dropDown}
-              id={styles.box}
-              style={{ display: display }}
-            >
-              <Link className={styles.optionBox} href="/register/freelancer">
-                <h1 className={styles.mainText}>As a Freelancer</h1>
-                <p className={styles.subText + " text-orange-500"}>
-                  Empowering Your Career: Registering as a Freelancer
-                </p>
-              </Link>
-              <Link className={styles.optionBox} href="/register/company">
-                <h1 className={styles.mainText}>As a Company</h1>
-                <p className={styles.subText + " text-orange-500"}>
-                  Building Success: Registering Your Company
-                </p>
-              </Link>
-            </div>
-          </li> */}
 
           <li
             className={styles.navElement}
@@ -760,21 +722,25 @@ export default function Navbar(props) {
                       Complete Your Profile
                     </Link>
                   ))}
-                {props.user.uid && (
-                  <Link
-                    className={styles.btn}
-                    href={
-                      premium === true
-                        ? "/subscriptionstatus"
-                        : "/freelancer-premium-plans"
-                    }
-                  >
-                    Premium{" "}
-                    <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase text-sm">
-                      offer
-                    </span>
-                  </Link>
-                )}
+                {props.user.uid &&
+                  (premium === true ? (
+                    <Link className={styles.btn} href={"/subscriptionstatus"}>
+                      Premium{" "}
+                      <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase text-sm">
+                        offer
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      className={styles.btn}
+                      href={"/freelancer-premium-plans"}
+                    >
+                      Premium{" "}
+                      <span className="bg-orange-500 text-white px-2 py-1 rounded-md uppercase text-sm">
+                        offer
+                      </span>
+                    </Link>
+                  ))}
                 {!props.user.uid && (
                   <Link className={styles.btn} href="/user_profile">
                     My Profile

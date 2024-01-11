@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 const ScrollToTop = () => {
-  const [footerStart, setFooterStart] = useState(false);
   const scrollRef = useRef();
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       let screenHeight = currentScrollPercentage();
       if (screenHeight >= 30) {
         scrollRef.current.style.transform = "translateX(0%)";
       } else {
-        scrollRef.current.removeAttribute("style");
+        if (scrollRef.current.hasAttribute("style")) {
+          scrollRef.current.removeAttribute("style");
+        }
       }
     });
     function currentScrollPercentage() {

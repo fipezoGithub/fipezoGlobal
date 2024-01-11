@@ -93,11 +93,11 @@ const ProfileSetting = (props) => {
   const updateProfile = async (e) => {
     e.preventDefault();
     if (bio.length > 200 || bio.length < 50) {
-      setWarns((prev) => [...prev, { bioError: true }]);
+      setWarns((prev) => ({ ...prev, bioError: true }));
       return;
     }
     if (equipments.length > 200 || equipments.length < 50) {
-      setWarns((prev) => [...prev, { equipmentsError: true }]);
+      setWarns((prev) => ({ ...prev, equipmentsError: true }));
       return;
     }
     const token = localStorage.getItem("user")
@@ -434,18 +434,6 @@ const ProfileSetting = (props) => {
                     placeholder="Enter your remuneration per day amount"
                     id="rate"
                   />
-                  {/* <input
-                required
-                className={styles.range}
-                value={rate}
-                onChange={(e) => setRate(e.target.value)}
-                name="rate"
-                type="range"
-                min="500"
-                max="50000"
-                step="100"
-                id="rate"
-              /> */}
                 </div>
               </div>
               <hr className="h-px w-full my-4" />
@@ -470,48 +458,6 @@ const ProfileSetting = (props) => {
               </div>
               <hr className="h-px w-full my-4" />
               <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full">
-                {/* <div className="flex flex-col justify-center">
-                  <label
-                    htmlFor="oldpassword"
-                    className="text-base lg:text-lg p-4 pl-0 text-center lg:text-left"
-                  >
-                    Old Password :
-                  </label>
-                  <div>
-                    <div className="flex border border-[#878787] items-center justify-between p-2 group">
-                      <input
-                        type="password"
-                        className="focus:outline-none bg-transparent"
-                        placeholder="Enter old password"
-                        id="oldpassword"
-                        value={oldPassword}
-                        onChange={(e) => setOldPassword(e.target.value)}
-                        minLength={8}
-                        maxLength={15}
-                        ref={oldPasswordRef}
-                      />
-                      <button
-                        type="button"
-                        className="hidden group-focus-within:inline"
-                        onClick={() => {
-                          if (oldPasswordRef.current.type === "password") {
-                            oldPasswordRef.current.type = "text";
-                            setPassowordInputType("text");
-                          } else {
-                            oldPasswordRef.current.type = "password";
-                            setPassowordInputType("password");
-                          }
-                        }}
-                      >
-                        {oldPasswordRef === "password" ? (
-                          <AiFillEye />
-                        ) : (
-                          <AiFillEyeInvisible />
-                        )}
-                      </button>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="flex flex-col justify-center">
                   <label
                     htmlFor="password"
@@ -592,7 +538,10 @@ const ProfileSetting = (props) => {
                     cols="30"
                     rows="10"
                     value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={(e) => {
+                      setWarns((prev) => ({ ...prev, bioError: false }));
+                      setBio(e.target.value);
+                    }}
                     className="border border-[#d3d3d3] p-4 h-40 resize-none"
                   ></textarea>
                   {warns.bioError && (
@@ -647,7 +596,10 @@ const ProfileSetting = (props) => {
                     cols="30"
                     rows="10"
                     value={equipments}
-                    onChange={(e) => setEquipments(e.target.value)}
+                    onChange={(e) => {
+                      setWarns((prev) => ({ ...prev, equipmentsError: false }));
+                      setEquipments(e.target.value);
+                    }}
                     className="border border-[#d3d3d3] p-4 h-40 resize-none"
                   ></textarea>
                   {warns.equipmentsError && (

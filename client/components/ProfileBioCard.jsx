@@ -190,7 +190,7 @@ function ProfileBioCard(props) {
       </div>
       <h1 className={styles.name}>
         <span
-          className="whitespace-nowrap capitalize"
+          className="capitalize truncate"
           style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
         >
           {props.freelancer.firstname?.toLowerCase()}{" "}
@@ -388,7 +388,7 @@ function ProfileBioCard(props) {
             title: "Fipezo",
           }}
         >
-          <button className="bg-black text-white flex items-center p-2 text-lg gap-4 px-4 rounded-lg">
+          <button className="bg-black text-white flex items-center p-2 md:text-lg gap-2 md:gap-4 px-2 md:px-4 rounded-lg">
             <FaShareSquare style={{ color: "white" }} /> Share Profile
           </button>
         </RWebShare>
