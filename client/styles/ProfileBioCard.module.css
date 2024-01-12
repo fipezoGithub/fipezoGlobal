@@ -15,7 +15,6 @@
   box-shadow: var(--shadow);
   height: 14rem;
   width: 14rem;
-  border: 1px solid #ffffff;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -31,7 +30,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  gap: 0.8rem;
 }
 
 .bio {

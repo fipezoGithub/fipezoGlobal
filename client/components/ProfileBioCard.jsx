@@ -9,10 +9,13 @@ import FreelancerEditBox from "@/components/FreelancerEditBox";
 import { AiOutlineThunderbolt, AiFillHeart } from "react-icons/ai";
 import FollowerFollowingModal from "./FollowerFollowingModal";
 import ReportModal from "./ReportModal";
+import Link from "next/link";
+import { RiVipCrownFill } from "react-icons/ri";
 
 function ProfileBioCard(props) {
   // const links = JSON.parse(props.freelancer.links);
   const [display, setDisplay] = useState("none");
+  const [display1, setDisplay1] = useState("none");
   const [showEditBox, setShowEditBox] = useState(false);
   const [showModalAs, setShowModalAs] = useState("");
   const [isFollowed, setIsFollowed] = useState(false);
@@ -23,6 +26,7 @@ function ProfileBioCard(props) {
   const [loveError, setLoveError] = useState(false);
   const [showReportBox, setShowReportBox] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     if (props.user?.following?.includes(props.freelancer._id)) {
       setIsFollowed(true);
@@ -177,42 +181,70 @@ function ProfileBioCard(props) {
 
   return (
     <div className={styles.profile_bio_card}>
-      <div className={styles.profile_pic + " overflow-hidden"}>
-        <Image
-          src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.freelancer.profilePicture}`}
-          width={900}
-          height={900}
-          alt="profile picture"
-          blurDataURL="/loadImg.gif"
-          placeholder="blur"
-          className="h-full w-full object-cover"
-        />
-      </div>
-      <h1 className={styles.name}>
-        <span
-          className="capitalize truncate"
-          style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
+      <div className="relative flex flex-col items-center">
+        <div
+          className={styles.profile_pic + " overflow-hidden"}
+          style={
+            props.freelancer.premium
+              ? { border: "4px solid #FF9800" }
+              : { border: "1px solid #ffffff" }
+          }
         >
-          {props.freelancer.firstname?.toLowerCase()}{" "}
-          {props.freelancer.lastname?.toLowerCase()}
-        </span>{" "}
-        <span className={styles.con}>
           <Image
-            className={styles.blueTick}
-            onMouseOver={() => setDisplay("flex")}
-            onMouseOut={() => setDisplay("none")}
-            src={props.freelancer.verified ? "/tick.png" : "/tickG.png"}
-            height="40"
-            width="40"
-            alt="verified-tick"
-          />{" "}
-          {props.freelancer.verified && (
-            <div className={styles.overTick} style={{ display: display }}>
-              <span>Verified</span>
+            src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.freelancer.profilePicture}`}
+            width={900}
+            height={900}
+            alt="profile picture"
+            blurDataURL="/loadImg.gif"
+            placeholder="blur"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        {props.freelancer.premium && (
+          <Link
+            href="/freelancer-premium-plans"
+            className="relative bottom-[15px] md:bottom-[20px]"
+            onMouseOver={() => setDisplay1("flex")}
+            onMouseOut={() => setDisplay1("none")}
+          >
+            <RiVipCrownFill
+              className="w-6 h-6 md:w-10 md:h-10"
+              color="#FF9800"
+            />
+            <div className={styles.overTick} style={{ display: display1 }}>
+              <span>Premium</span>
               <div className={styles.rectangle}></div>
             </div>
-          )}
-        </span>
+          </Link>
+        )}
+      </div>
+      <h1 className={styles.name}>
+        <p className="flex items-center gap-1">
+          <span
+            className="capitalize whitespace-nowrap"
+            style={{ fontSize: "1.15rem" }}
+          >
+            {props.freelancer.firstname?.toLowerCase()}{" "}
+            {props.freelancer.lastname?.toLowerCase()}
+          </span>{" "}
+          <span className={styles.con}>
+            <Image
+              className={styles.blueTick}
+              onMouseOver={() => setDisplay("flex")}
+              onMouseOut={() => setDisplay("none")}
+              src={props.freelancer.verified ? "/tick.png" : "/tickG.png"}
+              height="40"
+              width="40"
+              alt="verified-tick"
+            />{" "}
+            {props.freelancer.verified && (
+              <div className={styles.overTick} style={{ display: display }}>
+                <span>Verified</span>
+                <div className={styles.rectangle}></div>
+              </div>
+            )}
+          </span>
+        </p>
         <span className={styles.location + " mr-2"}>
           <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
           &nbsp;

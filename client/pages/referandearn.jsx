@@ -3,16 +3,12 @@ import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { BsFingerprint, BsPersonPlus } from "react-icons/bs";
 
 const Referandearn = (props) => {
-  const [type, setType] = useState("");
-  useEffect(() => {
-    setType(JSON.parse(localStorage.getItem("type")));
-  }, []);
 
   return (
     <>
@@ -89,66 +85,70 @@ const Referandearn = (props) => {
           </Link>
         )}
       </div>
-      <div className="mx-8 lg:mx-16">
-        <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Eligibility :</p>
-          <li className="list-disc ml-6">
-            You must be a registered user of Fipezo to participate in the
-            program
-          </li>
-        </ul>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Referral Reward :</p>
-          <li className="list-disc ml-6">
-            For each successful referral, where a referred user creates a Fipezo
-            profile and is a freelancer, you will receive a reward of 50 Indian
-            Rupees {"("}INR{")"}.
-          </li>
-          <li className="list-disc ml-6">
-            The referred user must sign up using your unique referral code to be
-            considered a successful referral.
-          </li>
-        </ul>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Limits and Conditions :</p>
-          <li className="list-disc ml-6">
-            Each referral code is applicable for one profile creation only.
-          </li>
-          <li className="list-disc ml-6">
-            To be eligible for withdrawal, you must accumulate a minimum of 300
-            INR in referral rewards.
-          </li>
-        </ul>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Withdrawal Method :</p>
-          <li className="list-disc ml-6">
-            Referral rewards can only be withdrawn using the UPI {"("}Unified
-            Payments Interface{")"} payment method.
-          </li>
-        </ul>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Fraud and Misuse :</p>
-          <li className="list-disc ml-6">
-            Fipezo reserves the right to investigate and withhold rewards in
-            cases of fraudulent activity or misuse of the &quot;Refer and
-            Earn&quot; program.
-          </li>
-          <li className="list-disc ml-6">
-            Fraudulent activity includes but is not limited to, creating fake
-            profiles or referring oneself.
-          </li>
-        </ul>
-        <ul className="mb-4">
-          <p className="text-lg font-bold">Contact :</p>
-          <li className="list-disc ml-6">
-            If you have any questions or concerns regarding the &quot;Refer and
-            Earn&quot; program, please contact our{" "}
-            <Link href="/contact_us" className="text-blue-600 font-medium">
-              customer support.
-            </Link>
-          </li>
-        </ul>
+      <div className="mx-8 lg:mx-16 flex flex-col items-center">
+        <h1 className="text-2xl lg:text-3xl font-bold mb-6">
+          Terms and Conditions
+        </h1>
+        <div className="flex flex-col items-start">
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Eligibility :</p>
+            <li className="list-disc ml-6">
+              You must be a registered user of Fipezo to participate in the
+              program
+            </li>
+          </ul>
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Referral Reward :</p>
+            <li className="list-disc ml-6">
+              For each successful referral, where a referred user creates a
+              Fipezo profile and is a freelancer, you will receive a reward of
+              50 Indian Rupees {"("}INR{")"}.
+            </li>
+            <li className="list-disc ml-6">
+              The referred user must sign up using your unique referral code to
+              be considered a successful referral.
+            </li>
+          </ul>
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Limits and Conditions :</p>
+            <li className="list-disc ml-6">
+              Each referral code is applicable for one profile creation only.
+            </li>
+            <li className="list-disc ml-6">
+              To be eligible for withdrawal, you must accumulate a minimum of
+              300 INR in referral rewards.
+            </li>
+          </ul>
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Withdrawal Method :</p>
+            <li className="list-disc ml-6">
+              Referral rewards can only be withdrawn using the UPI {"("}Unified
+              Payments Interface{")"} payment method.
+            </li>
+          </ul>
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Fraud and Misuse :</p>
+            <li className="list-disc ml-6">
+              Fipezo reserves the right to investigate and withhold rewards in
+              cases of fraudulent activity or misuse of the &quot;Refer and
+              Earn&quot; program.
+            </li>
+            <li className="list-disc ml-6">
+              Fraudulent activity includes but is not limited to, creating fake
+              profiles or referring oneself.
+            </li>
+          </ul>
+          <ul className="mb-4">
+            <p className="text-lg font-bold">Contact :</p>
+            <li className="list-disc ml-6">
+              If you have any questions or concerns regarding the &quot;Refer
+              and Earn&quot; program, please contact our{" "}
+              <Link href="/contact_us" className="text-blue-600 font-medium">
+                customer support.
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
       <hr className="my-8 border border-[#eaeaea]" />
       <Footer premium={props.user?.premium} />

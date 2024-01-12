@@ -99,7 +99,7 @@ export default function Navbar(props) {
     if (props.user?.premium === true) {
       setPremium(true);
     }
-  }, []);
+  }, [props.user]);
 
   const handleLogout = () => {
     router.replace("/");

@@ -600,7 +600,7 @@ export default function Login(props) {
               </p>
               <div className={styles.lower}>
                 {count > 0 && (
-                  <p className={styles.resendOtp}>Resend OTP in {count}s?</p>
+                  <p className={styles.resendOtp}>Resend OTP in {count}s</p>
                 )}
                 {count === 0 && (
                   <p className={styles.resendOtp} onClick={handleSubmit}>

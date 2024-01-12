@@ -220,13 +220,56 @@ async function deleteCompanyProfile(req, res) {
     res.status(500).send("Internal server error");
   }
 }
+
 // get verified companies
 async function getCompanyProfiles(req, res) {
+  const { page } = req.query;
+  const limit = 12;
   try {
-    const companies = await companyCollection.find({ verified: true });
-    res.send(companies);
+    const companies = await companyCollection
+      .find({ verified: true })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const count = await companyCollection.countDocuments({
+      verified: true,
+    });
+    res.status(200).json(companies);
+    // res.status(200).json({
+    //   companies,
+    //   totalPages: Math.ceil(count / limit),
+    //   currentPage: page,
+    // });
   } catch (error) {
     console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+//Get verified company by type
+async function getCompanyByType(req, res) {
+  const { page } = req.query;
+  const limit = 12;
+  try {
+    const companies = await companyCollection
+      .find({
+        $and: [{ verified: true }, { companytype: req.params.type }],
+      })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const count = await companyCollection.countDocuments({
+      $and: [{ verified: true }, { companytype: req.params.type }],
+    });
+    res.status(200).json({
+      companies,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).send("Internal server error");
   }
 }
@@ -346,6 +389,7 @@ async function getCompanyByName(req, res) {
     res.status(500);
   }
 }
+
 //Update company password
 async function updateCompanyPassword(req, res) {
   try {
@@ -384,4 +428,5 @@ module.exports = {
   getCompanyProfileByUID,
   getCompanyByName,
   updateCompanyPassword,
+  getCompanyByType,
 };

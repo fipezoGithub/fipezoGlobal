@@ -21,6 +21,7 @@ function Verification(props) {
   const [termsAndConditions, setTermsAndConditions] = useState(true);
   const [cameras, setCameras] = useState([false, false]);
   const [dialogBox, setDialogBox] = useState(false);
+  const [warns, setWarns] = useState([]);
 
   useEffect(() => {
     props.setUser(null);
@@ -36,7 +37,7 @@ function Verification(props) {
     }
 
     if (file.size > 10485760 && index === 4) {
-      props.setWarns(true, 0);
+      setWarns((prev) => [...prev, (prev[4] = true)]);
       props.setPicError(false, 1);
       return;
     }
@@ -296,7 +297,7 @@ function Verification(props) {
           </label>
         </div>
       </div> */}
-      <div className={styles.socials}>
+      {/* <div className={styles.socials}>
         <label className={styles.social}>
           Facebook : <br />
           <input
@@ -322,9 +323,6 @@ function Verification(props) {
             }}
             value={links.instagram}
           />
-          {/* <span className={styles.mandatory}>
-            <s>*</s> This field is mandatory
-          </span> */}
         </label>
         <label className={styles.social}>
           Twitter : <br />
@@ -352,143 +350,6 @@ function Verification(props) {
             value={links.youtube}
           />
         </label>
-      </div>
-      {/* <h1 className={styles.heading}>
-        Tell us about yourself
-        {props.worksError && (
-          <p className={styles.err}>Please Provide atleast 8 Works for you</p>
-        )}
-      </h1> */}
-      {/* <div className="flex items-center justify-between w-full gap-6 mb-12">
-        <div className="flex flex-col gap-2 w-full relative">
-          <label htmlFor="bio" className={styles.social}>
-            <span className="text-red-500">* </span>Bio :
-          </label>
-          <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-            {props.bio.length}/200
-          </span>
-          <textarea
-            name="bio"
-            id="bio"
-            maxLength={200}
-            value={props.bio}
-            onChange={(e) => props.setBio(e.target.value)}
-            rows="10"
-            className="outline-none border border-[#686868] p-4 w-full resize-none"
-            placeholder="Write Your Yourself here..."
-          ></textarea>
-        </div>
-        {(props.profession === "photographer" ||
-          props.profession === "drone_operator" ||
-          props.profession === "cinematographer") && (
-          <div className="flex flex-col gap-2 w-full relative">
-            <label htmlFor="equipments" className={styles.social}>
-              <span className="text-red-500">* </span>Equipments Available :
-            </label>
-            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-              {props.equipments.length}/200
-            </span>
-            <textarea
-              name="equipments"
-              id="equipments"
-              value={props.equipments}
-              maxLength={200}
-              onChange={(e) => props.setEquipments(e.target.value)}
-              rows="10"
-              className="outline-none border border-[#686868] p-4 w-full resize-none"
-              placeholder="Write Your equipments here..."
-            ></textarea>
-          </div>
-        )}
-        {(props.profession === "makeup_artist" ||
-          props.profession === "mehendi_artist") && (
-          <div className="flex flex-col gap-2 w-full relative">
-            <label htmlFor="products" className={styles.social}>
-              <span className="text-red-500">* </span>Products Use :
-            </label>
-            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-              {props.equipments.length}/200
-            </span>
-            <textarea
-              name="equipments"
-              id="products"
-              maxLength={200}
-              value={props.equipments}
-              onChange={(e) => props.setEquipments(e.target.value)}
-              rows="10"
-              className="outline-none border border-[#686868] p-4 w-full resize-none"
-              placeholder="Write Your products here..."
-            ></textarea>
-          </div>
-        )}
-        {(props.profession === "model" ||
-          props.profession === "anchor" ||
-          props.profession === "dj" ||
-          props.profession === "dancer" ||
-          props.profession === "influencer") && (
-          <div className="flex flex-col gap-2 w-full relative">
-            <label htmlFor="products" className={styles.social}>
-              <span className="text-red-500">* </span>Describe your work
-              experience :
-            </label>
-            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-              {props.equipments.length}/200
-            </span>
-            <textarea
-              name="equipments"
-              id="products"
-              maxLength={200}
-              value={props.equipments}
-              onChange={(e) => props.setEquipments(e.target.value)}
-              className="outline-none border border-[#686868] p-4 w-full resize-none"
-              rows="10"
-              placeholder="Write about Your working experience here..."
-            ></textarea>
-          </div>
-        )}
-        {(props.profession === "photo_editor" ||
-          props.profession === "video_editor" ||
-          props.profession === "album_designer" ||
-          props.profession === "graphics_designer") && (
-          <div className="flex flex-col gap-2 w-full relative">
-            <label htmlFor="fimiliarSoft" className={styles.social}>
-              <span className="text-red-500">* </span>Software Knowledge :
-            </label>
-            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-              {props.equipments.length}/200
-            </span>
-            <textarea
-              name="equipments"
-              id="equipments"
-              value={props.equipments}
-              maxLength={200}
-              onChange={(e) => props.setEquipments(e.target.value)}
-              className="outline-none border border-[#686868] p-4 w-full resize-none"
-              rows="10"
-              placeholder="Write software name which you used..."
-            ></textarea>
-          </div>
-        )}
-        {props.profession === "web_developer" && (
-          <div className="flex flex-col gap-2 w-full relative">
-            <label htmlFor="fimiliarSoft" className={styles.social}>
-              <span className="text-red-500">* </span>Fimiliar Language :
-            </label>
-            <span className="absolute top-0 right-0 text-neutral-500 text-sm">
-              {props.equipments.length}/200
-            </span>
-            <textarea
-              name="equipments"
-              id="equipments"
-              maxLength={200}
-              value={props.equipments}
-              onChange={(e) => props.setEquipments(e.target.value)}
-              rows="10"
-              className="outline-none border border-[#686868] p-4 w-full resize-none"
-              placeholder="Write languages which you fimiliar with..."
-            ></textarea>
-          </div>
-        )}
       </div> */}
       <h1 className={styles.heading}>
         Add Your Works
@@ -532,7 +393,7 @@ function Verification(props) {
                 />
               </label>
             )}
-            {props.warns[4] && (
+            {warns[0] && (
               <p className={styles.warn} id={styles.warn}>
                 File size exceeds maximum limit of 10mb
               </p>

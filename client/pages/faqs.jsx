@@ -1590,7 +1590,7 @@ class Faqs extends React.Component {
             >
               Still Can&apos;t Find Your Answer ?{" "}
               <Link
-                href="/contact"
+                href="/contact_us"
                 className="capitalize text-base px-4 py-2 bg-blue-600 text-white rounded"
               >
                 drop your query

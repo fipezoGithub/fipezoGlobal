@@ -40,6 +40,7 @@ const {
   getCompanyProfileByUID,
   getCompanyByName,
   updateCompanyPassword,
+  getCompanyByType,
 } = require("./controllers/companyController");
 
 const {
@@ -253,6 +254,7 @@ app.put(
   verifyToken,
   updateCompanyPassword
 );
+app.get("/api/profile/company/type/:type", getCompanyByType);
 
 //FreelancerController Routes
 app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);

@@ -105,18 +105,18 @@ const Sitemap = (props) => {
                       as a freelancer
                     </Link>
                     <Link
-                      href="/resgister/company"
+                      href="/register/company"
                       className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                     >
                       <SlTarget />
                       as a company
                     </Link>
                     <Link
-                      href="/signup"
+                      href="/register/client"
                       className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                     >
                       <SlTarget />
-                      as a user
+                      as a client
                     </Link>
                   </li>
                   <li></li>
@@ -145,7 +145,7 @@ const Sitemap = (props) => {
                       href="/contact_us"
                       className="flex items-center capitalize gap-1 text-[#4a4aeb]"
                     >
-                      <SlTarget /> support
+                      <SlTarget /> contact us
                     </Link>
                     <Link
                       href="/faqs"
@@ -197,21 +197,68 @@ const Sitemap = (props) => {
                   <li></li>
                 </ul>
               </li>
-              <li>
-                <Link
-                  href="/referandearn"
-                  className="flex items-center capitalize gap-1 text-[#4a4aeb]"
-                >
-                  <SlTarget /> refer and earn
-                </Link>
+              <li className="flex flex-col gap-2">
+                <p className="flex items-center capitalize gap-1 text-[#4a4aeb]">
+                  <SlTarget /> useful links
+                </p>
+                <ul className="ml-4">
+                  <li>
+                    <Link
+                      href="/freelancer-premium-plans"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> Fipezo premium
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/referandearn"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> refer and earn
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/submit_your_city"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> submit your city
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              <li>
-                <Link
-                  href="/sumit_your_city"
-                  className="flex items-center capitalize gap-1 text-[#4a4aeb]"
-                >
-                  <SlTarget /> submit your city
-                </Link>
+              <li className="flex flex-col gap-2">
+                <p className="flex items-center capitalize gap-1 text-[#4a4aeb]">
+                  <SlTarget />
+                  about
+                </p>
+                <ul className="ml-4">
+                  <li>
+                    <Link
+                      href="/about_us"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> about us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/careers"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> careers
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/guides_and_reviews"
+                      className="flex items-center capitalize gap-1 text-[#4a4aeb]"
+                    >
+                      <SlTarget /> guides and reviews
+                    </Link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>

@@ -34,7 +34,7 @@ async function resizeImage(file, width, height) {
   const resizedFilename = filename + "-" + width + "x" + height + ext;
   const outputPath = "uploads/" + resizedFilename;
 
-  await sharp(file.path).toFormat("webp", { quality: 50 }).toFile(outputPath);
+  await sharp(file.path).toFormat("webp", { quality: 70 }).toFile(outputPath);
 
   return {
     filename: resizedFilename,
@@ -639,44 +639,10 @@ async function updateWork(req, res) {
           worksToStore = req.files["works[]"]?.map((file) => file.filename);
           const oldWorks = [...freelancerData.works];
           indexes.forEach((element) => {
-            if (element === "0") {
-              if (oldWorks[0]) {
-                deletePromises.push(deleteFile(oldWorks[0]));
-              }
-            }
-            if (element === "1") {
-              if (oldWorks[1]) {
-                deletePromises.push(deleteFile(oldWorks[1]));
-              }
-            }
-            if (element === "2") {
-              if (oldWorks[2]) {
-                deletePromises.push(deleteFile(oldWorks[2]));
-              }
-            }
-            if (element === "3") {
-              if (oldWorks[3]) {
-                deletePromises.push(deleteFile(oldWorks[3]));
-              }
-            }
-            if (element === "4") {
-              if (oldWorks[4]) {
-                deletePromises.push(deleteFile(oldWorks[4]));
-              }
-            }
-            if (element === "5") {
-              if (oldWorks[5]) {
-                deletePromises.push(deleteFile(oldWorks[5]));
-              }
-            }
-            if (element === "6") {
-              if (oldWorks[6]) {
-                deletePromises.push(deleteFile(oldWorks[6]));
-              }
-            }
-            if (element === "7") {
-              if (oldWorks[7]) {
-                deletePromises.push(deleteFile(oldWorks[7]));
+            let deleteIndex = parseInt(element);
+            if (deleteIndex !== NaN) {
+              if (oldWorks[deleteIndex]) {
+                deletePromises.push(deleteFile(oldWorks[deleteIndex]));
               }
             }
           });
@@ -700,24 +666,10 @@ async function updateWork(req, res) {
           }
           const oldWorks = [...freelancerData.works];
           indexes.forEach((element) => {
-            if (element === "4") {
-              if (freelancerData.works[4]) {
-                deletePromises.push(deleteFile(oldWorks[4]));
-              }
-            }
-            if (element === "5") {
-              if (freelancerData.works[5]) {
-                deletePromises.push(deleteFile(oldWorks[5]));
-              }
-            }
-            if (element === "6") {
-              if (freelancerData.works[6]) {
-                deletePromises.push(deleteFile(oldWorks[6]));
-              }
-            }
-            if (element === "7") {
-              if (freelancerData.works[7]) {
-                deletePromises.push(deleteFile(oldWorks[7]));
+            let deleteIndex = parseInt(element);
+            if (deleteIndex !== NaN) {
+              if (oldWorks[deleteIndex]) {
+                deletePromises.push(deleteFile(oldWorks[deleteIndex]));
               }
             }
           });

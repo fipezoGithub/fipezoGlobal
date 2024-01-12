@@ -12,6 +12,7 @@ const UpdatePortfolio = (props) => {
   const [newWorkImages, setNewWorkImages] = useState([]);
   const [worksError, setWorksError] = useState(false);
   const [warns, setWarns] = useState([]);
+  const [currentWarns, setCurrentWarns] = useState([]);
   const [works, setWorks] = useState([]);
   const [currentWorks, setCurrentWorks] = useState([]);
   const [newPortfolioWorks, setNewPortfolioWorks] = useState([]);
@@ -63,7 +64,9 @@ const UpdatePortfolio = (props) => {
     }
 
     if (file.size > 10485760) {
-      setWarns(true, index);
+      let newWarns = [...currentWarns];
+      newWarns[index] = true;
+      setCurrentWarns(newWarns);
       return;
     }
 
@@ -79,7 +82,9 @@ const UpdatePortfolio = (props) => {
     // ) {
     // }
     getVerificationDetails(file, index);
-
+    let newWarns = [...currentWarns];
+    newWarns[index] = false;
+    setCurrentWarns(newWarns);
     reader.onloadend = () => {
       const newImages = [...images];
       newImages[index] = reader.result;
@@ -112,7 +117,9 @@ const UpdatePortfolio = (props) => {
     }
 
     if (file.size > 10485760) {
-      setWarns(true, index);
+      let newWarns = [...warns];
+      newWarns[index] = true;
+      setWarns(newWarns);
       return;
     }
 
@@ -128,6 +135,9 @@ const UpdatePortfolio = (props) => {
     ) {
       newGetVerificationDetails(file, index);
     }
+    let newWarns = [...warns];
+    newWarns[index] = false;
+    setWarns(newWarns);
 
     reader.onloadend = () => {
       const newImages = [...newWorkImages];
@@ -154,7 +164,10 @@ const UpdatePortfolio = (props) => {
 
   const getVerificationDetails = (val, index) => {
     const newWorks = [...currentWorks];
+    const newIndex = [...workIndex];
     newWorks[index] = val;
+    newIndex[index] = index;
+    setWorkIndex(newIndex);
     setWorks(newWorks);
     // if (index === 8 || index === 9 || index === 10 || index === 11) {
     //   const newIndex = index - 4;
@@ -358,7 +371,7 @@ const UpdatePortfolio = (props) => {
                     />
                   </label>
                 )}
-                {props.warns && (
+                {currentWarns[i] && (
                   <p className={styles.warn} id={styles.warn}>
                     File size exceeds maximum limit of 10mb
                   </p>
@@ -422,7 +435,7 @@ const UpdatePortfolio = (props) => {
                         style={{ color: "#1f1c1c" }}
                       />
                     )}
-                    {warns[8] && (
+                    {currentWarns[i] && (
                       <p className={styles.warn} id={styles.warn}>
                         File size exceeds maximum limit of 10mb
                       </p>
@@ -838,7 +851,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[0] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -867,7 +880,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[1] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -896,7 +909,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[2] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -925,7 +938,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[3] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -954,7 +967,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[8] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -983,7 +996,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[9] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -1012,7 +1025,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[10] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>
@@ -1041,7 +1054,7 @@ const UpdatePortfolio = (props) => {
                   />
                 </label>
               )}
-              {props.warns && (
+              {warns[11] && (
                 <p className={styles.warn} id={styles.warn}>
                   File size exceeds maximum limit of 10mb
                 </p>

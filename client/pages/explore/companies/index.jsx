@@ -39,15 +39,18 @@ function Explore(props) {
     window.innerWidth > 640 && setShowSideBar(true);
     setDivider(window.innerWidth > 640 ? 12 : 10);
   }, []);
+
   const handelFilter = () => {
     setShowSideBar(!showSideBar);
   };
+
   const decrePage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
   };
+
   useEffect(() => {
     async function fetchFreelancer() {
       setIsLoading(true);
@@ -91,6 +94,7 @@ function Explore(props) {
 
     fetchFreelancer();
   }, [searchQuery]);
+  
   const filteredCompanies = companies.filter((freelancer) => {
     if (
       !showphotography &&
@@ -174,6 +178,7 @@ function Explore(props) {
     } else if (filterCity !== "none" && city === filterCity) return true;
     return false;
   });
+
   useEffect(() => {
     if (window.innerWidth < 640) {
       setNoOfPages(Math.ceil(locationFilter.length / 10));
@@ -181,6 +186,7 @@ function Explore(props) {
       setNoOfPages(Math.ceil(locationFilter.length / 12));
     }
   }, [locationFilter]);
+
   const pages = noOfPages;
   const startIndex = (currentPage - 1) * divider;
   const endIndex = startIndex + divider;
