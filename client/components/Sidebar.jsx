@@ -51,7 +51,7 @@ export default withRouter(
       this.props.setFilterCity(city);
       localStorage.setItem("city", city);
     };
-    
+
     render() {
       return (
         <div className={styles.sidebar}>
@@ -735,6 +735,7 @@ export default withRouter(
                   className={styles.select}
                   onChange={() => {
                     this.changeCity(document.getElementById("locations").value);
+                    this.props.setCurrentPage(1);
                     if (window.innerWidth < 640) {
                       this.props.setShowSideBar(false);
                     }

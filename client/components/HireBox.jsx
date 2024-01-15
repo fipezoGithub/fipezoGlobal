@@ -11,8 +11,13 @@ function HireBox(props) {
   const [endTime, setEndTime] = useState("00:00");
   const [budget, setBudget] = useState("");
   const [hireError, setHireError] = useState(false);
+  const [budgetError, setBudgetError] = useState(false);
 
   const submitHire = () => {
+    if (budget === "0") {
+      setBudgetError(true);
+      return;
+    }
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -40,7 +45,7 @@ function HireBox(props) {
           });
           const data = await response.json();
           if (response.ok) {
-            if (type === "company") {
+            if (props.user.companyname) {
               const res = await fetch(
                 `${process.env.SERVER_URL}/notification/create`,
                 {
@@ -92,7 +97,7 @@ function HireBox(props) {
 
   useEffect(() => {
     const type = JSON.parse(localStorage.getItem("type"));
-    if (type === "company") {
+    if (props.user.companyname) {
       setFullName(props.user.companyname);
     } else {
       setFullName(props.user.firstname + " " + props.user.lastname);
@@ -105,9 +110,10 @@ function HireBox(props) {
         <ImCross />
       </span>
       <h1 className={styles.heading}>Send Your Task</h1>
-      <p className={styles.error}>
-        {hireError ? "Please fill all the fields" : ""}
-      </p>
+      {hireError && <p className={styles.error}>Please fill all the fields</p>}
+      {budgetError && (
+        <p className={styles.error}>Budget needs to be greater than 0</p>
+      )}
       <div className={styles.fields}>
         <div className={styles.field}>
           <div className={styles.subField}>
@@ -177,7 +183,10 @@ function HireBox(props) {
         </div>
         <div className={styles.field}>
           <label htmlFor="date" className={styles.label}>
-            <span className="text-red-500">* </span>Date
+            Date{" "}
+            <span className="text-neutral-500 text-sm tracking-widest">
+              optional
+            </span>
           </label>
           <input
             className={styles.input}
@@ -193,7 +202,10 @@ function HireBox(props) {
         </div>
         <div className={styles.field}>
           <label htmlFor="startTime" className={styles.label}>
-            <span className="text-red-500">* </span>Start Time
+            Start Time{" "}
+            <span className="text-neutral-500 text-sm tracking-widest">
+              optional
+            </span>
           </label>
           <input
             className={styles.input}
@@ -210,7 +222,10 @@ function HireBox(props) {
         </div>
         <div className={styles.field}>
           <label htmlFor="endTime" className={styles.label}>
-            <span className="text-red-500">* </span>End Time
+            End Time{" "}
+            <span className="text-neutral-500 text-sm tracking-widest">
+              optional
+            </span>
           </label>
           <input
             className={styles.input}
@@ -237,6 +252,7 @@ function HireBox(props) {
             value={budget}
             onChange={(e) => {
               setHireError(false);
+              setBudgetError(false);
               setBudget(e.target.value);
             }}
           />

@@ -70,6 +70,7 @@ const {
   getPaymentDetailsOFUser,
   getFreelancerProfilesByProfession,
   premiumWorkUpload,
+  getNumberAndMail,
 } = require("./controllers/freelancerController");
 
 const {
@@ -301,6 +302,7 @@ app.put(
 );
 app.get("/api/freelancer/paymentdetails", verifyToken, getPaymentDetailsOFUser);
 app.get("/api/freelancer/professions", getFreelancerProfilesByProfession);
+app.get("/api/freelancer/all/phone_email", getNumberAndMail);
 
 //Contactcontroller routes
 app.post("/api/contact", contactUs);

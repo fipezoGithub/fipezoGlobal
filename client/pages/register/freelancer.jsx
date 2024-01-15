@@ -82,7 +82,11 @@ export default withRouter(
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.count === 0 && prevState.currentPage === 3) {
+      if (
+        prevState.count === 0 &&
+        prevState.currentPage === 3 &&
+        this.state.timerId !== null
+      ) {
         clearInterval(this.state.timerId);
         this.setState({ resendOtp: true });
       }
@@ -235,7 +239,8 @@ export default withRouter(
       this.setState({ invalidOtp: false });
       if (this.state.currentPage === 3) {
         this.setState({ resendOtp: false });
-        this.setState({ count: 120 });
+        this.setState({ count: 30 });
+        this.startCountdown();
       }
       this.increPage();
     };
@@ -1755,7 +1760,7 @@ export default withRouter(
                     )}
                     {this.state.currentPage === 3 && this.state.count > 0 && (
                       <p className={styles.resendOtp}>
-                        Resend OTP in {this.state.count}s?
+                        Resend OTP in {this.state.count}s
                       </p>
                     )}
                     {this.state.form && (

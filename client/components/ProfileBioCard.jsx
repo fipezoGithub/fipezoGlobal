@@ -219,7 +219,7 @@ function ProfileBioCard(props) {
         )}
       </div>
       <h1 className={styles.name}>
-        <p className="flex items-center gap-1">
+        <p className="flex items-center">
           <span
             className="capitalize whitespace-nowrap"
             style={{ fontSize: "1.15rem" }}

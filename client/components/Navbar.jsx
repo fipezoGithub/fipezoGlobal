@@ -3,7 +3,7 @@ import Link from "next/link";
 import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { BiChevronDown } from "react-icons/bi";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaBell } from "react-icons/fa";
@@ -20,6 +20,7 @@ export default function Navbar(props) {
   const [display4, setDisplay4] = useState("none");
   const [display5, setDisplay5] = useState("none");
   const [premium, setPremium] = useState(false);
+  const [user, setUser] = useState({});
   const router = useRouter();
   const sideNavRef = useRef();
 
@@ -40,6 +41,11 @@ export default function Navbar(props) {
       })
         .then((res) => res.json())
         .then((data) => {
+          setUser(data.user);
+          getNotifications(data.user);
+          if (data.user.premium === true) {
+            setPremium(true);
+          }
           if (data.user.phone === 3335573725 && !data.user.location)
             setIsAdmin(true);
           if (data.user.companyname) props.setCompany(data.user);
@@ -51,20 +57,36 @@ export default function Navbar(props) {
         });
     } else if (props.user && token) {
       if (props.user.phone && props.user.phone === 3335573725) setIsAdmin(true);
+      getNotifications(props.user);
+      if (props.user.premium === true) {
+        setPremium(true);
+      }
       if (props.checkLoggedIn) props.checkLoggedIn(true);
     } else if (props.company && token) {
       if (props.checkLoggedIn) props.checkLoggedIn(true);
+      getNotifications(props.company);
     } else {
       if (props.checkLoggedIn) props.checkLoggedIn(false);
     }
 
-    const type = JSON.parse(localStorage.getItem("type"));
-
-    async function getNotifications() {
+    if (user.premium === true) {
+      setPremium(true);
+    }
+    async function getNotifications(loggedUser) {
       let res;
-      if (props.company) {
+      if (loggedUser.companyname) {
         res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.company?._id}?type=${type}`,
+          `${process.env.SERVER_URL}/notification/${loggedUser._id}?type=company`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } else if (!loggedUser.companyname && loggedUser.uid) {
+        res = await fetch(
+          `${process.env.SERVER_URL}/notification/${loggedUser._id}?type=freelancer`,
           {
             method: "GET",
             headers: {
@@ -74,7 +96,7 @@ export default function Navbar(props) {
         );
       } else {
         res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${type}`,
+          `${process.env.SERVER_URL}/notification/${loggedUser._id}?type=user`,
           {
             method: "GET",
             headers: {
@@ -87,19 +109,10 @@ export default function Navbar(props) {
       const filtered = noti.filter((not) => {
         return not.seen === false;
       });
+      console.log(filtered.length);
       setNotificationCount(filtered.length);
     }
-
-    if (props.user || props.company) {
-      getNotifications();
-    }
-  }, [props.user, props.company, city]);
-
-  useEffect(() => {
-    if (props.user?.premium === true) {
-      setPremium(true);
-    }
-  }, [props.user]);
+  }, [props.user, props.company, city, user]);
 
   const handleLogout = () => {
     router.replace("/");

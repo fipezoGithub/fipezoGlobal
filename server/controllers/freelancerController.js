@@ -1182,6 +1182,22 @@ async function getPaymentDetailsOFUser(req, res) {
   }
 }
 
+async function getNumberAndMail(req, res) {
+  let userEmail = [];
+  const freelancers = await freelancerCollection.find({});
+  // const freelancers = await companyCollection.find({});
+
+  freelancers.forEach(async (element) => {
+    let user = {
+      name: element.firstname + " " + element.lastname,
+      email: element.email,
+      phone: element.phone,
+    };
+    userEmail.push(user);
+  });
+  res.status(200).send({ userEmail });
+}
+
 module.exports = {
   registerFreelancer,
   verificationProfile,
@@ -1209,4 +1225,5 @@ module.exports = {
   getPaymentDetailsOFUser,
   getFreelancerProfilesByProfession,
   premiumWorkUpload,
+  getNumberAndMail,
 };

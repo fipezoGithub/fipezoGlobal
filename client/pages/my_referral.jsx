@@ -45,7 +45,7 @@ const My_referral = (props) => {
       }
     }
     getReferDetails();
-  }, [referCode]);
+  }, [!referCode]);
 
   useEffect(() => {
     setUrl(window.location.origin + "/register/freelancer");

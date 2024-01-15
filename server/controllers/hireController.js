@@ -40,9 +40,6 @@ async function addHire(req, res) {
         !req.body.fullname ||
         !req.body.description ||
         !phone ||
-        !req.body.startTime ||
-        !req.body.endTime ||
-        !req.body.date ||
         !req.body.address ||
         !req.body.budget
       ) {

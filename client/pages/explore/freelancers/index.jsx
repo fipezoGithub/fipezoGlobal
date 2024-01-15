@@ -109,7 +109,39 @@ function Explore(props) {
     async function fetchFreelancer() {
       setIsLoading(true);
       try {
-        if (searchQuery.length === 0) {
+        if (
+          searchQuery.length === 0 &&
+          !showPhotographers &&
+          !showCinematographers &&
+          !showDroneOperators &&
+          !showPhotoEditor &&
+          !showVideoEditor &&
+          !showAlbumDesign &&
+          !showModel &&
+          !showMakeupArtist &&
+          !showAnchor &&
+          !showWebDeveloper &&
+          !showDj &&
+          !showDancer &&
+          !showInfluencer &&
+          !showGraphicsDesigner &&
+          !showMehendiArtist &&
+          !showPrivateTutor &&
+          !showDanceTeacher &&
+          !showMusicTeacher &&
+          !showDrawingTeacher &&
+          !showPainter &&
+          !showLyricist &&
+          !showMusician &&
+          !showVoiceOverArtist &&
+          !showFashionDesigner &&
+          !showVocalist &&
+          !showActor &&
+          !showActress &&
+          !showBabySitter &&
+          !showMaid &&
+          !showInteriorDesigner
+        ) {
           const response = await fetch(
             `${process.env.SERVER_URL}/profiles/verified/freelancer?loc=${filterCity}&page=${currentPage}`,
             { cache: "no-store" }
@@ -270,7 +302,7 @@ function Explore(props) {
             queryStr = queryStr + "q[]=interior_designer&";
           }
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}&loc=${filterCity}&page=${currentPage}`
+            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}loc=${filterCity}&page=${currentPage}`
           );
           const data = await response.json();
           setFreelancers(data.freelancers);

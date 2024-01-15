@@ -9,7 +9,14 @@ const My_notifications = (props) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const type = JSON.parse(localStorage.getItem("type"));
+    let type;
+    if (props.user?.uid) {
+      type = "freelancer";
+    } else if (!props.user?.uid) {
+      type = "user";
+    } else {
+      type = "company";
+    }
     async function getNotifications() {
       let noti;
       if (props.company) {

@@ -4,6 +4,10 @@ import styles from "../styles/RequestCard.module.css";
 function RequestCard(props) {
   // Function to format the date as "dd/mm/yyyy"
   const formatDate = (dateStr) => {
+    console.log(dateStr);
+    if (dateStr === undefined) {
+      return;
+    }
     const date = new Date(dateStr);
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -22,10 +26,17 @@ function RequestCard(props) {
       </p>
       <p className={styles.cardInfo}>Address: {props.request.address}</p>
       <p className={styles.cardInfo}>
-        Date: {formatDate(props.request.date.slice(0, 10))}
+        Date:{" "}
+        {formatDate(props.request.date?.slice(0, 10)) === undefined
+          ? "Non applicable"
+          : formatDate(props.request.date.slice(0, 10))}
       </p>
       <p className={styles.cardInfo}>
-        Time: {props.request.startTime} - {props.request.endTime}
+        Time:{" "}
+        {props.request.startTime === "00:00" &&
+        props.request.endTime === "00:00"
+          ? "Not applicable"
+          : `${props.request.startTime} - ${props.request.endTime}`}
       </p>
       <p className={styles.cardInfo}>Budget: {props.request.budget}</p>
       {props.request.status === "pending" && (

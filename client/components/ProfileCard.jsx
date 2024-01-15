@@ -71,7 +71,7 @@ export default function ProfileCard(props) {
       <h3 className={styles.name}>
         <span
           className="w-22 truncate capitalize"
-          style={{ maxWidth: "11rem", letterSpacing: "0" }}
+          style={{ maxWidth: "10rem", letterSpacing: "0" }}
         >
           {props.profile.firstname.toLowerCase()}{" "}
           {props.profile.lastname.toLowerCase()}
