@@ -172,6 +172,7 @@ const {
   createNotification,
   getNotificationOfUser,
   seeNotifications,
+  seenAllNotifications,
 } = require("./controllers/notificationController");
 const {
   addBlog,
@@ -378,6 +379,7 @@ app.post("/api/payment/phonepay", newPhonePayPayment);
 app.post("/api/notification/create", createNotification);
 app.get("/api/notification/:userId", getNotificationOfUser);
 app.put("/api/notification/:id", seeNotifications);
+app.put("/api/notification/seenall/:userId", seenAllNotifications);
 
 //Blog Routes
 app.post("/api/blog/create", blogCoverPic, addBlog);

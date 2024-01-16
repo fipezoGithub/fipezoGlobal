@@ -50,7 +50,6 @@ function Explore(props) {
   const [threeStars, setThreeStars] = useState(false);
   const [noOfPages, setNoOfPages] = useState(0);
   const [filterCity, setFilterCity] = useState("");
-  const [divider, setDivider] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const increPage = (e) => {
@@ -101,14 +100,9 @@ function Explore(props) {
 
   useEffect(() => {
     const location = localStorage.getItem("city");
-    if (!location) {
-      setFilterCity("Kolkata");
-    } else {
-      setFilterCity(location);
-    }
     async function fetchFreelancer() {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         if (
           searchQuery.length === 0 &&
           !showPhotographers &&
@@ -143,67 +137,7 @@ function Explore(props) {
           !showInteriorDesigner
         ) {
           const response = await fetch(
-            `${process.env.SERVER_URL}/profiles/verified/freelancer?loc=${filterCity}&page=${currentPage}`,
-            { cache: "no-store" }
-          );
-          const data = await response.json();
-          setFreelancers(data.freelancers);
-          setNoOfPages(data.totalPages);
-        }
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        console.error(error);
-      }
-    }
-
-    fetchFreelancer();
-  }, [searchQuery, filterCity, currentPage]);
-
-  useEffect(() => {
-    const location = localStorage.getItem("city");
-    if (!location) {
-      setFilterCity("Kolkata");
-    } else {
-      setFilterCity(location);
-    }
-    async function fetchFreelancer() {
-      try {
-        setIsLoading(true);
-        if (
-          !showPhotographers &&
-          !showCinematographers &&
-          !showDroneOperators &&
-          !showPhotoEditor &&
-          !showVideoEditor &&
-          !showAlbumDesign &&
-          !showModel &&
-          !showMakeupArtist &&
-          !showAnchor &&
-          !showWebDeveloper &&
-          !showDj &&
-          !showDancer &&
-          !showInfluencer &&
-          !showGraphicsDesigner &&
-          !showMehendiArtist &&
-          !showPrivateTutor &&
-          !showDanceTeacher &&
-          !showMusicTeacher &&
-          !showDrawingTeacher &&
-          !showPainter &&
-          !showLyricist &&
-          !showMusician &&
-          !showVoiceOverArtist &&
-          !showFashionDesigner &&
-          !showVocalist &&
-          !showActor &&
-          !showActress &&
-          !showBabySitter &&
-          !showMaid &&
-          !showInteriorDesigner
-        ) {
-          const response = await fetch(
-            `${process.env.SERVER_URL}/profiles/verified/freelancer?loc=${filterCity}&page=${currentPage}`,
+            `${process.env.SERVER_URL}/profiles/verified/freelancer?loc=${location}&page=${currentPage}`,
             { cache: "no-store" }
           );
           const data = await response.json();
@@ -302,7 +236,7 @@ function Explore(props) {
             queryStr = queryStr + "q[]=interior_designer&";
           }
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}loc=${filterCity}&page=${currentPage}`
+            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}loc=${location}&page=${currentPage}`
           );
           const data = await response.json();
           setFreelancers(data.freelancers);
@@ -378,18 +312,6 @@ function Explore(props) {
     return Number(b.featured) - Number(a.featured);
   });
 
-  // useEffect(() => {
-  //   if (window.innerWidth <= 640) {
-  //     setNoOfPages(Math.ceil(finalFiltered.length / 10));
-  //   } else {
-  //     setNoOfPages(Math.ceil(finalFiltered.length / 12));
-  //   }
-  // }, [finalFiltered]);
-
-  // const pages = noOfPages;
-  // const startIndex = (currentPage - 1) * divider;
-  // const endIndex = startIndex + divider;
-  // const displayedFreelancers = finalFiltered.slice(startIndex, endIndex);
   const final = finalFiltered;
   return isLoading === true ? (
     <Loading message={"Freelancer is loading"} />

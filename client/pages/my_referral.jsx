@@ -13,7 +13,7 @@ const My_referral = (props) => {
   const [upiID, setUpiID] = useState("");
   const [conUpiID, setConUpiID] = useState("");
   const referalText = useRef();
-  const a = 5;
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -45,14 +45,13 @@ const My_referral = (props) => {
       }
     }
     getReferDetails();
-  }, [!referCode]);
+  }, [props.user]);
 
   useEffect(() => {
     setUrl(window.location.origin + "/register/freelancer");
   }, []);
 
   async function generateReferCode() {
-    const loginType = JSON.parse(localStorage.getItem("type"));
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;

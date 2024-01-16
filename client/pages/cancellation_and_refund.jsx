@@ -21,7 +21,7 @@ const CancellationAndRefund = (props) => {
         <h1 className="text-4xl font-bold">
           Welcome to Fipezo - Your Trusted Freelance Platform
         </h1>
-        <div className="flex flex-col relative items-center w-1/2 p-4 m-8 gap-4 h-screen overflow-hidden overflow-y-scroll bg-white">
+        <div className="flex flex-col relative items-center w-full md:w-1/2 p-4 m-8 gap-4 h-screen overflow-hidden overflow-y-scroll bg-white">
           <Link className="absolute top-[2%] right-[2%]" href="/">
             <Image
               src="/cross.png"

@@ -43,6 +43,7 @@ async function generateReferCode(req, res) {
     res.status(500).send("Internal Server Error");
   }
 }
+
 async function getReferCodeByUser(req, res) {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
@@ -61,6 +62,7 @@ async function getReferCodeByUser(req, res) {
     res.status(500).send("Internal Server Error");
   }
 }
+
 async function getReferCodeByFreelancer(req, res) {
   try {
     jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {

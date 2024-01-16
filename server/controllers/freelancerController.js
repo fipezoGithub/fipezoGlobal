@@ -52,8 +52,6 @@ async function registerFreelancer(req, res) {
         referUid: req.body.usedReferalId,
       });
       referalUID = referal._id;
-    } else {
-      referalUID = null;
     }
     const resizedProfilePicture = await resizeImage(
       req.files["profilePicture"][0],
@@ -110,12 +108,14 @@ async function registerFreelancer(req, res) {
       createdReferalId: referID._id,
     });
     if (req.body.usedReferalId) {
-      const freelancer = await freelancerCollection.find({
+      const freelancer = await freelancerCollection.findOne({
         createdReferalId: referalUID,
       });
-      const user = await userCollection.find({ createdReferalId: referalUID });
+      const user = await userCollection.findOne({
+        createdReferalId: referalUID,
+      });
       await referCollection.findByIdAndUpdate(referalUID, {
-        acceptedFreelancer: newFreelancer._id,
+        $push: { acceptedFreelancer: newFreelancer._id },
       });
       if (user) {
         await userCollection.findByIdAndUpdate(user._id, {
@@ -127,16 +127,6 @@ async function registerFreelancer(req, res) {
         });
       }
     }
-
-    // if (req.body.profession === 'photographer' || req.body.profession === 'drone_operator') {
-    //   req.files['works[]'].forEach(file => {
-    //     unlinkFile('uploads/' + file.filename);
-    //   });
-
-    //   req.files['works[]'].forEach(file => {
-    //     unlinkFile(file.path);
-    //   });
-    // }
     await unlinkFile("uploads/" + req.files["profilePicture"][0].filename);
     await unlinkFile(resizedProfilePicture.path);
     await unlinkFile("uploads/" + req.files["coverPicture"][0].filename);

@@ -125,7 +125,7 @@ export default function My_hires(props) {
       {accepted && (
         <DialogBox
           title="Congratulations!"
-          text={`Freelancer has accepted your request. You can contact him on ${freelancerPhone}.`}
+          text={`Freelancer has accepted your request. Contact on ${freelancerPhone} as soon as possible.`}
           handleDialogBox={setAccepted}
         />
       )}
@@ -141,7 +141,12 @@ export default function My_hires(props) {
         <h1 className={styles.heading}>My Requests</h1>
         {hires.length === 0 ? (
           <div className={styles.noRequestsImage}>
-            <Image src="/noRequests.webp" alt="no-request" width={500} height={500} />
+            <Image
+              src="/noRequests.webp"
+              alt="no-request"
+              width={500}
+              height={500}
+            />
             <p
               style={{
                 fontSize: "18px",

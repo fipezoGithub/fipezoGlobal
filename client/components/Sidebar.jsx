@@ -15,6 +15,39 @@ export default withRouter(
         showDropDownRating: true,
         showDropDownLocation: true,
         cityname: localStorage.getItem("city"),
+        catQuery: "",
+        displayCat: [
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+          "flex",
+        ],
       };
     }
 
@@ -34,10 +67,59 @@ export default withRouter(
         showDropDownRating: !prevState.showDropDownRating,
       }));
     };
+
     toggleSearch = () => {
       this.setState((prevState) => ({
         showDropDownSearch: !prevState.showDropDownSearch,
       }));
+    };
+
+    searchCategory = (val) => {
+      const cat = [
+        "Actor",
+        "Actress",
+        "Album Designer",
+        "Anchor",
+        "Babysitter",
+        "Cinematographer",
+        "Dancer",
+        "Dance Teacher",
+        "DJ",
+        "Drawing Teacher",
+        "Drone Operator",
+        "Fashion Designer",
+        "Graphics Designer",
+        "Influencer",
+        "Interior Designer",
+        "Lyricist",
+        "Maid",
+        "Makeup Artist",
+        "Mehendi Artist",
+        "Model",
+        "Musician",
+        "Music Teacher",
+        "Painter",
+        "Photographer",
+        "Photo Editor",
+        "Private Tutor",
+        "Video Editor",
+        "Vocalist",
+        "Voice Over Artist",
+        "Web Developer",
+      ];
+      cat.forEach((element, index) => {
+        if (!element.toLocaleLowerCase().includes(val.toLocaleLowerCase())) {
+          this.setState((prevState) => [
+            ...prevState.displayCat,
+            (prevState.displayCat[index] = "none"),
+          ]);
+        } else {
+          this.setState((prevState) => [
+            ...prevState.displayCat,
+            (prevState.displayCat[index] = "flex"),
+          ]);
+        }
+      });
     };
 
     toggleLocation = () => {
@@ -58,7 +140,7 @@ export default withRouter(
           {this.props.router.pathname === "/explore/freelancers" ? (
             <div
               className={`flex flex-col snap-y ${
-                this.state.showDropDown === true ? "h-[35vh]" : "h-auto"
+                this.state.showDropDown === true ? "h-[40vh]" : "h-auto"
               } overflow-hidden overflow-y-scroll justify-start`}
               id={styles.category}
             >
@@ -70,9 +152,20 @@ export default withRouter(
                   className={styles.arrow}
                 />
               </div>
+              <div className="mb-2 mr-1">
+                <input
+                  type="text"
+                  placeholder="search category"
+                  onChange={(e) => this.searchCategory(e.target.value)}
+                  className="focus:outline-none px-2 py-1 placeholder:capitalize border"
+                />
+              </div>
               {this.state.showDropDown && (
                 <div className={styles.options}>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[0] }}
+                  >
                     <input
                       className={styles.checkbox}
                       id="actor"
@@ -90,7 +183,10 @@ export default withRouter(
                       Actor
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[1] }}
+                  >
                     <input
                       className={styles.checkbox}
                       id="actress"
@@ -108,7 +204,10 @@ export default withRouter(
                       Actress
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[2] }}
+                  >
                     <input
                       className={styles.checkbox}
                       id="album_designer"
@@ -126,7 +225,10 @@ export default withRouter(
                       Album Designer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[3] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -144,7 +246,10 @@ export default withRouter(
                       Anchor
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[4] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -162,7 +267,10 @@ export default withRouter(
                       Babysitter
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[5] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -180,7 +288,10 @@ export default withRouter(
                       Cinematographer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[6] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -198,7 +309,10 @@ export default withRouter(
                       Dancer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[7] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -216,7 +330,10 @@ export default withRouter(
                       Dance Teacher
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[8] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -234,7 +351,10 @@ export default withRouter(
                       DJ
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[9] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -252,7 +372,10 @@ export default withRouter(
                       Drawing Teacher
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[10] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -270,7 +393,10 @@ export default withRouter(
                       Drone Operator
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[11] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -288,7 +414,10 @@ export default withRouter(
                       Fashion Designer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[12] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -306,7 +435,10 @@ export default withRouter(
                       Graphics Designer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[13] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -324,7 +456,10 @@ export default withRouter(
                       Influencer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[14] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -342,7 +477,10 @@ export default withRouter(
                       Interior Designer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[15] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -360,7 +498,10 @@ export default withRouter(
                       Lyricist
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[16] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -378,7 +519,10 @@ export default withRouter(
                       Maid
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[17] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -396,7 +540,10 @@ export default withRouter(
                       Makeup Artist
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[18] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -414,7 +561,10 @@ export default withRouter(
                       Mehendi Artist
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[19] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -432,7 +582,10 @@ export default withRouter(
                       Model
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[20] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -450,7 +603,10 @@ export default withRouter(
                       Musician
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[21] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -468,7 +624,10 @@ export default withRouter(
                       Music Teacher
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[22] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -486,7 +645,10 @@ export default withRouter(
                       Painter
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[23] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -504,7 +666,10 @@ export default withRouter(
                       Photographer
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[24] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -522,7 +687,10 @@ export default withRouter(
                       Photo Editor
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[25] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -540,7 +708,10 @@ export default withRouter(
                       Private Tutor
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[26] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -558,7 +729,10 @@ export default withRouter(
                       Video Editor
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[27] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -576,7 +750,10 @@ export default withRouter(
                       Vocalist
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[28] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"
@@ -594,7 +771,10 @@ export default withRouter(
                       Voice Over Artist
                     </label>
                   </div>
-                  <div className={styles.inputs + " snap-center"}>
+                  <div
+                    className={styles.inputs + " snap-center"}
+                    style={{ display: this.state.displayCat[29] }}
+                  >
                     <input
                       className={styles.checkbox}
                       type="checkbox"

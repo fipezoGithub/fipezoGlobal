@@ -171,7 +171,7 @@ class SearchBox extends React.Component {
             <IoIosArrowDown color="#bebebe" className="md:w-6 md:h-6" />
           </div>
           {showDropDownCategory === true && (
-            <div className="bg-white w-full z-[1100] h-80 overflow-hidden overflow-y-scroll">
+            <div className="bg-white w-full z-[1100] h-80 overflow-hidden overflow-y-scroll absolute top-full">
               {filteredOptions.length > 0 &&
                 filteredOptions.map((option, index) => {
                   let value = option;
@@ -259,7 +259,7 @@ class SearchBox extends React.Component {
             <IoIosArrowDown color="#bebebe" className="md:w-6 md:h-6" />
           </div>
           {showDropDownCity === true && (
-            <div className="bg-white w-full z-[1100] relative h-80 overflow-hidden overflow-y-scroll">
+            <div className="bg-white w-full z-[1100] h-80 overflow-hidden overflow-y-scroll absolute top-full">
               <span className="text-left block ml-2 mb-2 capitalize text-xs font-semibold text-neutral-500">
                 major cities
               </span>

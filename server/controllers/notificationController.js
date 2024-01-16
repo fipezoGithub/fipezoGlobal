@@ -58,7 +58,7 @@ async function getNotificationOfUser(req, res) {
         .populate("sentCompany")
         .exec();
     }
-    res.status(201).json(notifications);
+    res.status(200).json(notifications);
   } catch (error) {
     console.log(error);
     res.status(404).send("Internal Server Error");
@@ -85,8 +85,56 @@ async function seeNotifications(req, res) {
   }
 }
 
+async function seenAllNotifications(req, res) {
+  let notifications;
+  if (req.query.type === "freelancer") {
+    notifications = await notificationCollection
+      .updateMany(
+        {
+          acceptedFreelancer: req.params.userId,
+          seen: false,
+        },
+        { $set: { seen: true } }
+      )
+      .populate("acceptedFreelancer")
+      .populate("sentFreelancer")
+      .populate("sentUser")
+      .populate("sentCompany")
+      .exec();
+  } else if (req.query.type === "user") {
+    notifications = await notificationCollection
+      .find(
+        {
+          acceptedUser: req.params.userId,
+          seen: false,
+        },
+        { $set: { seen: true } }
+      )
+      .populate("acceptedUser")
+      .populate("sentFreelancer")
+      .populate("sentUser")
+      .populate("sentCompany")
+      .exec();
+  } else {
+    notifications = await notificationCollection
+      .find(
+        {
+          acceptedCompany: req.params.userId,
+          seen: false,
+        },
+        { $set: { seen: true } }
+      )
+      .populate("acceptedCompany")
+      .populate("sentFreelancer")
+      .populate("sentUser")
+      .populate("sentCompany")
+      .exec();
+  }
+  getNotificationOfUser(req, res);
+}
 module.exports = {
   createNotification,
   getNotificationOfUser,
   seeNotifications,
+  seenAllNotifications,
 };
