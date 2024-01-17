@@ -420,7 +420,42 @@ const ProfileSetting = (props) => {
                     htmlFor="rate"
                     className="text-base lg:text-lg p-4 pl-0 text-center lg:text-left"
                   >
-                    Remuneration per day?
+                    Remuneration per{" "}
+                    {(profession === "actor" ||
+                      profession === "actress" ||
+                      profession === "model") &&
+                      "Shoot"}
+                    {profession === "influencer" && "Post"}
+                    {profession === "fashion_designer" && "Dress"}
+                    {(profession === "babysitter" ||
+                      profession === "maid" ||
+                      profession === "dance_teacher" ||
+                      profession === "drawing_teacher" ||
+                      profession === "music_teacher" ||
+                      profession == "private_tutor") &&
+                      "Month"}
+                    {(profession === "dj" ||
+                      profession == "musician" ||
+                      profession === "drone_operator") &&
+                      "Hour"}
+                    {(profession === "album_designer" ||
+                      profession === "dancer" ||
+                      profession === "graphics_designer" ||
+                      profession === "interior_designer" ||
+                      profession === "mehendi_artist" ||
+                      profession === "painter" ||
+                      profession === "photo_editor" ||
+                      profession === "video_editor" ||
+                      profession === "voice_over_artist" ||
+                      profession === "anchor" ||
+                      profession === "lyricist" ||
+                      profession === "makeup_artist" ||
+                      profession === "vocalist" ||
+                      profession === "web_developer") &&
+                      "Project"}
+                    {(profession === "cinematographer" ||
+                      profession === "photographer") &&
+                      "Day"}
                   </label>
                   <input
                     required

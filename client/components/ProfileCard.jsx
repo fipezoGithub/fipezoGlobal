@@ -297,7 +297,44 @@ export default function ProfileCard(props) {
         )}
         <h4>{profession}</h4>
         <div className={styles.rate}>
-          <p className="whitespace-nowrap">Rs.{props.profile.rate} / Day</p>
+          <p className="whitespace-nowrap">
+            Rs.{props.profile.rate} /{" "}
+            {(profession === "Actor" ||
+              profession === "Actress" ||
+              profession === "Model") &&
+              "Shoot"}
+            {profession === "Influencer" && "Post"}
+            {profession === "Fashion Designer" && "Dress"}
+            {(profession === "Babysitter" ||
+              profession === "Maid" ||
+              profession === "Dance Teacher" ||
+              profession === "Drawing Teacher" ||
+              profession === "Music Teacher" ||
+              profession == "Private Tutor") &&
+              "Month"}
+            {(profession === "Dj" ||
+              profession == "Musician" ||
+              profession === "Drone Operator") &&
+              "Hour"}
+            {(profession === "Album Designer" ||
+              profession === "Dancer" ||
+              profession === "Graphics Designer" ||
+              profession === "Interior Designer" ||
+              profession === "Mehendi Artist" ||
+              profession === "Painter" ||
+              profession === "Photo Editor" ||
+              profession === "Video Editor" ||
+              profession === "Voice Over Artist" ||
+              profession === "Anchor" ||
+              profession === "Lyricist" ||
+              profession === "Makeup Artist" ||
+              profession === "Vocalist" ||
+              profession === "Web Developer") &&
+              "Project"}
+            {(profession === "Cinematographer" ||
+              profession === "Photographer") &&
+              "Day"}
+          </p>
         </div>
       </div>
     </Link>

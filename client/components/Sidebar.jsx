@@ -140,7 +140,7 @@ export default withRouter(
           {this.props.router.pathname === "/explore/freelancers" ? (
             <div
               className={`flex flex-col snap-y ${
-                this.state.showDropDown === true ? "h-[40vh]" : "h-auto"
+                this.state.showDropDown === true ? "h-[41vh]" : "h-auto"
               } overflow-hidden overflow-y-scroll justify-start`}
               id={styles.category}
             >
@@ -817,7 +817,7 @@ export default withRouter(
 
           <div className={styles.filter} id={styles.price}>
             <div className={styles.title}>Price</div>
-            <span className={styles.rate}>Rs. {this.props.rateSort} / Day</span>
+            <span className={styles.rate}>Rs. {this.props.rateSort}</span>
             <input
               type="range"
               min="500"

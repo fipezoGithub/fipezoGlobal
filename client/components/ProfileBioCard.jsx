@@ -360,8 +360,6 @@ function ProfileBioCard(props) {
             "Month"}
           {(props.freelancer.profession === "dj" ||
             props.freelancer.profession == "musician" ||
-            props.freelancer.profession === "cinematographer" ||
-            props.freelancer.profession === "photographer" ||
             props.freelancer.profession === "drone_operator") &&
             "Hour"}
           {(props.freelancer.profession === "album_designer" ||
@@ -379,6 +377,9 @@ function ProfileBioCard(props) {
             props.freelancer.profession === "vocalist" ||
             props.freelancer.profession === "web_developer") &&
             "Project"}
+          {(props.freelancer.profession === "cinematographer" ||
+            props.freelancer.profession === "photographer") &&
+            "Day"}
         </p>
       </div>
       <div className={styles.equipment_available}>

@@ -1343,8 +1343,6 @@ export default withRouter(
                             "Month"}
                           {(this.state.profession === "dj" ||
                             this.state.profession == "musician" ||
-                            this.state.profession === "cinematographer" ||
-                            this.state.profession === "photographer" ||
                             this.state.profession === "drone_operator") &&
                             "Hour"}
                           {(this.state.profession === "album_designer" ||
@@ -1362,6 +1360,9 @@ export default withRouter(
                             this.state.profession === "vocalist" ||
                             this.state.profession === "web_developer") &&
                             "Project"}
+                          {(this.state.profession === "cinematographer" ||
+                            this.state.profession === "photographer") &&
+                            "Day"}
                           ?
                         </label>
                         {this.state.rate && (
