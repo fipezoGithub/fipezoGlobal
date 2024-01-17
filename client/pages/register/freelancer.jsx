@@ -1326,11 +1326,82 @@ export default withRouter(
                       <div className={styles.inputField} id={styles.rate}>
                         <label htmlFor="rate" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>What is your
-                          fee per day?
+                          fee per{" "}
+                          {(this.state.profession === "actor" ||
+                            this.state.profession === "actress" ||
+                            this.state.profession === "model") &&
+                            "Shoot"}
+                          {this.state.profession === "influencer" && "Post"}
+                          {this.state.profession === "fashion_designer" &&
+                            "Dress"}
+                          {(this.state.profession === "babysitter" ||
+                            this.state.profession === "maid" ||
+                            this.state.profession === "dance_teacher" ||
+                            this.state.profession === "drawing_teacher" ||
+                            this.state.profession === "music_teacher" ||
+                            this.state.profession == "private_tutor") &&
+                            "Month"}
+                          {(this.state.profession === "dj" ||
+                            this.state.profession == "musician" ||
+                            this.state.profession === "cinematographer" ||
+                            this.state.profession === "photographer" ||
+                            this.state.profession === "drone_operator") &&
+                            "Hour"}
+                          {(this.state.profession === "album_designer" ||
+                            this.state.profession === "dancer" ||
+                            this.state.profession === "graphics_designer" ||
+                            this.state.profession === "interior_designer" ||
+                            this.state.profession === "mehendi_artist" ||
+                            this.state.profession === "painter" ||
+                            this.state.profession === "photo_editor" ||
+                            this.state.profession === "video_editor" ||
+                            this.state.profession === "voice_over_artist" ||
+                            this.state.profession === "anchor" ||
+                            this.state.profession === "lyricist" ||
+                            this.state.profession === "makeup_artist" ||
+                            this.state.profession === "vocalist" ||
+                            this.state.profession === "web_developer") &&
+                            "Project"}
+                          ?
                         </label>
                         {this.state.rate && (
                           <p className={styles.rate}>
-                            Rs. {this.state.rate} / Day
+                            Rs. {this.state.rate} /{" "}
+                            {(this.state.profession === "actor" ||
+                              this.state.profession === "actress" ||
+                              this.state.profession === "model") &&
+                              "Project"}
+                            {this.state.profession === "influencer" && "Post"}
+                            {this.state.profession === "fashion_designer" &&
+                              "Dress"}
+                            {(this.state.profession === "babysitter" ||
+                              this.state.profession === "maid" ||
+                              this.state.profession === "dance_teacher" ||
+                              this.state.profession === "drawing_teacher" ||
+                              this.state.profession === "music_teacher" ||
+                              this.state.profession == "private_tutor") &&
+                              "Month"}
+                            {(this.state.profession === "dj" ||
+                              this.state.profession == "musician" ||
+                              this.state.profession === "cinematographer" ||
+                              this.state.profession === "photographer" ||
+                              this.state.profession === "drone_operator") &&
+                              "Hour"}
+                            {(this.state.profession === "album_designer" ||
+                              this.state.profession === "dancer" ||
+                              this.state.profession === "graphics_designer" ||
+                              this.state.profession === "interior_designer" ||
+                              this.state.profession === "mehendi_artist" ||
+                              this.state.profession === "painter" ||
+                              this.state.profession === "photo_editor" ||
+                              this.state.profession === "video_editor" ||
+                              this.state.profession === "voice_over_artist" ||
+                              this.state.profession === "anchor" ||
+                              this.state.profession === "lyricist" ||
+                              this.state.profession === "makeup_artist" ||
+                              this.state.profession === "vocalist" ||
+                              this.state.profession === "web_developer") &&
+                              "Project"}
                           </p>
                         )}
                         <input

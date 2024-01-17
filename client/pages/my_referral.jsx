@@ -119,6 +119,7 @@ const My_referral = (props) => {
 
   function handelDialouge() {
     setShowDialougeBox(false);
+    setShowWithdrawlBox(true);
   }
 
   return (

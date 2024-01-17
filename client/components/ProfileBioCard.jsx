@@ -344,7 +344,41 @@ function ProfileBioCard(props) {
       </div>
       <div className="flex w-full px-4 flex-wrap">
         <p className="bg-white p-2 text-sm w-full text-black border-2 flex justify-center mb-8 rounded-3xl font-bold">
-          Rs. {props.freelancer.rate} / Day
+          Rs. {props.freelancer.rate} /{" "}
+          {(props.freelancer.profession === "actor" ||
+            props.freelancer.profession === "actress" ||
+            props.freelancer.profession === "model") &&
+            "Shoot"}
+          {props.freelancer.profession === "influencer" && "Post"}
+          {props.freelancer.profession === "fashion_designer" && "Dress"}
+          {(props.freelancer.profession === "babysitter" ||
+            props.freelancer.profession === "maid" ||
+            props.freelancer.profession === "dance_teacher" ||
+            props.freelancer.profession === "drawing_teacher" ||
+            props.freelancer.profession === "music_teacher" ||
+            props.freelancer.profession == "private_tutor") &&
+            "Month"}
+          {(props.freelancer.profession === "dj" ||
+            props.freelancer.profession == "musician" ||
+            props.freelancer.profession === "cinematographer" ||
+            props.freelancer.profession === "photographer" ||
+            props.freelancer.profession === "drone_operator") &&
+            "Hour"}
+          {(props.freelancer.profession === "album_designer" ||
+            props.freelancer.profession === "dancer" ||
+            props.freelancer.profession === "graphics_designer" ||
+            props.freelancer.profession === "interior_designer" ||
+            props.freelancer.profession === "mehendi_artist" ||
+            props.freelancer.profession === "painter" ||
+            props.freelancer.profession === "photo_editor" ||
+            props.freelancer.profession === "video_editor" ||
+            props.freelancer.profession === "voice_over_artist" ||
+            props.freelancer.profession === "anchor" ||
+            props.freelancer.profession === "lyricist" ||
+            props.freelancer.profession === "makeup_artist" ||
+            props.freelancer.profession === "vocalist" ||
+            props.freelancer.profession === "web_developer") &&
+            "Project"}
         </p>
       </div>
       <div className={styles.equipment_available}>
