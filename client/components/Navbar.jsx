@@ -109,7 +109,6 @@ export default function Navbar(props) {
       const filtered = noti.filter((not) => {
         return not.seen === false;
       });
-      console.log(filtered.length);
       setNotificationCount(filtered.length);
     }
   }, [props.user, props.company, city, user]);

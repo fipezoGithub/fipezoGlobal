@@ -33,7 +33,6 @@ export default function Name(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isFreelancerLoaded, setIsFreelancerLoaded] = useState(true);
   const [user, setUser] = useState(null);
-  const [logInType, setLogInType] = useState("");
   const [clickedImg, setClickedImg] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
   const [copied, setCopied] = useState(false);
@@ -208,7 +207,6 @@ export default function Name(props) {
   };
 
   useEffect(() => {
-    setLogInType(JSON.parse(localStorage.getItem("type")));
     if (props.user !== null && props.user?.uid === uid) {
       router.push("/freelancer_profile");
     }
@@ -234,10 +232,10 @@ export default function Name(props) {
           content={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.profilePicture}`}
         />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:type" content="profile" />
+        <meta property="og:image:type" content="image/webp" />
 
-        <meta property="og:url" content="http://fipezo.com/" />
+        <meta property="og:url" content="https://fipezo.com/" />
       </Head>
       <div className={styles.profile}>
         <Navbar

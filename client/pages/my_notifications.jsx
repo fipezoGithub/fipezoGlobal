@@ -17,10 +17,10 @@ const My_notifications = (props) => {
     } else {
       type = "company";
     }
-    async function getNotifications() {
+    async function getNotifications(logInType) {
       if (props.company) {
         const res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.company?._id}?type=${type}`,
+          `${process.env.SERVER_URL}/notification/${props.company?._id}?type=company`,
           {
             method: "GET",
             headers: {
@@ -29,11 +29,10 @@ const My_notifications = (props) => {
           }
         );
         const noti = await res.json();
-        console.log(noti);
         setNotifications(noti);
       } else {
         const res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${type}`,
+          `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${logInType}`,
           {
             method: "GET",
             headers: {
@@ -45,7 +44,7 @@ const My_notifications = (props) => {
         setNotifications(noti);
       }
     }
-    getNotifications();
+    getNotifications(type);
   }, []);
 
   const seenNotification = async (noti) => {

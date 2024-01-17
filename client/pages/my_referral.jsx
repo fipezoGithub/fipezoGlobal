@@ -1,3 +1,4 @@
+import DialogBox from "@/components/DialogBox";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Head from "next/head";
@@ -12,6 +13,9 @@ const My_referral = (props) => {
   const [showWithdrawlBox, setShowWithdrawlBox] = useState(false);
   const [upiID, setUpiID] = useState("");
   const [conUpiID, setConUpiID] = useState("");
+  const [upiError, setUpiError] = useState(false);
+  const [validId, setValidId] = useState(false);
+  const [showDialougeBox, setShowDialougeBox] = useState(false);
   const referalText = useRef();
 
   useEffect(() => {
@@ -82,6 +86,41 @@ const My_referral = (props) => {
   function copyText() {
     navigator.clipboard.writeText(referalText.current.innerHTML);
   }
+
+  async function withdrawlRequest() {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    if (upiID !== conUpiID || upiID === "") {
+      setUpiError(true);
+      return;
+    }
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/referupi/requestwithdrawl`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            upiId: upiID,
+          }),
+        }
+      );
+      if (res.ok) {
+        setShowDialougeBox(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handelDialouge() {
+    setShowDialougeBox(false);
+  }
+
   return (
     <>
       <Head>
@@ -272,7 +311,7 @@ const My_referral = (props) => {
               {referCode?.acceptedFreelancer?.length >= 5 ? (
                 <div className="flex flex-col items-center justify-between w-full gap-4 lg:gap-0">
                   <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-4 lg:gap-0">
-                    <div className="flex flex-col items-start">
+                    <div className="flex flex-col items-start relative">
                       <label
                         htmlFor="upi"
                         className="text-center lg:text-lg capitalize"
@@ -284,9 +323,23 @@ const My_referral = (props) => {
                         placeholder="enter upi id"
                         id="upi"
                         value={upiID}
-                        onChange={(e) => setUpiID(e.target.value)}
+                        onChange={(e) => {
+                          setValidId(false);
+                          setUpiError(false);
+                          setUpiID(e.target.value);
+                        }}
+                        onBlur={(e) => {
+                          if (!e.target.value.includes("@")) {
+                            setValidId(true);
+                          }
+                        }}
                         className="bg-neutral-300 p-2 placeholder:capitalize"
                       />
+                      {validId && (
+                        <p className="text-red-600 font-bold absolute top-full">
+                          upi is not valid
+                        </p>
+                      )}
                     </div>
                     <div className="flex flex-col items-start">
                       <label
@@ -300,13 +353,17 @@ const My_referral = (props) => {
                         placeholder="confirm upi id"
                         id="conupi"
                         value={conUpiID}
-                        onChange={(e) => setConUpiID(e.target.value)}
+                        onChange={(e) => {
+                          setUpiError(false);
+                          setConUpiID(e.target.value);
+                        }}
                         className="bg-neutral-300 p-2 placeholder:capitalize"
                       />
                     </div>
                   </div>
                   <button
                     type="button"
+                    onClick={withdrawlRequest}
                     className="capitalize font-bold bg-blue-500 text-white px-2 py-1 rounded-lg"
                   >
                     submit
@@ -319,6 +376,11 @@ const My_referral = (props) => {
                     successful referrals, you are eligible to withdraw.
                   </h3>
                 </div>
+              )}
+              {upiError && (
+                <p className="text-red-500 font-bold">
+                  UPI id mismatch. please check your upi id.
+                </p>
               )}
               <div className="flex flex-col gap-4">
                 <p className="text-neutral-500">
@@ -338,6 +400,13 @@ const My_referral = (props) => {
       </div>
       <hr className="my-8 border border-[#eaeaea]" />
       <Footer premium={props.user?.premium} />
+      {showDialougeBox && (
+        <DialogBox
+          title="Success"
+          text="Your upi id has been reached to us. Please keep patience. Amount will be creditted between next 24 business hours."
+          handleDialogBox={handelDialouge}
+        />
+      )}
     </>
   );
 };

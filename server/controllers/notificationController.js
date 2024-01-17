@@ -132,6 +132,7 @@ async function seenAllNotifications(req, res) {
   }
   getNotificationOfUser(req, res);
 }
+
 module.exports = {
   createNotification,
   getNotificationOfUser,

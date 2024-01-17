@@ -157,7 +157,7 @@ export default withRouter(
                   type="text"
                   placeholder="search category"
                   onChange={(e) => this.searchCategory(e.target.value)}
-                  className="focus:outline-none px-2 py-1 placeholder:capitalize border"
+                  className="focus:outline-none px-2 py-1 placeholder:capitalize placeholder:text-sm md:placeholder:text-base w-48 md:w-auto border"
                 />
               </div>
               {this.state.showDropDown && (

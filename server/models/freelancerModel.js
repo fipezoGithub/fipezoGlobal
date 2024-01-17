@@ -154,6 +154,7 @@ freelancerSchema.pre("save", async function (next) {
 freelancerSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
 const freelancerCollection = new mongoose.model(
   "freelancercollection",
   freelancerSchema

@@ -206,6 +206,11 @@ const {
 } = require("./controllers/carrerController");
 const carrerCVUpoload = require("./middlewares/careerCV");
 const freelancerCollection = require("./models/freelancerModel");
+const {
+  applyWithdrawl,
+  getWithDrawlDetails,
+  completeWithDrawl,
+} = require("./controllers/referUPIController");
 
 // Setting up the routes
 
@@ -408,6 +413,19 @@ app.get("/api/carrer", getAllFipezoJobRequest);
 app.get("/api/carrer/:requestId", getFipezoJobRequestById);
 app.get("/api/carrer/cat/:category", getFipezoJobRequestByCategory);
 app.get("/api/carrer/all/applicants", getAllApplications);
+
+//ReferUPI Routes
+app.post("/api/referupi/requestwithdrawl", verifyToken, applyWithdrawl);
+app.get(
+  "/api/referupi/allrequestedwithdrawls",
+  verifyToken,
+  getWithDrawlDetails
+);
+app.put(
+  "/api/referupi/completewithdrawls/:reqId",
+  verifyToken,
+  completeWithDrawl
+);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

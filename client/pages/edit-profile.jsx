@@ -92,7 +92,7 @@ const ProfileSetting = (props) => {
 
   const updateProfile = async (e) => {
     e.preventDefault();
-    if (bio.length > 200 || bio.length < 50) {
+    if (bio.length > 500 || bio.length < 50) {
       setWarns((prev) => ({ ...prev, bioError: true }));
       return;
     }

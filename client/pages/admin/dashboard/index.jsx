@@ -11,7 +11,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
-import { FaCity, FaWpforms } from "react-icons/fa";
+import { FaCity, FaRupeeSign, FaWpforms } from "react-icons/fa";
 
 const Dashboard = (props) => {
   const [freelancers, setFreelancers] = useState([]);
@@ -21,12 +21,14 @@ const Dashboard = (props) => {
   const [requestedCities, setRequestedCities] = useState([]);
   const [reports, setReports] = useState([]);
   const [applicants, setApplicants] = useState([]);
+  const [referWithdrawlRequests, setReferWithdrawlRequests] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
   const [submittedCityBox, setSubmittedCityBox] = useState(false);
   const [reportBox, setReportBox] = useState(false);
   const [jobApplicationBox, setJobApplicationBox] = useState(false);
+  const [referPaymentBox, setReferPaymentBox] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
   const router = useRouter();
 
@@ -157,6 +159,26 @@ const Dashboard = (props) => {
       }
     }
 
+    async function getReferRequest() {
+      try {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/referupi/allrequestedwithdrawls`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        console.log(data);
+        setReferWithdrawlRequests(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     fetchFreelancer();
     fetchCompany();
     getCallbacks();
@@ -164,6 +186,7 @@ const Dashboard = (props) => {
     getRequestedCities();
     getReports();
     getJobApplications();
+    getReferRequest();
   }, [props.user, router]);
 
   const updateFreelancers = (id) => {
@@ -178,6 +201,13 @@ const Dashboard = (props) => {
       return company._id !== id;
     });
     setCompanies(newCompanies);
+  };
+
+  const updateUPIRequest = (id) => {
+    const newRequest = referWithdrawlRequests.filter((refer) => {
+      return refer._id !== id;
+    });
+    setReferWithdrawlRequests(newRequest);
   };
 
   const handelRequestedCities = async (id) => {
@@ -197,6 +227,48 @@ const Dashboard = (props) => {
     }
   };
 
+  async function completePayment(id, freelancerId) {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/referupi/completewithdrawls/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (res.ok) {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/notification/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: "UPI payment",
+              headline: `Ammount has been credited to your account`,
+              acceptedFreelancer: freelancerId,
+              sentUser: props.user._id,
+              href: "/my_referral",
+            }),
+          }
+        );
+        const data = await res.json();
+        updateUPIRequest(id);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -208,8 +280,8 @@ const Dashboard = (props) => {
         setCompany={props.setCompany}
         setUser={props.setUser}
       />
-      <main className="mt-16 md:mx-8 flex items-start w-full">
-        <div className="md:hidden">
+      <main className="mt-16 md:mx-8 flex items-start w-full relative">
+        <div className="md:hidden absolute">
           <button
             type="button"
             className="text-4xl"
@@ -235,12 +307,36 @@ const Dashboard = (props) => {
                     setContactRequestBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(false);
+                    setReferPaymentBox(false);
                     setVerificationBox(true);
                     setJobApplicationBox(false);
                   }}
                 >
                   <MdVerified />
                   verification
+                </button>
+              </li>
+              <li
+                className={`px-4 py-2 ${
+                  referPaymentBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  onClick={() => {
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
+                    setReferPaymentBox(true);
+                    setVerificationBox(false);
+                    setJobApplicationBox(false);
+                  }}
+                >
+                  <FaRupeeSign />
+                  refer payment
                 </button>
               </li>
               <li
@@ -257,6 +353,7 @@ const Dashboard = (props) => {
                     setVerificationBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(false);
+                    setReferPaymentBox(false);
                     setCallbackBox(true);
                     setJobApplicationBox(false);
                   }}
@@ -279,6 +376,7 @@ const Dashboard = (props) => {
                     setCallbackBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(false);
+                    setReferPaymentBox(false);
                     setContactRequestBox(true);
                     setJobApplicationBox(false);
                   }}
@@ -301,6 +399,7 @@ const Dashboard = (props) => {
                     setCallbackBox(false);
                     setContactRequestBox(false);
                     setReportBox(false);
+                    setReferPaymentBox(false);
                     setSubmittedCityBox(true);
                     setJobApplicationBox(false);
                   }}
@@ -324,6 +423,7 @@ const Dashboard = (props) => {
                     setContactRequestBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(true);
+                    setReferPaymentBox(false);
                     setJobApplicationBox(false);
                   }}
                 >
@@ -346,6 +446,7 @@ const Dashboard = (props) => {
                     setContactRequestBox(false);
                     setSubmittedCityBox(false);
                     setReportBox(false);
+                    setReferPaymentBox(false);
                     setJobApplicationBox(true);
                   }}
                 >
@@ -389,6 +490,71 @@ const Dashboard = (props) => {
                   />
                 );
               })}
+            </div>
+          )}
+          {referPaymentBox === true && (
+            <div
+              id="referpayment"
+              className="flex items-center justify-center w-full"
+            >
+              <table className="w-full mt-8 border border-collapse">
+                <thead className="">
+                  <tr className="py-4">
+                    <th className="capitalize text-sm lg:text-2xl hidden md:table-cell">
+                      dp
+                    </th>
+                    <th className="capitalize text-sm lg:text-2xl">name</th>
+                    <th className="capitalize text-sm lg:text-2xl">phone</th>
+                    <th className="capitalize text-sm lg:text-2xl">upi id</th>
+                    <th className="capitalize text-sm lg:text-2xl">action</th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {referWithdrawlRequests.length > 0 &&
+                    referWithdrawlRequests.map((it, i) => (
+                      <tr key={i} className="border-b">
+                        <th className="hidden md:flex items-center justify-center py-4 ">
+                          <Image
+                            src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.freelancer.profilePicture}`}
+                            width={120}
+                            height={120}
+                            alt="upi requeted user"
+                            className="w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover"
+                          />
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <Link
+                            href={`/profile/${it.freelancer.uid}`}
+                            target="_blank"
+                          >
+                            {it.freelancer.firstname +
+                              " " +
+                              it.freelancer.lastname}
+                          </Link>
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <a href={`tel:${it.freelancer.phone}`}>
+                            {it.freelancer.phone}
+                          </a>
+                        </th>
+                        <th className="text-sm lg:text-xl font-medium py-4">
+                          {it.upiId}
+                        </th>
+                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              completePayment(it._id, it.freelancer._id)
+                            }
+                            className="border rounded-md md:p-2 capitalize border-blue-600 text-blue-600"
+                          >
+                            mark as done
+                          </button>
+                        </th>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           )}
           {callbackBox === true && (
