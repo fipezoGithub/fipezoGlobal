@@ -124,12 +124,7 @@ const loginController = async (req, res) => {
       await otpCollection.deleteOne({ phone: phone });
     }
 
-    let code;
-    if (phone === "3335573725") {
-      code = 123456;
-    } else {
-      code = Math.floor(100000 + Math.random() * 900000);
-    }
+    let code = Math.floor(100000 + Math.random() * 900000);
 
     const otpData = new otpCollection({
       phone: phone,

@@ -10,7 +10,7 @@ export default function Bio() {
           <div className={styles.pictures}>
             <h1 className={styles.heading + " montserrat"} id={styles.head}>
               Unlock Your Potential! Find Freelancers in India and Explore
-              High-Paying Freelance Jobs Online with Fipezo!&quot;
+              High-Paying Freelance Jobs Online with Fipezo!
             </h1>
             <p className={styles.subHeading}>
               Discover talent on Fipezo - where top freelancers in India await.

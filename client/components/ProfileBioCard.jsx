@@ -181,7 +181,7 @@ function ProfileBioCard(props) {
 
   return (
     <div className={styles.profile_bio_card}>
-      <div className="relative flex flex-col items-center">
+      <div className='relative flex flex-col items-center'>
         <div
           className={styles.profile_pic + " overflow-hidden"}
           style={
@@ -194,22 +194,22 @@ function ProfileBioCard(props) {
             src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.freelancer.profilePicture}`}
             width={900}
             height={900}
-            alt="profile picture"
-            blurDataURL="/loadImg.gif"
-            placeholder="blur"
-            className="h-full w-full object-cover"
+            alt='profile picture'
+            blurDataURL='/loadImg.gif'
+            placeholder='blur'
+            className='h-full w-full object-cover'
           />
         </div>
         {props.freelancer.premium && (
           <Link
-            href="/freelancer-premium-plans"
-            className="relative bottom-[15px] md:bottom-[20px]"
+            href='/freelancer-premium-plans'
+            className='relative bottom-[15px] md:bottom-[20px]'
             onMouseOver={() => setDisplay1("flex")}
             onMouseOut={() => setDisplay1("none")}
           >
             <RiVipCrownFill
-              className="w-6 h-6 md:w-10 md:h-10"
-              color="#FF9800"
+              className='w-6 h-6 md:w-10 md:h-10'
+              color='#FF9800'
             />
             <div className={styles.overTick} style={{ display: display1 }}>
               <span>Premium</span>
@@ -219,9 +219,9 @@ function ProfileBioCard(props) {
         )}
       </div>
       <h1 className={styles.name}>
-        <p className="flex items-center">
+        <p className='flex items-center'>
           <span
-            className="capitalize whitespace-nowrap"
+            className='capitalize whitespace-nowrap'
             style={{ fontSize: "1.15rem" }}
           >
             {props.freelancer.firstname?.toLowerCase()}{" "}
@@ -233,9 +233,9 @@ function ProfileBioCard(props) {
               onMouseOver={() => setDisplay("flex")}
               onMouseOut={() => setDisplay("none")}
               src={props.freelancer.verified ? "/tick.png" : "/tickG.png"}
-              height="40"
-              width="40"
-              alt="verified-tick"
+              height='40'
+              width='40'
+              alt='verified-tick'
             />{" "}
             {props.freelancer.verified && (
               <div className={styles.overTick} style={{ display: display }}>
@@ -253,32 +253,32 @@ function ProfileBioCard(props) {
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}
         </span>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center text-sm bg-[#25be25] px-3 py-1 rounded-lg text-white">
-            <p className="text-[0.9rem]">
+        <div className='flex items-center gap-2'>
+          <div className='flex items-center text-sm bg-[#25be25] px-3 py-1 rounded-lg text-white'>
+            <p className='text-[0.9rem]'>
               {props.freelancer.rating?.toFixed(1)}
             </p>
             <FaStar className={styles.star} />
           </div>
           <div className={styles.noOfReviews}>
-            <p className="text-sm text-neutral-500">
+            <p className='text-sm text-neutral-500'>
               ({props.freelancer.reviewCount})
             </p>
           </div>
         </div>
       </h1>
-      <div className="flex w-full justify-start pl-6 gap-4">
-        <p className="bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap">
+      <div className='flex w-full justify-start pl-6 gap-4'>
+        <p className='bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap'>
           {props.freelancer.profession
             ?.split("_")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
             .join(" ")}
         </p>
         {props.freelancer.featured && (
-          <p className="bg-violet-500 text-sm p-2 mb-8 text-white rounded-3xl px-3 flex items-center whitespace-nowrap">
+          <p className='bg-violet-500 text-sm p-2 mb-8 text-white rounded-3xl px-3 flex items-center whitespace-nowrap'>
             <AiOutlineThunderbolt
               style={{ color: "yellow" }}
-              className="mr-2"
+              className='mr-2'
             />
             Featured Freelancer
           </p>
@@ -288,62 +288,62 @@ function ProfileBioCard(props) {
         <div className={styles.copy}>URL copied to clipboard!</div>
       )}
       {props.user?._id !== props.freelancer._id && (
-        <div className="w-full flex items-center justify-center">
+        <div className='w-full flex items-center justify-center'>
           <button
-            type="button"
-            className="p-2 text-sm rounded-xl w-[80%] capitalize bg-[#0095f6] text-white"
+            type='button'
+            className='p-2 text-sm rounded-xl w-[80%] capitalize bg-[#0095f6] text-white'
             onClick={handelFollow}
           >
             {isFollowed === false ? "follow" : "unfollow"}
           </button>
         </div>
       )}
-      <div className="flex gap-4 my-4">
+      <div className='flex gap-4 my-4'>
         <div
-          className="flex flex-col items-center cursor-pointer"
+          className='flex flex-col items-center cursor-pointer'
           onClick={() => {
             setShowFollowingFollowerBox(true);
             setShowModalAs("followers");
           }}
         >
-          <p className="font-bold">{props.freelancer?.followers?.length}</p>
-          <p className="capitalize text-sm tracking-wide font-semibold">
+          <p className='font-bold'>{props.freelancer?.followers?.length}</p>
+          <p className='capitalize text-sm tracking-wide font-semibold'>
             followers
           </p>
         </div>
         <div
-          className="flex flex-col items-center cursor-pointer"
+          className='flex flex-col items-center cursor-pointer'
           onClick={() => {
             setShowFollowingFollowerBox(true);
             setShowModalAs("following");
           }}
         >
-          <p className="font-bold">{props.freelancer?.following?.length}</p>
-          <p className="capitalize text-sm tracking-wide font-semibold">
+          <p className='font-bold'>{props.freelancer?.following?.length}</p>
+          <p className='capitalize text-sm tracking-wide font-semibold'>
             following
           </p>
         </div>
       </div>
       {loveError === true && (
-        <div className="mb-4">
-          <h3 className="text-red-500 font-semibold">
+        <div className='mb-4'>
+          <h3 className='text-red-500 font-semibold'>
             Sorry! you can not give love to your own profile
           </h3>
         </div>
       )}
-      <div className="flex items-center justify-center gap-2 w-full mb-4">
+      <div className='flex items-center justify-center gap-2 w-full mb-4'>
         <button
-          type="button"
-          className="text-3xl text-red-600"
-          title="Like"
+          type='button'
+          className='text-3xl text-red-600'
+          title='Like'
           onClick={handelLove}
         >
-          <AiFillHeart className="hover:scale-125" />
+          <AiFillHeart className='hover:scale-125' />
         </button>
         <p>{loveCount} Loves</p>
       </div>
-      <div className="flex w-full px-4 flex-wrap">
-        <p className="bg-white p-2 text-sm w-full text-black border-2 flex justify-center mb-8 rounded-3xl font-bold">
+      <div className='flex w-full px-4 flex-wrap'>
+        <p className='bg-white p-2 text-sm w-full text-black border-2 flex justify-center mb-8 rounded-3xl font-bold'>
           Rs. {props.freelancer.rate} /{" "}
           {(props.freelancer.profession === "actor" ||
             props.freelancer.profession === "actress" ||
@@ -442,7 +442,15 @@ function ProfileBioCard(props) {
           {props.freelancer.equipments}
         </p>
       </div>
-      <div className="flex items-center justify-between gap-4 mb-6">
+      <div className={styles.equipment_available}>
+        <h1 className='capitalize text-lg mb-4 font-medium text-left'>
+          specialities
+        </h1>
+        <p className='w-full break-words relative border-2 p-4 rounded-lg capitalize'>
+          {props.freelancer.services?.join(", ").toString()}
+        </p>
+      </div>
+      <div className='flex items-center justify-between gap-4 mb-6'>
         <RWebShare
           data={{
             text:
@@ -455,23 +463,23 @@ function ProfileBioCard(props) {
             title: "Fipezo",
           }}
         >
-          <button className="bg-black text-white flex items-center p-2 md:text-lg gap-2 md:gap-4 px-2 md:px-4 rounded-lg">
+          <button className='bg-black text-white flex items-center p-2 md:text-lg gap-2 md:gap-4 px-2 md:px-4 rounded-lg'>
             <FaShareSquare style={{ color: "white" }} /> Share Profile
           </button>
         </RWebShare>
         {(props.user || props.company) &&
           props.freelancer._id !== props.user?._id && (
             <button
-              type="button"
+              type='button'
               onClick={() => setShowReportBox(true)}
-              className="flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg"
+              className='flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg'
             >
               <FaFontAwesomeFlag /> report
             </button>
           )}
       </div>
       {showEditBox && (
-        <div className="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2">
+        <div className='absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2'>
           <FreelancerEditBox
             id={props.freelancer._id}
             bio={props.freelancer.bio}

@@ -28,6 +28,9 @@ const freelancerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    services: {
+      type: [String],
+    },
     rate: {
       type: Number,
       required: true,

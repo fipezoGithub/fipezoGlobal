@@ -338,7 +338,7 @@ const Createjob = (props) => {
         <div className="flex items-center justify-between w-full flex-wrap lg:flex-nowrap">
           <div className="flex items-start flex-col">
             <label htmlFor="requiredDate" className="lg:text-xl capitalize">
-              requirement dates
+              requirement date
             </label>
             <input
               type="date"

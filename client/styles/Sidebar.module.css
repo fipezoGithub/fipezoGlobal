@@ -117,7 +117,7 @@
   background-color: #f1f1f1;
 }
 
-@media (max-width: 738px){
+@media (max-width: 738px) {
   .sidebar {
     flex-direction: row;
     justify-content: space-evenly;
@@ -188,17 +188,17 @@
     /* width: 45%; */
   }
   .checkbox {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
   }
   .title {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .label {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .rate {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .slider {
     width: 12rem;
@@ -207,6 +207,6 @@
     width: 8rem;
   }
   .select {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }

@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const freelancerCollection = require("../models/freelancerModel");
 const referUPICollection = require("../models/referUPIModel");
 const userCollection = require("../models/userModel");
+const referCollection = require("../models/referModel");
 const secret = process.env.JWT_SECRET;
 
 async function applyWithdrawl(req, res) {
@@ -63,12 +64,12 @@ async function completeWithDrawl(req, res) {
         paymentStatus: "complete",
       }
     );
-
-    await freelancerCollection.findByIdAndUpdate(upi.freelancer._id, {
-      joinByRefaralId: [],
+    const freelancer = await freelancerCollection.findById(upi.freelancer._id);
+    await referCollection.findByIdAndUpdate(freelancer.createdReferalId, {
+      acceptedFreelancer: [],
     });
 
-    res.status(200).json(updatedUPI);
+    await res.status(200).json(updatedUPI);
   });
 }
 

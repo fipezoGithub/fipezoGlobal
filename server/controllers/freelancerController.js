@@ -72,6 +72,7 @@ async function registerFreelancer(req, res) {
       phone: req.body.phone,
       location: req.body.location,
       profession: req.body.profession,
+      services: req.body.services,
       email: req.body.email,
       password: req.body.password,
       rate: req.body.rate,
@@ -406,7 +407,7 @@ async function getFreelancerProfiles(req, res) {
       .find({
         $and: [{ verified: true }, { location: loc }],
       })
-      .sort({ featured: -1, _id: 1 })
+      .sort({ featured: -1, reviewCount: -1, _id: 1 })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
@@ -452,7 +453,7 @@ async function getFreelancerProfilesByProfession(req, res) {
           { location: req.query.loc },
         ],
       })
-      .sort({ featured: -1, _id: 1 })
+      .sort({ featured: -1,reviewCount: -1, _id: 1 })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
@@ -549,6 +550,7 @@ async function editFreelancerProfile(req, res) {
         await Promise.all(deletePromises);
         await Promise.all(filePromises);
         freelancerData.location = req.body.location || freelancerData.location;
+        freelancerData.services = req.body.services || freelancerData.services;
         freelancerData.email = req.body.email || freelancerData.email;
         freelancerData.password = req.body.password || freelancerData.password;
         freelancerData.rate = req.body.rate || freelancerData.rate;

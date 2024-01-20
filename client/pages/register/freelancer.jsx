@@ -32,6 +32,7 @@ export default withRouter(
         otp: "",
         location: "Kolkata",
         profession: "photographer",
+        services: [],
         rate: 1000,
         bio: "",
         equipments: "",
@@ -269,6 +270,26 @@ export default withRouter(
       this.setState({ currentPage: this.state.currentPage + 1 });
     };
 
+    handelServices = (e, val) => {
+      if (e.target.checked) {
+        const newService = [...this.state.services];
+        newService.push(val);
+        this.setState({ services: newService });
+      } else {
+        const newService = [...this.state.services];
+        if (newService.includes(val)) {
+          let index = newService.indexOf(val);
+
+          this.setState((prevState) => ({
+            services: [
+              ...prevState.services.slice(0, index),
+              ...prevState.services.slice(index + 1, prevState.services.length),
+            ],
+          }));
+        }
+      }
+    };
+
     async checkEmail(val) {
       try {
         const res = await fetch(`${process.env.SERVER_URL}/verify/email`, {
@@ -374,50 +395,6 @@ export default withRouter(
 
     handleSubmit = (event) => {
       event.preventDefault();
-      let c = 0;
-      // if (this.state.works.length < 8) {
-      //   this.setState({ worksError: true });
-      //   c++;
-      // }
-      // if (this.state.profilePicture === null) {
-      //   this.setState({ profilePicError: true });
-      //   this.setState({ warns: [false, ...this.state.warns.slice(1)] });
-      //   return;
-      // }
-      // if (this.state.coverPicture === null) {
-      //   this.setState({ coverPicError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 1),
-      //       false,
-      //       ...this.state.warns.slice(2),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (this.state.aadhaarCard === null) {
-      //   this.setState({ addharError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 2),
-      //       false,
-      //       ...this.state.warns.slice(3),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (this.state.panCard === null) {
-      //   this.setState({ panError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 3),
-      //       false,
-      //       ...this.state.warns.slice(4),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (c > 0) return;
       this.setState({ isLoading: true });
       const postData = async () => {
         this.setState({ isLoading: true });
@@ -439,6 +416,9 @@ export default withRouter(
           data.append("phone", this.state.phone);
           data.append("location", this.state.location);
           data.append("profession", this.state.profession);
+          this.state.services.forEach((element) => {
+            data.append("services[]", element);
+          });
           data.append("email", this.state.email);
           data.append("password", this.state.password);
           data.append("rate", this.state.rate);
@@ -448,23 +428,11 @@ export default withRouter(
           data.append("following", null);
           data.append("profilePicture", this.state.profilePicture);
           data.append("coverPicture", this.state.coverPicture);
-          // data.append("aadhaarCard", this.state.aadhaarCard);
-          // data.append("panCard", this.state.panCard);
-          // data.append("works[]", this.state.works[0]);
-          // data.append("works[]", this.state.works[1]);
-          // data.append("works[]", this.state.works[2]);
-          // data.append("works[]", this.state.works[3]);
-          // data.append("works[]", this.state.works[4]);
-          // data.append("works[]", this.state.works[5]);
-          // data.append("works[]", this.state.works[6]);
-          // data.append("works[]", this.state.works[7]);
-          // data.append("links", JSON.stringify(this.state.links));
           data.append(
             "pictureStyle",
             JSON.stringify({ coverPicture: "center", profilePicture: "center" })
           );
           data.append("usedReferalId", this.state.usedReferalId);
-          // data.append("termsAndConditions", this.state.termsAndConditions);
           data.append("verified", false);
           const response = await fetch(
             `${process.env.SERVER_URL}/register/freelancer`,
@@ -474,30 +442,6 @@ export default withRouter(
                 // "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-              // body: JSON.stringify({
-              //   uid:
-              //     this.state.firstName.toLowerCase() +
-              //     "." +
-              //     this.state.lastName.toLowerCase() +
-              //     "_" +
-              //     parseInt(this.state.phone).toString(16),
-              //   firstname: this.state.firstName.toLowerCase(),
-              //   lastname: this.state.lastName.toLowerCase(),
-              //   phone: this.state.phone,
-              //   location: this.state.location,
-              //   profession: this.state.profession,
-              //   email: this.state.email,
-              //   password: this.state.password,
-              //   rate: this.state.rate,
-              //   bio: this.state.bio,
-              //   equipments: this.state.equipments,
-              //   pictureStyle: JSON.stringify({
-              //     coverPicture: "center",
-              //     profilePicture: "center",
-              //   }),
-              //   usedReferalId: this.state.usedReferalId,
-              //   verified: false,
-              // }),
               body: data,
             }
           );
@@ -1238,6 +1182,3158 @@ export default withRouter(
                         </select>
                       </div>
                     )}
+                    {this.state.currentPage === 5 &&
+                      this.state.profession !== "babysitter" &&
+                      this.state.profession !== "album_designer" &&
+                      this.state.profession !== "photo_editor" &&
+                      this.state.profession !== "video_editor" &&
+                      this.state.profession !== "interior_designer" &&
+                      this.state.profession !== "lyricist" &&
+                      this.state.profession !== "mehendi_artist" && (
+                        <div
+                          className={styles.inputField}
+                          id={styles.profession}
+                        >
+                          <label className={styles.label}>
+                            <span style={{ color: "white" }}>* </span>What types
+                            of services you provide?
+                          </label>
+                          {(this.state.profession === "actor" ||
+                            this.state.profession === "actress") && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  className="w-6 h-6"
+                                  type="checkbox"
+                                  name=""
+                                  onChange={(e) =>
+                                    this.handelServices(e, "photoshoot")
+                                  }
+                                  id="photoshoot"
+                                />
+                                <label
+                                  htmlFor="photoshoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Photoshoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="stageshow"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "stageshow")
+                                  }
+                                />
+                                <label
+                                  htmlFor="stageshow"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Stage show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="inauguration"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "inauguration_ceremony"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="inauguration"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Inauguration ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="social_promotion"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "social_promotion")
+                                  }
+                                />
+                                <label
+                                  htmlFor="social_promotion"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Social promotion
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvc_ad"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "television_commercial_ads"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvc_ad"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Commercial Ads
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  name=""
+                                  id="hoading"
+                                  className="w-6 h-6"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "hoading_shoots")
+                                  }
+                                />
+                                <label
+                                  htmlFor="hoading"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Hoading shoots
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="brand_endorsement"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "brand_endorsement")
+                                  }
+                                />
+                                <label
+                                  htmlFor="brand_endorsement"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Brand endorsement
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "anchor" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="stageshow"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "stageshow")
+                                  }
+                                />
+                                <label
+                                  htmlFor="stageshow"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Stage show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="corporate"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "corporate_events")
+                                  }
+                                />
+                                <label
+                                  htmlFor="corporate"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  corporate parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "cinematographer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pre-weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "pre_weeding_ceremony"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="pre-weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  pre weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="corporate"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "corporate_events")
+                                  }
+                                />
+                                <label
+                                  htmlFor="corporate"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  corporate events
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="fashion_portfolio"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "fashion_portfolio")
+                                  }
+                                />
+                                <label
+                                  htmlFor="fashion_portfolio"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  fashion portfolio
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="food_industry"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "food_industry")
+                                  }
+                                />
+                                <label
+                                  htmlFor="food_industry"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  food industry
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="automobile_industry"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "automobile_industry"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="automobile_industry"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  automobile industry
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="architecture"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "architecture_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="architecture"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  architecture design
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvc_ad"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "television_commercial_ads"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvc_ad"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Commercial Ads
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="short_film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "short_film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="short_film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  short film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="music_video"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "music_video")
+                                  }
+                                />
+                                <label
+                                  htmlFor="music_video"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  music video
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "dancer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="stageshow"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "stageshow")
+                                  }
+                                />
+                                <label
+                                  htmlFor="stageshow"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Stage show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="backleading_dancer"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "backleading_dancer")
+                                  }
+                                />
+                                <label
+                                  htmlFor="backleading_dancer"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  backleading dancer
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding_party"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_party")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding_party"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="music_video"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "music_video")
+                                  }
+                                />
+                                <label
+                                  htmlFor="music_video"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  music video
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "dance_teacher" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="modern_dance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "modern_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="modern_dance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Modern dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="ballet"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "ballet")
+                                  }
+                                />
+                                <label
+                                  htmlFor="ballet"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Ballet
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="swing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "swing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="swing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Swing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tap_dance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "tap_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="tap_dance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Tap dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="hip_hop"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "hip_hop")
+                                  }
+                                />
+                                <label
+                                  htmlFor="hip_hop"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Hip hop
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="folk_dance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "folk_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="folk_dance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Folk dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="irish_dance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "irish_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="irish_dance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Irish Dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bharatanatyam"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bharatanatyam")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bharatanatyam"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Bharatanatyam
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="contemporary"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "contemporary")
+                                  }
+                                />
+                                <label
+                                  htmlFor="contemporary"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Contemporary
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="line_dancing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "line_dancing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="line_dancing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Line dancing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="samba"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "samba")
+                                  }
+                                />
+                                <label
+                                  htmlFor="samba"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Samba
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tango"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "tango")
+                                  }
+                                />
+                                <label
+                                  htmlFor="tango"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Tango
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="ballroom"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "ballroom")
+                                  }
+                                />
+                                <label
+                                  htmlFor="ballroom"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Ballroom
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="belly_dance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bally_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="belly_dance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Belly dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="jazz"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "jazz")
+                                  }
+                                />
+                                <label
+                                  htmlFor="jazz"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Jazz
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="jive"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "jive")
+                                  }
+                                />
+                                <label
+                                  htmlFor="jive"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Jive
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="breakdance"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "break_dance")
+                                  }
+                                />
+                                <label
+                                  htmlFor="breakdance"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Break dance
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="capoeira"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "capoeira")
+                                  }
+                                />
+                                <label
+                                  htmlFor="capoeira"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Capoeira
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="cha_cha"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "cha_cha")
+                                  }
+                                />
+                                <label
+                                  htmlFor="cha_cha"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Cha Cha
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="kathak"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "kathak")
+                                  }
+                                />
+                                <label
+                                  htmlFor="kathak"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Kathak
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mambo"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mambo")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mambo"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Mambo
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="rumba"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "rumba")
+                                  }
+                                />
+                                <label
+                                  htmlFor="rumba"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Rumba
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="salsa"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "salsa")
+                                  }
+                                />
+                                <label
+                                  htmlFor="salsa"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Salsa
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bolero"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bolero")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bolero"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Bolero
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "dj" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding_party"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_party")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding_party"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="club"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "club_party")
+                                  }
+                                />
+                                <label
+                                  htmlFor="club"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  club party
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "drawing_teacher" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pencil_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "pencil_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="pencil_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  pencil drawing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="ink_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "ink_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="ink_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  ink drawing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pen_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "pen_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="pen_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Pen drawing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="chalk_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "chalk_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="chalk_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Chalk drawing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="crayon_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "crayon_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="crayon_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Crayon drawing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="charcoal_drawing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "charcoal_drawing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="charcoal_drawing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Charcoal drawing
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "drone_operator" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pre-weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "pre_weeding_ceremony"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="pre-weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  pre weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="corporate"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "commercial_project")
+                                  }
+                                />
+                                <label
+                                  htmlFor="corporate"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  commercial project
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="industrial"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "industrial_project")
+                                  }
+                                />
+                                <label
+                                  htmlFor="industrial"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  industrial project
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="political_rally"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "political_rally")
+                                  }
+                                />
+                                <label
+                                  htmlFor="political_rally"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  political rally
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvc_ad"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "television_commercial_ads"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvc_ad"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Commercial Ads
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "fashion_designer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="western"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "western")
+                                  }
+                                />
+                                <label
+                                  htmlFor="western"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  western
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="athentic"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "athentic")
+                                  }
+                                />
+                                <label
+                                  htmlFor="athentic"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  athentic
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="traditional"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "traditional")
+                                  }
+                                />
+                                <label
+                                  htmlFor="traditional"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  traditional
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pre_weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "pre_weeding_ceremony"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="pre_weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  pre weeding
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="babyshoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "babyshoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="babyshoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  babyshoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="maternity"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "maternity_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="maternity"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  maternity
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bridal"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bridal_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bridal"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  bridal shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvc_ad"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "television_commercial_ads"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvc_ad"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Commercial Ads
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvserial"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "television_serial")
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvserial"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Serial
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="fashion_show"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "fashion_show")
+                                  }
+                                />
+                                <label
+                                  htmlFor="fashion_show"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  fashion show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="music_video"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "music_video")
+                                  }
+                                />
+                                <label
+                                  htmlFor="music_video"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  music video
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="short_film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "short_film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="short_film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  short film
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "graphics_designer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="brochure"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "brochure_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="brochure"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  brochure design
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="magazine"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "magazine_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="magazine"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  magazine design
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="website"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "website_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="website"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  website design
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="logo"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "logo_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="logo"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  logo design
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="poster"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "poster_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="poster"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  poster
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="hodding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "hodding_design")
+                                  }
+                                />
+                                <label
+                                  htmlFor="hodding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  hodding design
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "influencer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="reels"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "reels")
+                                  }
+                                />
+                                <label
+                                  htmlFor="reels"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  reels
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="post"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "posts")
+                                  }
+                                />
+                                <label
+                                  htmlFor="post"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  post
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="stories"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "stories")
+                                  }
+                                />
+                                <label
+                                  htmlFor="stories"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  stories
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="youtube_videoes"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "youtube_videoes")
+                                  }
+                                />
+                                <label
+                                  htmlFor="youtube_videoes"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  youtube videoes
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "maid" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="cooking"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "cooking")
+                                  }
+                                />
+                                <label
+                                  htmlFor="cooking"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  cooking
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="moping"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "moping")
+                                  }
+                                />
+                                <label
+                                  htmlFor="moping"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  moping
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="cloth_washing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "cloth_washing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="cloth_washing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  cloth washing
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="dish_washing"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "dish_washing")
+                                  }
+                                />
+                                <label
+                                  htmlFor="dish_washing"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  dish washing
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "makeup_artist" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bridal"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bridal_makeup")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bridal"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  bridal
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="fashion_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "fashion_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="fashion_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  fashion shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="fashion_show"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "fashion_show")
+                                  }
+                                />
+                                <label
+                                  htmlFor="fashion_show"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  fashion show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="party_makeup"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "party_makeup")
+                                  }
+                                />
+                                <label
+                                  htmlFor="party_makeup"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  party makeup
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "model" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="fashion_show"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "fashion_show")
+                                  }
+                                />
+                                <label
+                                  htmlFor="fashion_show"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  fashion show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bridal"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bridal_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bridal"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  bridal
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="ramp_show"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "ramp_show")
+                                  }
+                                />
+                                <label
+                                  htmlFor="ramp_show"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  ramp show
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="music_video"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "music_video")
+                                  }
+                                />
+                                <label
+                                  htmlFor="music_video"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  music video
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tvc_ad"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "television_commercial_ads"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="tvc_ad"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Television Commercial Ads
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="short_film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "short_film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="short_film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  short film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="hodding_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "hodding_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="hodding_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  hodding shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bikini_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bikini_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bikini_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  bikini shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="monokini_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "monokini_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="monokini_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  monokini shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="semi_nude_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "semi_nude_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="semi_nude_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  semi nude shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bold_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bold_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bold_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  bold shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="nude_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "nude_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="nude_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  nude shoot
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "musician" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pianist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "pianist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="pianist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Pianist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="guitarist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "guitarist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="guitarist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  guitarist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="violinist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "violinist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="violinist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  violinist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="Cellist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "cellist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="Cellist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Cellist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="flutist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "flutist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="flutist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Flutist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="trumpeter"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "trumpeter")
+                                  }
+                                />
+                                <label
+                                  htmlFor="trumpeter"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Trumpeter
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="saxophonist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "saxophonist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="saxophonist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Saxophonist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="drummer"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "drummer")
+                                  }
+                                />
+                                <label
+                                  htmlFor="drummer"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Drummer
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bassist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bassist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bassist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Bassist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="harpist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "harpist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="harpist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Harpist
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="percussionist"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "percussionist")
+                                  }
+                                />
+                                <label
+                                  htmlFor="percussionist"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Percussionist
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "music_teacher" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="classical_music"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "classical_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="classical_music"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  classical music
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="rock"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "rock_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="rock"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Rock
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pop"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "pop_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="pop"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Pop
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="blues"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "blues")
+                                  }
+                                />
+                                <label
+                                  htmlFor="blues"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Blues
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="country"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "country_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="country"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Country
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="folk"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "folk_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="folk"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Folk
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="world_music"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "world_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="world_music"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  World Music
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="digital_music"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "digital_music")
+                                  }
+                                />
+                                <label
+                                  htmlFor="digital_music"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Digital Music
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="hip-hop"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "hip_hop")
+                                  }
+                                />
+                                <label
+                                  htmlFor="hip-hop"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Hip-Hop
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="rhythm_and_blues"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "rhythm_and_blues")
+                                  }
+                                />
+                                <label
+                                  htmlFor="rhythm_and_blues"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Rhythm and Blues
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="gospel"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "gospel")
+                                  }
+                                />
+                                <label
+                                  htmlFor="gospel"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Gospel
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="reggae"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "reggae")
+                                  }
+                                />
+                                <label
+                                  htmlFor="reggae"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Reggae
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="metal"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "metal")
+                                  }
+                                />
+                                <label
+                                  htmlFor="metal"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Metal
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="indie"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "indie")
+                                  }
+                                />
+                                <label
+                                  htmlFor="indie"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Indie
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "painter" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="portrait"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "portrait")
+                                  }
+                                />
+                                <label
+                                  htmlFor="portrait"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  portrait
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="wall_painting"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "wall_painting")
+                                  }
+                                />
+                                <label
+                                  htmlFor="wall_painting"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  wall painting
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="family_portrait"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "family_portrait")
+                                  }
+                                />
+                                <label
+                                  htmlFor="family_portrait"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  family portrait
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "photographer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weeding_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="pre-weeding"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "pre_weeding_ceremony"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="pre-weeding"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  pre weeding ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="corporate"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "corporate_events")
+                                  }
+                                />
+                                <label
+                                  htmlFor="corporate"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  corporate events
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="personal_parties"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "personal_parties")
+                                  }
+                                />
+                                <label
+                                  htmlFor="personal_parties"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  personal parties
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="portfolio"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "portfolio_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="portfolio"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  portfolio
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="new_born_baby_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(
+                                      e,
+                                      "new_born_baby_shoot"
+                                    )
+                                  }
+                                />
+                                <label
+                                  htmlFor="new_born_baby_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  new born baby shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="baby_shoot"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "baby_shoot")
+                                  }
+                                />
+                                <label
+                                  htmlFor="baby_shoot"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  baby shoot
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mundan"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mundan")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mundan"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  mundan
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="upanayan"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "upanayan")
+                                  }
+                                />
+                                <label
+                                  htmlFor="upanayan"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  upanayan
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="rice_ceremony"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "rice_ceremony")
+                                  }
+                                />
+                                <label
+                                  htmlFor="rice_ceremony"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  rice ceremony
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="birthday_party"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "birthday_party")
+                                  }
+                                />
+                                <label
+                                  htmlFor="birthday_party"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  birthday party
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "private_tutor" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="arts"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "arts")
+                                  }
+                                />
+                                <label
+                                  htmlFor="arts"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Arts
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="commerce"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "commerce")
+                                  }
+                                />
+                                <label
+                                  htmlFor="commerce"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Commerce
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="science"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "science")
+                                  }
+                                />
+                                <label
+                                  htmlFor="science"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Science
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "vocalist" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="soprano"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "soprano")
+                                  }
+                                />
+                                <label
+                                  htmlFor="soprano"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Soprano
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="alto"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "alto")
+                                  }
+                                />
+                                <label
+                                  htmlFor="alto"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Alto
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="tenor"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "tenor")
+                                  }
+                                />
+                                <label
+                                  htmlFor="tenor"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Tenor
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="bass"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "bass")
+                                  }
+                                />
+                                <label
+                                  htmlFor="bass"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Bass
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="baritone"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "baritone")
+                                  }
+                                />
+                                <label
+                                  htmlFor="baritone"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Baritone
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mezzo-soprano"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mezzo-soprano")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mezzo-soprano"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Mezzo-soprano
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="countertenor"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "countertenor")
+                                  }
+                                />
+                                <label
+                                  htmlFor="countertenor"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Countertenor
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "voice_over_artist" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="short_film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "short_film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="short_film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Short film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="audio_podcast"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "audio_podcast")
+                                  }
+                                />
+                                <label
+                                  htmlFor="audio_podcast"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Audio podcast
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="animation_film"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "animation_film")
+                                  }
+                                />
+                                <label
+                                  htmlFor="animation_film"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  animation film
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="advertising"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "advertisement")
+                                  }
+                                />
+                                <label
+                                  htmlFor="advertising"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  advertising
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                          {this.state.profession === "web_developer" && (
+                            <div className="flex items-center flex-wrap gap-2">
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="wordpress"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "wordpress")
+                                  }
+                                />
+                                <label
+                                  htmlFor="wordpress"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  wordpress
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="wix"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "wix")
+                                  }
+                                />
+                                <label
+                                  htmlFor="wix"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Wix
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="squarespace"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "squarespace")
+                                  }
+                                />
+                                <label
+                                  htmlFor="squarespace"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Squarespace
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="weebly"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "weebly")
+                                  }
+                                />
+                                <label
+                                  htmlFor="weebly"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Weebly
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="shopify"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "shopify")
+                                  }
+                                />
+                                <label
+                                  htmlFor="shopify"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Shopify
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="webflow"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "webflow")
+                                  }
+                                />
+                                <label
+                                  htmlFor="webflow"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Webflow
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="elementor"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "elementor")
+                                  }
+                                />
+                                <label
+                                  htmlFor="elementor"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Elementor
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="jimdo"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "jimdo")
+                                  }
+                                />
+                                <label
+                                  htmlFor="jimdo"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  Jimdo
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mean"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mean")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mean"
+                                  className="text-lg cursor-pointer"
+                                >
+                                  MEAN
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mern"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mern")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mern"
+                                  className="text-lg cursor-pointer"
+                                >
+                                  MERN
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="mevn"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "mevn")
+                                  }
+                                />
+                                <label
+                                  htmlFor="mevn"
+                                  className="text-lg cursor-pointer"
+                                >
+                                  MEVN
+                                </label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  className="w-6 h-6"
+                                  name=""
+                                  id="static"
+                                  onChange={(e) =>
+                                    this.handelServices(e, "static")
+                                  }
+                                />
+                                <label
+                                  htmlFor="static"
+                                  className="text-lg capitalize cursor-pointer"
+                                >
+                                  static
+                                </label>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     {this.state.currentPage === 6 && (
                       <>
                         <div className={styles.inputField} id={styles.otp}>
@@ -1326,7 +4422,7 @@ export default withRouter(
                       <div className={styles.inputField} id={styles.rate}>
                         <label htmlFor="rate" className={styles.label}>
                           <span style={{ color: "white" }}>* </span>What is your
-                          fee per{" "}
+                          fees per{" "}
                           {(this.state.profession === "actor" ||
                             this.state.profession === "actress" ||
                             this.state.profession === "model") &&
@@ -1362,7 +4458,7 @@ export default withRouter(
                             "Project"}
                           {(this.state.profession === "cinematographer" ||
                             this.state.profession === "photographer") &&
-                            "Day"}
+                            "Day"}{" "}
                           ?
                         </label>
                         {this.state.rate && (
@@ -1940,7 +5036,6 @@ export default withRouter(
 export const GoogleFacebookLogin = (props) => {
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      console.log(codeResponse);
       fetch(
         `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
         {
@@ -1953,7 +5048,6 @@ export const GoogleFacebookLogin = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           props.get(data.given_name, 1);
           props.get(data.family_name, 2);
           props.get(data.email, 3);
@@ -1963,7 +5057,6 @@ export const GoogleFacebookLogin = (props) => {
   });
 
   const responseFacebook = async (response) => {
-    console.log(response);
     if (response.status === "unknown") {
       return;
     }
