@@ -120,15 +120,6 @@ function Explore(props) {
     }
   }, [router.query]);
 
-  // useEffect(() => {
-  //   const location = localStorage.getItem("city");
-  //   if (!location) {
-  //     setFilterCity("Kolkata");
-  //   } else {
-  //     setFilterCity(location);
-  //   }
-  // }, [filterCity]);
-
   const increPage = (e) => {
     if (currentPage !== noOfPages) {
       setCurrentPage(currentPage + 1);
@@ -155,13 +146,8 @@ function Explore(props) {
   const handleSearch = async (e) => {
     e.preventDefault();
     const location = localStorage.getItem("city");
-    if (!location) {
-      setFilterCity("Kolkata");
-    } else {
-      setFilterCity(location);
-    }
     const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search?loc=${filterCity}&page=${currentPage}`,
+      `${process.env.SERVER_URL}/freelancer/search?loc=${location}&page=${currentPage}`,
       {
         method: "POST",
         headers: {
@@ -410,17 +396,17 @@ function Explore(props) {
         onSubmit={handleSearch}
       >
         <input
-          type="text"
+          type='text'
           className={styles.searchInput}
-          placeholder="Search freelancers by name..."
+          placeholder='Search freelancers by name...'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className={styles.searchIcon} type="submit">
+        <button className={styles.searchIcon} type='submit'>
           <IoSearch
             style={{ fontSize: "1.25rem", color: "white" }}
-            className="pointer-events-none"
-            aria-label="Search"
+            className='pointer-events-none'
+            aria-label='Search'
           />
         </button>
       </form>
@@ -428,9 +414,9 @@ function Explore(props) {
         <div className={styles.sidebar}>
           <div>
             <button
-              type="button"
+              type='button'
               onClick={handelFilter}
-              className="md:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md"
+              className='md:hidden flex items-center gap-1 border border-solid px-2 py-1 rounded-md'
             >
               <BiFilter size={"2em"} />
               Filters
@@ -517,10 +503,10 @@ function Explore(props) {
           {final.length === 0 ? (
             <div className={styles.empty}>
               <Image
-                src="/nobody.webp"
+                src='/nobody.webp'
                 width={500}
                 height={500}
-                alt="nobody-pic"
+                alt='nobody-pic'
               />
               <p className={styles.nobodyMainText}>No freelancers available!</p>
               <p className={styles.nobodyText}>

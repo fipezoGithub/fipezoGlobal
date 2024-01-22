@@ -77,13 +77,8 @@ function Explore(props) {
   const handleSearch = async (e) => {
     e.preventDefault();
     const location = localStorage.getItem("city");
-    if (!location) {
-      setFilterCity("Kolkata");
-    } else {
-      setFilterCity(location);
-    }
     const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search?loc=${filterCity}&page=${currentPage}`,
+      `${process.env.SERVER_URL}/freelancer/search?loc=${location}&page=${currentPage}`,
       {
         method: "POST",
         headers: {
