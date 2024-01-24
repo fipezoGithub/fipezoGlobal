@@ -47,17 +47,21 @@ function HireCard(props) {
         Description: {props.hire.description}
       </p>
       <p className={styles.cardInfo}>Address: {props.hire.address}</p>
-      <p className={styles.cardInfo}>
-        Date: {formatDate(props.hire.date.slice(0, 10))}
-      </p>
-      <p className={styles.cardInfo}>
-        Time: {props.hire.startTime} - {props.hire.endTime}
-      </p>
+      {props.hire.date && (
+        <p className={styles.cardInfo}>
+          Date: {formatDate(props.hire.date?.slice(0, 10))}
+        </p>
+      )}
+      {(props.hire.startTime !== "00:00" || props.hire.endTime !== "00:00") && (
+        <p className={styles.cardInfo}>
+          Time: {props.hire.startTime} - {props.hire.endTime}
+        </p>
+      )}
       <p className={styles.cardInfo}>Budget: {props.hire.budget}</p>
       <div className={styles.btns}>
         <button
           className={styles.btn}
-          type="button"
+          type='button'
           id={styles.accept}
           onClick={() =>
             props.contactFreelancer(
@@ -70,7 +74,7 @@ function HireCard(props) {
         </button>
         <button
           className={styles.btn}
-          type="button"
+          type='button'
           id={styles.decline}
           onClick={() => {
             props.setShowDeleteBox(true);
