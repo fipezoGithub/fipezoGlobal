@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -11,6 +11,7 @@ import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Loading from "@/components/Loading";
+import { AuthContext } from "@/context/AuthContext";
 
 function Signup(props) {
   const [phone, setPhone] = useState("");
@@ -27,6 +28,8 @@ function Signup(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [warn, setWarn] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     if (props.user || props.company) {
@@ -114,6 +117,7 @@ function Signup(props) {
         }
         setOtpForm(true);
         localStorage.setItem("user", JSON.stringify(data));
+        dispatch({ type: "isLoggedIn" });
       } catch (error) {
         setSignupFailed(true);
         console.error(error);
@@ -199,11 +203,12 @@ function Signup(props) {
         <title>Fipezo | Signup</title>
       </Head>
       <Navbar
-        color="black"
+        color='black'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       {loading === false ? (
         <div className={styles.body}>
@@ -226,13 +231,13 @@ function Signup(props) {
                   <>
                     <div className={styles.name + " flex-col md:flex-row"}>
                       <div className={styles.inputLabels}>
-                        <label htmlFor="fisrtname" className={styles.labels}>
+                        <label htmlFor='fisrtname' className={styles.labels}>
                           First Name -{" "}
                         </label>
                         <input
                           className={styles.inputs}
-                          type="text"
-                          placeholder="Enter Your firstname"
+                          type='text'
+                          placeholder='Enter Your firstname'
                           onChange={(e) => {
                             setFirstname(e.target.value);
                             setSignupFailed(false);
@@ -241,21 +246,21 @@ function Signup(props) {
                           }}
                           value={firstname}
                           id={styles.firstname}
-                          name="firstname"
+                          name='firstname'
                           maxLength={13}
                         />{" "}
                         <br />
                       </div>
                       <div className={styles.inputLabels}>
-                        <label htmlFor="lastname" className={styles.labels}>
+                        <label htmlFor='lastname' className={styles.labels}>
                           Last Name -{" "}
                         </label>
                         <input
                           className={styles.inputs}
-                          type="text"
-                          placeholder="Enter Your lastname"
+                          type='text'
+                          placeholder='Enter Your lastname'
                           id={styles.lastname}
-                          name="lastname"
+                          name='lastname'
                           value={lastname}
                           onChange={(e) => {
                             setLastname(e.target.value);
@@ -268,9 +273,9 @@ function Signup(props) {
                         <br />
                       </div>
                     </div>
-                    <div className="py-4 self-center">
+                    <div className='py-4 self-center'>
                       <button
-                        type="button"
+                        type='button'
                         className={styles.btn}
                         onClick={increaseProg}
                       >
@@ -283,37 +288,37 @@ function Signup(props) {
                   <>
                     <div className={styles.name + " mt-6 flex-col md:flex-row"}>
                       <div className={styles.inputLabels}>
-                        <label htmlFor="email" className={styles.labels}>
+                        <label htmlFor='email' className={styles.labels}>
                           Email -{" "}
                         </label>
                         <input
                           className={styles.inputs}
-                          type="email"
+                          type='email'
                           value={email}
-                          placeholder="Enter Your email id"
+                          placeholder='Enter Your email id'
                           onChange={(e) => {
                             setEmail(e.target.value);
                             setSignupFailed(false);
                             setOtpFailed(false);
                           }}
-                          id="email"
-                          name="email"
+                          id='email'
+                          name='email'
                         />{" "}
                         <br />
                       </div>
                       <div className={styles.inputLabels}>
-                        <label htmlFor="password" className={styles.labels}>
+                        <label htmlFor='password' className={styles.labels}>
                           Password -{" "}
                         </label>
                         <input
                           className={styles.inputs}
-                          type="password"
+                          type='password'
                           value={password}
-                          placeholder="Enter Your password"
-                          id="password"
+                          placeholder='Enter Your password'
+                          id='password'
                           minLength={8}
                           maxLength={15}
-                          name="password"
+                          name='password'
                           onChange={(e) => {
                             setPassword(e.target.value);
                             setSignupFailed(false);
@@ -325,15 +330,15 @@ function Signup(props) {
                     </div>
                     <div id={styles.phone}>
                       <div className={styles.inputLabels}>
-                        <label htmlFor="phone" className={styles.labels}>
+                        <label htmlFor='phone' className={styles.labels}>
                           Phone No -{" "}
                         </label>
                         <input
                           className={styles.inputs}
-                          type="number"
+                          type='number'
                           id={styles.number}
-                          placeholder="Enter Your Phone no."
-                          name="phone"
+                          placeholder='Enter Your Phone no.'
+                          name='phone'
                           value={phone}
                           onChange={(e) => {
                             setPhone(e.target.value);
@@ -344,53 +349,53 @@ function Signup(props) {
                         <br />
                       </div>
                     </div>
-                    <div className="py-4 self-center gap-4 flex flex-col md:flex-row items-center">
+                    <div className='py-4 self-center gap-4 flex flex-col md:flex-row items-center'>
                       <button
-                        type="button"
+                        type='button'
                         className={styles.btn}
                         onClick={decreaseProg}
                       >
                         Back
                       </button>
-                      <button type="submit" className={styles.btn}>
+                      <button type='submit' className={styles.btn}>
                         Submit
                       </button>
                     </div>
                   </>
                 )}
               </div>
-              <p className="flex w-full items-center gap-2">
-                <hr className="w-full border-neutral-500" />
-                OR <hr className="w-full border-neutral-500" />
+              <p className='flex w-full items-center gap-2'>
+                <hr className='w-full border-neutral-500' />
+                OR <hr className='w-full border-neutral-500' />
               </p>
-              <div className="flex flex-col items-center gap-3">
-                <h3 className="text-lg">Auto fill up by social</h3>
-                <div className="flex items-center gap-4">
+              <div className='flex flex-col items-center gap-3'>
+                <h3 className='text-lg'>Auto fill up by social</h3>
+                <div className='flex items-center gap-4'>
                   <button
                     onClick={() => login()}
-                    className="border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                    className='border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'
                   >
                     <FcGoogle />
                   </button>
-                  <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
+                  <button className='border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'>
                     <FacebookLogin
                       appId={process.env.FB_APP_ID}
                       autoLoad={false}
-                      fields="name,email,picture"
-                      scope="public_profile,email"
-                      textButton=""
-                      cssClass=""
+                      fields='name,email,picture'
+                      scope='public_profile,email'
+                      textButton=''
+                      cssClass=''
                       isMobile={false}
                       callback={responseFacebook}
-                      icon={<FaFacebookSquare color="#0866ff" />}
+                      icon={<FaFacebookSquare color='#0866ff' />}
                     />
                   </button>
                 </div>
               </div>
               <div className={styles.lower}>
-                <Link href="/login" className={`${styles.login}`}>
+                <Link href='/login' className={`${styles.login}`}>
                   Already have an Account?{" "}
-                  <Link href="/login" className="text-cyan-500">
+                  <Link href='/login' className='text-cyan-500'>
                     Log in
                   </Link>
                 </Link>
@@ -400,7 +405,7 @@ function Signup(props) {
           {otpForm && (
             <div className={styles.body}>
               <form
-                method="post"
+                method='post'
                 className={styles.otpForm}
                 onSubmit={handleSubmitOTP}
               >
@@ -419,13 +424,13 @@ function Signup(props) {
                   <input
                     className={styles.inputs}
                     id={styles.otp}
-                    type="number"
-                    name="otp"
-                    placeholder="Enter OTP"
+                    type='number'
+                    name='otp'
+                    placeholder='Enter OTP'
                   />
                 </div>
                 <div>
-                  <button className={styles.btn} type="submit">
+                  <button className={styles.btn} type='submit'>
                     Submit
                   </button>
                 </div>
@@ -445,10 +450,10 @@ function Signup(props) {
           <div className={styles.presentation}>
             <Image
               id={styles.img}
-              src="/pre3.jpg"
-              alt="side-image"
-              height="1006"
-              width="1000"
+              src='/pre3.jpg'
+              alt='side-image'
+              height='1006'
+              width='1000'
             />
           </div>
         </div>

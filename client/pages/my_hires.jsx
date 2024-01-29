@@ -113,6 +113,7 @@ export default function My_hires(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       {notaccepted && (
         <DialogBox

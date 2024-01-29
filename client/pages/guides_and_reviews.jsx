@@ -11,7 +11,7 @@ function Guides_and_Reviwes(props) {
       <Head>
         <title>Fipezo | Guides and Reviews</title>
       </Head>
-      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} />
+      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} socket={props.socket} />
       <div className={styles.main}>
         <div className={styles.body}>
           <div className={styles.termsNConditions_form} style={{ height: '88.3vh' }}>

@@ -245,6 +245,7 @@ export default function Name(props) {
           company={props.company}
           setCompany={props.setCompany}
           setUser={props.setUser}
+          socket={props.socket}
         />
         <Cover
           coverPicture={props.data.coverPicture}

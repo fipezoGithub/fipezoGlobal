@@ -185,6 +185,7 @@ const Fipezopremium = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="pt-16 flex flex-col items-center justify-center bg-gradient-to-r from-blue-900 to-blue-400 text-white gap-4 py-6">
         <h1 className="text-4xl font-bold [text-shadow:2px_4px_#000000]">

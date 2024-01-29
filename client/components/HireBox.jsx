@@ -1,6 +1,7 @@
 import styles from "../styles/HireBox.module.css";
 import { ImCross } from "react-icons/im";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 function HireBox(props) {
   const [description, setDescription] = useState("");
@@ -12,6 +13,8 @@ function HireBox(props) {
   const [budget, setBudget] = useState("");
   const [hireError, setHireError] = useState(false);
   const [budgetError, setBudgetError] = useState(false);
+
+  const { data } = useContext(AuthContext);
 
   const submitHire = () => {
     if (budget === "0") {
@@ -43,9 +46,9 @@ function HireBox(props) {
               budget: budget,
             }),
           });
-          const data = await response.json();
+          const respdata = await response.json();
           if (response.ok) {
-            if (props.user.companyname) {
+            if (data.userType === "company") {
               const res = await fetch(
                 `${process.env.SERVER_URL}/notification/create`,
                 {
@@ -57,12 +60,12 @@ function HireBox(props) {
                     type: "Hire",
                     headline: `You have a hire request from ${fullName}`,
                     acceptedFreelancer: props.freelancer._id,
-                    sentCompany: props.user._id,
+                    sentCompany: data.userDetails._id,
                     href: "/my_requests",
                   }),
                 }
               );
-              const data = await res.json();
+              const respdata = await res.json();
             } else {
               const res = await fetch(
                 `${process.env.SERVER_URL}/notification/create`,
@@ -75,12 +78,12 @@ function HireBox(props) {
                     type: "Hire",
                     headline: `You have a hire request from ${fullName}`,
                     acceptedFreelancer: props.freelancer._id,
-                    sentUser: props.user._id,
+                    sentUser: data.userDetails._id,
                     href: "/my_requests",
                   }),
                 }
               );
-              const data = await res.json();
+              const respdata = await res.json();
             }
           }
         }
@@ -117,45 +120,45 @@ function HireBox(props) {
       <div className={styles.fields}>
         <div className={styles.field}>
           <div className={styles.subField}>
-            <label htmlFor="name" className={styles.label}>
-              <span className="text-red-500">* </span>Full Name
+            <label htmlFor='name' className={styles.label}>
+              <span className='text-red-500'>* </span>Full Name
             </label>
             <input
               className={styles.input}
-              type="text"
-              id="name"
-              name="fullname"
+              type='text'
+              id='name'
+              name='fullname'
               value={fullName}
-              placeholder="Enter full name"
+              placeholder='Enter full name'
             />
           </div>
           <div className={styles.subField}>
-            <label htmlFor="phone" className={styles.label}>
-              <span className="text-red-500">* </span>Phone
+            <label htmlFor='phone' className={styles.label}>
+              <span className='text-red-500'>* </span>Phone
             </label>
             <input
               className={styles.input}
-              type="number"
-              id="phone"
-              name="phone"
+              type='number'
+              id='phone'
+              name='phone'
               value={
                 props.user.phone ? props.user.phone : props.user.companyphone
               }
-              placeholder="Enter your Phone Number"
+              placeholder='Enter your Phone Number'
             />
           </div>
         </div>
         <div className={styles.field} id={styles.purpose}>
-          <label htmlFor="description" className={styles.label}>
-            <span className="text-red-500">* </span>Task Description
+          <label htmlFor='description' className={styles.label}>
+            <span className='text-red-500'>* </span>Task Description
           </label>
           <textarea
             className={styles.textarea}
-            name="description"
-            id="description"
-            placeholder=""
-            cols="30"
-            rows="10"
+            name='description'
+            id='description'
+            placeholder=''
+            cols='30'
+            rows='10'
             value={description}
             maxLength={500}
             onChange={(e) => {
@@ -165,14 +168,14 @@ function HireBox(props) {
           ></textarea>
         </div>
         <div className={styles.field}>
-          <label htmlFor="location" className={styles.label}>
-            <span className="text-red-500">* </span>Address
+          <label htmlFor='location' className={styles.label}>
+            <span className='text-red-500'>* </span>Address
           </label>
           <input
             className={styles.input}
-            type="text"
-            id="address"
-            name="address"
+            type='text'
+            id='address'
+            name='address'
             value={address}
             onChange={(e) => {
               setHireError(false);
@@ -182,17 +185,17 @@ function HireBox(props) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="date" className={styles.label}>
+          <label htmlFor='date' className={styles.label}>
             Date{" "}
-            <span className="text-neutral-500 text-sm tracking-widest">
+            <span className='text-neutral-500 text-sm tracking-widest'>
               optional
             </span>
           </label>
           <input
             className={styles.input}
-            type="date"
-            id="date"
-            name="date"
+            type='date'
+            id='date'
+            name='date'
             value={date}
             onChange={(e) => {
               setHireError(false);
@@ -201,17 +204,17 @@ function HireBox(props) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="startTime" className={styles.label}>
+          <label htmlFor='startTime' className={styles.label}>
             Start Time{" "}
-            <span className="text-neutral-500 text-sm tracking-widest">
+            <span className='text-neutral-500 text-sm tracking-widest'>
               optional
             </span>
           </label>
           <input
             className={styles.input}
-            type="time"
-            id="startTime"
-            name="startTime"
+            type='time'
+            id='startTime'
+            name='startTime'
             value={startTime}
             onChange={(e) => {
               setHireError(false);
@@ -221,17 +224,17 @@ function HireBox(props) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="endTime" className={styles.label}>
+          <label htmlFor='endTime' className={styles.label}>
             End Time{" "}
-            <span className="text-neutral-500 text-sm tracking-widest">
+            <span className='text-neutral-500 text-sm tracking-widest'>
               optional
             </span>
           </label>
           <input
             className={styles.input}
-            type="time"
-            id="endTime"
-            name="endTime"
+            type='time'
+            id='endTime'
+            name='endTime'
             value={endTime}
             onChange={(e) => {
               setHireError(false);
@@ -241,14 +244,14 @@ function HireBox(props) {
           />
         </div>
         <div className={styles.field}>
-          <label htmlFor="budget" className={styles.label}>
-            <span className="text-red-500">* </span>Total Budget (&#8377;)
+          <label htmlFor='budget' className={styles.label}>
+            <span className='text-red-500'>* </span>Total Budget (&#8377;)
           </label>
           <input
             className={styles.input}
-            type="number"
-            id="budget"
-            name="budget"
+            type='number'
+            id='budget'
+            name='budget'
             value={budget}
             onChange={(e) => {
               setHireError(false);

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "../styles/User_profile.module.css";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { RiVipCrownFill } from "react-icons/ri";
+import { AuthContext } from "@/context/AuthContext";
 
 const Profile = (props) => {
   const [pageData, setPageData] = useState({});
@@ -17,8 +18,9 @@ const Profile = (props) => {
   const [premium, setPremium] = useState(false);
   const router = useRouter();
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
-    setLoginType(JSON.parse(localStorage.getItem("type")));
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
@@ -63,11 +65,12 @@ const Profile = (props) => {
         <title>Fipezo | My Profile</title>
       </Head>
       <Navbar
-        color="black"
+        color='black'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className={style.body}>
         <div className={style.profileBox}>
@@ -82,18 +85,15 @@ const Profile = (props) => {
           </div>
 
           <div className={style.profileInfo}>
-            {props.user && (
+            {data.userDetails && (
               <h1 className={style.name}>
                 {firstname} {lastname}
               </h1>
             )}
-            {props.company && <h1 className={style.name}>{companyName}</h1>}
-            {props.user && (
-              <p className={style.phone}>
-                <span className={style.phoneValue}>{phone}</span>
-              </p>
+            {data.userDetails?.companyname && (
+              <h1 className={style.name}>{companyName}</h1>
             )}
-            {props.company && (
+            {data.userDetails && (
               <p className={style.phone}>
                 <span className={style.phoneValue}>{phone}</span>
               </p>
@@ -101,7 +101,7 @@ const Profile = (props) => {
           </div>
 
           <div className={style.options}>
-            {props.user?.uid && (
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
               <Link
                 className={style.option + " flex items-center gap-2"}
                 href={
@@ -110,52 +110,52 @@ const Profile = (props) => {
                     : "/freelancer-premium-plans"
                 }
               >
-                Fipezo Premium <RiVipCrownFill color="#007ae2" />
+                Fipezo Premium <RiVipCrownFill color='#007ae2' />
               </Link>
             )}
-            {props.user?.uid && (
-              <Link className={style.option} href="/my_job">
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
+              <Link className={style.option} href='/my_job'>
                 Jobs
               </Link>
             )}
-            {props.company && (
-              <Link className={style.option} href="/posted-jobs">
+            {data.userDetails?.companyphone && (
+              <Link className={style.option} href='/posted-jobs'>
                 My Job Posts
               </Link>
             )}
-            {props.user?.uid && (
-              <Link className={style.option} href="/my_requests">
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
+              <Link className={style.option} href='/my_requests'>
                 Hire Requests
               </Link>
             )}
-            {props.company && (
-              <Link className={style.option} href="/my_hires">
+            {data.userDetails?.companyphone && (
+              <Link className={style.option} href='/my_hires'>
                 Hire Requests
               </Link>
             )}
-            {props.user?.uid && (
-              <Link href="/edit-profile" className={style.option}>
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
+              <Link href='/edit-profile' className={style.option}>
                 Edit Profile
               </Link>
             )}
-            {props.company && (
-              <Link href="/edit-company" className={style.option}>
+            {data.userDetails?.companyphone && (
+              <Link href='/edit-company' className={style.option}>
                 Edit Profile
               </Link>
             )}
-            {props.user?.uid && (
-              <Link href="/update-portfolio" className={style.option}>
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
+              <Link href='/update-portfolio' className={style.option}>
                 Update Portfolio
               </Link>
             )}
-            {props.user?.uid && (
-              <Link className={style.option} href="/my_referral">
+            {!data.userDetails?.companyphone && data.userDetails?.uid && (
+              <Link className={style.option} href='/my_referral'>
                 My Referal
               </Link>
             )}
             <Link
-              target="_blank"
-              href="https://www.facebook.com/profile.php?id=100094694632348&sk=reviews"
+              target='_blank'
+              href='https://www.facebook.com/profile.php?id=100094694632348&sk=reviews'
               className={style.option}
             >
               Rate our Services

@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "@/styles/Login.module.css";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Head from "next/head";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
@@ -14,6 +14,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login";
 import { FaFacebookSquare } from "react-icons/fa";
 import Loading from "@/components/Loading";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Login(props) {
   const [phone, setPhone] = useState("");
@@ -31,6 +32,8 @@ export default function Login(props) {
   const [timerId, setTimerId] = useState(null);
   const [loading, setLoading] = useState(false);
   const passwordRef = useRef();
+
+  const { dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     if (props.user || props.company) {
@@ -87,6 +90,7 @@ export default function Login(props) {
         } else {
           localStorage.setItem("user", JSON.stringify(data));
           localStorage.setItem("type", JSON.stringify(type));
+          dispatch({ type: "isLoggedIn" });
           router.push("/");
         }
       } catch (error) {
@@ -135,6 +139,7 @@ export default function Login(props) {
         }
         localStorage.setItem("user", JSON.stringify(data));
         localStorage.setItem("type", JSON.stringify(type));
+        dispatch({ type: "isLoggedIn" });
         router.push("/");
       } catch (error) {
         setOtpFailed(true);
@@ -169,6 +174,7 @@ export default function Login(props) {
         } else {
           localStorage.setItem("user", JSON.stringify(data));
           localStorage.setItem("type", JSON.stringify(type));
+          dispatch({ type: "isLoggedIn" });
           router.push("/");
         }
       } catch (error) {
@@ -218,7 +224,6 @@ export default function Login(props) {
   });
 
   const responseFacebook = async (response) => {
-    console.log(response);
     // Login failed
     if (response.status === "unknown") {
       return false;
@@ -249,6 +254,7 @@ export default function Login(props) {
     } else {
       localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("type", JSON.stringify(type));
+      dispatch({ type: "isLoggedIn" });
       router.push("/");
     }
   };
@@ -262,17 +268,18 @@ export default function Login(props) {
       <Head>
         <title>Fipezo | Login</title>
         <meta
-          name="description"
-          content="Welcome to our secure login page, where you can safely access your account with confidence. At Fipezo, we prioritize your security and convenience, ensuring that your personal information remains protected."
+          name='description'
+          content='Welcome to our secure login page, where you can safely access your account with confidence. At Fipezo, we prioritize your security and convenience, ensuring that your personal information remains protected.'
         />
       </Head>
       <div className={styles.navbar}>
         <Navbar
-          color="black"
+          color='black'
           user={props.user}
           company={props.company}
           setCompany={props.setCompany}
           setUser={props.setUser}
+          socket={props.socket}
         />
       </div>
       {!otpForm &&
@@ -378,18 +385,18 @@ export default function Login(props) {
                 </div>
               </div>
             </label> */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 my-2">
+              <div className='flex flex-col md:flex-row items-center justify-between gap-4 my-2'>
                 <button
-                  type="button"
-                  className="flex flex-col items-center text-sm capitalize border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                  type='button'
+                  className='flex flex-col items-center text-sm capitalize border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'
                   onClick={() => setShowLogEmail(true)}
                 >
                   <MdMarkEmailUnread size={"2em"} />
                   log in with your email
                 </button>
                 <button
-                  type="button"
-                  className="flex flex-col items-center text-sm capitalize border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                  type='button'
+                  className='flex flex-col items-center text-sm capitalize border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'
                   onClick={() => setShowLogEmail(false)}
                 >
                   <IoPhonePortrait size={"2em"} />
@@ -398,42 +405,42 @@ export default function Login(props) {
               </div>
               {showLogEmail === true && (
                 <form
-                  className="flex flex-col items-center gap-4"
+                  className='flex flex-col items-center gap-4'
                   onSubmit={handelLoginEmail}
                 >
-                  <div className="flex flex-col gap-4 mt-4 items-center">
-                    <div className="flex flex-col md:flex-row gap-1 items-stretch md:items-center text-lg">
-                      <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
-                        <label htmlFor="email" className="p-1 capitalize">
+                  <div className='flex flex-col gap-4 mt-4 items-center'>
+                    <div className='flex flex-col md:flex-row gap-1 items-stretch md:items-center text-lg'>
+                      <div className='flex flex-col gap-2 rounded-2xl bg-[#242424]'>
+                        <label htmlFor='email' className='p-1 capitalize'>
                           email
                         </label>
                         <input
-                          type="email"
-                          name=""
-                          id="email"
+                          type='email'
+                          name=''
+                          id='email'
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
-                          className="focus:outline-none text-white bg-transparent border-b border-b-[#878787] p-1"
+                          placeholder='Enter your email'
+                          className='focus:outline-none text-white bg-transparent border-b border-b-[#878787] p-1'
                         />
                       </div>
-                      <div className="flex flex-col gap-2 rounded-2xl bg-[#242424]">
-                        <label htmlFor="password" className="p-1 capitalize">
+                      <div className='flex flex-col gap-2 rounded-2xl bg-[#242424]'>
+                        <label htmlFor='password' className='p-1 capitalize'>
                           password
                         </label>
-                        <div className="flex border-b border-b-[#878787]">
+                        <div className='flex border-b border-b-[#878787]'>
                           <input
-                            type="password"
-                            name=""
-                            id="password"
+                            type='password'
+                            name=''
+                            id='password'
                             value={password}
                             ref={passwordRef}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter your password"
-                            className="focus:outline-none text-white bg-transparent p-1"
+                            placeholder='Enter your password'
+                            className='focus:outline-none text-white bg-transparent p-1'
                           />
                           <button
-                            type="button"
+                            type='button'
                             onClick={() => {
                               if (passwordRef.current.type === "password") {
                                 passwordRef.current.type = "text";
@@ -454,13 +461,13 @@ export default function Login(props) {
                       </div>
                     </div>
                     <div>
-                      <button type="submit" className={styles.btn}>
+                      <button type='submit' className={styles.btn}>
                         Login
                       </button>
                     </div>
                     <Link
-                      href="/forget_password"
-                      className="text-sm text-cyan-500 font-semibold tracking-wide"
+                      href='/forget_password'
+                      className='text-sm text-cyan-500 font-semibold tracking-wide'
                     >
                       Forget password!
                     </Link>
@@ -469,7 +476,7 @@ export default function Login(props) {
               )}
               {showLogEmail === false && (
                 <form
-                  className="flex flex-col items-center gap-4"
+                  className='flex flex-col items-center gap-4'
                   onSubmit={(e) => handleSubmit(e)}
                 >
                   {loginFailed && (
@@ -482,9 +489,9 @@ export default function Login(props) {
                     <input
                       className={styles.inputs}
                       id={styles.number}
-                      name="phone"
-                      type="number"
-                      placeholder="Enter Your Phone no."
+                      name='phone'
+                      type='number'
+                      placeholder='Enter Your Phone no.'
                       onChange={(e) => {
                         setPhone(e.target.value);
                         setLoginFailed(false);
@@ -494,36 +501,36 @@ export default function Login(props) {
                     <br />
                   </div>
                   <div>
-                    <button className={styles.btn} type="submit">
+                    <button className={styles.btn} type='submit'>
                       Send OTP
                     </button>
                   </div>
                 </form>
               )}
-              <p className="flex w-full items-center gap-2">
-                <hr className="w-full border-neutral-500" />
-                OR <hr className="w-full border-neutral-500" />
+              <p className='flex w-full items-center gap-2'>
+                <hr className='w-full border-neutral-500' />
+                OR <hr className='w-full border-neutral-500' />
               </p>
-              <div className="flex flex-col items-center gap-3">
-                <h3 className="text-lg">Log in with social</h3>
-                <div className="flex items-center gap-4">
+              <div className='flex flex-col items-center gap-3'>
+                <h3 className='text-lg'>Log in with social</h3>
+                <div className='flex items-center gap-4'>
                   <button
                     onClick={() => login()}
-                    className="border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]"
+                    className='border px-4 py-2 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'
                   >
                     <FcGoogle />
                   </button>
-                  <button className="border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]">
+                  <button className='border flex items-center justify-center px-4 py-1 rounded-md hover:scale-110 duration-300 hover:bg-[#2b2626] hover:border-[#2b2626]'>
                     <FacebookLogin
                       appId={process.env.FB_APP_ID}
                       autoLoad={false}
-                      fields="name,email,picture"
-                      scope="public_profile,email"
-                      textButton=""
-                      cssClass=""
+                      fields='name,email,picture'
+                      scope='public_profile,email'
+                      textButton=''
+                      cssClass=''
                       isMobile={false}
                       callback={responseFacebook}
-                      icon={<FaFacebookSquare color="#0866ff" />}
+                      icon={<FaFacebookSquare color='#0866ff' />}
                     />
                   </button>
                 </div>
@@ -531,7 +538,7 @@ export default function Login(props) {
               <div className={styles.lower}>
                 <p className={`${styles.signup}`}>
                   Don&apos;t have an Account?{" "}
-                  <Link className="text-cyan-500" href="/signup">
+                  <Link className='text-cyan-500' href='/signup'>
                     Sign up now
                   </Link>
                 </p>
@@ -539,10 +546,10 @@ export default function Login(props) {
             </div>
             <div className={styles.presentation}>
               <Image
-                src="/loginbg.jpg"
-                alt="side-image"
-                height="1006"
-                width="1000"
+                src='/loginbg.jpg'
+                alt='side-image'
+                height='1006'
+                width='1000'
               />
             </div>
           </div>
@@ -553,7 +560,7 @@ export default function Login(props) {
         (loading === false ? (
           <div className={styles.body}>
             <form
-              method="post"
+              method='post'
               className={styles.form}
               onSubmit={handleSubmitOTP}
             >
@@ -564,7 +571,7 @@ export default function Login(props) {
                 </p>
                 <p className={styles.subHeading + " text-center"}>
                   OTP delivered to{" "}
-                  <span className="font-bold text-lg">{phone}</span>
+                  <span className='font-bold text-lg'>{phone}</span>
                 </p>
               </div>
               {otpFailed && (
@@ -576,12 +583,12 @@ export default function Login(props) {
                 <input
                   className={styles.inputs}
                   id={styles.otp}
-                  type="number"
-                  name="otp"
-                  placeholder="Enter OTP"
+                  type='number'
+                  name='otp'
+                  placeholder='Enter OTP'
                 />
                 <button
-                  type="button"
+                  type='button'
                   className={
                     "text-white bg-[#007cff] capitalize px-2 py-1 text-sm rounded-md whitespace-nowrap"
                   }
@@ -590,12 +597,12 @@ export default function Login(props) {
                   Edit number
                 </button>
               </div>
-              <div className="flex items-center gap-4 flex-col">
-                <button className={styles.btn} type="submit">
+              <div className='flex items-center gap-4 flex-col'>
+                <button className={styles.btn} type='submit'>
                   Submit
                 </button>
               </div>
-              <p className="text-sm text-neutral-400">
+              <p className='text-sm text-neutral-400'>
                 OTP will be valid for 5 minutes
               </p>
               <div className={styles.lower}>
@@ -611,10 +618,10 @@ export default function Login(props) {
             </form>
             <div className={styles.presentation}>
               <Image
-                src="/loginbg.jpg"
-                alt="side-image"
-                height="1006"
-                width="1000"
+                src='/loginbg.jpg'
+                alt='side-image'
+                height='1006'
+                width='1000'
               />
             </div>
           </div>

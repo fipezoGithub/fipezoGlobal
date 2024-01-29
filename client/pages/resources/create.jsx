@@ -137,6 +137,7 @@ const Create = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex flex-col items-center justify-center gap-4">
         <h1 className="lg:text-3xl font-bold">Create Blog</h1>

@@ -22,6 +22,7 @@ const Referandearn = (props) => {
           company={props.company}
           setCompany={props.setCompany}
           setUser={props.setUser}
+          socket={props.socket}
         />
       </div>
       <div className="h-80 w-full relative mt-16 flex items-center justify-center">

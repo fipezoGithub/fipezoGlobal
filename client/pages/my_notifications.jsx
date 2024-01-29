@@ -1,50 +1,31 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const My_notifications = (props) => {
   const [notifications, setNotifications] = useState([]);
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
-    let type;
-    if (props.user?.uid) {
-      type = "freelancer";
-    } else if (!props.user?.uid) {
-      type = "user";
-    } else {
-      type = "company";
+    async function getNotifications() {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/notification/${data.userDetails._id}?type=${data.userType}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const noti = await res.json();
+      setNotifications(noti.reverse());
     }
-    async function getNotifications(logInType) {
-      if (props.company) {
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.company?._id}?type=company`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const noti = await res.json();
-        setNotifications(noti);
-      } else {
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/${props.user?._id}?type=${logInType}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const noti = await res.json();
-        setNotifications(noti);
-      }
-    }
-    getNotifications(type);
+    getNotifications();
   }, []);
 
   const seenNotification = async (noti) => {
@@ -69,19 +50,9 @@ const My_notifications = (props) => {
   };
 
   const seenAllNoti = async () => {
-    let type;
-    if (props.user?.uid) {
-      type = "freelancer";
-    } else if (!props.user?.uid) {
-      type = "user";
-    } else {
-      type = "company";
-    }
     try {
       const res = await fetch(
-        `${process.env.SERVER_URL}/notification/seenall/${
-          type === "company" ? props.company?._id : props.user?._id
-        }?type=${type}`,
+        `${process.env.SERVER_URL}/notification/seenall/${data.userDetails._id}?type=${data.userType}`,
         {
           method: "PUT",
           headers: {
@@ -89,8 +60,8 @@ const My_notifications = (props) => {
           },
         }
       );
-      const data = await res.json();
-      setNotifications(data.reverse());
+      const seenNoti = await res.json();
+      setNotifications(seenNoti.reverse());
     } catch (error) {
       console.log(error);
     }
@@ -102,19 +73,20 @@ const My_notifications = (props) => {
         <title>Fipezo | Notifications</title>
       </Head>
       <Navbar
-        color="black"
+        color='black'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
-      <div className="mt-16 mx-4 lg:mx-8 flex flex-col items-center justify-center gap-6 mb-8">
-        <div className="flex flex-col">
-          <h1 className="text-2xl font-semibold self-center">Notifications</h1>
+      <div className='mt-16 mx-4 lg:mx-8 flex flex-col items-center justify-center gap-6 mb-8'>
+        <div className='flex flex-col'>
+          <h1 className='text-2xl font-semibold self-center'>Notifications</h1>
           {notifications.length > 0 && (
             <button
-              type="button"
-              className="self-end capitalize text-blue-500"
+              type='button'
+              className='self-end capitalize text-blue-500'
               onClick={seenAllNoti}
             >
               mark all as read
@@ -142,12 +114,12 @@ const My_notifications = (props) => {
                   }
                   width={120}
                   height={120}
-                  alt="user-picture"
-                  className="rounded-full w-12 lg:w-16 h-12 lg:h-16 object-cover"
+                  alt='user-picture'
+                  className='rounded-full w-12 lg:w-16 h-12 lg:h-16 object-cover'
                 />
-                <div className="flex flex-col gap-1">
-                  <h1 className="text-sm lg:text-lg">{item.headline}</h1>
-                  <p className="text-sm lg:text-base">
+                <div className='flex flex-col gap-1'>
+                  <h1 className='text-sm lg:text-lg'>{item.headline}</h1>
+                  <p className='text-sm lg:text-base'>
                     {new Date(item.createdAt).toLocaleString("en-IN", {
                       day: "numeric",
                       month: "long",
@@ -158,15 +130,15 @@ const My_notifications = (props) => {
               </Link>
             ))
           ) : (
-            <div className="flex flex-col items-center">
+            <div className='flex flex-col items-center'>
               <Image
                 src={"/nojobs.webp"}
                 height={800}
                 width={800}
-                className=""
-                alt="no notification"
+                className=''
+                alt='no notification'
               />
-              <p className="capitalize font-semibold lg:text-xl">
+              <p className='capitalize font-semibold lg:text-xl'>
                 no pending notifications
               </p>
             </div>

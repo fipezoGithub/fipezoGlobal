@@ -11,7 +11,7 @@ function About_Us(props) {
       <Head>
         <title>Fipezo | About Fipezo</title>
       </Head>
-      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} />
+      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} socket={props.socket} />
       <div className={styles.main}>
         <div className={styles.body}>
           <div className={styles.termsNConditions_form} style={{ height: '88.3vh' }}>

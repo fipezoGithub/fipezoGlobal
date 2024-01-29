@@ -199,6 +199,7 @@ function Explore(props) {
           company={props.company}
           setCompany={props.setCompany}
           setUser={props.setUser}
+          socket={props.socket}
         />
         <div className={styles.search}>
           <SearchBoxCompany border={true} />

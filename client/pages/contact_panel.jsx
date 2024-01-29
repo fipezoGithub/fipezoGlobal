@@ -46,6 +46,7 @@ function Contact_panel(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className={styles.body}>
         <h1 className={styles.heading}>Contact Panel</h1>

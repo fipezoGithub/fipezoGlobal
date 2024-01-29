@@ -320,6 +320,7 @@ function Explore(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <form
         className={styles.search + " flex items-center justify-center"}

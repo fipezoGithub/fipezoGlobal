@@ -16,6 +16,7 @@ const ShippingAndDelivery = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex flex-col items-center justify-center bg-[url('/bg14.jpg')]">
         <h1 className="text-4xl font-bold text-center my-4">

@@ -17,6 +17,7 @@ const Sitemap = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 mx-8">
         <h4 className="border-b py-2">Fipezo {">"} Sitemap</h4>

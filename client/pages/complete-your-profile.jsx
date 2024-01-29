@@ -151,6 +151,7 @@ const CompleteYourProfile = (props) => {
         company={props?.company}
         setCompany={props?.setCompany}
         setUser={props?.setUser}
+        socket={props.socket}
       />
       {loading === false ? (
         <form

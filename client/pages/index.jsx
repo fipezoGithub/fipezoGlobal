@@ -14,29 +14,31 @@ import Simplified from "@/components/Simplified";
 import Newsletter from "@/components/Newsletter";
 
 export default function Index(props) {
+
   return (
-    <div className="app">
+    <div className='app'>
       <Navbar
-        color="white"
+        color='white'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <Header />
       <Categories />
-      <div className="grey-container">
+      <div className='grey-container'>
         <Bio />
       </div>
       <Signupguide />
       <VerifiedExplore />
       <FreelancerPoints />
       <VerifiedCompany />
-      <div className="color-container">
+      <div className='color-container'>
         <Register />
       </div>
       <BoxSection />
-      <div className="grey-container">
+      <div className='grey-container'>
         <Featured />
       </div>
       <Simplified />

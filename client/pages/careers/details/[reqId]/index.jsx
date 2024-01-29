@@ -38,6 +38,7 @@ const ReqId = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex flex-col items-center justify-center gap-6 py-4 bg-[url('/jobDetailsPageBG.png')] bg-cover bg-center bg-no-repeat min-h-[40vh] md:min-h-[60vh] text-white">
         <h1 className="text-2xl md:text-3xl font-bold">{props.data.title}</h1>

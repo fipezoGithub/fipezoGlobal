@@ -16,6 +16,7 @@ const signup = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-28 flex items-center justify-center">
         <div className="flex flex-col items-center gap-4 justify-center border p-16 border-green-600 rounded-lg">

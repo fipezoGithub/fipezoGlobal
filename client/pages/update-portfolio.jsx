@@ -323,6 +323,7 @@ const UpdatePortfolio = (props) => {
         company={props?.company}
         setCompany={props?.setCompany}
         setUser={props?.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 mx-8 flex flex-col items-center justify-center">
         <h1 className={styles.heading}>

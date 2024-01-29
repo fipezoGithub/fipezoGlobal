@@ -138,46 +138,46 @@ function VerificationCard(props) {
         </div>
         <div className={styles.socials}>
           {links?.facebook && (
-            <Link href={links.facebook} target="_black">
+            <Link href={links.facebook} target='_black'>
               <Image
                 className={styles.social}
-                src="/facebook.png"
-                width="160"
-                height="160"
-                alt="facebook"
+                src='/facebook.png'
+                width='160'
+                height='160'
+                alt='facebook'
               />
             </Link>
           )}
           {links?.instagram && (
-            <Link href={links.instagram} target="_black">
+            <Link href={links.instagram} target='_black'>
               <Image
                 className={styles.social}
-                src="/instagramC.png"
-                width="160"
-                height="160"
-                alt="instagram"
+                src='/instagramC.png'
+                width='160'
+                height='160'
+                alt='instagram'
               />
             </Link>
           )}
           {links?.twitter && (
-            <Link href={links.twitter} target="_black">
+            <Link href={links.twitter} target='_black'>
               <Image
                 className={styles.social}
-                src="/twitterC.png"
-                width="160"
-                height="160"
-                alt="twitter"
+                src='/twitterC.png'
+                width='160'
+                height='160'
+                alt='twitter'
               />
             </Link>
           )}
           {links?.youtube && (
-            <Link href={links.youtube} target="_black">
+            <Link href={links.youtube} target='_black'>
               <Image
                 className={styles.social}
-                src="/youtube.png"
-                width="160"
-                height="160"
-                alt="youtube"
+                src='/youtube.png'
+                width='160'
+                height='160'
+                alt='youtube'
               />
             </Link>
           )}
@@ -235,6 +235,18 @@ function VerificationCard(props) {
               <h1>Rate/day : Rs.{props.profile.rate}</h1>
             </div>
           )}
+          {props.profile.services && (
+            <div className={styles.field}>
+              <h1>
+                Services :{" "}
+                {props.profile.services
+                  ?.join(", ")
+                  .split("_")
+                  .join(" ")
+                  .toString()}
+              </h1>
+            </div>
+          )}
           <div className={styles.field}>
             <h1>Bio : {props.profile.bio}</h1>
           </div>
@@ -245,7 +257,7 @@ function VerificationCard(props) {
           )}
         </div>
         {props.profile.works.length === 0 && (
-          <h3 className="text-lg text-rose-600 font-bold text-center">
+          <h3 className='text-lg text-rose-600 font-bold text-center'>
             This profile is not completed yet!
           </h3>
         )}

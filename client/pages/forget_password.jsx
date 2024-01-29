@@ -98,6 +98,7 @@ const Forget_password = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex justify-center py-12 bg-[url('/bgX.jpg')] bg-no-repeat bg-cover">
         <div className="flex flex-col items-center justify-center bg-black text-white rounded-2xl px-4 md:px-10 py-4 md:py-5 shadow-lg">

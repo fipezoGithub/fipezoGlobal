@@ -453,7 +453,7 @@ async function getFreelancerProfilesByProfession(req, res) {
           { location: req.query.loc },
         ],
       })
-      .sort({ featured: -1,reviewCount: -1, _id: 1 })
+      .sort({ featured: -1, reviewCount: -1, _id: 1 })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
@@ -1190,6 +1190,27 @@ async function getNumberAndMail(req, res) {
   res.status(200).send({ userEmail });
 }
 
+//Get all Chat rooms
+async function getChatRoomsOfFreelancers(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const freelancer = await freelancerCollection.findById(authData.user._id);
+      if (err || !freelancer) {
+        res.status(404).send("User not logged in");
+        return;
+      }
+      const chats = await freelancerCollection
+        .findById(freelancer._id)
+        .populate("messageRoom")
+        .exec();
+      res.status(200).json(chats.messageRoom);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   registerFreelancer,
   verificationProfile,
@@ -1218,4 +1239,5 @@ module.exports = {
   getFreelancerProfilesByProfession,
   premiumWorkUpload,
   getNumberAndMail,
+  getChatRoomsOfFreelancers,
 };

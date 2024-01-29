@@ -1,6 +1,9 @@
+import { AuthContext } from "@/context/AuthContext";
+import freelancer from "@/pages/register/freelancer";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useRef } from "react";
 
 const Applicants = ({
   appliedFreelancers,
@@ -14,6 +17,8 @@ const Applicants = ({
 }) => {
   const hireRef = useRef();
   const rejectRef = useRef();
+  const router = useRouter();
+  const { data } = useContext(AuthContext);
   useEffect(() => {
     if (!hireRef.current || !rejectRef.current) {
       console.log("true");
@@ -103,14 +108,41 @@ const Applicants = ({
     }
   };
 
+  const createChatRoom = async (freelancer) => {
+    if (!data.isLoggedIn) {
+      router.push("/login");
+    }
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/createmessagebox`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messageId: (data.userDetails.companyphone + freelancer.phone).toString(),
+          company: data.userDetails._id,
+          freelancer: freelancer._id,
+        }),
+      });
+      const respData = await res.json();
+      if (res.ok) {
+        router.push(
+          `/chats/${data.userDetails.uid}+${freelancer.uid}/${respData.messageId}`
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <hr className="h-[1px] w-full bg-neutral-400" />
-      <div className="flex flex-col items-start gap-4">
-        <h4 className="capitalize font-bold lg:text-xl">
+      <hr className='h-[1px] w-full bg-neutral-400' />
+      <div className='flex flex-col items-start gap-4'>
+        <h4 className='capitalize font-bold lg:text-xl'>
           applicant freelancers
         </h4>
-        <ol className="flex flex-col items-start w-full gap-4">
+        <ol className='flex flex-col items-start w-full gap-4'>
           {appliedFreelancers.length > 0 &&
             appliedFreelancers.map((freelancer, index) => {
               const h = hiredFreelancers?.some((hire) => {
@@ -128,19 +160,19 @@ const Applicants = ({
               return (
                 <li
                   key={index}
-                  className="w-full flex flex-col lg:flex-row items-start lg:items-center gap-4 justify-between"
+                  className='w-full flex flex-col lg:flex-row items-start lg:items-center gap-4 justify-between'
                 >
-                  <div className="flex items-center gap-4 justify-between">
-                    <p className="font-bold text-sm lg:text-lg">{index + 1}.</p>
+                  <div className='flex items-center gap-4 justify-between'>
+                    <p className='font-bold text-sm lg:text-lg'>{index + 1}.</p>
                     <Image
                       src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${freelancer.profilePicture}`}
                       width={40}
                       height={40}
-                      alt="pro-pic"
-                      className="rounded-full w-8 lg:w-10 h-8 lg:h-10 object-cover"
+                      alt='pro-pic'
+                      className='rounded-full w-8 lg:w-10 h-8 lg:h-10 object-cover'
                     />
                     <Link
-                      className="capitalize hover:font-bold text-xs lg:text-base"
+                      className='capitalize hover:font-bold text-xs lg:text-base'
                       href={`/profile/${freelancer.uid}`}
                     >
                       {freelancer.firstname.toLowerCase() +
@@ -149,16 +181,16 @@ const Applicants = ({
                     </Link>
                     <a
                       href={`tel:${freelancer.phone}`}
-                      className="hover:text-cyan-500 text-xs lg:text-base"
+                      className='hover:text-cyan-500 text-xs lg:text-base'
                     >
                       {freelancer.phone}
                     </a>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className='flex items-center gap-4'>
                     {r === false && (
                       <button
-                        className="capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base"
-                        type="button"
+                        className='capitalize px-2 py-1 bg-green-600 text-white rounded-md font-bold text-sm lg:text-base'
+                        type='button'
                         ref={hireRef}
                         onClick={(e) => hireFreelancer(e, freelancer._id)}
                         disabled={h === true ? true : false}
@@ -168,8 +200,8 @@ const Applicants = ({
                     )}
                     {h === false && (
                       <button
-                        className="capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base"
-                        type="button"
+                        className='capitalize px-2 py-1 bg-red-600 text-white rounded-md font-bold text-sm lg:text-base'
+                        type='button'
                         ref={(e) => (rejectRef.current = e)}
                         onClick={(e) => rejectFreelancer(e, freelancer._id)}
                         disabled={r === true ? true : false}
@@ -177,6 +209,15 @@ const Applicants = ({
                         {r === true ? "rejected" : "reject"}
                       </button>
                     )}
+                    {
+                      <button
+                        className='capitalize px-2 py-1 bg-blue-600 text-white rounded-md font-bold text-sm lg:text-base'
+                        type='button'
+                        onClick={(e) => createChatRoom(freelancer)}
+                      >
+                        message
+                      </button>
+                    }
                   </div>
                 </li>
               );

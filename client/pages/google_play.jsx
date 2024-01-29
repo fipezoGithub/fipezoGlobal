@@ -39,7 +39,7 @@ function Mobile(props) {
       <Head>
         <title>Fipezo | Comming soon on Android Devices</title>
       </Head>
-      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} />
+      <Navbar user={props.user} company={props.company} setCompany={props.setCompany} setUser={props.setUser} socket={props.socket} />
       <div className={styles.body}>
         <Image className={styles.img} src='/mobile.png' alt='mobile' width={400} height={400}></Image>
         <h1 className={styles.heading}>

@@ -41,6 +41,7 @@ const Feed = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="flex items-center justify-center pt-14 lg:pt-10 mr-0 lg:mr-20">
         {loginType === "freelancer" ? (

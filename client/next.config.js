@@ -26,6 +26,7 @@ const nextConfig = {
     MAILERLITE_KEY: process.env.MAILERLITE_KEY,
     RAZORPAY_KEY: process.env.RAZORPAY_KEY,
     RAZORPAY_SECRET: process.env.RAZORPAY_SECRET,
+    SOCKET_SERVER_URL: process.env.SOCKET_SERVER_URL,
   },
 };
 

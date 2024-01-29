@@ -183,6 +183,7 @@ const Feedid = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="flex flex-col gap-4 px-4 md:px-8 pt-16 shadow rounded-md">
         <div className="flex items-center gap-4">

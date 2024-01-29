@@ -145,6 +145,7 @@ const ProfileSetting = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       {isLoading === false ? (
         <div className="flex flex-col justify-center mt-16">

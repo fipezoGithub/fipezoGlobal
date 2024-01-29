@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Loading from "@/components/Loading";
+import { AuthContext } from "@/context/AuthContext";
 
 function User_profile(props) {
   const [firstname, setFirstname] = React.useState("");
@@ -24,6 +25,8 @@ function User_profile(props) {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showDeleteBox, setShowDeleteBox] = React.useState(false);
   const router = useRouter();
+
+  const { data } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     const token = localStorage.getItem("user")
@@ -132,6 +135,7 @@ function User_profile(props) {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    dispatch({ type: "logout" });
     props.setUser(null);
     router.push("/");
   };
@@ -168,11 +172,12 @@ function User_profile(props) {
         <title>Fipezo | My Profile</title>
       </Head>
       <Navbar
-        color="black"
+        color='black'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className={style.body}>
         <div className={style.profileBox}>
@@ -205,13 +210,13 @@ function User_profile(props) {
           )}
           {!editProfile && (
             <div className={style.options}>
-              <Link className={style.option} href="/my_hires">
+              <Link className={style.option} href='/my_hires'>
                 Hire Requests
               </Link>
               <p className={style.option} onClick={() => setEditProfile(true)}>
                 Edit Profile
               </p>
-              <Link className={style.option} href="/my_referral">
+              <Link className={style.option} href='/my_referral'>
                 My Referal
               </Link>
               <p
@@ -221,8 +226,8 @@ function User_profile(props) {
                 Delete Account
               </p>
               <Link
-                target="_blank"
-                href="https://www.facebook.com/profile.php?id=100094694632348&sk=reviews"
+                target='_blank'
+                href='https://www.facebook.com/profile.php?id=100094694632348&sk=reviews'
                 className={style.option}
               >
                 Rate our Services
@@ -241,7 +246,7 @@ function User_profile(props) {
               <div className={style.editProfile}>
                 <form
                   className={style.form}
-                  encType="multipart/form-data"
+                  encType='multipart/form-data'
                   onSubmit={handleEditProfile}
                 >
                   <div
@@ -260,18 +265,18 @@ function User_profile(props) {
                       <Image
                         className={style.camera}
                         id={style.camera}
-                        src="/cameraIcon.png"
+                        src='/cameraIcon.png'
                         width={35}
                         height={35}
-                        alt="camera"
+                        alt='camera'
                         onClick={handleImageClick}
                       />
                     )}
                     <input
-                      type="file"
-                      id="file"
-                      accept="image/*"
-                      name="profilePicture"
+                      type='file'
+                      id='file'
+                      accept='image/*'
+                      name='profilePicture'
                       onChange={handleImageChange}
                       className={style.fileInput}
                     />
@@ -279,7 +284,7 @@ function User_profile(props) {
                   <div className={style.editProfileInfo}>
                     <input
                       className={style.input}
-                      type="text"
+                      type='text'
                       value={firstname}
                       onChange={(e) => {
                         setFirstname(e.target.value);
@@ -289,7 +294,7 @@ function User_profile(props) {
                     />
                     <input
                       className={style.input}
-                      type="text"
+                      type='text'
                       value={lastname}
                       onChange={(e) => {
                         setLastname(e.target.value);
@@ -299,7 +304,7 @@ function User_profile(props) {
                     />
                     <input
                       className={style.input}
-                      type="email"
+                      type='email'
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -309,8 +314,8 @@ function User_profile(props) {
                     />
                     <input
                       className={style.input}
-                      type="password"
-                      placeholder="Enter your new password"
+                      type='password'
+                      placeholder='Enter your new password'
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);
@@ -318,8 +323,8 @@ function User_profile(props) {
                     />
                     <input
                       className={style.input}
-                      type="password"
-                      placeholder="Confirm your new password"
+                      type='password'
+                      placeholder='Confirm your new password'
                       value={confirmPassword}
                       onChange={(e) => {
                         setConfirmPassword(e.target.value);
@@ -329,12 +334,12 @@ function User_profile(props) {
                   <div className={style.btns}>
                     <button
                       className={style.back}
-                      type="button"
+                      type='button'
                       onClick={() => setEditProfile(false)}
                     >
                       Back
                     </button>
-                    <button className={style.logout} type="submit">
+                    <button className={style.logout} type='submit'>
                       Save
                     </button>
                   </div>
@@ -348,7 +353,7 @@ function User_profile(props) {
               <DeleteBox
                 setShowDeleteBox={setShowDeleteBox}
                 handleDeleteAccount={handleDeleteAccount}
-                delete="Account"
+                delete='Account'
               />
             </div>
           )}

@@ -64,6 +64,10 @@ const freelancerSchema = new mongoose.Schema(
     works: {
       type: [String],
     },
+    messageRoom: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "messagecollection",
+    },
     following: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "freelancercollection",

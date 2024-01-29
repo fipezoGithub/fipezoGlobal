@@ -16,6 +16,7 @@ const CancellationAndRefund = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 mx-8 flex flex-col items-center mb-8 bg-[url('/bg14.jpg')] ">
         <h1 className="text-4xl font-bold">

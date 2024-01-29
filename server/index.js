@@ -17,6 +17,7 @@ const {
   forgetController,
   updateUserPassword,
   googleLoginController,
+  getChatRoomsOfUsers,
 } = require("./controllers/userController");
 
 const {
@@ -41,6 +42,7 @@ const {
   getCompanyByName,
   updateCompanyPassword,
   getCompanyByType,
+  getChatRoomsOfCompany,
 } = require("./controllers/companyController");
 
 const {
@@ -71,6 +73,7 @@ const {
   getFreelancerProfilesByProfession,
   premiumWorkUpload,
   getNumberAndMail,
+  getChatRoomsOfFreelancers,
 } = require("./controllers/freelancerController");
 
 const {
@@ -211,6 +214,15 @@ const {
   getWithDrawlDetails,
   completeWithDrawl,
 } = require("./controllers/referUPIController");
+const notificationCollection = require("./models/notificationModel");
+const { verify } = require("crypto");
+const {
+  getAllMessages,
+  createMessageRoom,
+  sendMessages,
+  getChatRoomOfUser,
+} = require("./controllers/messageController");
+const messageCollection = require("./models/messageModel");
 
 // Setting up the routes
 
@@ -231,6 +243,7 @@ app.put(
   updateUserPassword
 );
 app.post("/api/email/login/social", googleLoginController);
+app.get("/api/user/allchats", verifyToken, getChatRoomsOfUsers);
 
 //Otpcontroller Routes
 app.post("/api/otp", otpController);
@@ -262,6 +275,7 @@ app.put(
   updateCompanyPassword
 );
 app.get("/api/profile/company/type/:type", getCompanyByType);
+app.get("/api/company/allchats", verifyToken, getChatRoomsOfCompany);
 
 //FreelancerController Routes
 app.post("/api/register/freelancer", upload, verifyToken, registerFreelancer);
@@ -309,6 +323,7 @@ app.put(
 app.get("/api/freelancer/paymentdetails", verifyToken, getPaymentDetailsOFUser);
 app.get("/api/freelancer/professions", getFreelancerProfilesByProfession);
 app.get("/api/freelancer/all/phone_email", getNumberAndMail);
+app.get("/api/freelancer/allchats", verifyToken, getChatRoomsOfFreelancers);
 
 //Contactcontroller routes
 app.post("/api/contact", contactUs);
@@ -427,6 +442,11 @@ app.put(
   completeWithDrawl
 );
 
+//Message Routes
+app.post("/api/createmessagebox", createMessageRoom);
+app.put("/api/send-message", verifyToken, sendMessages);
+app.get("/api/allchatrooms/:userId", getChatRoomOfUser);
+
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;
   try {
@@ -464,10 +484,124 @@ const job = nodeCron.schedule("01 1 00 * * *", async () => {
   });
 });
 
-// job.start();
+job.start();
+
+const http = require("http").Server(app);
+
+const socketIO = require("socket.io")(http, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+  },
+});
+
+//Add this before the app.get() block
+socketIO.on("connection", (socket) => {
+  console.log(`⚡: ${socket.id} user just connected!`);
+  socket.on("get-notifications", async (data) => {
+    try {
+      let notifications;
+      if (data.type === "freelancer") {
+        notifications = await notificationCollection
+          .find({
+            acceptedFreelancer: data.user,
+            seen: false,
+          })
+          .populate("acceptedFreelancer")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      } else if (data.type === "user") {
+        notifications = await notificationCollection
+          .find({
+            acceptedUser: data.user,
+            seen: false,
+          })
+          .populate("acceptedUser")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      } else {
+        notifications = await notificationCollection
+          .find({
+            acceptedCompany: data.user,
+            seen: false,
+          })
+          .populate("acceptedCompany")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      }
+      socketIO.emit("notifications", notifications);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
+  socket.on("send-message", (data) => {
+    console.log(data);
+    jwt.verify(data.token, process.env.JWT_SECRET, async (err, authData) => {
+      const messageRoom = await messageCollection.findOne({
+        messageId: data.messageId,
+      });
+      if (!messageRoom) {
+        socketIO.emit("messageResponse", "Message room not found");
+        return;
+      }
+      if (
+        err ||
+        (messageRoom.freelancer != authData.user._id &&
+          messageRoom.user != authData.user._id &&
+          messageRoom.company != authData.user._id)
+      ) {
+        socketIO.emit("messageResponse", "You are not authorized");
+        return;
+      }
+
+      await messageCollection.updateOne(
+        { messageId: messageRoom.messageId },
+        { $push: { messages: data.message } }
+      );
+      const updatedMessageRoom = await messageCollection.findOne({
+        messageId: messageRoom.messageId,
+      });
+      socketIO.emit("messageResponse", updatedMessageRoom);
+    });
+  });
+
+  socket.on("all-messages", async (data) => {
+    try {
+      const messageRoom = await messageCollection.findOne({
+        messageId: data.messageId,
+      });
+      if (messageRoom) {
+        const allMessages = await messageCollection
+          .findById(messageRoom._id)
+          .populate("freelancer")
+          .populate("user")
+          .populate("company")
+          .exec();
+
+        socketIO.emit("messages", allMessages);
+      }
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log("🔥: A user disconnected");
+  });
+});
 
 const ip = "0.0.0.0";
 
 // Starting the server
 const port = process.env.PORT || 3000;
-app.listen(port, ip, () => console.log(`Server started on port ${port}`));
+// app.listen(port, ip, () => console.log(`Server started on port ${port}`));
+http.listen(port, () => {
+  console.log(`Server listening on ${port}`);
+});

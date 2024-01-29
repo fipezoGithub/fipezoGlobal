@@ -15,19 +15,20 @@ const Custom404 = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
-      <div className="mt-16 flex items-center justify-center flex-col gap-4">
+      <div className='mt-16 flex items-center justify-center flex-col gap-4'>
         <Image
           src={"/404-graphics.png"}
           height={600}
           width={600}
-          className=""
-          alt="not found 404"
+          className=''
+          alt='not found 404'
         />
-        <p className="text-red-500 font-semibold lg:text-xl">
+        <p className='text-red-500 font-semibold lg:text-xl'>
           OOPS!!! the url you looking for can not found
         </p>
-        <Link href="/" className="text-white bg-cyan-500 px-4 py-2 font-bold">
+        <Link href='/' className='text-white bg-cyan-500 px-4 py-2 font-bold'>
           Back to home
         </Link>
       </div>

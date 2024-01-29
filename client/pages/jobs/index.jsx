@@ -353,6 +353,7 @@ export default function Jobs(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16">
         {/* <div className="bg-[url('/bg2.png')] bg-no-repeat bg-center bg-cover">

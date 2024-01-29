@@ -447,7 +447,11 @@ function ProfileBioCard(props) {
           specialities
         </h1>
         <p className='w-full break-words relative border-2 p-4 rounded-lg capitalize'>
-          {props.freelancer.services?.join(", ").toString()}
+          {props.freelancer.services
+            ?.join(", ")
+            .split("_")
+            .join(" ")
+            .toString()}
         </p>
       </div>
       <div className='flex items-center justify-between gap-4 mb-6'>

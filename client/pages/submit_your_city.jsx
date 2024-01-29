@@ -45,6 +45,7 @@ const SubmitYourCity = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="pt-16 flex flex-col items-center justify-center lg:gap-4 gap-2">
         <div className="flex flex-col lg:flex-row items-start justify-evenly my-4 mx-6 gap-4 lg:gap-0">

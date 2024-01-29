@@ -11,9 +11,11 @@ import Link from "next/link";
 import Loading from "@/components/Loading";
 import ReactWhatsapp from "react-whatsapp";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { AuthContext } from "@/context/AuthContext";
 
 export default withRouter(
   class Company extends React.Component {
+    static contextType = AuthContext;
     constructor(props) {
       super(props);
       this.state = {
@@ -328,50 +330,6 @@ export default withRouter(
         });
         return;
       }
-      // if (this.state.panCard === null) {
-      //   this.setState({ panError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 2),
-      //       false,
-      //       ...this.state.warns.slice(3),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (this.state.incorporationCertificate === null) {
-      //   this.setState({ incorporationCertificateError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 3),
-      //       false,
-      //       ...this.state.warns.slice(4),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (this.state.msmeCertificate === null) {
-      //   this.setState({ msmeCertificateError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 4),
-      //       false,
-      //       ...this.state.warns.slice(5),
-      //     ],
-      //   });
-      //   return;
-      // }
-      // if (this.state.tradeLiecence === null) {
-      //   this.setState({ tradeLiecenceError: true });
-      //   this.setState({
-      //     warns: [
-      //       ...this.state.warns.slice(0, 5),
-      //       false,
-      //       ...this.state.warns.slice(6),
-      //     ],
-      //   });
-      //   return;
-      // }
       if (this.state.works.length < 4) {
         this.setState({ worksError: true });
         c++;
@@ -432,6 +390,7 @@ export default withRouter(
             "user",
             JSON.stringify({ token: responseData.token })
           );
+          this.context.dispatch({ type: "isLoggedIn" });
           Router.push("/contact_soon");
         } catch (error) {
           console.error(error);
@@ -553,6 +512,7 @@ export default withRouter(
                 company={this.props.company}
                 setCompany={this.props.setCompany}
                 setUser={this.props.setUser}
+                socket={this.props.socket}
               />
               <div
                 className={`${this.state.form ? styles.newbody : styles.body}`}

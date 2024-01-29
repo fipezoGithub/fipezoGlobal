@@ -343,6 +343,7 @@ export default function Jobs(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16">
         <div className="w-full">

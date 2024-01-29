@@ -107,6 +107,7 @@ class Faqs extends React.Component {
           company={this.props.company}
           setCompany={this.props.setCompany}
           setUser={this.props.setUser}
+          socket={props.socket}
         />
         <div className={styles.body}>
           <h1 className={styles.heading}>

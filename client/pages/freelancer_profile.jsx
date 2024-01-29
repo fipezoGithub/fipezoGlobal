@@ -164,6 +164,7 @@ function Freelancer_Profile(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <Cover
         coverPicture={freelancer.coverPicture}

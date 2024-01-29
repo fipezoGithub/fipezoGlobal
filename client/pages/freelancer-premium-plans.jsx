@@ -161,6 +161,7 @@ const Premium = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div
         className="mt-16 bg-gradient-to-l from-sky-600 to-indigo-600 text-white py-8"

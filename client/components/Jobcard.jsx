@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BsCash, BsStopCircle } from "react-icons/bs";
 import { IoLocationSharp } from "react-icons/io5";
 import { GrGroup } from "react-icons/gr";
@@ -10,6 +10,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Applicants from "./Applicants";
+import { AuthContext } from "@/context/AuthContext";
 
 const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [title, setTitle] = useState("");
@@ -33,6 +34,8 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
   const [profession, setProfession] = useState("");
   const [finalDate, setFinalDate] = useState("");
   const router = useRouter();
+
+  const {data} = useContext(AuthContext)
 
   useEffect(() => {
     setTitle(job.title);
@@ -380,7 +383,7 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
         </>
       )}
       {router.asPath === "/posted-jobs" &&
-        company?._id === job.createdCompany._id && (
+        data.userDetails?._id === job.createdCompany._id && (
           <Applicants
             appliedFreelancers={job.appliedFreelancers}
             hiredFreelancers={hiredFreelancers}
@@ -390,12 +393,12 @@ const Jobcard = ({ job, setJobs, company, user, status }) => {
             rejectState={rejectState}
             setRejectState={setRejectState}
             jobId={job._id}
-            companyname={company.companyname}
-            companyId={company._id}
+            companyname={data.userDetails.companyname}
+            companyId={data.userDetails._id}
           />
         )}
       {router.asPath === "/posted-jobs" &&
-        company?._id === job.createdCompany._id && (
+        data.userDetails?._id === job.createdCompany._id && (
           <>
             <hr className="h-[1px] w-full bg-neutral-400" />
             <div className="self-end flex items-center gap-4">

@@ -26,6 +26,7 @@ function Careers(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="md:bg-[url('/carrer-bg.png')] bg-cover bg-bottom bg-no-repeat min-h-[50vh] md:min-h-screen flex items-start justify-center will-change-[background-size] md:fixed top-2 left-0 w-full -z-10">
         <div className="flex flex-col items-center justify-center gap-8 mt-16">

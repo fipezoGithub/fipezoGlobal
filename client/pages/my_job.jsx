@@ -46,6 +46,7 @@ const MyJob = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 relative flex flex-col items-center justify-center">
         <h1 className="text-center font-bold text-lg lg:text-2xl mb-4">

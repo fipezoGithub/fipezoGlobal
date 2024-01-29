@@ -554,6 +554,27 @@ function sendTextMessage(phoneNumber, message) {
   }
 }
 
+//Get all Chat rooms
+async function getChatRoomsOfUsers(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const user = await userCollection.findById(authData.user._id);
+      if (err || !user) {
+        res.status(404).send("User not logged in");
+        return;
+      }
+      const chats = await userCollection
+        .findById(user._id)
+        .populate("messageRoom")
+        .exec();
+      res.status(200).json(chats.messageRoom);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   signupController,
   loginController,
@@ -566,4 +587,5 @@ module.exports = {
   forgetController,
   updateUserPassword,
   googleLoginController,
+  getChatRoomsOfUsers,
 };

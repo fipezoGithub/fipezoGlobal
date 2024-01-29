@@ -29,6 +29,7 @@ const CallbackRequest = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-12">
         <h1 className="capitalize font-bold text-4xl text-center">

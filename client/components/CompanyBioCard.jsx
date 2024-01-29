@@ -1,9 +1,10 @@
 import Image from "next/image";
 import styles from "../styles/CompanyBioCard.module.css";
 import { RWebShare } from "react-web-share";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaShareSquare } from "react-icons/fa";
+import { AuthContext } from "@/context/AuthContext";
 
 function CompanyBioCard(props) {
   const links = JSON.parse(props.company.links);
@@ -11,21 +12,25 @@ function CompanyBioCard(props) {
   const [city, setCity] = useState("");
   const [isFollowed, setIsFollowed] = useState(false);
   const [url, setUrl] = useState("");
+
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
     const address = JSON.parse(props.company.companyaddress);
     setCity(address.city);
   }, []);
   useEffect(() => {
-    if (props.user?.following?.includes(props.company._id)) {
+    if (data.userDetails?.following?.includes(props.company._id)) {
       setIsFollowed(true);
     }
     setUrl(window.location.origin + "/company/" + props.company.uid);
-  }, [props.user]);
+  }, [data.userDetails]);
+
   const handelFollow = async () => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (!props.user || !props.user?.uid) {
+    if (!data.userDetails) {
       router.push("/register/freelancer");
     } else {
       try {
@@ -77,15 +82,15 @@ function CompanyBioCard(props) {
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.company.profilePicture}`}
           width={500}
           height={500}
-          alt="profile picture"
-          blurDataURL="/loadImg.gif"
-          placeholder="blur"
-          className="h-full w-full object-cover"
+          alt='profile picture'
+          blurDataURL='/loadImg.gif'
+          placeholder='blur'
+          className='h-full w-full object-cover'
         />
       </div>
       <h1 className={styles.name}>
         <span
-          className="whitespace-nowrap capitalize"
+          className='whitespace-nowrap capitalize'
           style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
         >
           {props.company.companyname.toLowerCase()}
@@ -96,9 +101,9 @@ function CompanyBioCard(props) {
             onMouseOver={() => setDisplay("flex")}
             onMouseOut={() => setDisplay("none")}
             src={props.company.verified ? "/tick.png" : "/tickG.png"}
-            height="40"
-            width="40"
-            alt="verified-tick"
+            height='40'
+            width='40'
+            alt='verified-tick'
           />{" "}
           {props.company.verified && (
             <div className={styles.overTick} style={{ display: display }}>
@@ -111,8 +116,8 @@ function CompanyBioCard(props) {
         &nbsp;
         <span className={styles.location + " mr-2"}>{city}</span>
       </h1>
-      <div className="flex w-full justify-start pl-6 gap-4">
-        <p className="bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap">
+      <div className='flex w-full justify-start pl-6 gap-4'>
+        <p className='bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap'>
           {props.company.companytype
             .split("_")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -122,18 +127,18 @@ function CompanyBioCard(props) {
       {props.copied && (
         <div className={styles.copy}>URL copied to clipboard!</div>
       )}
-      <div className="w-full flex items-center justify-center">
+      <div className='w-full flex items-center justify-center'>
         <button
-          type="button"
-          className="p-2 text-sm rounded-xl w-[80%] capitalize bg-[#0095f6] text-white"
+          type='button'
+          className='p-2 text-sm rounded-xl w-[80%] capitalize bg-[#0095f6] text-white'
           onClick={handelFollow}
         >
           {isFollowed === false ? "follow" : "unfollow"}
         </button>
       </div>
-      <div className="flex flex-col items-center my-4">
-        <p className="font-bold">{props.company?.followers?.length}</p>
-        <p className="capitalize text-sm tracking-wide font-semibold">
+      <div className='flex flex-col items-center my-4'>
+        <p className='font-bold'>{props.company?.followers?.length}</p>
+        <p className='capitalize text-sm tracking-wide font-semibold'>
           followers
         </p>
       </div>

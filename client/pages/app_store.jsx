@@ -44,6 +44,7 @@ function Mobile(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className={styles.body}>
         <Image

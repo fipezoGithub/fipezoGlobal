@@ -6,12 +6,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
 import { FaCity, FaRupeeSign, FaWpforms } from "react-icons/fa";
+import { AuthContext } from "@/context/AuthContext";
 
 const Dashboard = (props) => {
   const [freelancers, setFreelancers] = useState([]);
@@ -32,8 +33,10 @@ const Dashboard = (props) => {
   const [optionBox, setOptionBox] = useState(false);
   const router = useRouter();
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
-    if (!props.user || !props.user?.phone === 3335573725) {
+    if (!data.userDetails || !data.userDetails.phone === 3335573725) {
       router.push("/");
     }
 
@@ -187,7 +190,7 @@ const Dashboard = (props) => {
     getReports();
     getJobApplications();
     getReferRequest();
-  }, [props.user, router]);
+  }, [data.isLoggedIn, router]);
 
   const updateFreelancers = (id) => {
     const newFreelancers = freelancers.filter((freelancer) => {
@@ -256,7 +259,7 @@ const Dashboard = (props) => {
               type: "UPI payment",
               headline: `Ammount has been credited to your account`,
               acceptedFreelancer: freelancerId,
-              sentUser: props.user._id,
+              sentUser: data.userDetails._id,
               href: "/my_referral",
             }),
           }
@@ -279,20 +282,21 @@ const Dashboard = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
-      <main className="mt-16 md:mx-8 flex items-start w-full relative">
-        <div className="md:hidden absolute">
+      <main className='mt-16 md:mx-8 flex items-start w-full relative'>
+        <div className='md:hidden absolute'>
           <button
-            type="button"
-            className="text-4xl"
+            type='button'
+            className='text-4xl'
             onClick={() => setOptionBox(!optionBox)}
           >
             <AiOutlineMenuFold />
           </button>
         </div>
         {optionBox === true && (
-          <div className="fixed md:static left-0 top-28">
-            <ul className="flex flex-col gap-2 bg-white p-2">
+          <div className='fixed md:static left-0 top-28'>
+            <ul className='flex flex-col gap-2 bg-white p-2'>
               <li
                 className={`px-4 py-2 ${
                   verificationBox === true &&
@@ -300,8 +304,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setCallbackBox(false);
                     setContactRequestBox(false);
@@ -323,8 +327,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setCallbackBox(false);
                     setContactRequestBox(false);
@@ -346,8 +350,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setContactRequestBox(false);
                     setVerificationBox(false);
@@ -369,8 +373,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setVerificationBox(false);
                     setCallbackBox(false);
@@ -392,8 +396,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setVerificationBox(false);
                     setCallbackBox(false);
@@ -415,8 +419,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setVerificationBox(false);
                     setCallbackBox(false);
@@ -438,8 +442,8 @@ const Dashboard = (props) => {
                 }`}
               >
                 <button
-                  type="button"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                   onClick={() => {
                     setVerificationBox(false);
                     setCallbackBox(false);
@@ -456,8 +460,8 @@ const Dashboard = (props) => {
               </li>
               <li className={`px-4 py-2`}>
                 <Link
-                  href="/resources/create"
-                  className="capitalize whitespace-nowrap flex items-center gap-1 text-xl"
+                  href='/resources/create'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
                 >
                   <IoIosCreate />
                   create blog
@@ -466,11 +470,11 @@ const Dashboard = (props) => {
             </ul>
           </div>
         )}
-        <div className="h-screen overflow-hidden overflow-y-scroll w-full">
+        <div className='h-screen overflow-hidden overflow-y-scroll w-full'>
           {verificationBox === true && (
             <div
-              className="flex flex-col gap-4 items-center justify-center w-full"
-              id="verification"
+              className='flex flex-col gap-4 items-center justify-center w-full'
+              id='verification'
             >
               {freelancers.map((freelancer, index) => {
                 return (
@@ -494,59 +498,59 @@ const Dashboard = (props) => {
           )}
           {referPaymentBox === true && (
             <div
-              id="referpayment"
-              className="flex items-center justify-center w-full"
+              id='referpayment'
+              className='flex items-center justify-center w-full'
             >
-              <table className="w-full mt-8 border border-collapse">
-                <thead className="">
-                  <tr className="py-4">
-                    <th className="capitalize text-sm lg:text-2xl hidden md:table-cell">
+              <table className='w-full mt-8 border border-collapse'>
+                <thead className=''>
+                  <tr className='py-4'>
+                    <th className='capitalize text-sm lg:text-2xl hidden md:table-cell'>
                       dp
                     </th>
-                    <th className="capitalize text-sm lg:text-2xl">name</th>
-                    <th className="capitalize text-sm lg:text-2xl">phone</th>
-                    <th className="capitalize text-sm lg:text-2xl">upi id</th>
-                    <th className="capitalize text-sm lg:text-2xl">action</th>
+                    <th className='capitalize text-sm lg:text-2xl'>name</th>
+                    <th className='capitalize text-sm lg:text-2xl'>phone</th>
+                    <th className='capitalize text-sm lg:text-2xl'>upi id</th>
+                    <th className='capitalize text-sm lg:text-2xl'>action</th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className=''>
                   {referWithdrawlRequests.length > 0 &&
                     referWithdrawlRequests.map((it, i) => (
-                      <tr key={i} className="border-b">
-                        <th className="hidden md:flex items-center justify-center py-4 ">
+                      <tr key={i} className='border-b'>
+                        <th className='hidden md:flex items-center justify-center py-4 '>
                           <Image
                             src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.freelancer.profilePicture}`}
                             width={120}
                             height={120}
-                            alt="upi requeted user"
-                            className="w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover"
+                            alt='upi requeted user'
+                            className='w-12 h-12 lg:w-16 lg:h-16 rounded-full object-cover'
                           />
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <Link
                             href={`/profile/${it.freelancer.uid}`}
-                            target="_blank"
+                            target='_blank'
                           >
                             {it.freelancer.firstname +
                               " " +
                               it.freelancer.lastname}
                           </Link>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <a href={`tel:${it.freelancer.phone}`}>
                             {it.freelancer.phone}
                           </a>
                         </th>
-                        <th className="text-sm lg:text-xl font-medium py-4">
+                        <th className='text-sm lg:text-xl font-medium py-4'>
                           {it.upiId}
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <button
-                            type="button"
+                            type='button'
                             onClick={() =>
                               completePayment(it._id, it.freelancer._id)
                             }
-                            className="border rounded-md md:p-2 capitalize border-blue-600 text-blue-600"
+                            className='border rounded-md md:p-2 capitalize border-blue-600 text-blue-600'
                           >
                             mark as done
                           </button>
@@ -559,45 +563,45 @@ const Dashboard = (props) => {
           )}
           {callbackBox === true && (
             <div
-              id="callback"
-              className="flex items-center justify-center w-full"
+              id='callback'
+              className='flex items-center justify-center w-full'
             >
-              <table className="w-full mt-8 border border-collapse">
-                <thead className="">
-                  <tr className="py-4">
-                    <th className="capitalize text-sm lg:text-2xl">dp</th>
-                    <th className="capitalize text-sm lg:text-2xl">name</th>
-                    <th className="capitalize text-sm lg:text-2xl">
+              <table className='w-full mt-8 border border-collapse'>
+                <thead className=''>
+                  <tr className='py-4'>
+                    <th className='capitalize text-sm lg:text-2xl'>dp</th>
+                    <th className='capitalize text-sm lg:text-2xl'>name</th>
+                    <th className='capitalize text-sm lg:text-2xl'>
                       profession
                     </th>
-                    <th className="capitalize text-sm lg:text-2xl">phone</th>
-                    <th className="capitalize text-sm lg:text-2xl">location</th>
+                    <th className='capitalize text-sm lg:text-2xl'>phone</th>
+                    <th className='capitalize text-sm lg:text-2xl'>location</th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className=''>
                   {callbacks.length > 0 &&
                     callbacks.map((it, i) => (
-                      <tr key={i} className="border-b">
-                        <th className="flex items-center justify-center py-4">
+                      <tr key={i} className='border-b'>
+                        <th className='flex items-center justify-center py-4'>
                           <Image
                             src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.requestedUser.profilePicture}`}
                             width={120}
                             height={120}
-                            alt="callback requeted user"
-                            className="w-12 lg:w-16"
+                            alt='callback requeted user'
+                            className='w-12 lg:w-16'
                           />
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <Link
                             href={`/profile/${it.requestedUser.uid}`}
-                            target="_blank"
+                            target='_blank'
                           >
                             {it.requestedUser.firstname +
                               " " +
                               it.requestedUser.lastname}
                           </Link>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           {it.requestedUser.profession
                             .split("_")
                             .map(
@@ -606,12 +610,12 @@ const Dashboard = (props) => {
                             )
                             .join(" ")}
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <a href={`tel:${it.requestedUser.phone}`}>
                             {it.requestedUser.phone}
                           </a>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           {it.requestedUser.location}
                         </th>
                       </tr>
@@ -622,36 +626,36 @@ const Dashboard = (props) => {
           )}
           {submittedCityBox === true && (
             <div
-              id="submittedCity"
-              className="flex items-center justify-center w-full"
+              id='submittedCity'
+              className='flex items-center justify-center w-full'
             >
-              <table className="w-full mt-8 border border-collapse">
-                <thead className="">
-                  <tr className="py-4">
-                    <th className="capitalize text-sm lg:text-2xl">name</th>
-                    <th className="capitalize text-sm lg:text-2xl">phone</th>
-                    <th className="capitalize text-sm lg:text-2xl">location</th>
-                    <th className="capitalize text-sm lg:text-2xl">action</th>
+              <table className='w-full mt-8 border border-collapse'>
+                <thead className=''>
+                  <tr className='py-4'>
+                    <th className='capitalize text-sm lg:text-2xl'>name</th>
+                    <th className='capitalize text-sm lg:text-2xl'>phone</th>
+                    <th className='capitalize text-sm lg:text-2xl'>location</th>
+                    <th className='capitalize text-sm lg:text-2xl'>action</th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className=''>
                   {requestedCities.length > 0 &&
                     requestedCities.map((it, i) => (
-                      <tr key={i} className="border-b">
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                      <tr key={i} className='border-b'>
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <h3>{it.name}</h3>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <a href={`tel:${it.phone}`}>{it.phone}</a>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           {it.city}
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <button
-                            type="button"
+                            type='button'
                             onClick={() => handelRequestedCities(it._id)}
-                            className="bg-red-500 text-white px-2 lg:px-4 py-2 rounded-md capitalize text-sm lg:text-base"
+                            className='bg-red-500 text-white px-2 lg:px-4 py-2 rounded-md capitalize text-sm lg:text-base'
                           >
                             complete
                           </button>
@@ -663,29 +667,29 @@ const Dashboard = (props) => {
             </div>
           )}
           {contactRequestBox === true && (
-            <div className="flex flex-col items-center justify-center gap-4">
+            <div className='flex flex-col items-center justify-center gap-4'>
               {messages.map((message, index) => {
                 return <ContactCard key={index} message={message} />;
               })}
             </div>
           )}
           {reportBox === true && (
-            <div className="flex flex-col gap-4">
+            <div className='flex flex-col gap-4'>
               {reports.length > 0 &&
                 reports.map((it, i) => (
                   <div
                     key={i}
-                    className="border px-4 py-2 flex flex-col items-start gap-2"
+                    className='border px-4 py-2 flex flex-col items-start gap-2'
                   >
                     {it.createdFreelancer && (
                       <h1>
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.createdFreelancer?.firstname.toLowerCase() +
                             " " +
                             it.createdFreelancer?.lastname.toLowerCase()}
                         </span>{" "}
                         reported{" "}
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.acceptedFreelancer?.firstname.toLowerCase() +
                             " " +
                             it.acceptedFreelancer?.lastname.toLowerCase()}
@@ -694,13 +698,13 @@ const Dashboard = (props) => {
                     )}
                     {it.createdUser && (
                       <h1>
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.createdUser?.firstname.toLowerCase() +
                             " " +
                             it.createdUser?.lastname.toLowerCase()}
                         </span>{" "}
                         reported{" "}
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.acceptedFreelancer?.firstname.toLowerCase() +
                             " " +
                             it.acceptedFreelancer?.lastname.toLowerCase()}
@@ -709,18 +713,18 @@ const Dashboard = (props) => {
                     )}
                     {it.createdCompany && (
                       <h1>
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.createdCompany.companyname.toLowerCase()}
                         </span>{" "}
                         reported{" "}
-                        <span className="capitalize font-semibold">
+                        <span className='capitalize font-semibold'>
                           {it.acceptedFreelancer?.firstname.toLowerCase() +
                             " " +
                             it.acceptedFreelancer?.lastname.toLowerCase()}
                         </span>
                       </h1>
                     )}
-                    <h2 className="capitalize">
+                    <h2 className='capitalize'>
                       reason {it.reason.split("_").join(" ")}
                     </h2>
                     <p>{it.description}</p>
@@ -732,49 +736,49 @@ const Dashboard = (props) => {
                         year: "numeric",
                       })}
                     </p>
-                    <button type="button">mark as solved</button>
+                    <button type='button'>mark as solved</button>
                   </div>
                 ))}
             </div>
           )}
           {jobApplicationBox === true && (
             <div
-              id="applicants"
-              className="flex items-center justify-center w-full"
+              id='applicants'
+              className='flex items-center justify-center w-full'
             >
-              <table className="w-full mt-8 border border-collapse">
-                <thead className="">
-                  <tr className="py-4">
-                    <th className="capitalize text-sm lg:text-2xl">name</th>
-                    <th className="capitalize text-sm lg:text-2xl">
+              <table className='w-full mt-8 border border-collapse'>
+                <thead className=''>
+                  <tr className='py-4'>
+                    <th className='capitalize text-sm lg:text-2xl'>name</th>
+                    <th className='capitalize text-sm lg:text-2xl'>
                       profession
                     </th>
-                    <th className="capitalize text-sm lg:text-2xl">phone</th>
-                    <th className="capitalize text-sm lg:text-2xl">email</th>
-                    <th className="uppercase text-sm lg:text-2xl">cv</th>
+                    <th className='capitalize text-sm lg:text-2xl'>phone</th>
+                    <th className='capitalize text-sm lg:text-2xl'>email</th>
+                    <th className='uppercase text-sm lg:text-2xl'>cv</th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className=''>
                   {applicants.length > 0 &&
                     applicants.map((it, i) => (
-                      <tr key={i} className="border-b">
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                      <tr key={i} className='border-b'>
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <p>{it.name}</p>
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           {it.proffesion}
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <a href={`tel:${it.phone}`}>{it.phone}</a>
                         </th>
-                        <th className="text-sm lg:text-xl font-medium py-4">
+                        <th className='text-sm lg:text-xl font-medium py-4'>
                           {it.email}
                         </th>
-                        <th className="capitalize text-sm lg:text-xl font-medium py-4">
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
                           <a
                             href={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${it.cv}`}
-                            target="_blank"
-                            className="hover:text-blue-500"
+                            target='_blank'
+                            className='hover:text-blue-500'
                           >
                             download
                           </a>

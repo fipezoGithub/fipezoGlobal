@@ -15,6 +15,7 @@ export default function Custom500(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex items-center justify-center flex-col gap-4">
         <Image

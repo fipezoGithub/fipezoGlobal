@@ -47,6 +47,7 @@ const FipezoJobDetails = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="my-8 flex flex-col gap-6 items-center justify-center">
         <div className="w-full">

@@ -416,6 +416,27 @@ async function updateCompanyPassword(req, res) {
   }
 }
 
+//Get all Chat rooms
+async function getChatRoomsOfCompany(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const company = await companyCollection.findById(authData.user._id);
+      if (err || !company) {
+        res.status(404).send("User not logged in");
+        return;
+      }
+      const chats = await companyCollection
+        .findById(company._id)
+        .populate("messageRoom")
+        .exec();
+      res.status(200).json(chats.messageRoom);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   registerCompany,
   editCompanyProfile,
@@ -429,4 +450,5 @@ module.exports = {
   getCompanyByName,
   updateCompanyPassword,
   getCompanyByType,
+  getChatRoomsOfCompany,
 };

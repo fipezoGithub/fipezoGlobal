@@ -93,44 +93,43 @@ export default function Bloguid(props) {
     <>
       <Head>
         <title>Fipezo | {props.data.title}</title>
-        <meta name="description" content={props.data.bio}></meta>
-        <meta property="og:title" content={"Fipezo || " + props.data.title} />
+        <meta name='description' content={props.data.bio}></meta>
+        <meta property='og:title' content={"Fipezo || " + props.data.title} />
 
-        <meta property="og:description" content={props.data.metaDescriptions} />
+        <meta property='og:description' content={props.data.metaDescriptions} />
 
         <meta
-          property="og:image"
+          property='og:image'
           content={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
         />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:image:type" content="image/*" />
+        <meta property='og:type' content='website' />
+        <meta property='og:image:type' content='image/*' />
 
-        <meta property="og:url" content="http://fipezo.com/" />
+        <meta property='og:url' content='http://fipezo.com/' />
       </Head>
       <Navbar
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
-      <div className="mt-16 mx-8 flex flex-col lg:flex-row lg:items-start gap-8">
-        <div className="mx-16 hidden lg:block"></div>
-        <div className="flex flex-col lg:gap-6 gap-3">
-          <div className="">
+      <div className='mt-16 mx-8 flex flex-col lg:flex-row lg:items-start gap-8'>
+        <div className='mx-16 hidden lg:block'></div>
+        <div className='flex flex-col lg:gap-6 gap-3'>
+          <div className=''>
             <Image
               src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.cover}`}
               width={1200}
               height={720}
-              className="object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300"
-              alt="resources-cover"
+              className='object-cover shadow-inner hover:shadow-xl hover:scale-95 duration-300'
+              alt='resources-cover'
             />
           </div>
-          <h1 className="text-2xl lg:text-4xl font-bold">
-            {props.data.title}
-          </h1>
-          <p className="">
-            <span className="font-bold text-lg">Fipezo Team</span> |{" "}
+          <h1 className='text-2xl lg:text-4xl font-bold'>{props.data.title}</h1>
+          <p className=''>
+            <span className='font-bold text-lg'>Fipezo Team</span> |{" "}
             <span>
               {new Date(props.data.createdAt).toLocaleString("en-IN", {
                 month: "long",
@@ -138,12 +137,12 @@ export default function Bloguid(props) {
               })}
             </span>
           </p>
-          <div ref={bodyRef} className="text-lg"></div>
-          <div className="flex items-center gap-4">
-            <span className="text-neutral-500">{props.data.view} views</span>
+          <div ref={bodyRef} className='text-lg'></div>
+          <div className='flex items-center gap-4'>
+            <span className='text-neutral-500'>{props.data.view} views</span>
             <button
-              type="button"
-              className="capitalize text-xl flex items-center gap-1"
+              type='button'
+              className='capitalize text-xl flex items-center gap-1'
               onClick={() => likePost(props.data._id)}
               disabled={isLiked === true ? true : false}
             >
@@ -169,26 +168,26 @@ export default function Bloguid(props) {
               }}
             >
               <button
-                type="button"
-                className="capitalize text-xl flex items-center gap-1"
+                type='button'
+                className='capitalize text-xl flex items-center gap-1'
               >
                 <BiShareAlt /> share
               </button>
             </RWebShare>
           </div>
         </div>
-        <hr className="w-full h-px lg:hidden" />
-        <div className="w-full">
+        <hr className='w-full h-px lg:hidden' />
+        <div className='w-full'>
           <RelatedBlogs />
         </div>
       </div>
-      <div className="flex items-center justify-center w-full my-4">
+      <div className='flex items-center justify-center w-full my-4'>
         <Image
-          src="/blog-page-banner.png"
+          src='/blog-page-banner.png'
           width={1080}
           height={760}
-          alt="fipezo banner"
-          className="w-full"
+          alt='fipezo banner'
+          className='w-full'
         />
       </div>
       <Footer premium={props.user?.premium} />

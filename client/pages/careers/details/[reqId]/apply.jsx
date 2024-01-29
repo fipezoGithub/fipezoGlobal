@@ -85,6 +85,7 @@ const Apply = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex items-start justify-center px-6 py-3">
         <div className="self-stretch hidden md:block rounded-l-lg">

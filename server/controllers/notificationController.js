@@ -103,7 +103,7 @@ async function seenAllNotifications(req, res) {
       .exec();
   } else if (req.query.type === "user") {
     notifications = await notificationCollection
-      .find(
+      .updateMany(
         {
           acceptedUser: req.params.userId,
           seen: false,
@@ -117,7 +117,7 @@ async function seenAllNotifications(req, res) {
       .exec();
   } else {
     notifications = await notificationCollection
-      .find(
+      .updateMany(
         {
           acceptedCompany: req.params.userId,
           seen: false,

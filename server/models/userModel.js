@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema(
       ref: "freelancercollection",
       default: [],
     },
+    messageRoom: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "messagecollection",
+    },
   },
   {
     timestamps: true,

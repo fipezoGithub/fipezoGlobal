@@ -122,6 +122,7 @@ export default function Blogs(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex flex-col gap-8">
         <div className="flex items-center justify-center gap-8 flex-col lg:flex-row">

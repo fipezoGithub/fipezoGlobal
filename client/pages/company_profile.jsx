@@ -175,6 +175,7 @@ function Company_Profile(props) {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className={style.body}>
         <div className={style.profileBox}>

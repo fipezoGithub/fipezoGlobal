@@ -57,6 +57,10 @@ const companySchema = new mongoose.Schema(
       ref: "jobscollection",
       default: [],
     },
+    messageRoom: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "messagecollection",
+    },
     incorporationCertificate: {
       type: String,
       default: null,

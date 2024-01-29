@@ -25,6 +25,7 @@ const Create = (props) => {
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
+        socket={props.socket}
       />
       <div className="mt-16 flex items-center justify-center ">
         <Createjob setShowConfirmBox={setShowConfirmBox} />

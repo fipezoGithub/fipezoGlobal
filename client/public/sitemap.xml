@@ -1,422 +1,428 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-    <loc>http://192.168.29.94:3001/404</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/404</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/500</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/500</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/about_us</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/about_us</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/app_store</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/app_store</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/callback-request</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/callback-request</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/cancellation_and_refund</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/cancellation_and_refund</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/company_profile</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/company_profile</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/complete-your-profile</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/complete-your-profile</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/contact_panel</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/contact_panel</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/contact_soon</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/contact_soon</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/contact_us</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/contact_us</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/data_protection</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/data_protection</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/edit-company</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/edit-company</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/edit-profile</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/edit-profile</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/faqs</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/faqs</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/forget_password</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/forget_password</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/freelancer-premium-plans</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/freelancer-premium-plans</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/freelancer_profile</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/freelancer_profile</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/google_play</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/google_play</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/guides_and_reviews</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/guides_and_reviews</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/login</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/login</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/my_hires</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/my_hires</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/my_job</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/my_job</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/my_notifications</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/my_notifications</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/my_referral</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/my_referral</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/my_requests</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/my_requests</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/posted-jobs</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/posted-jobs</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/privacy_and_policy</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/privacy_and_policy</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/profile-setting</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/profile-setting</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/referandearn</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/referandearn</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/shipping_and_delivery</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/shipping_and_delivery</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/signup</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/signup</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/sitemap</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/sitemap</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/submit_your_city</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/submit_your_city</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/subscriptionstatus</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/subscriptionstatus</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/terms_and_conditions</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/terms_and_conditions</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/update-portfolio</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/update-portfolio</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/user_profile</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/user_profile</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/verification</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/verification</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/careers/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/careers/index</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/company/[companyname]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/company/[companyname]</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/feed/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/feed/index</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/feed/[feedid]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/feed/[feedid]</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/profile/[name]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/jobs/create</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/jobs/create</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/jobs/index</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/jobs/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/profile/[name]</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/register/client</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/register/client</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/register/company</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/register/company</loc>
+    <lastmod>2024-01-29T04:28:50.192Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/register/freelancer</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/register/freelancer</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/resources/create</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/resources/create</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/resources/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/resources/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/admin/dashboard/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/admin/dashboard/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/careers/[cat]/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/careers/[cat]/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/advertising_agency</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/chats/[uid]/[roomId]</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/eCommerce</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/advertising_agency</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/eCommerce</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/other</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/photography</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/other</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/photography_institute</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/photography</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/companies/production_house</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/photography_institute</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/freelancers/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/companies/production_house</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/explore/freelancers/[profession]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/freelancers/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/jobs/details/[jobuid]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/explore/freelancers/[profession]</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/jobs/[location]/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/jobs/details/[jobuid]</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/resources/category/[category]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/jobs/[location]/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/resources/details/[bloguid]</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/resources/category/[category]</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/careers/details/[reqId]/apply</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/resources/details/[bloguid]</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/careers/details/[reqId]/index</loc>
-    <lastmod>2024-01-20T04:19:43.497Z</lastmod>
+    <loc>undefined/careers/details/[reqId]/apply</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>http://192.168.29.94:3001/jobs/[location]/[category]/index</loc>
-    <lastmod>2024-01-20T04:19:43.498Z</lastmod>
+    <loc>undefined/careers/details/[reqId]/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>undefined/jobs/[location]/[category]/index</loc>
+    <lastmod>2024-01-29T04:28:50.193Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
