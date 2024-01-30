@@ -107,7 +107,7 @@ class Faqs extends React.Component {
           company={this.props.company}
           setCompany={this.props.setCompany}
           setUser={this.props.setUser}
-          socket={props.socket}
+          socket={this.props.socket}
         />
         <div className={styles.body}>
           <h1 className={styles.heading}>
@@ -199,23 +199,23 @@ class Faqs extends React.Component {
                   Help and Support
                 </li>
               </ul>
-              <div className="sm:hidden my-4 flex items-center justify-center">
+              <div className='sm:hidden my-4 flex items-center justify-center'>
                 <select
-                  name=""
-                  id=""
-                  className="focus:outline-none text-xs border p-2"
+                  name=''
+                  id=''
+                  className='focus:outline-none text-xs border p-2'
                   onChange={(e) => this.setTopic(e.target.value)}
                 >
-                  <option value="general">Getting Started</option>
-                  <option value="freelanceraccount">Freelancer Account</option>
-                  <option value="companyaccount">Company Account</option>
-                  <option value="accountverification">
+                  <option value='general'>Getting Started</option>
+                  <option value='freelanceraccount'>Freelancer Account</option>
+                  <option value='companyaccount'>Company Account</option>
+                  <option value='accountverification'>
                     Account Verification
                   </option>
-                  <option value="referandearn">Refer and Earn Program</option>
-                  <option value="privacy">Privacy and Security</option>
-                  <option value="legal">Legal and Terms</option>
-                  <option value="services">Help and Support</option>
+                  <option value='referandearn'>Refer and Earn Program</option>
+                  <option value='privacy'>Privacy and Security</option>
+                  <option value='legal'>Legal and Terms</option>
+                  <option value='services'>Help and Support</option>
                 </select>
               </div>
             </div>
@@ -270,15 +270,15 @@ class Faqs extends React.Component {
                   </h1>
                   {this.state.currentAnswer === "second" && (
                     <p className={styles.details}>
-                      <span className="font-bold">Step 1:</span> Click{" "}
-                      <span className="font-bold">&quot;Get Started&quot;</span>{" "}
+                      <span className='font-bold'>Step 1:</span> Click{" "}
+                      <span className='font-bold'>&quot;Get Started&quot;</span>{" "}
                       Go to the Fipezo homepage and click the{" "}
-                      <span className="font-bold">&quot;Get Started&quot;</span>{" "}
+                      <span className='font-bold'>&quot;Get Started&quot;</span>{" "}
                       button. <br />
-                      <span className="font-bold">Step 2:</span> Select Your
+                      <span className='font-bold'>Step 2:</span> Select Your
                       User Type - Choose whether you are a freelancer or a
                       client. <br />
-                      <span className="font-bold">Step 3:</span> Provide Your
+                      <span className='font-bold'>Step 3:</span> Provide Your
                       Information - Fill in your details to create a profile,
                       showcasing your skills and expertise
                     </p>
@@ -308,7 +308,7 @@ class Faqs extends React.Component {
                   {this.state.currentAnswer === "third" && (
                     <p className={styles.details}>
                       Users can find freelance jobs on Fipezo by visiting the{" "}
-                      <span className="font-bold">&quot;Browse Jobs&quot;</span>{" "}
+                      <span className='font-bold'>&quot;Browse Jobs&quot;</span>{" "}
                       section, where they can explore job listings in different
                       categories.
                     </p>
@@ -432,7 +432,7 @@ class Faqs extends React.Component {
                   {this.state.currentAnswer === "first" && (
                     <p className={styles.details}>
                       To sign up as a freelancer on Fipezo, click the{" "}
-                      <span className="font-bold">
+                      <span className='font-bold'>
                         &quot;Getting Started&quot;
                       </span>{" "}
                       button on the homepage, provide your information, and
@@ -463,31 +463,31 @@ class Faqs extends React.Component {
                   </h1>
                   {this.state.currentAnswer === "second" && (
                     <p className={styles.details}>
-                      <span className="font-bold">Profile Picture:</span> Start
+                      <span className='font-bold'>Profile Picture:</span> Start
                       with a clear and friendly profile picture. A professional
                       headshot or a high-quality image of yourself works well.
                       <br />
-                      <span className="font-bold">Introduction:</span> Write a
+                      <span className='font-bold'>Introduction:</span> Write a
                       brief and engaging introduction about yourself. Mention
                       your skills, experience, and what makes you unique. <br />
-                      <span className="font-bold">Portfolio:</span> Showcase
+                      <span className='font-bold'>Portfolio:</span> Showcase
                       your work through a portfolio. Add samples, projects, or
                       links to your previous projects to demonstrate your
                       capabilities. <br />
-                      <span className="font-bold">
+                      <span className='font-bold'>
                         Skills and Expertise:
                       </span>{" "}
                       List your skills and areas of expertise. Be specific about
                       what you can offer. <br />
-                      <span className="font-bold">
+                      <span className='font-bold'>
                         Rates and Availability:
                       </span>{" "}
                       Specify your per day or project rates, and let clients
                       know when you&apos;re available to work. <br />
-                      <span className="font-bold">Reviews and Ratings:</span> As
+                      <span className='font-bold'>Reviews and Ratings:</span> As
                       you complete projects, encourage clients to leave reviews
                       and ratings, which can enhance your credibility. <br />
-                      <span className="font-bold">Professionalism:</span>{" "}
+                      <span className='font-bold'>Professionalism:</span>{" "}
                       Maintain professionalism in your communication and
                       interactions with clients on the platform. <br />
                     </p>
@@ -614,13 +614,13 @@ class Faqs extends React.Component {
                   </h1>
                   {this.state.currentAnswer === "first" && (
                     <p className={styles.details}>
-                      <span className="font-bold">Step 1:</span> Go to homepage
+                      <span className='font-bold'>Step 1:</span> Go to homepage
                       and click on{" "}
-                      <span className="font-bold">&quot;Get Started&quot;</span>{" "}
+                      <span className='font-bold'>&quot;Get Started&quot;</span>{" "}
                       button and choose your category as company. <br />{" "}
-                      <span className="font-bold">Step 2:</span> Provide company
+                      <span className='font-bold'>Step 2:</span> Provide company
                       name and number and verify your OTP. <br />{" "}
-                      <span className="font-bold">Step 3:</span> After
+                      <span className='font-bold'>Step 3:</span> After
                       verification, complete your company profile by adding
                       information about your services, team, and any other
                       relevant details.
@@ -652,21 +652,21 @@ class Faqs extends React.Component {
                     <p className={styles.details}>
                       Certainly, here&apos;s the step-by-step guide with the
                       information incorporated: <br />
-                      <span className="font-bold">Step 1:</span> Log in to your
+                      <span className='font-bold'>Step 1:</span> Log in to your
                       Fipezo company account.
                       <br />
-                      <span className="font-bold">Step 2:</span> Access your
+                      <span className='font-bold'>Step 2:</span> Access your
                       dashboard. <br />
-                      <span className="font-bold">Step 3:</span> Click
-                      <span className="font-bold">
+                      <span className='font-bold'>Step 3:</span> Click
+                      <span className='font-bold'>
                         &quot;Post a Job.&quot;
                       </span>{" "}
                       <br />
-                      <span className="font-bold">Step 4:</span> Provide job
+                      <span className='font-bold'>Step 4:</span> Provide job
                       details, budget, location and timeline. <br />
-                      <span className="font-bold">Step 5:</span> Review and
+                      <span className='font-bold'>Step 5:</span> Review and
                       confirm the job posting. <br />
-                      <span className="font-bold">Step 6:</span> Wait for
+                      <span className='font-bold'>Step 6:</span> Wait for
                       freelancer proposals.
                     </p>
                   )}
@@ -728,19 +728,19 @@ class Faqs extends React.Component {
                       When creating a job listing on Fipezo, it&apos;s essential
                       to include key information to attract the right
                       freelancers. Include details such as: <br /> <br />
-                      <span className="font-bold">Job Title:</span> A clear and
+                      <span className='font-bold'>Job Title:</span> A clear and
                       descriptive title for your project. <br />{" "}
-                      <span className="font-bold">Job Description:</span>A
+                      <span className='font-bold'>Job Description:</span>A
                       thorough description of the project, its goals, and any
                       specific requirements. <br />{" "}
-                      <span className="font-bold">Skills Needed:</span>List the
+                      <span className='font-bold'>Skills Needed:</span>List the
                       skills or expertise required for the job. <br />
-                      <span className="font-bold">Budget:</span>Specify the
+                      <span className='font-bold'>Budget:</span>Specify the
                       budget for the project, whether it&apos;s a fixed amount
                       or a range. <br />
-                      <span className="font-bold">Timeline:</span> Mention the
+                      <span className='font-bold'>Timeline:</span> Mention the
                       project&apos;s expected start and completion dates. <br />
-                      <span className="font-bold">Location:</span> Indicate if
+                      <span className='font-bold'>Location:</span> Indicate if
                       the project is location-specific or remote. <br /> <br />
                       By providing this information, you&apos;ll help
                       freelancers understand the scope of the job and apply with
@@ -965,11 +965,11 @@ class Faqs extends React.Component {
                     <p className={styles.details}>
                       If you forget your password or have trouble logging in,
                       Fipezo often provides a{" "}
-                      <span className="font-bold">
+                      <span className='font-bold'>
                         &quot;Forgot Password&quot;
                       </span>{" "}
                       or
-                      <span className="font-bold">
+                      <span className='font-bold'>
                         &quot;Trouble Logging In&quot;
                       </span>{" "}
                       feature. Use this to reset your password or regain access
@@ -1003,9 +1003,9 @@ class Faqs extends React.Component {
                       To contact Fipezo&apos;s support team for assistance, you
                       can typically use the contact options available on the
                       platform, such as the Help or Support section. <br />{" "}
-                      <p className="text-black font-bold">
+                      <p className='text-black font-bold'>
                         Email us on :{" "}
-                        <a href="mailto:help@fipezo.com">help@fipezo.com</a>
+                        <a href='mailto:help@fipezo.com'>help@fipezo.com</a>
                       </p>
                     </p>
                   )}
@@ -1587,12 +1587,12 @@ class Faqs extends React.Component {
               className={
                 styles.subHeading + " flex flex-col items-center gap-4"
               }
-              href="mailto:help@fipezo.com"
+              href='mailto:help@fipezo.com'
             >
               Still Can&apos;t Find Your Answer ?{" "}
               <Link
-                href="/contact_us"
-                className="capitalize text-base px-4 py-2 bg-blue-600 text-white rounded"
+                href='/contact_us'
+                className='capitalize text-base px-4 py-2 bg-blue-600 text-white rounded'
               >
                 drop your query
               </Link>
