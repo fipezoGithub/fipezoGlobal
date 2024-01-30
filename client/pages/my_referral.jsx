@@ -1,9 +1,10 @@
 import DialogBox from "@/components/DialogBox";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { RWebShare } from "react-web-share";
 
@@ -18,12 +19,14 @@ const My_referral = (props) => {
   const [showDialougeBox, setShowDialougeBox] = useState(false);
   const referalText = useRef();
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     async function getReferDetails() {
-      if (props.user && !props.user.uid) {
+      if (data.isLoggedIn && !data.userDetails.uid) {
         const res = await fetch(`${process.env.SERVER_URL}/getrefer/user`, {
           method: "GET",
           headers: {
@@ -33,7 +36,11 @@ const My_referral = (props) => {
         });
         const referalCode = await res.json();
         setReferCode(referalCode);
-      } else if (props.user && props.user.uid) {
+      } else if (
+        data.isLoggedIn &&
+        data.userDetails.uid &&
+        !data.userDetails.companyname
+      ) {
         const res = await fetch(
           `${process.env.SERVER_URL}/getrefer/freelancer`,
           {
@@ -49,7 +56,7 @@ const My_referral = (props) => {
       }
     }
     getReferDetails();
-  }, [props.user]);
+  }, [data.isLoggedIn]);
 
   useEffect(() => {
     setUrl(window.location.origin + "/register/freelancer");
@@ -59,7 +66,7 @@ const My_referral = (props) => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (props.user && !props.user.uid) {
+    if (data.isLoggedIn && !data.userDetails.uid) {
       const res = await fetch(`${process.env.SERVER_URL}/generaterefer`, {
         method: "POST",
         headers: {
@@ -69,7 +76,11 @@ const My_referral = (props) => {
       });
       const refer = await res.json();
       setReferCode("");
-    } else if (props.user && props.user.uid) {
+    } else if (
+      data.isLoggedIn &&
+      data.userDetails.uid &&
+      !data.userDetails.companyname
+    ) {
       const res = await fetch(`${process.env.SERVER_URL}/generaterefer`, {
         method: "POST",
         headers: {
@@ -134,26 +145,26 @@ const My_referral = (props) => {
         setUser={props.setUser}
         socket={props.socket}
       />
-      <div className="h-80 w-full relative mt-16 flex items-center justify-center">
+      <div className='h-80 w-full relative mt-16 flex items-center justify-center'>
         <Image
-          src="/refer-friend.jpg"
-          layout="fill"
-          alt="refer friend"
-          objectFit="contain"
+          src='/refer-friend.jpg'
+          layout='fill'
+          alt='refer friend'
+          objectFit='contain'
         />
       </div>
-      <div className="mt-4 flex flex-col gap-4 rounded py-4 px-2 md:px-0 w-full">
-        <h2 className="text-lg text-center">
+      <div className='mt-4 flex flex-col gap-4 rounded py-4 px-2 md:px-0 w-full'>
+        <h2 className='text-lg text-center'>
           Invite your freelancer friend to{" "}
-          <span className="font-bold">FIpezo</span> and earn ₹50 rupees for
+          <span className='font-bold'>FIpezo</span> and earn ₹50 rupees for
           every successful freelancer joining
         </h2>
         {referCode ? (
-          <div className="flex flex-col items-center">
-            <h3 className="flex flex-col items-center gap-2 text-center">
+          <div className='flex flex-col items-center'>
+            <h3 className='flex flex-col items-center gap-2 text-center'>
               Your refer code{" "}
               <span
-                className="px-4 py-2 border border-dashed border-neutral-600 font-semibold cursor-pointer"
+                className='px-4 py-2 border border-dashed border-neutral-600 font-semibold cursor-pointer'
                 onClick={copyText}
                 ref={referalText}
               >
@@ -171,8 +182,8 @@ const My_referral = (props) => {
                 }}
               >
                 <button
-                  type="button"
-                  className="flex items-center justify-center border bg-blue-500 text-white border-neutral-300 hover:bg-white hover:text-orange-500 px-2 py-1 rounded-full capitalize"
+                  type='button'
+                  className='flex items-center justify-center border bg-blue-500 text-white border-neutral-300 hover:bg-white hover:text-orange-500 px-2 py-1 rounded-full capitalize'
                 >
                   {/* <BsFillShareFill style={{ color: "blue" }} /> */}
                   share in social media
@@ -181,21 +192,21 @@ const My_referral = (props) => {
             </div>
           </div>
         ) : (
-          <h3 className="flex flex-col items-center gap-2 text-lg text-center">
+          <h3 className='flex flex-col items-center gap-2 text-lg text-center'>
             looks like you do not have any referal code yet
             <button
-              type="button"
+              type='button'
               onClick={generateReferCode}
-              className="px-4 py-2 border shadow capitalize font-semibold"
+              className='px-4 py-2 border shadow capitalize font-semibold'
             >
               generate now
             </button>
           </h3>
         )}
-        <div className="flex flex-col justify-center gap-4">
-          <h3 className="text-center text-lg">Your successful refer is</h3>
-          <div className="flex items-center justify-center">
-            <span className="lg:text-lg text-white px-2 py-1 border bg-blue-500 rounded-full w-10 lg:h-10 text-center">
+        <div className='flex flex-col justify-center gap-4'>
+          <h3 className='text-center text-lg'>Your successful refer is</h3>
+          <div className='flex items-center justify-center'>
+            <span className='lg:text-lg text-white px-2 py-1 border bg-blue-500 rounded-full w-10 lg:h-10 text-center'>
               0
             </span>
             <span
@@ -291,39 +302,39 @@ const My_referral = (props) => {
           </div>
         </div>
         <button
-          type="button"
-          className="px-4 py-2 capitalize lg:text-lg bg-blue-600 font-bold text-white self-center rounded-lg mt-4"
+          type='button'
+          className='px-4 py-2 capitalize lg:text-lg bg-blue-600 font-bold text-white self-center rounded-lg mt-4'
           onClick={() => setShowWithdrawlBox(true)}
         >
           withdraw now
         </button>
         {showWithdrawlBox === true && (
-          <div className="flex items-center justify-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur w-full h-full">
-            <div className="relative flex flex-col items-center gap-4 justify-center bg-white p-4 rounded-lg mx-4 lg:mx-0">
-              <div className="absolute top-1 right-1">
+          <div className='flex items-center justify-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur w-full h-full'>
+            <div className='relative flex flex-col items-center gap-4 justify-center bg-white p-4 rounded-lg mx-4 lg:mx-0'>
+              <div className='absolute top-1 right-1'>
                 <button
-                  type="button"
-                  className="text-3xl"
+                  type='button'
+                  className='text-3xl'
                   onClick={() => setShowWithdrawlBox(false)}
                 >
                   <IoIosCloseCircleOutline />
                 </button>
               </div>
-              <h4 className=" text-lg lg:text-2xl capitalize">withdrawl</h4>
+              <h4 className=' text-lg lg:text-2xl capitalize'>withdrawl</h4>
               {referCode?.acceptedFreelancer?.length >= 5 ? (
-                <div className="flex flex-col items-center justify-between w-full gap-4 lg:gap-0">
-                  <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-4 lg:gap-0">
-                    <div className="flex flex-col items-start relative">
+                <div className='flex flex-col items-center justify-between w-full gap-4 lg:gap-0'>
+                  <div className='flex flex-col lg:flex-row items-center justify-between w-full gap-4 lg:gap-0'>
+                    <div className='flex flex-col items-start relative'>
                       <label
-                        htmlFor="upi"
-                        className="text-center lg:text-lg capitalize"
+                        htmlFor='upi'
+                        className='text-center lg:text-lg capitalize'
                       >
                         UPI ID
                       </label>
                       <input
-                        type="text"
-                        placeholder="enter upi id"
-                        id="upi"
+                        type='text'
+                        placeholder='enter upi id'
+                        id='upi'
                         value={upiID}
                         onChange={(e) => {
                           setValidId(false);
@@ -335,63 +346,63 @@ const My_referral = (props) => {
                             setValidId(true);
                           }
                         }}
-                        className="bg-neutral-300 p-2 placeholder:capitalize"
+                        className='bg-neutral-300 p-2 placeholder:capitalize'
                       />
                       {validId && (
-                        <p className="text-red-600 font-bold absolute top-full">
+                        <p className='text-red-600 font-bold absolute top-full'>
                           upi is not valid
                         </p>
                       )}
                     </div>
-                    <div className="flex flex-col items-start">
+                    <div className='flex flex-col items-start'>
                       <label
-                        htmlFor="conupi"
-                        className="text-center lg:text-lg capitalize"
+                        htmlFor='conupi'
+                        className='text-center lg:text-lg capitalize'
                       >
                         confirm UPI ID
                       </label>
                       <input
-                        type="text"
-                        placeholder="confirm upi id"
-                        id="conupi"
+                        type='text'
+                        placeholder='confirm upi id'
+                        id='conupi'
                         value={conUpiID}
                         onChange={(e) => {
                           setUpiError(false);
                           setConUpiID(e.target.value);
                         }}
-                        className="bg-neutral-300 p-2 placeholder:capitalize"
+                        className='bg-neutral-300 p-2 placeholder:capitalize'
                       />
                     </div>
                   </div>
                   <button
-                    type="button"
+                    type='button'
                     onClick={withdrawlRequest}
-                    className="capitalize font-bold bg-blue-500 text-white px-2 py-1 rounded-lg"
+                    className='capitalize font-bold bg-blue-500 text-white px-2 py-1 rounded-lg'
                   >
                     submit
                   </button>
                 </div>
               ) : (
                 <div>
-                  <h3 className="lg:text-xl">
+                  <h3 className='lg:text-xl'>
                     You are not eligible to withdraw your amount. After 5
                     successful referrals, you are eligible to withdraw.
                   </h3>
                 </div>
               )}
               {upiError && (
-                <p className="text-red-500 font-bold">
+                <p className='text-red-500 font-bold'>
                   UPI id mismatch. please check your upi id.
                 </p>
               )}
-              <div className="flex flex-col gap-4">
-                <p className="text-neutral-500">
+              <div className='flex flex-col gap-4'>
+                <p className='text-neutral-500'>
                   Once you submitted your upi id you can not change. Make sure
                   your upi id before submit.
                 </p>
-                <p className="text-neutral-500">
+                <p className='text-neutral-500'>
                   In case of any queries you can contact us by mail us at{" "}
-                  <a href="mailto:help@fipezo.com" className="text-blue-500">
+                  <a href='mailto:help@fipezo.com' className='text-blue-500'>
                     help@fipezo.com
                   </a>
                 </p>
@@ -400,12 +411,12 @@ const My_referral = (props) => {
           </div>
         )}
       </div>
-      <hr className="my-8 border border-[#eaeaea]" />
+      <hr className='my-8 border border-[#eaeaea]' />
       <Footer premium={props.user?.premium} />
       {showDialougeBox && (
         <DialogBox
-          title="Success"
-          text="Your upi id has been reached to us. Please keep patience. Amount will be creditted between next 24 business hours."
+          title='Success'
+          text='Your upi id has been reached to us. Please keep patience. Amount will be creditted between next 24 business hours.'
           handleDialogBox={handelDialouge}
         />
       )}

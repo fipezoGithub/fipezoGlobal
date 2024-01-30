@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaBell } from "react-icons/fa";
 import { AuthContext } from "@/context/AuthContext";
+import { IoChatbox } from "react-icons/io5";
 
 export default function Navbar(props) {
   const [background, setBackground] = useState("transparent");
@@ -142,6 +143,12 @@ export default function Navbar(props) {
         </Link>
       </div>
       <div className='lg:hidden flex gap-2'>
+        <Link
+          href='/chats'
+          className={"flex items-center justify-center gap-2 relative"}
+        >
+          <IoChatbox size={"1.6em"} />
+        </Link>
         <Link
           href='/my_notifications'
           className={"flex items-center justify-center gap-2 relative"}
@@ -370,6 +377,15 @@ export default function Navbar(props) {
                     My Profile
                   </Link>
                 )}
+
+                <Link
+                  href='/chats'
+                  className={
+                    styles.btn + " flex items-center justify-center gap-2"
+                  }
+                >
+                  Chats <IoChatbox size={"1.2em"} />
+                </Link>
                 <Link
                   href='/my_notifications'
                   className={

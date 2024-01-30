@@ -171,7 +171,7 @@ function Verification(props) {
           2<p className={styles.navText}>Verification</p>
         </div>
         <div className={styles.navStep}>
-          <Image src="/tick.png" width={80} height={80} alt="verified-tick" />
+          <Image src='/tick.png' width={80} height={80} alt='verified-tick' />
         </div>
         <div className={styles.navRoad}></div>
       </div>
@@ -379,14 +379,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
-              id="workimg1"
+              id='workimg1'
               onChange={(e) => handleImageChange(e, 0)}
-              accept="image/jpeg,image/png"
+              accept='image/jpeg,image/png'
             />
             {!images[0] && (
-              <label htmlFor="workimg1" className="cursor-pointer">
+              <label htmlFor='workimg1' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -406,14 +406,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 1)}
-              accept="image/jpeg,image/png"
-              id="workimg2"
+              accept='image/jpeg,image/png'
+              id='workimg2'
             />
             {!images[1] && (
-              <label htmlFor="workimg2" className="cursor-pointer">
+              <label htmlFor='workimg2' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -433,14 +433,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 2)}
-              accept="image/jpeg,image/png"
-              id="workimg3"
+              accept='image/jpeg,image/png'
+              id='workimg3'
             />
             {!images[2] && (
-              <label htmlFor="workimg3" className="cursor-pointer">
+              <label htmlFor='workimg3' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -460,14 +460,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 3)}
-              accept="image/jpeg,image/png"
-              id="workimg4"
+              accept='image/jpeg,image/png'
+              id='workimg4'
             />
             {!images[3] && (
-              <label htmlFor="workimg4" className="cursor-pointer">
+              <label htmlFor='workimg4' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -487,14 +487,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 8)}
-              accept="image/jpeg,image/png"
-              id="workimg5"
+              accept='image/jpeg,image/png'
+              id='workimg5'
             />
             {!images[8] && (
-              <label htmlFor="workimg5" className="cursor-pointer">
+              <label htmlFor='workimg5' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -514,14 +514,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 9)}
-              accept="image/jpeg,image/png"
-              id="workimg6"
+              accept='image/jpeg,image/png'
+              id='workimg6'
             />
             {!images[9] && (
-              <label htmlFor="workimg6" className="cursor-pointer">
+              <label htmlFor='workimg6' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -541,14 +541,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 10)}
-              accept="image/jpeg,image/png"
-              id="workimg7"
+              accept='image/jpeg,image/png'
+              id='workimg7'
             />
             {!images[10] && (
-              <label htmlFor="workimg7" className="cursor-pointer">
+              <label htmlFor='workimg7' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -568,14 +568,14 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 11)}
-              accept="image/jpeg,image/png"
-              id="workimg8"
+              accept='image/jpeg,image/png'
+              id='workimg8'
             />
             {!images[11] && (
-              <label htmlFor="workimg8" className="cursor-pointer">
+              <label htmlFor='workimg8' className='cursor-pointer'>
                 <AiOutlinePlus
                   className={styles.plus}
                   style={{ color: "#1f1c1c" }}
@@ -600,9 +600,9 @@ function Verification(props) {
         props.profession === "interior_designer") && (
         <div className={styles.portfolio}>
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 17);
               e.target.removeAttribute("style");
@@ -616,9 +616,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 18);
               e.target.removeAttribute("style");
@@ -632,9 +632,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 19);
               e.target.removeAttribute("style");
@@ -648,9 +648,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 20);
               e.target.removeAttribute("style");
@@ -670,10 +670,10 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 8)}
-              accept="image/jpeg,image/png"
+              accept='image/jpeg,image/png'
             />
             {!images[8] && (
               <AiOutlinePlus
@@ -694,10 +694,10 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 9)}
-              accept="image/jpeg,image/png"
+              accept='image/jpeg,image/png'
             />
             {!images[9] && (
               <AiOutlinePlus
@@ -718,10 +718,10 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 10)}
-              accept="image/jpeg,image/png"
+              accept='image/jpeg,image/png'
             />
             {!images[10] && (
               <AiOutlinePlus
@@ -742,10 +742,10 @@ function Verification(props) {
             }}
           >
             <input
-              type="file"
+              type='file'
               className={styles.work}
               onChange={(e) => handleImageChange(e, 11)}
-              accept="image/jpeg,image/png"
+              accept='image/jpeg,image/png'
             />
             {!images[11] && (
               <AiOutlinePlus
@@ -771,9 +771,9 @@ function Verification(props) {
         props.profession === "vocalist") && (
         <div className={styles.portfolio}>
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 17);
               e.target.removeAttribute("style");
@@ -787,9 +787,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 18);
               e.target.removeAttribute("style");
@@ -803,9 +803,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 19);
               e.target.removeAttribute("style");
@@ -819,9 +819,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 20);
               e.target.removeAttribute("style");
@@ -835,9 +835,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 21);
               e.target.removeAttribute("style");
@@ -851,9 +851,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 22);
               e.target.removeAttribute("style");
@@ -867,9 +867,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 23);
               e.target.removeAttribute("style");
@@ -883,9 +883,9 @@ function Verification(props) {
             }}
           />
           <input
-            type="url"
+            type='url'
             className={styles.input}
-            placeholder="https://www.youtube.com/example"
+            placeholder='https://www.youtube.com/example'
             onChange={(e) => {
               props.getVerificationDetails(e.target.value, 24);
               e.target.removeAttribute("style");
@@ -902,7 +902,7 @@ function Verification(props) {
       )}
       <div className={styles.check}>
         <input
-          type="checkbox"
+          type='checkbox'
           checked={termsAndConditions}
           className={styles.checkbox}
           onChange={(e) => {
@@ -915,7 +915,7 @@ function Verification(props) {
           <span onClick={handleTermsAndConditions}>Terms and Conditions</span>
         </span>
       </div>
-      <button className={styles.btn} type="submit">
+      <button className={styles.btn} type='submit'>
         Verify Now
       </button>
       <div className={styles.dialogBox}>

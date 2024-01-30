@@ -74,14 +74,18 @@ export default withRouter(
     }
 
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.count === 0 && prevState.currentPage === 3) {
+      if (
+        prevState.count === 0 &&
+        prevState.currentPage === 3 &&
+        this.state.timerId !== null
+      ) {
         clearInterval(this.state.timerId);
         this.setState({ resendOtp: true });
       }
     }
 
     componentDidMount() {
-      if (this.props.user || this.props.company) {
+      if (this.context.data.isLoggedIn) {
         this.props.router.push("/");
       }
     }
@@ -203,12 +207,13 @@ export default withRouter(
       this.setState({ error: false });
       this.setState({ phoneError: false });
       this.setState({ textareaError: false });
+      this.setState({ registerFailed: false });
       this.setState({ invalidOtp: false });
       if (this.state.currentPage === 3) {
         this.setState({ resendOtp: false });
-        this.setState({ count: 120 });
+        this.setState({ count: 30 });
+        this.startCountdown();
       }
-      this.setState({ registerFailed: false });
       this.increPage();
     };
 
@@ -394,6 +399,7 @@ export default withRouter(
           Router.push("/contact_soon");
         } catch (error) {
           console.error(error);
+          this.setState({ isLoading: false });
           this.setState({ registerFailed: true });
         }
       };
@@ -498,8 +504,8 @@ export default withRouter(
           <Head>
             <title>Fipezo | Register as a Company</title>
             <meta
-              name="description"
-              content="Join our community and unlock a world of possibilities by creating your account! as Company Our registration page is your gateway to access a wide range of features and services tailored just for you."
+              name='description'
+              content='Join our community and unlock a world of possibilities by creating your account! as Company Our registration page is your gateway to access a wide range of features and services tailored just for you.'
             />
           </Head>
           {this.state.isLoading && (
@@ -537,7 +543,7 @@ export default withRouter(
                       this.state.form ? styles.newForm : styles.form
                     }`}
                     onSubmit={(event) => this.handleSubmit(event)}
-                    encType="multipart/form-data"
+                    encType='multipart/form-data'
                   >
                     {this.state.error && (
                       <p className={styles.error}>
@@ -566,17 +572,17 @@ export default withRouter(
                     )}
                     {this.state.currentPage === 1 && (
                       <div className={styles.inputField} id={styles.firstname}>
-                        <label htmlFor="companyname" className={styles.label}>
+                        <label htmlFor='companyname' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Company Name
                           :
                         </label>
                         <input
-                          type="text"
+                          type='text'
                           className={styles.input}
-                          placeholder="Enter Your Company name"
+                          placeholder='Enter Your Company name'
                           onKeyDown={this.handleEnterKeyPress}
-                          name="companyname"
-                          id="companyname"
+                          name='companyname'
+                          id='companyname'
                           required
                           onChange={(event) =>
                             this.setState({ companyname: event.target.value })
@@ -592,17 +598,17 @@ export default withRouter(
                     )}
                     {this.state.currentPage === 2 && (
                       <div className={styles.inputField} id={styles.phone}>
-                        <label htmlFor="companyphone" className={styles.label}>
+                        <label htmlFor='companyphone' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Company
                           Phone :
                         </label>
                         <input
-                          type="tel"
+                          type='tel'
                           id={styles.number}
                           className={styles.input}
-                          placeholder="Enter Company Phone no."
+                          placeholder='Enter Company Phone no.'
                           onKeyDown={this.handleEnterKeyPress}
-                          name="companyphone"
+                          name='companyphone'
                           maxLength={10}
                           required
                           onChange={(event) =>
@@ -622,15 +628,15 @@ export default withRouter(
                     )}
                     {this.state.currentPage === 3 && (
                       <div className={styles.inputField} id={styles.otp}>
-                        <label htmlFor="otp" className={styles.label}>
+                        <label htmlFor='otp' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>OTP :
                         </label>
                         <input
-                          type="number"
+                          type='number'
                           id={styles.number}
                           className={styles.input}
-                          placeholder="Enter Your OTP"
-                          name="otp"
+                          placeholder='Enter Your OTP'
+                          name='otp'
                           required
                           onKeyDown={this.handleEnterKeyPress}
                           onChange={(event) =>
@@ -641,57 +647,57 @@ export default withRouter(
                           }
                           value={this.state.otp}
                         />
-                        <p className="pt-4 text-neutral-400">
+                        <p className='pt-4 text-neutral-400'>
                           OTP will be valid for 5 minutes
                         </p>
                       </div>
                     )}
                     {this.state.currentPage === 4 && (
                       <div className={styles.inputField} id={styles.profession}>
-                        <label htmlFor="companytype" className={styles.label}>
+                        <label htmlFor='companytype' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>What is your
                           company type?
                         </label>
                         <select
                           required
                           className={styles.options}
-                          name="companytype"
+                          name='companytype'
                           onChange={(event) =>
                             this.setState({ companytype: event.target.value })
                           }
                           onKeyDown={this.handleEnterKeyPress}
-                          id="companytype"
+                          id='companytype'
                           value={
                             this.state.companytype !== ""
                               ? this.state.companytype
                               : ""
                           }
                         >
-                          <option className={styles.option} value="photography">
+                          <option className={styles.option} value='photography'>
                             Photography Company
                           </option>
-                          <option className={styles.option} value="eCommerce">
+                          <option className={styles.option} value='eCommerce'>
                             eCommerce Company
                           </option>
                           <option
                             className={styles.option}
-                            value="production_house"
+                            value='production_house'
                           >
                             Production House
                           </option>
                           <option
                             className={styles.option}
-                            value="photography_institute"
+                            value='photography_institute'
                           >
                             Photography Institute
                           </option>
                           <option
                             className={styles.option}
-                            value="advertising_agency"
+                            value='advertising_agency'
                           >
                             Advertising agency
                           </option>
-                          <option className={styles.option} value="other">
+                          <option className={styles.option} value='other'>
                             Other
                           </option>
                         </select>
@@ -700,19 +706,19 @@ export default withRouter(
                     {this.state.currentPage === 5 && (
                       <div className={styles.inputField} id={styles.address}>
                         <label
-                          htmlFor="companyaddress"
+                          htmlFor='companyaddress'
                           className={styles.label}
                         >
                           <span style={{ color: "white" }}>* </span>Company
                           Address :
                         </label>
                         <div
-                          id="companyaddress"
-                          className="flex flex-col gap-4"
+                          id='companyaddress'
+                          className='flex flex-col gap-4'
                         >
                           <input
-                            type="text"
-                            placeholder="Enter street number and area"
+                            type='text'
+                            placeholder='Enter street number and area'
                             className={styles.input}
                             onKeyDown={this.handleEnterKeyPress}
                             onChange={(event) =>
@@ -725,10 +731,10 @@ export default withRouter(
                             }
                             value={this.state.companyaddress.address}
                           />
-                          <div className="flex items-center justify-between">
+                          <div className='flex items-center justify-between'>
                             <div className={styles.inputField}>
                               <label
-                                htmlFor="location"
+                                htmlFor='location'
                                 className={styles.label}
                               >
                                 <span style={{ color: "white" }}>* </span>City
@@ -736,7 +742,7 @@ export default withRouter(
                               <select
                                 required
                                 className={styles.options}
-                                name="location"
+                                name='location'
                                 onChange={(event) =>
                                   this.setState({
                                     companyaddress: {
@@ -745,298 +751,298 @@ export default withRouter(
                                     },
                                   })
                                 }
-                                id="location"
+                                id='location'
                                 value={this.state.companyaddress.city}
                                 onKeyDown={this.handleEnterKeyPress}
                               >
-                                <option className={styles.option} value="Agra">
+                                <option className={styles.option} value='Agra'>
                                   Agra
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Ahmedabad"
+                                  value='Ahmedabad'
                                 >
                                   Ahmedabad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Amritsar"
+                                  value='Amritsar'
                                 >
                                   Amritsar
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Aurangabad"
+                                  value='Aurangabad'
                                 >
                                   Aurangabad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Bengaluru"
+                                  value='Bengaluru'
                                 >
                                   Bengaluru
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Bhopal"
+                                  value='Bhopal'
                                 >
                                   Bhopal
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Bhubaneswar"
+                                  value='Bhubaneswar'
                                 >
                                   Bhubaneswar
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Chandigarh"
+                                  value='Chandigarh'
                                 >
                                   Chandigarh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Chennai"
+                                  value='Chennai'
                                 >
                                   Chennai
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Coimbatore"
+                                  value='Coimbatore'
                                 >
                                   Coimbatore
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Dehradun"
+                                  value='Dehradun'
                                 >
                                   Dehradun
                                 </option>
-                                <option className={styles.option} value="Delhi">
+                                <option className={styles.option} value='Delhi'>
                                   Delhi
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Dhanbad"
+                                  value='Dhanbad'
                                 >
                                   Dhanbad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Faridabad"
+                                  value='Faridabad'
                                 >
                                   Faridabad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Ghaziabad"
+                                  value='Ghaziabad'
                                 >
                                   Ghaziabad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Guwahati"
+                                  value='Guwahati'
                                 >
                                   Guwahati
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Gwalior"
+                                  value='Gwalior'
                                 >
                                   Gwalior
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Hyderabad"
+                                  value='Hyderabad'
                                 >
                                   Hyderabad
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Indore"
+                                  value='Indore'
                                 >
                                   Indore
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Jaipur"
+                                  value='Jaipur'
                                 >
                                   Jaipur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Jamshedpur"
+                                  value='Jamshedpur'
                                 >
                                   Jamshedpur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Jodhpur"
+                                  value='Jodhpur'
                                 >
                                   Jodhpur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Kanpur"
+                                  value='Kanpur'
                                 >
                                   Kanpur
                                 </option>
-                                <option className={styles.option} value="Kochi">
+                                <option className={styles.option} value='Kochi'>
                                   Kochi
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Kolkata"
+                                  value='Kolkata'
                                 >
                                   Kolkata
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Lucknow"
+                                  value='Lucknow'
                                 >
                                   Lucknow
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Ludhiana"
+                                  value='Ludhiana'
                                 >
                                   Ludhiana
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Madurai"
+                                  value='Madurai'
                                 >
                                   Madurai
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Mangaluru"
+                                  value='Mangaluru'
                                 >
                                   Mangaluru
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Meerut"
+                                  value='Meerut'
                                 >
                                   Meerut
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Mumbai"
+                                  value='Mumbai'
                                 >
                                   Mumbai
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Mysuru"
+                                  value='Mysuru'
                                 >
                                   Mysuru
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Nagpur"
+                                  value='Nagpur'
                                 >
                                   Nagpur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Nashik"
+                                  value='Nashik'
                                 >
                                   Nashik
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="New Delhi"
+                                  value='New Delhi'
                                 >
                                   New_Delhi
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Navi_Mumbai"
+                                  value='Navi_Mumbai'
                                 >
                                   Navi Mumbai
                                 </option>
-                                <option className={styles.option} value="Patna">
+                                <option className={styles.option} value='Patna'>
                                   Patna
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Prayagraj"
+                                  value='Prayagraj'
                                 >
                                   Prayagraj
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Puducherry"
+                                  value='Puducherry'
                                 >
                                   Puducherry
                                 </option>
-                                <option className={styles.option} value="Pune">
+                                <option className={styles.option} value='Pune'>
                                   Pune
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Raipur"
+                                  value='Raipur'
                                 >
                                   Raipur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Rajkot"
+                                  value='Rajkot'
                                 >
                                   Rajkot
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Ranchi"
+                                  value='Ranchi'
                                 >
                                   Ranchi
                                 </option>
-                                <option className={styles.option} value="Surat">
+                                <option className={styles.option} value='Surat'>
                                   Surat
                                 </option>
-                                <option className={styles.option} value="Thane">
+                                <option className={styles.option} value='Thane'>
                                   Thane
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Thiruvananthapuram"
+                                  value='Thiruvananthapuram'
                                 >
                                   Thiruvananthapuram
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Udaipur"
+                                  value='Udaipur'
                                 >
                                   Udaipur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Vadodara"
+                                  value='Vadodara'
                                 >
                                   Vadodara
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Varanasi"
+                                  value='Varanasi'
                                 >
                                   Varanasi
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Vijayawada"
+                                  value='Vijayawada'
                                 >
                                   Vijayawada
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Visakhapatnam"
+                                  value='Visakhapatnam'
                                 >
                                   Visakhapatnam
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Warangal"
+                                  value='Warangal'
                                 >
                                   Warangal
                                 </option>
@@ -1044,7 +1050,7 @@ export default withRouter(
                             </div>
                             <div className={styles.inputField}>
                               <label
-                                htmlFor="location"
+                                htmlFor='location'
                                 className={styles.label}
                               >
                                 <span style={{ color: "white" }}>* </span>State
@@ -1052,7 +1058,7 @@ export default withRouter(
                               <select
                                 required
                                 className={styles.options}
-                                name="location"
+                                name='location'
                                 onChange={(event) =>
                                   this.setState({
                                     companyaddress: {
@@ -1061,222 +1067,222 @@ export default withRouter(
                                     },
                                   })
                                 }
-                                id="location"
+                                id='location'
                                 value={this.state.companyaddress.state}
                                 onKeyDown={this.handleEnterKeyPress}
                               >
                                 <option
                                   className={styles.option}
-                                  value="Andhra Pradesh"
+                                  value='Andhra Pradesh'
                                 >
                                   Andhra Pradesh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Andaman and Nicobar Island"
+                                  value='Andaman and Nicobar Island'
                                 >
                                   Andaman and Nicobar Island
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Arunachal Pradesh"
+                                  value='Arunachal Pradesh'
                                 >
                                   Arunachal Pradesh
                                 </option>
-                                <option className={styles.option} value="Assam">
+                                <option className={styles.option} value='Assam'>
                                   Assam
                                 </option>
-                                <option className={styles.option} value="Bihar">
+                                <option className={styles.option} value='Bihar'>
                                   Bihar
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Chandigarh"
+                                  value='Chandigarh'
                                 >
                                   Chandigarh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Chhattisgarh"
+                                  value='Chhattisgarh'
                                 >
                                   Chhattisgarh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Dadra and Nagar Haveli and Daman and Diu"
+                                  value='Dadra and Nagar Haveli and Daman and Diu'
                                 >
                                   Dadra and Nagar Haveli and Daman and Diu
                                 </option>
-                                <option className={styles.option} value="Delhi">
+                                <option className={styles.option} value='Delhi'>
                                   Delhi
                                 </option>
-                                <option className={styles.option} value="Goa">
+                                <option className={styles.option} value='Goa'>
                                   Goa
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Gujarat"
+                                  value='Gujarat'
                                 >
                                   Gujarat
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Haryana"
+                                  value='Haryana'
                                 >
                                   Haryana
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Himachal Pradesh"
+                                  value='Himachal Pradesh'
                                 >
                                   Himachal Pradesh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Jammu and Kashmir"
+                                  value='Jammu and Kashmir'
                                 >
                                   Jammu and Kashmir
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Jharkhand"
+                                  value='Jharkhand'
                                 >
                                   Jharkhand
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Karnataka"
+                                  value='Karnataka'
                                 >
                                   Karnataka
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Kerala"
+                                  value='Kerala'
                                 >
                                   Kerala
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Ladakh"
+                                  value='Ladakh'
                                 >
                                   Ladakh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Lakshadweep"
+                                  value='Lakshadweep'
                                 >
                                   Lakshadweep
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Madhya Pradesh"
+                                  value='Madhya Pradesh'
                                 >
                                   Madhya Pradesh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Maharashtra"
+                                  value='Maharashtra'
                                 >
                                   Maharashtra
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Manipur"
+                                  value='Manipur'
                                 >
                                   Manipur
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Meghalaya"
+                                  value='Meghalaya'
                                 >
                                   Meghalaya
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Mizoram"
+                                  value='Mizoram'
                                 >
                                   Mizoram
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Nagaland"
+                                  value='Nagaland'
                                 >
                                   Nagaland
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Odisha"
+                                  value='Odisha'
                                 >
                                   Odisha
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Puducherry"
+                                  value='Puducherry'
                                 >
                                   Puducherry
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Punjab"
+                                  value='Punjab'
                                 >
                                   Punjab
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Rajasthan"
+                                  value='Rajasthan'
                                 >
                                   Rajasthan
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Sikkim"
+                                  value='Sikkim'
                                 >
                                   Sikkim
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Tamil Nadu"
+                                  value='Tamil Nadu'
                                 >
                                   Tamil Nadu
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Telangana"
+                                  value='Telangana'
                                 >
                                   Telangana
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Tripura"
+                                  value='Tripura'
                                 >
                                   Tripura
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Uttar Pradesh"
+                                  value='Uttar Pradesh'
                                 >
                                   Uttar Pradesh
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="Uttarakhand"
+                                  value='Uttarakhand'
                                 >
                                   Uttarakhand
                                 </option>
                                 <option
                                   className={styles.option}
-                                  value="West Bengal"
+                                  value='West Bengal'
                                 >
                                   West Bengal
                                 </option>
                               </select>
                             </div>
                           </div>
-                          <div className="flex items-center justify-between gap-4">
+                          <div className='flex items-center justify-between gap-4'>
                             <div>
                               <input
-                                type="number"
-                                placeholder="Enter pincode"
+                                type='number'
+                                placeholder='Enter pincode'
                                 className={styles.input}
                                 onKeyDown={this.handleEnterKeyPress}
                                 onChange={(event) =>
@@ -1296,8 +1302,8 @@ export default withRouter(
                               )}
                             </div>
                             <input
-                              type="text"
-                              placeholder="Enter Landmark (Optional)"
+                              type='text'
+                              placeholder='Enter Landmark (Optional)'
                               className={styles.input}
                               onKeyDown={this.handleEnterKeyPress}
                               onChange={(event) =>
@@ -1317,14 +1323,14 @@ export default withRouter(
                     {this.state.currentPage === 6 && (
                       <>
                         <div className={styles.inputField} id={styles.otp}>
-                          <label htmlFor="email" className={styles.label}>
+                          <label htmlFor='email' className={styles.label}>
                             <span style={{ color: "white" }}>* </span>Email :
                           </label>
                           <input
-                            type="email"
+                            type='email'
                             className={styles.input}
                             placeholder="Enter Company's email address"
-                            name="email"
+                            name='email'
                             required
                             onKeyDown={this.handleEnterKeyPress}
                             onChange={(event) =>
@@ -1338,15 +1344,15 @@ export default withRouter(
                           />
                         </div>
                         <div className={styles.inputField} id={styles.otp}>
-                          <label htmlFor="password" className={styles.label}>
+                          <label htmlFor='password' className={styles.label}>
                             <span style={{ color: "white" }}>* </span>Password :
                           </label>
-                          <div className="flex border-b border-b-[#878787] items-center justify-between">
+                          <div className='flex border-b border-b-[#878787] items-center justify-between'>
                             <input
-                              type="password"
-                              className="focus:outline-none text-white bg-transparent p-1"
-                              placeholder="Enter password"
-                              name="password"
+                              type='password'
+                              className='focus:outline-none text-white bg-transparent p-1'
+                              placeholder='Enter password'
+                              name='password'
                               minLength={8}
                               maxLength={15}
                               ref={this.passwordRef}
@@ -1361,7 +1367,7 @@ export default withRouter(
                               value={this.state.password}
                             />
                             <button
-                              type="button"
+                              type='button'
                               onClick={() => {
                                 if (
                                   this.passwordRef.current.type === "password"
@@ -1394,15 +1400,15 @@ export default withRouter(
                     )}
                     {this.state.currentPage === 7 && (
                       <div className={styles.inputField} id={styles.otp}>
-                        <label htmlFor="position" className={styles.label}>
+                        <label htmlFor='position' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>Designation
                           :
                         </label>
                         <input
-                          type="text"
+                          type='text'
                           className={styles.input}
-                          placeholder="Enter Your Designation in the Company"
-                          name="position"
+                          placeholder='Enter Your Designation in the Company'
+                          name='position'
                           required
                           onKeyDown={this.handleEnterKeyPress}
                           onChange={(event) =>
@@ -1439,22 +1445,22 @@ export default withRouter(
                       )}
                     {!this.state.form && this.state.currentPage === 8 && (
                       <div className={styles.inputField} id={styles.bio}>
-                        <label htmlFor="bio" className={styles.label}>
+                        <label htmlFor='bio' className={styles.label}>
                           <span style={{ color: "white" }}>* </span>About :
                         </label>
                         <textarea
                           required
-                          name="bio"
-                          id="bio"
-                          cols="30"
-                          rows="10"
+                          name='bio'
+                          id='bio'
+                          cols='30'
+                          rows='10'
                           onChange={(event) => {
                             this.setState({ bio: event.target.value });
                             this.setState({ textareaError: false });
                           }}
                           onKeyDown={this.handleEnterKeyPress}
                           className={styles.textarea}
-                          placeholder="Write Your Company here..."
+                          placeholder='Write Your Company here...'
                           value={this.state.bio !== "" ? this.state.bio : ""}
                         ></textarea>
                       </div>
@@ -1464,7 +1470,7 @@ export default withRouter(
                         {this.state.currentPage !== 1 && (
                           <button
                             className={styles.backBtn}
-                            type="button"
+                            type='button'
                             onClick={() => this.decreProgress(14.25)}
                           >
                             Back
@@ -1475,7 +1481,7 @@ export default withRouter(
                           this.state.currentPage !== 6 && (
                             <button
                               className={styles.NextBtn}
-                              type="button"
+                              type='button'
                               onClick={() => this.increProgress(14.25)}
                             >
                               {this.state.btn}
@@ -1484,7 +1490,7 @@ export default withRouter(
                         {this.state.currentPage === 2 && (
                           <button
                             className={styles.NextBtn}
-                            type="button"
+                            type='button'
                             onClick={this.getOtp}
                           >
                             Next
@@ -1493,7 +1499,7 @@ export default withRouter(
                         {this.state.currentPage === 6 && (
                           <button
                             className={styles.NextBtn}
-                            type="button"
+                            type='button'
                             onClick={this.checkEmail}
                           >
                             Next
@@ -1502,7 +1508,7 @@ export default withRouter(
                         {this.state.currentPage === 3 && (
                           <button
                             className={styles.NextBtn}
-                            type="button"
+                            type='button'
                             onClick={this.handleOtp}
                           >
                             Verify
@@ -1514,7 +1520,7 @@ export default withRouter(
                               className={
                                 styles.NextBtn + " flex items-center gap-2"
                               }
-                              type="button"
+                              type='button'
                               onClick={this.getOtp}
                             >
                               <IoReloadOutline /> Resend
@@ -1553,9 +1559,9 @@ export default withRouter(
                   {this.state.currentPage === 1 ||
                   this.state.currentPage === 2 ||
                   this.state.currentPage === 3 ? (
-                    <div className="mt-8">
+                    <div className='mt-8'>
                       Already have an account?{" "}
-                      <Link className="text-cyan-500 capitalize" href="/login">
+                      <Link className='text-cyan-500 capitalize' href='/login'>
                         log in!
                       </Link>
                     </div>
@@ -1567,9 +1573,9 @@ export default withRouter(
                     >
                       facing issues?{" "}
                       <ReactWhatsapp
-                        number="+919038578787"
-                        message="Hello Fipezo"
-                        className="text-cyan-500 capitalize"
+                        number='+919038578787'
+                        message='Hello Fipezo'
+                        className='text-cyan-500 capitalize'
                       >
                         contact us!
                       </ReactWhatsapp>
@@ -1603,8 +1609,8 @@ export default withRouter(
                       </div>
                       <Image
                         className={styles.img}
-                        src="/ComX.png"
-                        alt="registration-image"
+                        src='/ComX.png'
+                        alt='registration-image'
                         width={250}
                         height={250}
                       />

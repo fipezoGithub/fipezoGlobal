@@ -18,7 +18,7 @@ const Footer = (props) => {
   const { data } = useContext(AuthContext);
 
   return (
-    <footer className='bg-black text-white w-full pt-4 lg:pt-8'>
+    <footer className='bg-black text-white w-full pt-4 lg:pt-8 relative z-10'>
       <div className='flex flex-col lg:flex-row m-4 lg:m-8 justify-between'>
         <div className='lg:ml-4 mb-4 flex flex-col items-center justify-between gap-2'>
           <Link className='text-4xl' href='/'>

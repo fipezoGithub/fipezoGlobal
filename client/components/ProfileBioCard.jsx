@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "../styles/ProfileBioCard.module.css";
 import { RWebShare } from "react-web-share";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { FaFontAwesomeFlag, FaShareSquare, FaStar } from "react-icons/fa";
 import FreelancerEditBox from "@/components/FreelancerEditBox";
@@ -11,6 +11,7 @@ import FollowerFollowingModal from "./FollowerFollowingModal";
 import ReportModal from "./ReportModal";
 import Link from "next/link";
 import { RiVipCrownFill } from "react-icons/ri";
+import { AuthContext } from "@/context/AuthContext";
 
 function ProfileBioCard(props) {
   // const links = JSON.parse(props.freelancer.links);
@@ -27,13 +28,15 @@ function ProfileBioCard(props) {
   const [showReportBox, setShowReportBox] = useState(false);
   const router = useRouter();
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
-    if (props.user?.following?.includes(props.freelancer._id)) {
+    if (data.userDetails?.following?.includes(props.freelancer._id)) {
       setIsFollowed(true);
     }
     setLoveCount(props.freelancer.loveCount);
     setUrl(window.location.origin + "/profile/" + props.freelancer.uid);
-  }, [props.user, props.freelancer]);
+  }, [data.userDetails, props.freelancer]);
 
   function createParticle(x, y) {
     // Create a custom particle element
@@ -99,7 +102,10 @@ function ProfileBioCard(props) {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (!props.user || !props.user?.uid) {
+    if (
+      !data.isLoggedIn ||
+      (data.userDetails?.uid && !data.userDetails.companyname)
+    ) {
       router.push("/register/freelancer");
     } else {
       try {
@@ -116,7 +122,7 @@ function ProfileBioCard(props) {
                 body: JSON.stringify({ userid: props.freelancer._id }),
               }
             );
-            const data = await res.json();
+            const respdata = await res.json();
             setIsFollowed(true);
             props.freelancer.followers.length =
               props.freelancer.followers.length + 1;
@@ -133,7 +139,7 @@ function ProfileBioCard(props) {
                   body: JSON.stringify({ userid: props.freelancer._id }),
                 }
               );
-              const data = await res.json();
+              const respdata = await res.json();
               setIsFollowed(false);
               props.freelancer.followers.length =
                 props.freelancer.followers.length - 1;
@@ -148,7 +154,7 @@ function ProfileBioCard(props) {
 
   const handelLove = async (e) => {
     e.target.disabled = true;
-    if (props.user?._id === props.freelancer._id) {
+    if (data.userDetails?._id === props.freelancer._id) {
       setLoveError(true);
       setTimeout(() => {
         setLoveError(false);
@@ -471,16 +477,15 @@ function ProfileBioCard(props) {
             <FaShareSquare style={{ color: "white" }} /> Share Profile
           </button>
         </RWebShare>
-        {(props.user || props.company) &&
-          props.freelancer._id !== props.user?._id && (
-            <button
-              type='button'
-              onClick={() => setShowReportBox(true)}
-              className='flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg'
-            >
-              <FaFontAwesomeFlag /> report
-            </button>
-          )}
+        {data.isLoggedIn && props.freelancer._id !== data.userDetails?._id && (
+          <button
+            type='button'
+            onClick={() => setShowReportBox(true)}
+            className='flex items-center gap-4 p-2 capitalize bg-red-500 text-white text-lg px-8 rounded-lg'
+          >
+            <FaFontAwesomeFlag /> report
+          </button>
+        )}
       </div>
       {showEditBox && (
         <div className='absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 w-80 md:top-1/3 md:left-0 md:translate-x-0 md:translate-y-0 md:w-auto z-10 mr-2'>

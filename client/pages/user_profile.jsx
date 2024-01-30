@@ -26,7 +26,7 @@ function User_profile(props) {
   const [showDeleteBox, setShowDeleteBox] = React.useState(false);
   const router = useRouter();
 
-  const { data } = React.useContext(AuthContext);
+  const { data, dispatch } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     const token = localStorage.getItem("user")
@@ -155,6 +155,7 @@ function User_profile(props) {
           if (res.ok) {
             localStorage.removeItem("user");
             props.setUser(null);
+            dispatch({ type: "logout" });
             router.push("/");
           } else {
             console.log("Error deleting user profile");

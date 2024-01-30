@@ -28,7 +28,7 @@ const ChatSideBar = (props) => {
       className='flex flex-col md:items-center md:justify-center gap-4 min-w-fit px-4 py-2 absolute md:static bg-white h-full md:h-auto w-full md:w-auto translate-x-full md:translate-x-0 transition-transform duration-300'
       style={props.style}
     >
-      <h1 className='text-2xl font-semibold'>Recent Chats</h1>
+      <h1 className='text-2xl font-semibold text-center'>Recent Chats</h1>
       <div className='flex flex-col gap-2'>
         {props.user.userType === "freelancer" &&
           chatRooms.length > 0 &&
@@ -86,14 +86,15 @@ const ChatSideBar = (props) => {
         {props.user.userType === "user" &&
           chatRooms.length > 0 &&
           chatRooms.map((chat, i) => (
-            <div
+            <Link
               key={i}
               className={
                 "flex items-center gap-2 border-b pb-2 " +
                 (router.asPath ===
-                  `/chats/${props.user.userDetails.uid}+${chat.user?.uid}/${chat.messageId}` &&
+                  `/chats/${props.user.userDetails.firstname}_${props.user.userDetails.lastname}+${chat.freelancer?.uid}/${chat.messageId}` &&
                   "bg-neutral-300 p-2")
               }
+              href={`/chats/${props.user.userDetails.firstname}_${props.user.userDetails.lastname}+${chat.freelancer?.uid}/${chat.messageId}`}
             >
               <Image
                 src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${chat.freelancer?.profilePicture}`}
@@ -105,7 +106,7 @@ const ChatSideBar = (props) => {
               <h1 className='text-lg font-semibold'>
                 {chat.freelancer?.firstname} {chat.freelancer?.lastname}
               </h1>
-            </div>
+            </Link>
           ))}
         {props.user.userType === "company" &&
           chatRooms.length > 0 &&

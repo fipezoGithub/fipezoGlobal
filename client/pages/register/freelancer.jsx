@@ -95,8 +95,7 @@ export default withRouter(
     }
 
     componentDidMount() {
-      console.log();
-      if (this.props.user || this.props.company) {
+      if (this.context.data.isLoggedIn) {
         this.props.router.push("/");
       }
     }

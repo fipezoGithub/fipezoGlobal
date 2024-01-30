@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 function HireCard(props) {
   const router = useRouter();
   const { data } = useContext(AuthContext);
+
   // Function to format the date as "dd/mm/yyyy"
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -43,7 +44,7 @@ function HireCard(props) {
           },
           body: JSON.stringify({
             messageId: (
-              data.userDetails.phone + props.hire.freelancerDetails.phone
+              data.userDetails.companyphone + props.hire.freelancerDetails.phone
             ).toString(),
             company: data.userDetails._id,
             freelancer: props.hire.freelancerDetails._id,
@@ -52,11 +53,17 @@ function HireCard(props) {
       }
       const respData = await res.json();
       if (res.ok) {
-        router.push(
-          `/chats/${
-            data.userDetails.firstname + "_" + data.userDetails.lastname
-          }+${props.hire.freelancerDetails?.uid}/${respData.messageId}`
-        );
+        if (!props.hire.userDetails.uid) {
+          router.push(
+            `/chats/${
+              data.userDetails.firstname + "_" + data.userDetails.lastname
+            }+${props.hire.freelancerDetails?.uid}/${respData.messageId}`
+          );
+        } else {
+          router.push(
+            `/chats/${data.userDetails.uid}+${props.hire.freelancerDetails?.uid}/${respData.messageId}`
+          );
+        }
       }
     } catch (error) {
       console.log(error);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Verification.module.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import Navbar from "@/components/Navbar";
@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Loading from "@/components/Loading";
+import { AuthContext } from "@/context/AuthContext";
 
 const UpdatePortfolio = (props) => {
   const [images, setImages] = useState([]);
@@ -21,39 +22,29 @@ const UpdatePortfolio = (props) => {
   const [premium, setPremium] = useState(false);
   const router = useRouter();
 
+  const { data } = useContext(AuthContext);
+
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
-    if (!props.user?.works) {
+    if (!data.userDetails?.works) {
       return;
     }
-    setCurrentWorks(props.user?.works);
-    if (token) {
-      fetch(`${process.env.SERVER_URL}/freelancer/paymentdetails`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((paymentDetails) => {
-          if (paymentDetails) {
-            const d = new Date(paymentDetails.createdAt);
-            const end = new Date(d.setDate(d.getDate() + 30));
-            const remainDays = Math.floor(
-              (end.getTime() - new Date().getTime()) / 1000 / 3600 / 24
-            );
-            if (remainDays <= 30 && remainDays >= 0) {
-              setPremium(true);
-            } else {
-              setPremium(false);
-            }
-          }
-        })
-        .catch((err) => console.log(err));
+    if (data.userDetails?.works.length < 8) {
+      const dummyWorks = [...data.userDetails?.works];
+      for (let index = 0; index < 8 - data.userDetails?.works.length; index++) {
+        dummyWorks.push("");
+      }
+      setCurrentWorks(dummyWorks);
+    } else {
+      setCurrentWorks(data.userDetails?.works);
     }
-  }, [props.user]);
+    console.log(data.userDetails.premium);
+    if (data.userDetails.premium) {
+      setPremium(true);
+    }
+  }, [data.userDetails]);
 
   const handleImageChange = (e, index) => {
     const file = e.target.files[0];
@@ -284,13 +275,6 @@ const UpdatePortfolio = (props) => {
         newPortfolioWorks.forEach((element) => {
           data.append("works[]", element);
         });
-        // data.append("works[]", works[1]);
-        // data.append("works[]", works[2]);
-        // data.append("works[]", works[3]);
-        // data.append("works[]", works[4]);
-        // data.append("works[]", works[5]);
-        // data.append("works[]", works[6]);
-        // data.append("works[]", works[7]);
       }
       const response = await fetch(
         `${process.env.SERVER_URL}/freelancer/premiumupload`,
@@ -325,27 +309,27 @@ const UpdatePortfolio = (props) => {
         setUser={props?.setUser}
         socket={props.socket}
       />
-      <div className="mt-16 mx-8 flex flex-col items-center justify-center">
+      <div className='mt-16 mx-8 flex flex-col items-center justify-center'>
         <h1 className={styles.heading}>
           Update Your Works
           {worksError && (
             <p className={styles.err}>Please Provide atleast 8 Works for you</p>
           )}
         </h1>
-        {(props.user?.profession === "photographer" ||
-          props.user?.profession === "photo_editor" ||
-          props.user?.profession === "model" ||
-          props.user?.profession === "makeup_artist" ||
-          props.user?.profession === "album_designer" ||
-          props.user?.profession === "web_developer" ||
-          props.user?.profession === "graphics_designer" ||
-          props.user?.profession === "mehendi_artist" ||
-          props.user?.profession === "private_tutor" ||
-          props.user?.profession === "drawing_teacher" ||
-          props.user?.profession === "painter" ||
-          props.user?.profession === "fashion_designer" ||
-          props.user?.profession === "babysitter" ||
-          props.user?.profession === "maid") && (
+        {(data.userDetails?.profession === "photographer" ||
+          data.userDetails?.profession === "photo_editor" ||
+          data.userDetails?.profession === "model" ||
+          data.userDetails?.profession === "makeup_artist" ||
+          data.userDetails?.profession === "album_designer" ||
+          data.userDetails?.profession === "web_developer" ||
+          data.userDetails?.profession === "graphics_designer" ||
+          data.userDetails?.profession === "mehendi_artist" ||
+          data.userDetails?.profession === "private_tutor" ||
+          data.userDetails?.profession === "drawing_teacher" ||
+          data.userDetails?.profession === "painter" ||
+          data.userDetails?.profession === "fashion_designer" ||
+          data.userDetails?.profession === "babysitter" ||
+          data.userDetails?.profession === "maid") && (
           <div className={styles.portfolio}>
             {currentWorks.map((work, i) => (
               <div
@@ -358,14 +342,14 @@ const UpdatePortfolio = (props) => {
                 }}
               >
                 <input
-                  type="file"
+                  type='file'
                   className={styles.work}
                   id={`workimg${i}`}
                   onChange={(e) => handleImageChange(e, i)}
-                  accept="image/jpeg,image/png"
+                  accept='image/jpeg,image/png'
                 />
                 {!images[i] && (
-                  <label htmlFor={`workimg${i}`} className="cursor-pointer">
+                  <label htmlFor={`workimg${i}`} className='cursor-pointer'>
                     <AiOutlinePlus
                       className={styles.plus}
                       style={{ color: "#1f1c1c" }}
@@ -381,20 +365,20 @@ const UpdatePortfolio = (props) => {
             ))}
           </div>
         )}
-        {(props.user?.profession === "drone_operator" ||
-          props.user?.profession === "anchor" ||
-          props.user?.profession === "dj" ||
-          props.user?.profession === "dancer" ||
-          props.user?.profession === "influencer" ||
-          props.user?.profession === "actor" ||
-          props.user?.profession === "actress" ||
-          props.user?.profession === "interior_designer") && (
+        {(data.userDetails?.profession === "drone_operator" ||
+          data.userDetails?.profession === "anchor" ||
+          data.userDetails?.profession === "dj" ||
+          data.userDetails?.profession === "dancer" ||
+          data.userDetails?.profession === "influencer" ||
+          data.userDetails?.profession === "actor" ||
+          data.userDetails?.profession === "actress" ||
+          data.userDetails?.profession === "interior_designer") && (
           <div className={styles.portfolio}>
             {currentWorks.map((work, i) => {
               if (work?.includes("https://youtu")) {
                 return (
                   <input
-                    type="url"
+                    type='url'
                     className={styles.input}
                     placeholder={work}
                     key={i}
@@ -425,10 +409,10 @@ const UpdatePortfolio = (props) => {
                     }}
                   >
                     <input
-                      type="file"
+                      type='file'
                       className={styles.work}
                       onChange={(e) => handleImageChange(e, i)}
-                      accept="image/jpeg,image/png"
+                      accept='image/jpeg,image/png'
                     />
                     {!images[i] && (
                       <AiOutlinePlus
@@ -619,18 +603,18 @@ const UpdatePortfolio = (props) => {
             </div> */}
           </div>
         )}
-        {(props.user?.profession === "cinematographer" ||
-          props.user?.profession === "video_editor" ||
-          props.user?.profession === "dance_teacher" ||
-          props.user?.profession === "music_teacher" ||
-          props.user?.profession === "lyricist" ||
-          props.user?.profession === "musician" ||
-          props.user?.profession === "voice_over_artist" ||
-          props.user?.profession === "vocalist") && (
+        {(data.userDetails?.profession === "cinematographer" ||
+          data.userDetails?.profession === "video_editor" ||
+          data.userDetails?.profession === "dance_teacher" ||
+          data.userDetails?.profession === "music_teacher" ||
+          data.userDetails?.profession === "lyricist" ||
+          data.userDetails?.profession === "musician" ||
+          data.userDetails?.profession === "voice_over_artist" ||
+          data.userDetails?.profession === "vocalist") && (
           <div className={styles.portfolio}>
             {currentWorks.map((work, i) => (
               <input
-                type="url"
+                type='url'
                 key={i}
                 className={styles.input}
                 placeholder={work}
@@ -787,22 +771,22 @@ const UpdatePortfolio = (props) => {
           </div>
         )}
         <button
-          type="button"
-          className="px-6 py-3 text-xl capitalize font-semibold rounded-lg bg-blue-600 text-white shadow-lg shadow-[var(--shadow)]"
+          type='button'
+          className='px-6 py-3 text-xl capitalize font-semibold rounded-lg bg-blue-600 text-white shadow-lg shadow-[var(--shadow)]'
           onClick={updateWorks}
         >
           submit
         </button>
       </div>
-      <div className="flex items-center justify-center my-16">
-        <hr className="h-0.5 w-40 border-gray-700" />
+      <div className='flex items-center justify-center my-16'>
+        <hr className='h-0.5 w-40 border-gray-700' />
       </div>
-      <div className="mt-16 mx-8 flex flex-col items-center justify-center relative">
+      <div className='mt-16 mx-8 flex flex-col items-center justify-center relative'>
         {premium === false && (
-          <div className="absolute w-full h-full flex items-center justify-center z-10 backdrop-blur-sm">
+          <div className='absolute w-full h-full flex items-center justify-center z-10 backdrop-blur-sm'>
             <Link
-              href="/freelancer-premium-plans"
-              className="text-3xl capitalize px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold"
+              href='/freelancer-premium-plans'
+              className='text-3xl capitalize px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold'
             >
               unlock now
             </Link>
@@ -814,20 +798,20 @@ const UpdatePortfolio = (props) => {
             <p className={styles.err}>Please Provide atleast 8 Works for you</p>
           )}
         </h1>
-        {(props.user?.profession === "photographer" ||
-          props.user?.profession === "photo_editor" ||
-          props.user?.profession === "model" ||
-          props.user?.profession === "makeup_artist" ||
-          props.user?.profession === "album_designer" ||
-          props.user?.profession === "web_developer" ||
-          props.user?.profession === "graphics_designer" ||
-          props.user?.profession === "mehendi_artist" ||
-          props.user?.profession === "private_tutor" ||
-          props.user?.profession === "drawing_teacher" ||
-          props.user?.profession === "painter" ||
-          props.user?.profession === "fashion_designer" ||
-          props.user?.profession === "babysitter" ||
-          props.user?.profession === "maid") && (
+        {(data.userDetails?.profession === "photographer" ||
+          data.userDetails?.profession === "photo_editor" ||
+          data.userDetails?.profession === "model" ||
+          data.userDetails?.profession === "makeup_artist" ||
+          data.userDetails?.profession === "album_designer" ||
+          data.userDetails?.profession === "web_developer" ||
+          data.userDetails?.profession === "graphics_designer" ||
+          data.userDetails?.profession === "mehendi_artist" ||
+          data.userDetails?.profession === "private_tutor" ||
+          data.userDetails?.profession === "drawing_teacher" ||
+          data.userDetails?.profession === "painter" ||
+          data.userDetails?.profession === "fashion_designer" ||
+          data.userDetails?.profession === "babysitter" ||
+          data.userDetails?.profession === "maid") && (
           <div className={styles.portfolio}>
             <div
               className={styles.addBox}
@@ -838,14 +822,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
-                id="workimg1"
+                id='workimg1'
                 onChange={(e) => handleNewImageChange(e, 0)}
-                accept="image/jpeg,image/png"
+                accept='image/jpeg,image/png'
               />
               {!newWorkImages[0] && (
-                <label htmlFor="workimg1" className="cursor-pointer">
+                <label htmlFor='workimg1' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -867,14 +851,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 1)}
-                accept="image/jpeg,image/png"
-                id="workimg2"
+                accept='image/jpeg,image/png'
+                id='workimg2'
               />
               {!newWorkImages[1] && (
-                <label htmlFor="workimg2" className="cursor-pointer">
+                <label htmlFor='workimg2' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -896,14 +880,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 2)}
-                accept="image/jpeg,image/png"
-                id="workimg3"
+                accept='image/jpeg,image/png'
+                id='workimg3'
               />
               {!newWorkImages[2] && (
-                <label htmlFor="workimg3" className="cursor-pointer">
+                <label htmlFor='workimg3' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -925,14 +909,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 3)}
-                accept="image/jpeg,image/png"
-                id="workimg4"
+                accept='image/jpeg,image/png'
+                id='workimg4'
               />
               {!newWorkImages[3] && (
-                <label htmlFor="workimg4" className="cursor-pointer">
+                <label htmlFor='workimg4' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -954,14 +938,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 8)}
-                accept="image/jpeg,image/png"
-                id="workimg5"
+                accept='image/jpeg,image/png'
+                id='workimg5'
               />
               {!newWorkImages[8] && (
-                <label htmlFor="workimg5" className="cursor-pointer">
+                <label htmlFor='workimg5' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -983,14 +967,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 9)}
-                accept="image/jpeg,image/png"
-                id="workimg6"
+                accept='image/jpeg,image/png'
+                id='workimg6'
               />
               {!newWorkImages[9] && (
-                <label htmlFor="workimg6" className="cursor-pointer">
+                <label htmlFor='workimg6' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -1012,14 +996,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 10)}
-                accept="image/jpeg,image/png"
-                id="workimg7"
+                accept='image/jpeg,image/png'
+                id='workimg7'
               />
               {!newWorkImages[10] && (
-                <label htmlFor="workimg7" className="cursor-pointer">
+                <label htmlFor='workimg7' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -1041,14 +1025,14 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 11)}
-                accept="image/jpeg,image/png"
-                id="workimg8"
+                accept='image/jpeg,image/png'
+                id='workimg8'
               />
               {!newWorkImages[11] && (
-                <label htmlFor="workimg8" className="cursor-pointer">
+                <label htmlFor='workimg8' className='cursor-pointer'>
                   <AiOutlinePlus
                     className={styles.plus}
                     style={{ color: "#1f1c1c" }}
@@ -1063,19 +1047,19 @@ const UpdatePortfolio = (props) => {
             </div>
           </div>
         )}
-        {(props.user?.profession === "drone_operator" ||
-          props.user?.profession === "anchor" ||
-          props.user?.profession === "dj" ||
-          props.user?.profession === "dancer" ||
-          props.user?.profession === "influencer" ||
-          props.user?.profession === "actor" ||
-          props.user?.profession === "actress" ||
-          props.user?.profession === "interior_designer") && (
+        {(data.userDetails?.profession === "drone_operator" ||
+          data.userDetails?.profession === "anchor" ||
+          data.userDetails?.profession === "dj" ||
+          data.userDetails?.profession === "dancer" ||
+          data.userDetails?.profession === "influencer" ||
+          data.userDetails?.profession === "actor" ||
+          data.userDetails?.profession === "actress" ||
+          data.userDetails?.profession === "interior_designer") && (
           <div className={styles.portfolio}>
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 17);
                 e.target.removeAttribute("style");
@@ -1089,9 +1073,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 18);
                 e.target.removeAttribute("style");
@@ -1105,9 +1089,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 19);
                 e.target.removeAttribute("style");
@@ -1121,9 +1105,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 20);
                 e.target.removeAttribute("style");
@@ -1145,10 +1129,10 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 8)}
-                accept="image/jpeg,image/png"
+                accept='image/jpeg,image/png'
               />
               {!newWorkImages[8] && (
                 <AiOutlinePlus
@@ -1171,10 +1155,10 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 9)}
-                accept="image/jpeg,image/png"
+                accept='image/jpeg,image/png'
               />
               {!newWorkImages[9] && (
                 <AiOutlinePlus
@@ -1197,10 +1181,10 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 10)}
-                accept="image/jpeg,image/png"
+                accept='image/jpeg,image/png'
               />
               {!newWorkImages[10] && (
                 <AiOutlinePlus
@@ -1223,10 +1207,10 @@ const UpdatePortfolio = (props) => {
               }}
             >
               <input
-                type="file"
+                type='file'
                 className={styles.work}
                 onChange={(e) => handleNewImageChange(e, 11)}
-                accept="image/jpeg,image/png"
+                accept='image/jpeg,image/png'
               />
               {!newWorkImages[11] && (
                 <AiOutlinePlus
@@ -1242,19 +1226,19 @@ const UpdatePortfolio = (props) => {
             </div>
           </div>
         )}
-        {(props.user?.profession === "cinematographer" ||
-          props.user?.profession === "video_editor" ||
-          props.user?.profession === "dance_teacher" ||
-          props.user?.profession === "music_teacher" ||
-          props.user?.profession === "lyricist" ||
-          props.user?.profession === "musician" ||
-          props.user?.profession === "voice_over_artist" ||
-          props.user?.profession === "vocalist") && (
+        {(data.userDetails?.profession === "cinematographer" ||
+          data.userDetails?.profession === "video_editor" ||
+          data.userDetails?.profession === "dance_teacher" ||
+          data.userDetails?.profession === "music_teacher" ||
+          data.userDetails?.profession === "lyricist" ||
+          data.userDetails?.profession === "musician" ||
+          data.userDetails?.profession === "voice_over_artist" ||
+          data.userDetails?.profession === "vocalist") && (
           <div className={styles.portfolio}>
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 17);
                 e.target.removeAttribute("style");
@@ -1268,9 +1252,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 18);
                 e.target.removeAttribute("style");
@@ -1284,9 +1268,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 19);
                 e.target.removeAttribute("style");
@@ -1300,9 +1284,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 20);
                 e.target.removeAttribute("style");
@@ -1316,9 +1300,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 21);
                 e.target.removeAttribute("style");
@@ -1332,9 +1316,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 22);
                 e.target.removeAttribute("style");
@@ -1348,9 +1332,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 23);
                 e.target.removeAttribute("style");
@@ -1364,9 +1348,9 @@ const UpdatePortfolio = (props) => {
               }}
             />
             <input
-              type="url"
+              type='url'
               className={styles.input}
-              placeholder="https://www.youtube.com/example"
+              placeholder='https://www.youtube.com/example'
               onChange={(e) => {
                 newGetVerificationDetails(e.target.value, 24);
                 e.target.removeAttribute("style");
@@ -1382,14 +1366,14 @@ const UpdatePortfolio = (props) => {
           </div>
         )}
         <button
-          type="button"
-          className="px-6 py-3 text-xl capitalize font-semibold rounded-lg bg-blue-600 text-white shadow-lg shadow-[var(--shadow)]"
+          type='button'
+          className='px-6 py-3 text-xl capitalize font-semibold rounded-lg bg-blue-600 text-white shadow-lg shadow-[var(--shadow)]'
           onClick={verificationDetails}
         >
           submit
         </button>
       </div>
-      <div className="w-full mt-8"></div>
+      <div className='w-full mt-8'></div>
       <Footer premium={props.user?.premium} />
     </>
   );

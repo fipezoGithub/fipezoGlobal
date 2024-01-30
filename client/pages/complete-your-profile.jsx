@@ -1,9 +1,10 @@
 import Verification from "@/components/Verification";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
+import { AuthContext } from "@/context/AuthContext";
 
 const CompleteYourProfile = (props) => {
   const [bio, setBio] = useState("");
@@ -24,6 +25,8 @@ const CompleteYourProfile = (props) => {
   const [warns, setWarns] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const { data, dispatch } = useContext(AuthContext);
 
   const getVerificationDetails = (val, index) => {
     if (index === 4) setProfilePicture(val);
@@ -95,7 +98,7 @@ const CompleteYourProfile = (props) => {
   };
 
   const verificationDetails = async (e) => {
-    if (props.user.works.length > 0) {
+    if (data.userDetails?.works.length > 0) {
       setCompleteError(false);
       return;
     }
@@ -112,13 +115,6 @@ const CompleteYourProfile = (props) => {
         works.forEach((element) => {
           data.append("works[]", element);
         });
-        // data.append("works[]", works[1]);
-        // data.append("works[]", works[2]);
-        // data.append("works[]", works[3]);
-        // data.append("works[]", works[4]);
-        // data.append("works[]", works[5]);
-        // data.append("works[]", works[6]);
-        // data.append("works[]", works[7]);
       }
       data.append("links", JSON.stringify(links));
       data.append("termsAndConditions", termsAndConditions);
@@ -136,6 +132,14 @@ const CompleteYourProfile = (props) => {
       if (responseData) {
         router.push(`/freelancer_profile`);
         props.setUser(null);
+        dispatch({
+          type: "login",
+          payload: {
+            userDetails: responseData,
+            userType: "freelancer",
+            isLoggedIn: true,
+          },
+        });
         setLoading(false);
       }
     } catch (error) {
@@ -155,7 +159,7 @@ const CompleteYourProfile = (props) => {
       />
       {loading === false ? (
         <form
-          className="flex flex-col items-center mb-24 p-8 lg:p-16 rounded-[5px] pt-8 relative top-8"
+          className='flex flex-col items-center mb-24 p-8 lg:p-16 rounded-[5px] pt-8 relative top-8'
           onSubmit={verificationDetails}
         >
           <Verification
@@ -173,14 +177,14 @@ const CompleteYourProfile = (props) => {
             profilePicError={profilePicError}
             warns={warns}
             setWarns={setWarns}
-            user={props.user}
+            user={data.userDetails}
             setUser={props.setUser}
             company={props.company}
             setCompany={props.setCompany}
-            profession={props.user?.profession}
+            profession={data.userDetails?.profession}
           />
           {completeError === true && (
-            <p className="text-xl capitalize font-bold text-red-600 mt-8">
+            <p className='text-xl capitalize font-bold text-red-600 mt-8'>
               oops! looks like you already completed your profile
             </p>
           )}

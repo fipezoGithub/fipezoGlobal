@@ -33,13 +33,13 @@ export default function Login(props) {
   const [loading, setLoading] = useState(false);
   const passwordRef = useRef();
 
-  const { dispatch } = useContext(AuthContext);
+  const { data, dispatch } = useContext(AuthContext);
 
   useEffect(() => {
-    if (props.user || props.company) {
+    if (data.isLoggedIn && data.userDetails) {
       router.push("/");
     }
-  }, [props.company, props.user, router]);
+  }, [data.isLoggedIn, router]);
 
   useEffect(() => {
     if (count === 0) {

@@ -1,9 +1,10 @@
 import Footer from "@/components/Footer";
 import Jobcard from "@/components/Jobcard";
 import Navbar from "@/components/Navbar";
+import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const MyJob = (props) => {
   const [user, setUser] = useState(props.user);
@@ -11,6 +12,8 @@ const MyJob = (props) => {
   const [appliedJob, setAppliedJob] = useState([]);
   const [showRecommendedJob, setShowRecommendedJob] = useState(true);
   const [showAppliedJob, setShowAppliedJob] = useState(false);
+
+  const { data } = useContext(AuthContext);
 
   useEffect(() => {
     const token = localStorage.getItem("user")
@@ -32,7 +35,7 @@ const MyJob = (props) => {
       const jobs = await res.json();
       setAppliedJob(jobs);
     }
-    getJobs(user.profession);
+    getJobs(data.userDetails.profession);
     getApplied();
   }, []);
 
@@ -48,16 +51,16 @@ const MyJob = (props) => {
         setUser={props.setUser}
         socket={props.socket}
       />
-      <div className="mt-16 relative flex flex-col items-center justify-center">
-        <h1 className="text-center font-bold text-lg lg:text-2xl mb-4">
+      <div className='mt-16 relative flex flex-col items-center justify-center'>
+        <h1 className='text-center font-bold text-lg lg:text-2xl mb-4'>
           My Jobs
         </h1>
-        <nav className="my-8">
-          <ul className="flex items-center gap-4">
-            <li className="group flex flex-col items-center gap-2">
+        <nav className='my-8'>
+          <ul className='flex items-center gap-4'>
+            <li className='group flex flex-col items-center gap-2'>
               <button
-                type="button"
-                className="capitalize text-lg lg:text-2xl font-medium"
+                type='button'
+                className='capitalize text-lg lg:text-2xl font-medium'
                 onClick={() => {
                   setShowAppliedJob(false);
                   setShowRecommendedJob(true);
@@ -73,10 +76,10 @@ const MyJob = (props) => {
                 }`}
               ></span>
             </li>
-            <li className="group flex flex-col items-center gap-2">
+            <li className='group flex flex-col items-center gap-2'>
               <button
-                type="button"
-                className="capitalize text-lg lg:text-2xl font-medium"
+                type='button'
+                className='capitalize text-lg lg:text-2xl font-medium'
                 onClick={() => {
                   setShowRecommendedJob(false);
                   setShowAppliedJob(true);
@@ -93,7 +96,7 @@ const MyJob = (props) => {
           </ul>
         </nav>
         {showRecommendedJob === true && (
-          <div className="flex flex-col items-center gap-8 lg:w-2/3">
+          <div className='flex flex-col items-center gap-8 lg:w-2/3'>
             {recommendedJob.length > 0 ? (
               recommendedJob
                 .toReversed()
@@ -104,23 +107,23 @@ const MyJob = (props) => {
                     key={index}
                     setJobs={setRecommendedJob}
                     company={props.company}
-                    user={props.user}
+                    user={data.userDetails}
                   />
                 ))
             ) : (
               <div>
                 <Image
-                  src="/no-job-found.png"
+                  src='/no-job-found.png'
                   width={400}
                   height={400}
-                  alt="No job found"
+                  alt='No job found'
                 />
               </div>
             )}
           </div>
         )}
         {showAppliedJob === true && (
-          <div className="flex flex-col items-center gap-8 lg:w-2/3">
+          <div className='flex flex-col items-center gap-8 lg:w-2/3'>
             {appliedJob.length > 0 ? (
               appliedJob
                 .toReversed()
@@ -130,16 +133,16 @@ const MyJob = (props) => {
                     key={index}
                     setJobs={setAppliedJob}
                     company={props.company}
-                    user={props.user}
+                    user={data.userDetails}
                   />
                 ))
             ) : (
               <div>
                 <Image
-                  src="/no-job-found.png"
+                  src='/no-job-found.png'
                   width={400}
                   height={400}
-                  alt="No job found"
+                  alt='No job found'
                 />
               </div>
             )}

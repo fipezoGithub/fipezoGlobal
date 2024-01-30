@@ -29,10 +29,10 @@ function Signup(props) {
   const [warn, setWarn] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { dispatch } = useContext(AuthContext);
+  const { data, dispatch } = useContext(AuthContext);
 
   useEffect(() => {
-    if (props.user || props.company) {
+    if (data.isLoggedIn) {
       router.push("/");
     }
   }, []);
@@ -80,6 +80,7 @@ function Signup(props) {
         });
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data));
+        dispatch({ type: "isLoggedIn" });
         router.push("/");
       } catch (error) {
         setOtpFailed(true);

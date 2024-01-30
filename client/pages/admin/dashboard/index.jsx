@@ -175,7 +175,6 @@ const Dashboard = (props) => {
           }
         );
         const data = await res.json();
-        console.log(data);
         setReferWithdrawlRequests(data);
       } catch (error) {
         console.log(error);

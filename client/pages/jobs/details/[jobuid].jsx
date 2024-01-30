@@ -202,7 +202,14 @@ const Jobuid = (props) => {
           </h1>
         </div>
         <div className='flex flex-col items-start p-8 gap-3 relative border lg:w-2/3'>
-          <div className='p-1 lg:p-2 border border-red-600 flex items-center gap-2 text-red-600'>
+          <div
+            className={
+              "p-1 lg:p-2 border flex items-center gap-2" +
+              (Final_Result > 0
+                ? " border-green-500 text-green-500"
+                : " border-red-600 text-red-600")
+            }
+          >
             <BsStopCircle />
             {Final_Result > 0 ? `${Final_Result} days left` : `Expired`}
           </div>
