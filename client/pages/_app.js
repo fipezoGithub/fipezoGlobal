@@ -9,7 +9,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AuthContextProvider } from "@/context/AuthContext";
 
-const socket = socketIO.connect(process.env.SOCKET_SERVER_URL);
+const socket = socketIO.connect(`${process.env.SOCKET_SERVER_URL}/socket`);
 
 export default function App({ Component, pageProps }) {
   const [user, setUser] = useState(null);

@@ -490,12 +490,15 @@ const http = require("http").Server(app);
 
 const socketIO = require("socket.io")(http, {
   cors: {
-    origin: "*",
+    origin: process.env.CLIENT_URl,
+    methods: ["GET", "POST"],
   },
 });
 
+const socketServer = socketIO.of("/api/socket");
+
 //Add this before the app.get() block
-socketIO.on("connection", (socket) => {
+socketServer.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   socket.on("get-notifications", async (data) => {
     try {
@@ -534,12 +537,13 @@ socketIO.on("connection", (socket) => {
           .populate("sentCompany")
           .exec();
       }
-      socketIO.emit("notifications", notifications);
+      socketServer.emit("notifications", notifications);
     } catch (error) {
       console.log(error);
       return error;
     }
   });
+
   socket.on("send-message", (data) => {
     console.log(data);
     jwt.verify(data.token, process.env.JWT_SECRET, async (err, authData) => {
@@ -547,7 +551,7 @@ socketIO.on("connection", (socket) => {
         messageId: data.messageId,
       });
       if (!messageRoom) {
-        socketIO.emit("messageResponse", "Message room not found");
+        socketServer.emit("messageResponse", "Message room not found");
         return;
       }
       if (
@@ -556,7 +560,7 @@ socketIO.on("connection", (socket) => {
           messageRoom.user != authData.user._id &&
           messageRoom.company != authData.user._id)
       ) {
-        socketIO.emit("messageResponse", "You are not authorized");
+        socketServer.emit("messageResponse", "You are not authorized");
         return;
       }
 
@@ -567,7 +571,7 @@ socketIO.on("connection", (socket) => {
       const updatedMessageRoom = await messageCollection.findOne({
         messageId: messageRoom.messageId,
       });
-      socketIO.emit("messageResponse", updatedMessageRoom);
+      socketServer.emit("messageResponse", updatedMessageRoom);
     });
   });
 
@@ -584,7 +588,7 @@ socketIO.on("connection", (socket) => {
           .populate("company")
           .exec();
 
-        socketIO.emit("messages", allMessages);
+        socketServer.emit("messages", allMessages);
       }
     } catch (error) {
       console.log(error);
