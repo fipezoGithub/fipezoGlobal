@@ -490,7 +490,7 @@ const http = require("http").Server(app);
 
 const socketIO = require("socket.io")(http, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: "*",
   },
 });
 

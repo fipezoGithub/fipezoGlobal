@@ -465,6 +465,14 @@ export default function Navbar(props) {
                   My Profile
                 </Link>
                 <Link
+                  href='/chats'
+                  className={
+                    styles.btn + " flex items-center justify-center gap-2"
+                  }
+                >
+                  Chats <IoChatbox size={"1.2em"} />
+                </Link>
+                <Link
                   href='/my_notifications'
                   className={
                     styles.btn + " flex items-center justify-center gap-2"

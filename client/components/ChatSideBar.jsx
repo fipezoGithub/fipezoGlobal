@@ -14,7 +14,6 @@ const ChatSideBar = (props) => {
           `${process.env.SERVER_URL}/allchatrooms/${props.user.userDetails?._id}?type=${props.user.userType}`
         );
         const respData = await res.json();
-        console.log(respData);
         setChatRooms(respData);
       } catch (error) {
         console.log(error);
