@@ -143,23 +143,27 @@ export default function Navbar(props) {
         </Link>
       </div>
       <div className='lg:hidden flex gap-2'>
-        <Link
-          href='/chats'
-          className={"flex items-center justify-center gap-2 relative"}
-        >
-          <IoChatbox size={"1.6em"} />
-        </Link>
-        <Link
-          href='/my_notifications'
-          className={"flex items-center justify-center gap-2 relative"}
-        >
-          <FaBell size={"1.6em"} />{" "}
-          {notificationCount > 0 && (
-            <span className='absolute right-0 top-0 bg-red-500 font-bold rounded-full w-4 h-4 text-center text-sm'>
-              {notificationCount}
-            </span>
-          )}
-        </Link>
+        {data.isLoggedIn && (
+          <>
+            <Link
+              href='/chats'
+              className={"flex items-center justify-center gap-2 relative"}
+            >
+              <IoChatbox size={"1.6em"} />
+            </Link>
+            <Link
+              href='/my_notifications'
+              className={"flex items-center justify-center gap-2 relative"}
+            >
+              <FaBell size={"1.6em"} />{" "}
+              {notificationCount > 0 && (
+                <span className='absolute right-0 top-0 bg-red-500 font-bold rounded-full w-4 h-4 text-center text-sm'>
+                  {notificationCount}
+                </span>
+              )}
+            </Link>
+          </>
+        )}
 
         <button type='button' onClick={handelSideNav}>
           <RiMenu3Fill size={"2em"} />

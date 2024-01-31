@@ -490,7 +490,7 @@ const http = require("http").Server(app);
 
 const socketIO = require("socket.io")(http, {
   cors: {
-    origin: process.env.CLIENT_URl,
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST"],
   },
 });
@@ -545,7 +545,6 @@ socketServer.on("connection", (socket) => {
   });
 
   socket.on("send-message", (data) => {
-    console.log(data);
     jwt.verify(data.token, process.env.JWT_SECRET, async (err, authData) => {
       const messageRoom = await messageCollection.findOne({
         messageId: data.messageId,
