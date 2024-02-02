@@ -170,17 +170,25 @@ async function emailLoginController(req, res) {
     if (!existingUser && !existingFreelancer && !existingCompany) {
       return res.status(403).json({ message: "user not found" });
     } else {
-      let user = await userCollection.findOne({ email: req.body.email });
-      if (!user) {
-        user = await freelancerCollection.findOne({ email: req.body.email });
-        if (!user) {
-          user = await companyCollection.findOne({
-            companyemail: req.body.email,
-          });
-          if (!user) {
-            return res.sendStatus(403);
-          }
-        }
+      // let user = await userCollection.findOne({ email: req.body.email });
+      // if (!user) {
+      //   user = await freelancerCollection.findOne({ email: req.body.email });
+      //   if (!user) {
+      //     user = await companyCollection.findOne({
+      //       companyemail: req.body.email,
+      //     });
+      //     if (!user) {
+      //       return res.status(403).send("User not found");
+      //     }
+      //   }
+      // }
+      let user;
+      if (existingUser) {
+        user = existingUser;
+      } else if (existingCompany) {
+        user = existingCompany;
+      } else {
+        user = existingFreelancer;
       }
       if (await user.matchPassword(password)) {
         jwt.sign({ user }, secret, { expiresIn: "30d" }, (err, token) => {
