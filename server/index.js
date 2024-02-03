@@ -223,6 +223,12 @@ const {
   getChatRoomOfUser,
 } = require("./controllers/messageController");
 const messageCollection = require("./models/messageModel");
+const {
+  newPremiumHireRequest,
+  getAllPendingRequest,
+  changeStatusOfRequest,
+  getUserPremiumHires,
+} = require("./controllers/premiumHireController");
 
 // Setting up the routes
 
@@ -446,6 +452,12 @@ app.put(
 app.post("/api/createmessagebox", createMessageRoom);
 app.put("/api/send-message", verifyToken, sendMessages);
 app.get("/api/allchatrooms/:userId", getChatRoomOfUser);
+
+//Premium Hire Routes
+app.post("/api/hire/premium", verifyToken, newPremiumHireRequest);
+app.get("/api/hire-request/premium", verifyToken, getAllPendingRequest);
+app.put("/api/hire/premium/:reqId", verifyToken, changeStatusOfRequest);
+app.get("/api/hire/premium/user", verifyToken, getUserPremiumHires);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

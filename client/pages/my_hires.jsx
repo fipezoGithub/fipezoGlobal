@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import DialogBox from "@/components/DialogBox";
 import Head from "next/head";
+import PremiumHireCard from "@/components/PremiumHireCard";
 
 export default function My_hires(props) {
   const [user, setUser] = useState(null);
@@ -19,7 +20,9 @@ export default function My_hires(props) {
   const [notaccepted, setNotaccepted] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [declined, setDeclined] = useState(false);
+  const [premiumHires, setPremiumHires] = useState([]);
   const [freelancerPhone, setFreelancerPhone] = useState(null);
+  const [hireBox, setHireBox] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -60,6 +63,20 @@ export default function My_hires(props) {
         .then((res) => res.json())
         .then((data) => {
           setHires(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      fetch(`${process.env.SERVER_URL}/hire/premium/user`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPremiumHires(data);
         })
         .catch((error) => {
           console.error(error);
@@ -117,34 +134,60 @@ export default function My_hires(props) {
       />
       {notaccepted && (
         <DialogBox
-          icon="no"
-          title="Sorry!😔"
-          text="Freelancer has not accepted your request yet."
+          icon='no'
+          title='Sorry!😔'
+          text='Freelancer has not accepted your request yet.'
           handleDialogBox={setNotaccepted}
         />
       )}
       {accepted && (
         <DialogBox
-          title="Congratulations!"
+          title='Congratulations!'
           text={`Freelancer has accepted your request. Contact on ${freelancerPhone} as soon as possible.`}
           handleDialogBox={setAccepted}
         />
       )}
       {declined && (
         <DialogBox
-          icon="no"
-          title="Sorry!😔"
-          text="Freelancer has declined your request."
+          icon='no'
+          title='Sorry!😔'
+          text='Freelancer has declined your request.'
           handleDialogBox={setDeclined}
         />
       )}
       <div className={styles.requests}>
         <h1 className={styles.heading}>My Requests</h1>
+        <div className='my-8'>
+          <ul className='flex items-center justify-between gap-12'>
+            <li
+              className='capitalize text-3xl font-semibold cursor-pointer relative flex flex-col items-center gap-1 group'
+              onClick={() => setHireBox(true)}
+            >
+              hire
+              <span
+                className={`h-0.5 group-hover:w-full bg-black transition-[width] duration-300 ${
+                  hireBox === true ? "w-full" : "w-0"
+                }`}
+              ></span>
+            </li>
+            <li
+              className='capitalize text-3xl font-semibold cursor-pointer relative flex flex-col items-center gap-1 group'
+              onClick={() => setHireBox(false)}
+            >
+              confirm hire
+              <span
+                className={`h-0.5 w-0 group-hover:w-full bg-black transition-[width] duration-300 ${
+                  hireBox === false ? "w-full" : "w-0"
+                }`}
+              ></span>
+            </li>
+          </ul>
+        </div>
         {hires.length === 0 ? (
           <div className={styles.noRequestsImage}>
             <Image
-              src="/noRequests.webp"
-              alt="no-request"
+              src='/noRequests.webp'
+              alt='no-request'
               width={500}
               height={500}
             />
@@ -159,7 +202,7 @@ export default function My_hires(props) {
               button below.
             </p>
             <Link
-              href="/explore/freelancers"
+              href='/explore/freelancers'
               style={{
                 fontSize: "18px",
                 textAlign: "center",
@@ -171,7 +214,7 @@ export default function My_hires(props) {
               Hire freelancers for your project.
             </Link>
           </div>
-        ) : (
+        ) : hireBox === true ? (
           <div className={styles.requestsContainer}>
             {hires.map((hire, i) => {
               return (
@@ -185,6 +228,12 @@ export default function My_hires(props) {
               );
             })}
           </div>
+        ) : (
+          <div className='flex items-center justify-center gap-4 flex-wrap'>
+            {premiumHires.map((hire, i) => {
+              return <PremiumHireCard key={i} hire={hire} />;
+            })}
+          </div>
         )}
         {showDeleteBox && (
           <div className={styles.deleteBox}>
@@ -192,7 +241,7 @@ export default function My_hires(props) {
               reqId={reqId}
               setShowDeleteBox={setShowDeleteBox}
               handleDeleteAccount={handleDeleteAccount}
-              delete="Request"
+              delete='Request'
             />
           </div>
         )}

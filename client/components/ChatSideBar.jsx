@@ -132,6 +132,11 @@ const ChatSideBar = (props) => {
               </h1>
             </Link>
           ))}
+        {chatRooms.length <= 0 && (
+          <div className='md:hidden flex items-center justify-center'>
+            <p className='text-xl font-medium'>No recent chats found</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -22,15 +22,15 @@ export default function ProfileCard(props) {
     <Link
       className={styles.profileCard}
       href={`/profile/${props.profile.uid}`}
-      target="_blank"
+      target='_blank'
     >
       <div className={styles.cover + " relative overflow-hidden"}>
         <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}`}
-          alt="cover picture"
+          alt='cover picture'
           fill={true}
           style={{ objectPosition: position.coverPicture }}
-          className="w-full h-24 absolute top-0 object-cover"
+          className='w-full h-24 absolute top-0 object-cover'
         />
         {props.profile.location && (
           <div className={styles.tag + " z-50"}>
@@ -53,10 +53,10 @@ export default function ProfileCard(props) {
       <div className={styles.image + " overflow-hidden"}>
         <Image
           src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.profilePicture}`}
-          alt="profile-dp"
+          alt='profile-dp'
           width={800}
           height={800}
-          className="h-full w-full object-cover"
+          className='h-full w-full object-cover'
         />
       </div>
       <div className={styles.right}>
@@ -70,7 +70,7 @@ export default function ProfileCard(props) {
       </div>
       <h3 className={styles.name}>
         <span
-          className="w-22 truncate capitalize"
+          className='w-22 truncate capitalize'
           style={{ maxWidth: "10rem", letterSpacing: "0" }}
         >
           {props.profile.firstname.toLowerCase()}{" "}
@@ -80,10 +80,10 @@ export default function ProfileCard(props) {
           className={styles.blueTick}
           onMouseOver={() => setDisplay("flex")}
           onMouseOut={() => setDisplay("none")}
-          src="/tick.png"
-          height="40"
-          width="40"
-          alt="verified-tick"
+          src='/tick.png'
+          height='40'
+          width='40'
+          alt='verified-tick'
         />
         {props.profile.featured && (
           <span className={styles.container}>
@@ -114,18 +114,18 @@ export default function ProfileCard(props) {
         )}
         {profession === "Model" && (
           <Image
-            src="/model-logo.png"
+            src='/model-logo.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="model-logo"
+            alt='model-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Anchor" && (
           <Image
-            src="/anchor.png"
+            src='/anchor.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="anchor-logo"
+            alt='anchor-logo'
             width={200}
             height={200}
           />
@@ -138,153 +138,162 @@ export default function ProfileCard(props) {
         )}
         {profession === "Dj" && (
           <Image
-            src="/DJ.png"
+            src='/DJ.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dj-logo"
+            alt='dj-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Dancer" && (
           <Image
-            src="/Dancer.png"
+            src='/Dancer.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dancer-logo"
+            alt='dancer-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Actor" && (
           <Image
-            src="/actor.png"
+            src='/actor.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="actor-logo"
+            alt='actor-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Actress" && (
           <Image
-            src="/actress.png"
+            src='/actress.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="actress-logo"
+            alt='actress-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Babysitter" && (
           <Image
-            src="/babysitter.png"
+            src='/babysitter.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="actress-logo"
+            alt='actress-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Influencer" && (
           <Image
-            src="/Influencer.fipezo.png"
+            src='/Influencer.fipezo.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="influencer-logo"
+            alt='influencer-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Graphics Designer" && (
           <Image
-            src="/graphics-designer.png"
+            src='/graphics-designer.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="graphics-designer-logo"
+            alt='graphics-designer-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Mehendi Artist" && (
           <Image
-            src="/mehendi-artist-logo.png"
+            src='/mehendi-artist-logo.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="mehendi-artist-logo"
+            alt='mehendi-artist-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Drawing Teacher" && (
           <Image
-            src="/drawing_teacher.png"
+            src='/drawing_teacher.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="drawing-teacher-logo"
+            alt='drawing-teacher-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Dance Teacher" && (
           <Image
-            src="/dance-teacher.png"
+            src='/dance-teacher.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="dance-teacher-logo"
+            alt='dance-teacher-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Painter" && (
           <Image
-            src="/painter.png"
+            src='/painter.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="painter-logo"
+            alt='painter-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Maid" && (
           <Image
-            src="/maid.png"
+            src='/maid.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="maid-logo"
+            alt='maid-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Lyricist" && (
           <Image
-            src="/lyricist.png"
+            src='/lyricist.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="lyricist-logo"
+            alt='lyricist-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Musician" && (
           <Image
-            src="/musician.png"
+            src='/musician.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="musician-logo"
+            alt='musician-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Voice Over Artist" && (
           <Image
-            src="/voice-over-artist.png"
+            src='/voice-over-artist.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="voice-over-artist-logo"
+            alt='voice-over-artist-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Fashion Designer" && (
           <Image
-            src="/fashion-designer.png"
+            src='/fashion-designer.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="fashion-designer-logo"
+            alt='fashion-designer-logo'
             width={200}
             height={200}
           />
         )}
         {profession === "Vocalist" && (
           <Image
-            src="/vocalist.png"
+            src='/vocalist.png'
             className={styles.logo + " w-[0.7rem] md:w-6"}
-            alt="vocalist-logo"
+            alt='vocalist-logo'
+            width={200}
+            height={200}
+          />
+        )}
+        {profession === "Interior Designer" && (
+          <Image
+            src='/interior_designer.png'
+            className={styles.logo + " w-[0.7rem] md:w-6"}
+            alt='interior-designer-logo'
             width={200}
             height={200}
           />
@@ -295,9 +304,9 @@ export default function ProfileCard(props) {
         {profession === "Music Teacher" && (
           <MdOutlineQueueMusic className={styles.logo + " w-[0.7rem] md:w-6"} />
         )}
-        <h4>{profession}</h4>
+        <h4 className='text-center'>{profession}</h4>
         <div className={styles.rate}>
-          <p className="whitespace-nowrap">
+          <p className='whitespace-nowrap'>
             Rs.{props.profile.rate} /{" "}
             {(profession === "Actor" ||
               profession === "Actress" ||

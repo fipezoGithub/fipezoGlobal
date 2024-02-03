@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Cover from "@/components/Cover";
 import ProfileBioCard from "@/components/ProfileBioCard";
 import Details from "@/components/Details";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "@/styles/Profile.module.css";
 import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
@@ -14,6 +14,8 @@ import DialogBox from "@/components/DialogBox";
 import Modal from "@/components/Modal";
 import Head from "next/head";
 import SimilarFreelancer from "@/components/SimilarFreelancer";
+import { AuthContext } from "@/context/AuthContext";
+import { FaAngleDown, FaInfoCircle } from "react-icons/fa";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -38,6 +40,8 @@ export default function Name(props) {
   const [copied, setCopied] = useState(false);
   const [showDialogBox, setShowDialogBox] = useState(false);
   const [showReviewDialogBox, setShowReviewDialogBox] = useState(false);
+
+  const { data } = useContext(AuthContext);
 
   const handleClick = (item, index) => {
     if (!item.includes("works[]")) {
@@ -128,27 +132,6 @@ export default function Name(props) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   async function fetchFreelancer() {
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.SERVER_URL}/profile/freelancer/${uid}`
-  //       );
-  //       const data = await response.json();
-  //       if (data.error) {
-  //         router.push("/404");
-  //       }
-  //       setFreelancer(data);
-  //       setIsFreelancerLoaded(true);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchFreelancer();
-  //   setFreelancer(props.data);
-  //   setIsFreelancerLoaded(true);
-  // }, [uid]);
-
   useEffect(() => {
     async function fetchReviews() {
       try {
@@ -207,39 +190,39 @@ export default function Name(props) {
   };
 
   useEffect(() => {
-    if (props.user !== null && props.user?.uid === uid) {
-      router.push("/freelancer_profile");
+    if (data.isLoggedIn && data.userDetails.uid === uid) {
+      router.replace("/freelancer_profile");
     }
-  }, [props.user]);
+  }, [data.isLoggedIn]);
   return (
     <>
       <Head>
         <title>
           Fipezo | {props.data.firstname + " " + props.data.lastname}
         </title>
-        <meta name="description" content={props.data.bio}></meta>
+        <meta name='description' content={props.data.bio}></meta>
         <meta
-          property="og:title"
+          property='og:title'
           content={
             "Fipezo || " + props.data.firstname + " " + props.data.lastname
           }
         />
 
-        <meta property="og:description" content={props.data.bio} />
+        <meta property='og:description' content={props.data.bio} />
 
         <meta
-          property="og:image"
+          property='og:image'
           content={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.data.profilePicture}`}
         />
 
-        <meta property="og:type" content="profile" />
-        <meta property="og:image:type" content="image/webp" />
+        <meta property='og:type' content='profile' />
+        <meta property='og:image:type' content='image/webp' />
 
-        <meta property="og:url" content="https://fipezo.com/" />
+        <meta property='og:url' content='https://fipezo.com/' />
       </Head>
       <div className={styles.profile}>
         <Navbar
-          color="white"
+          color='white'
           checkLoggedIn={checkLoggedIn}
           user={props.user}
           company={props.company}
@@ -251,25 +234,51 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {!props.user?.uid && (
+        {!data.userDetails?.uid && (
           <div className={styles.btnBox2}>
             {!loggedIn && (
-              <Link href="/login" className={styles.btn} id={styles.hire}>
+              <Link href='/login' className={styles.btn} id={styles.hire}>
                 Hire Me
               </Link>
             )}
             {loggedIn && (
-              <button
-                className={styles.btn}
-                id={styles.hire}
-                onClick={handleHireBox}
-              >
-                Hire Me
-              </button>
+              <div className={styles.btn + " relative group"} id={styles.hire}>
+                <p className='cursor-pointer flex items-center gap-1'>
+                  &nbsp;Hire Me <FaAngleDown />
+                </p>
+                <div className='absolute top-full bg-green-600 hidden group-hover:flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
+                  <button
+                    type='button'
+                    onClick={handleHireBox}
+                    className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                  >
+                    normal hire
+                    <span className='text-sm normal-case'>
+                      Basic hiring process
+                    </span>
+                  </button>
+                  <hr className='w-full border' />
+                  <button
+                    type='button'
+                    onClick={() =>
+                      router.push({
+                        pathname: "/confirm_hiring",
+                        query: { freelancer: props.data.uid },
+                      })
+                    }
+                    className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                  >
+                    confirm hire
+                    <span className='text-sm normal-case'>
+                      Fipezo assured hiring
+                    </span>
+                  </button>
+                </div>
+              </div>
             )}
             {loggedIn && (
               <button
-                className={styles.btn}
+                className={styles.btn + " text-end"}
                 id={styles.msg}
                 onClick={() => handleReviewBox(true)}
               >
@@ -277,7 +286,7 @@ export default function Name(props) {
               </button>
             )}
             {!loggedIn && (
-              <Link href="/login" className={styles.btn} id={styles.msg}>
+              <Link href='/login' className={styles.btn} id={styles.msg}>
                 Give Review
               </Link>
             )}
@@ -305,7 +314,7 @@ export default function Name(props) {
         )}
         {showDialogBox && (
           <DialogBox
-            title="Sent Successfully!"
+            title='Sent Successfully!'
             text={`Your request has been sent to ${
               props.data.firstname + " " + props.data.lastname
             }. You will be contacted within 24 hours via sms. If you have any queries feel free to reach out to us.`}
@@ -314,8 +323,8 @@ export default function Name(props) {
         )}
         {showReviewDialogBox && (
           <DialogBox
-            title="Review Submitted Successfully!"
-            text="Thank you for the review. Your valuable feedback will help us to enhance our services and better serve our clients."
+            title='Review Submitted Successfully!'
+            text='Thank you for the review. Your valuable feedback will help us to enhance our services and better serve our clients.'
             handleDialogBox={handleReviewDialogBox}
           />
         )}
@@ -340,21 +349,58 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {!props.user?.uid && (
+          {!data.userDetails?.uid && (
             <div className={styles.btnBox}>
               {!loggedIn && (
-                <Link href="/login" className={styles.btn} id={styles.hire}>
+                <Link href='/login' className={styles.btn} id={styles.hire}>
                   Hire Me
                 </Link>
               )}
               {loggedIn && (
-                <button
-                  className={styles.btn + " pl-6 sm:pl-0"}
+                <div
+                  className={styles.btn + " relative group"}
                   id={styles.hire}
-                  onClick={handleHireBox}
                 >
-                  Hire Me
-                </button>
+                  <p className='cursor-pointer flex items-center justify-center gap-1'>
+                    Hire Me <FaAngleDown />
+                  </p>
+                  <div className='absolute top-full bg-green-600 hidden group-hover:block -right-3/4 rounded-md px-4'>
+                    <div className='relative flex items-center gap-4'>
+                      <Link
+                        href='/confirm_hiring_plans'
+                        className='absolute top-3 right-1'
+                      >
+                        <FaInfoCircle />
+                      </Link>
+                      <button
+                        type='button'
+                        onClick={handleHireBox}
+                        className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                      >
+                        hire
+                        <span className='text-sm normal-case'>
+                          Basic hiring process
+                        </span>
+                      </button>
+                      <hr className='border-2 border-neutral-400 h-28 my-2' />
+                      <button
+                        type='button'
+                        className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                        onClick={() =>
+                          router.push({
+                            pathname: "/confirm_hiring",
+                            query: { freelancer: props.data.uid },
+                          })
+                        }
+                      >
+                        confirm hire
+                        <span className='text-sm normal-case'>
+                          Fipezo assured hiring
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               )}
               {loggedIn && (
                 <button
@@ -366,12 +412,12 @@ export default function Name(props) {
                 </button>
               )}
               {!loggedIn && (
-                <Link href="/login" className={styles.btn} id={styles.msg}>
+                <Link href='/login' className={styles.btn} id={styles.msg}>
                   Give Review
                 </Link>
               )}
               {reviewBox && (
-                <div id={styles.boxContainer} className="">
+                <div id={styles.boxContainer} className=''>
                   <ReviewBox
                     handleReviewBox={handleReviewBox}
                     appendReview={appendReview}
@@ -393,8 +439,8 @@ export default function Name(props) {
             </div>
           )}
         </div>
-        <div className="flex flex-col relative">
-          <h1 className="py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold">
+        <div className='flex flex-col relative'>
+          <h1 className='py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold'>
             Similar{" "}
             {props.data.profession
               .split("_")

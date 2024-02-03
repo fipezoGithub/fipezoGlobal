@@ -1355,16 +1355,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding'
+                                  id='wedding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_ceremony")
+                                    this.handelServices(e, "wedding_ceremony")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding'
+                                  htmlFor='wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding ceremony
+                                  wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -1410,16 +1410,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding'
+                                  id='wedding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_ceremony")
+                                    this.handelServices(e, "wedding_ceremony")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding'
+                                  htmlFor='wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding ceremony
+                                  wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -1427,19 +1427,19 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='pre-weeding'
+                                  id='pre-wedding'
                                   onChange={(e) =>
                                     this.handelServices(
                                       e,
-                                      "pre_weeding_ceremony"
+                                      "pre_wedding_ceremony"
                                     )
                                   }
                                 />
                                 <label
-                                  htmlFor='pre-weeding'
+                                  htmlFor='pre-wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  pre weeding ceremony
+                                  pre wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -1644,16 +1644,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding_party'
+                                  id='wedding_party'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_party")
+                                    this.handelServices(e, "wedding_party")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding_party'
+                                  htmlFor='wedding_party'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding parties
+                                  wedding parties
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2111,16 +2111,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding_party'
+                                  id='wedding_party'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_party")
+                                    this.handelServices(e, "wedding_party")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding_party'
+                                  htmlFor='wedding_party'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding parties
+                                  wedding parties
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2272,16 +2272,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding'
+                                  id='wedding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_ceremony")
+                                    this.handelServices(e, "wedding_ceremony")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding'
+                                  htmlFor='wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding ceremony
+                                  wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2289,19 +2289,19 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='pre-weeding'
+                                  id='pre-wedding'
                                   onChange={(e) =>
                                     this.handelServices(
                                       e,
-                                      "pre_weeding_ceremony"
+                                      "pre_wedding_ceremony"
                                     )
                                   }
                                 />
                                 <label
-                                  htmlFor='pre-weeding'
+                                  htmlFor='pre-wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  pre weeding ceremony
+                                  pre wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2452,16 +2452,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding'
+                                  id='wedding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_ceremony")
+                                    this.handelServices(e, "wedding_ceremony")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding'
+                                  htmlFor='wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding
+                                  wedding
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2469,19 +2469,19 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='pre_weeding'
+                                  id='pre_wedding'
                                   onChange={(e) =>
                                     this.handelServices(
                                       e,
-                                      "pre_weeding_ceremony"
+                                      "pre_wedding_ceremony"
                                     )
                                   }
                                 />
                                 <label
-                                  htmlFor='pre_weeding'
+                                  htmlFor='pre_wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  pre weeding
+                                  pre wedding
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -2734,16 +2734,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='hodding'
+                                  id='hoarding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "hodding_design")
+                                    this.handelServices(e, "hoarding_design")
                                   }
                                 />
                                 <label
-                                  htmlFor='hodding'
+                                  htmlFor='hoarding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  hodding design
+                                  hoarding design
                                 </label>
                               </div>
                             </div>
@@ -3076,16 +3076,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='hodding_shoot'
+                                  id='hoarding_shoot'
                                   onChange={(e) =>
-                                    this.handelServices(e, "hodding_shoot")
+                                    this.handelServices(e, "hoarding_shoot")
                                   }
                                 />
                                 <label
-                                  htmlFor='hodding_shoot'
+                                  htmlFor='hoarding_shoot'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  hodding shoot
+                                  hoarding shoot
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -3670,16 +3670,16 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='weeding'
+                                  id='wedding'
                                   onChange={(e) =>
-                                    this.handelServices(e, "weeding_ceremony")
+                                    this.handelServices(e, "wedding_ceremony")
                                   }
                                 />
                                 <label
-                                  htmlFor='weeding'
+                                  htmlFor='wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  weeding ceremony
+                                  wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>
@@ -3687,19 +3687,19 @@ export default withRouter(
                                   type='checkbox'
                                   className='w-6 h-6'
                                   name=''
-                                  id='pre-weeding'
+                                  id='pre-wedding'
                                   onChange={(e) =>
                                     this.handelServices(
                                       e,
-                                      "pre_weeding_ceremony"
+                                      "pre_wedding_ceremony"
                                     )
                                   }
                                 />
                                 <label
-                                  htmlFor='pre-weeding'
+                                  htmlFor='pre-wedding'
                                   className='text-lg capitalize cursor-pointer'
                                 >
-                                  pre weeding ceremony
+                                  pre wedding ceremony
                                 </label>
                               </div>
                               <div className='flex items-center gap-2'>

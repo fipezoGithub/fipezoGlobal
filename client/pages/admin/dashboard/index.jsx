@@ -11,7 +11,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
-import { FaCity, FaRupeeSign, FaWpforms } from "react-icons/fa";
+import { FaCity, FaHireAHelper, FaRupeeSign, FaWpforms } from "react-icons/fa";
 import { AuthContext } from "@/context/AuthContext";
 
 const Dashboard = (props) => {
@@ -23,6 +23,7 @@ const Dashboard = (props) => {
   const [reports, setReports] = useState([]);
   const [applicants, setApplicants] = useState([]);
   const [referWithdrawlRequests, setReferWithdrawlRequests] = useState([]);
+  const [premiumHires, setPremiumHires] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
@@ -30,14 +31,19 @@ const Dashboard = (props) => {
   const [reportBox, setReportBox] = useState(false);
   const [jobApplicationBox, setJobApplicationBox] = useState(false);
   const [referPaymentBox, setReferPaymentBox] = useState(false);
+  const [premiumHiringBox, setPremiumHiringBox] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
+  const [verificationCount, setVerificationCount] = useState(0);
+  const [referPaymentCount, setReferPaymentCount] = useState(0);
+  const [premiumHiringCount, setPremiumHiringCount] = useState(0);
   const router = useRouter();
 
   const { data } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!data.userDetails || !data.userDetails.phone === 3335573725) {
+    if (!data.userDetails && !data.userDetails.phone === 3335573725) {
       router.push("/");
+      return;
     }
 
     const token = localStorage.getItem("user")
@@ -60,8 +66,11 @@ const Dashboard = (props) => {
               },
             }
           );
-          const data = await response.json();
-          setFreelancers(data.reverse());
+          const respData = await response.json();
+          setFreelancers(respData.reverse());
+          if (respData.length > 0) {
+            setVerificationCount((prev) => prev + respData.length);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -80,8 +89,11 @@ const Dashboard = (props) => {
               },
             }
           );
-          const data = await response.json();
-          setCompanies(data.reverse());
+          const respData = await response.json();
+          setCompanies(respData.reverse());
+          if (respData.length > 0) {
+            setVerificationCount((prev) => prev + respData.length);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -174,8 +186,33 @@ const Dashboard = (props) => {
             },
           }
         );
-        const data = await res.json();
-        setReferWithdrawlRequests(data);
+        const respData = await res.json();
+        setReferWithdrawlRequests(respData);
+        if (respData.length > 0) {
+          setReferPaymentCount((prev) => prev + respData.length);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function getPremiumHireRequest() {
+      try {
+        const res = await fetch(
+          `${process.env.SERVER_URL}/hire-request/premium`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const respData = await res.json();
+        console.log(respData);
+        setPremiumHires(respData);
+        if (respData.length > 0) {
+          setPremiumHiringCount((prev) => prev + respData.length);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -189,13 +226,15 @@ const Dashboard = (props) => {
     getReports();
     getJobApplications();
     getReferRequest();
-  }, [data.isLoggedIn, router]);
+    getPremiumHireRequest();
+  }, [data.isLoggedIn, data.userDetails, router]);
 
   const updateFreelancers = (id) => {
     const newFreelancers = freelancers.filter((freelancer) => {
       return freelancer._id !== id;
     });
     setFreelancers(newFreelancers);
+    setVerificationCount((prev) => prev - 1);
   };
 
   const updateCompanies = (id) => {
@@ -203,6 +242,7 @@ const Dashboard = (props) => {
       return company._id !== id;
     });
     setCompanies(newCompanies);
+    setVerificationCount((prev) => prev - 1);
   };
 
   const updateUPIRequest = (id) => {
@@ -271,6 +311,29 @@ const Dashboard = (props) => {
     }
   }
 
+  async function updatePremiumRequest(id) {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/hire/premium/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const respData = await res.json();
+      const requests = premiumHires.filter((freelancer) => {
+        return freelancer._id !== id;
+      });
+      setPremiumHires(requests);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -297,7 +360,7 @@ const Dashboard = (props) => {
           <div className='fixed md:static left-0 top-28'>
             <ul className='flex flex-col gap-2 bg-white p-2'>
               <li
-                className={`px-4 py-2 ${
+                className={`px-4 py-2 relative ${
                   verificationBox === true &&
                   "bg-slate-500 text-white rounded-2xl shadow-lg"
                 }`}
@@ -313,14 +376,49 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setVerificationBox(true);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <MdVerified />
                   verification
                 </button>
+                {verificationCount > 0 && (
+                  <span className='absolute top-[22%] right-4 bg-red-500 rounded-full w-6 h-6 text-center font-medium text-sm'>
+                    {verificationCount}
+                  </span>
+                )}
               </li>
               <li
-                className={`px-4 py-2 ${
+                className={`px-4 py-2 relative ${
+                  premiumHiringBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
+                  onClick={() => {
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
+                    setReferPaymentBox(false);
+                    setVerificationBox(false);
+                    setJobApplicationBox(false);
+                    setPremiumHiringBox(true);
+                  }}
+                >
+                  <FaHireAHelper />
+                  premium hiring
+                </button>
+                {premiumHiringCount > 0 && (
+                  <span className='absolute top-[22%] right-4 bg-red-500 rounded-full w-6 h-6 text-center font-medium text-sm'>
+                    {premiumHiringCount}
+                  </span>
+                )}
+              </li>
+              <li
+                className={`px-4 py-2 relative ${
                   referPaymentBox === true &&
                   "bg-slate-500 text-white rounded-2xl shadow-lg"
                 }`}
@@ -336,11 +434,17 @@ const Dashboard = (props) => {
                     setReferPaymentBox(true);
                     setVerificationBox(false);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <FaRupeeSign />
                   refer payment
                 </button>
+                {referPaymentCount > 0 && (
+                  <span className='absolute top-[22%] right-4 bg-red-500 rounded-full w-6 h-6 text-center font-medium text-sm'>
+                    {referPaymentCount}
+                  </span>
+                )}
               </li>
               <li
                 className={`px-4 py-2 ${
@@ -359,6 +463,7 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setCallbackBox(true);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <IoCall />
@@ -382,6 +487,7 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setContactRequestBox(true);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <MdContactPhone />
@@ -405,6 +511,7 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setSubmittedCityBox(true);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <FaCity />
@@ -428,6 +535,7 @@ const Dashboard = (props) => {
                     setReportBox(true);
                     setReferPaymentBox(false);
                     setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <MdReport />
@@ -451,6 +559,7 @@ const Dashboard = (props) => {
                     setReportBox(false);
                     setReferPaymentBox(false);
                     setJobApplicationBox(true);
+                    setPremiumHiringBox(false);
                   }}
                 >
                   <FaWpforms />
@@ -558,6 +667,79 @@ const Dashboard = (props) => {
                     ))}
                 </tbody>
               </table>
+            </div>
+          )}
+          {premiumHiringBox === true && (
+            <div className='flex flex-wrap gap-4 items-center justify-center w-full'>
+              {premiumHires.map((list, index) => (
+                <div
+                  key={index}
+                  className='flex flex-col items-start gap-4 border px-6 py-4 rounded-md shadow-lg'
+                >
+                  <h1 className='self-start text-center w-full text-2xl capitalize font-semibold'>
+                    task details
+                  </h1>
+                  <h2 className='capitalize text-lg'>
+                    client name :{" "}
+                    <span className='font-bold'>{list.fullName}</span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    client phone number :{" "}
+                    <span className='font-bold'>{list.phone}</span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    requested freelancer :{" "}
+                    <span className='font-bold'>
+                      {list.freelancer.firstname +
+                        " " +
+                        list.freelancer.lastname}
+                    </span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    requested freelancer profession:{" "}
+                    <span className='font-bold'>
+                      {list.freelancer.profession.split("_").join(" ")}
+                    </span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    requested freelancer location:{" "}
+                    <span className='font-bold'>
+                      {list.freelancer.location}
+                    </span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    client&apos;s required date :{" "}
+                    <span className='font-bold'>
+                      {new Date(list.reuireDate).toDateString()}
+                    </span>
+                  </h2>
+                  <h2 className='capitalize text-lg'>
+                    event address:{" "}
+                    <span className='font-bold'>{list.address}</span>
+                  </h2>
+                  <div className='flex items-center gap-2'>
+                    <a
+                      href={`tel:+91${list.phone}`}
+                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
+                    >
+                      call client
+                    </a>
+                    <a
+                      href={`tel:+91${list.freelancer.phone}`}
+                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
+                    >
+                      call freelancer
+                    </a>
+                    <button
+                      type='button'
+                      onClick={() => updatePremiumRequest(list._id)}
+                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
+                    >
+                      mark as complete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
           {callbackBox === true && (

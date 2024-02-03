@@ -666,17 +666,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding'
+                                id='wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_ceremony")
+                                  handelServices(e, "wedding_ceremony")
                                 }
-                                checked={services.includes("weeding_ceremony")}
+                                checked={services.includes("wedding_ceremony")}
                               />
                               <label
-                                htmlFor='weeding'
+                                htmlFor='wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding ceremony
+                                wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -724,17 +724,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding'
+                                id='wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_ceremony")
+                                  handelServices(e, "wedding_ceremony")
                                 }
-                                checked={services.includes("weeding_ceremony")}
+                                checked={services.includes("wedding_ceremony")}
                               />
                               <label
-                                htmlFor='weeding'
+                                htmlFor='wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding ceremony
+                                wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -742,19 +742,19 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='pre-weeding'
+                                id='pre-wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "pre_weeding_ceremony")
+                                  handelServices(e, "pre_wedding_ceremony")
                                 }
                                 checked={services.includes(
-                                  "pre_weeding_ceremony"
+                                  "pre_wedding_ceremony"
                                 )}
                               />
                               <label
-                                htmlFor='pre-weeding'
+                                htmlFor='pre-wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                pre weeding ceremony
+                                pre wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -970,17 +970,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding_party'
+                                id='wedding_party'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_party")
+                                  handelServices(e, "wedding_party")
                                 }
-                                checked={services.includes("weeding_party")}
+                                checked={services.includes("wedding_party")}
                               />
                               <label
-                                htmlFor='weeding_party'
+                                htmlFor='wedding_party'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding parties
+                                wedding parties
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -1432,17 +1432,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding_party'
+                                id='wedding_party'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_party")
+                                  handelServices(e, "wedding_party")
                                 }
-                                checked={services.includes("weeding_party")}
+                                checked={services.includes("wedding_party")}
                               />
                               <label
-                                htmlFor='weeding_party'
+                                htmlFor='wedding_party'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding parties
+                                wedding parties
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -1602,17 +1602,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding'
+                                id='wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_ceremony")
+                                  handelServices(e, "wedding_ceremony")
                                 }
-                                checked={services.includes("weeding_ceremony")}
+                                checked={services.includes("wedding_ceremony")}
                               />
                               <label
-                                htmlFor='weeding'
+                                htmlFor='wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding ceremony
+                                wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -1620,19 +1620,19 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='pre-weeding'
+                                id='pre-wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "pre_weeding_ceremony")
+                                  handelServices(e, "pre_wedding_ceremony")
                                 }
                                 checked={services.includes(
-                                  "pre_weeding_ceremony"
+                                  "pre_wedding_ceremony"
                                 )}
                               />
                               <label
-                                htmlFor='pre-weeding'
+                                htmlFor='pre-wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                pre weeding ceremony
+                                pre wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -1790,17 +1790,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding'
+                                id='wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "weeding_ceremony")
+                                  handelServices(e, "wedding_ceremony")
                                 }
-                                checked={services.includes("weeding_ceremony")}
+                                checked={services.includes("wedding_ceremony")}
                               />
                               <label
-                                htmlFor='weeding'
+                                htmlFor='wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding
+                                wedding
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -1808,19 +1808,19 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='pre_weeding'
+                                id='pre_wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "pre_weeding_ceremony")
+                                  handelServices(e, "pre_wedding_ceremony")
                                 }
                                 checked={services.includes(
-                                  "pre_weeding_ceremony"
+                                  "pre_wedding_ceremony"
                                 )}
                               />
                               <label
-                                htmlFor='pre_weeding'
+                                htmlFor='pre_wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                pre weeding
+                                pre wedding
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -2082,17 +2082,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='hodding'
+                                id='hoarding'
                                 onChange={(e) =>
-                                  handelServices(e, "hodding_design")
+                                  handelServices(e, "hoarding_design")
                                 }
-                                checked={services.includes("hodding_design")}
+                                checked={services.includes("hoarding_design")}
                               />
                               <label
-                                htmlFor='hodding'
+                                htmlFor='hoarding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                hodding design
+                                hoarding design
                               </label>
                             </div>
                           </div>
@@ -2430,17 +2430,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='hodding_shoot'
+                                id='hoarding_shoot'
                                 onChange={(e) =>
-                                  handelServices(e, "hodding_shoot")
+                                  handelServices(e, "hoarding_shoot")
                                 }
-                                checked={services.includes("hodding_shoot")}
+                                checked={services.includes("hoarding_shoot")}
                               />
                               <label
-                                htmlFor='hodding_shoot'
+                                htmlFor='hoarding_shoot'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                hodding shoot
+                                hoarding shoot
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -3026,17 +3026,17 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='weeding'
+                                id='wedding'
                                 onChange={(e) =>
                                   handelServices(e, "family_portrait")
                                 }
                                 checked={services.includes("family_portrait")}
                               />
                               <label
-                                htmlFor='weeding'
+                                htmlFor='wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                weeding ceremony
+                                wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>
@@ -3044,19 +3044,19 @@ const ProfileSetting = (props) => {
                                 type='checkbox'
                                 className='w-6 h-6'
                                 name=''
-                                id='pre-weeding'
+                                id='pre-wedding'
                                 onChange={(e) =>
-                                  handelServices(e, "pre_weeding_ceremony")
+                                  handelServices(e, "pre_wedding_ceremony")
                                 }
                                 checked={services.includes(
-                                  "pre_weeding_ceremony"
+                                  "pre_wedding_ceremony"
                                 )}
                               />
                               <label
-                                htmlFor='pre-weeding'
+                                htmlFor='pre-wedding'
                                 className='text-lg capitalize cursor-pointer'
                               >
-                                pre weeding ceremony
+                                pre wedding ceremony
                               </label>
                             </div>
                             <div className='flex items-center gap-2'>

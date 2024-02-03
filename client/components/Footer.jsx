@@ -524,6 +524,9 @@ const Footer = (props) => {
                 </Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
+                <Link href='/confirm_hiring_plans'>Fipezo Comfirm hire</Link>
+              </li>
+              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
                 <Link href='/referandearn'>refer &amp; earn</Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
