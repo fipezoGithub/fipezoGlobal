@@ -101,6 +101,15 @@ const Profile = (props) => {
           </div>
 
           <div className={style.options}>
+            {((data.userDetails && !data.userDetails?.uid) ||
+              data.userDetails?.companyname) && (
+              <Link
+                href='/my_wishlist'
+                className={style.option + " flex items-center gap-2"}
+              >
+                Wishlist
+              </Link>
+            )}
             {!data.userDetails?.companyphone && data.userDetails?.uid && (
               <Link
                 className={style.option + " flex items-center gap-2"}

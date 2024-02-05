@@ -35,7 +35,7 @@ export default function Chats(props) {
       props.socket.on(onEventName, (result) => {
         resolve(result);
       });
-      setTimeout(reject, 1000);
+      setTimeout(reject, 2000);
     });
   }
 

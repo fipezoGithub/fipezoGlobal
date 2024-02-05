@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "messagecollection",
     },
+    wishlist: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+    },
   },
   {
     timestamps: true,

@@ -1,66 +1,22 @@
 import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 import styles from "../styles/ProfileCard.module.css";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { ImCamera } from "react-icons/im";
-import { FaVideo, FaStar, FaHeart } from "react-icons/fa";
+import { FaVideo, FaStar } from "react-icons/fa";
 import { TbDrone, TbPhotoEdit } from "react-icons/tb";
 import { GiPaintBrush, GiTeacher } from "react-icons/gi";
 import { BiPhotoAlbum } from "react-icons/bi";
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
 import { MdMovieEdit, MdOutlineQueueMusic, MdWebhook } from "react-icons/md";
-import { IoLocationSharp } from "react-icons/io5";
-import { useRouter } from "next/router";
-import { CiHeart } from "react-icons/ci";
-import { AuthContext } from "@/context/AuthContext";
+import { IoLocationSharp, IoTrashBinSharp } from "react-icons/io5";
 
-export default function ProfileCard(props) {
-  const profession = props.profile.profession
+const WishlistCard = ({ user, setWishList }) => {
+  const profession = user.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
   const [display, setDisplay] = useState("none");
-  const [wishListed, setWishListed] = useState(false);
-  const router = useRouter();
-  const position = JSON.parse(props.profile.pictureStyle);
-
-  const { data } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!data.userDetails) {
-      return;
-    }
-    if (data.userDetails.wishlist?.includes(props.profile._id)) {
-      setWishListed(true);
-    }
-  }, [data.userDetails, wishListed]);
-
-  async function addWishList(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-    try {
-      const res = await fetch(
-        `${process.env.SERVER_URL}/freelancer/wishlist/add`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ freelancer: props.profile._id }),
-        }
-      );
-      const respData = await res.json();
-      if (res.ok) {
-        setWishListed(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   async function removeWishList(e) {
     e.preventDefault();
@@ -77,12 +33,12 @@ export default function ProfileCard(props) {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ freelancer: props.profile._id }),
+          body: JSON.stringify({ freelancer: user._id }),
         }
       );
       const respData = await res.json();
       if (res.ok) {
-        setWishListed(false);
+        setWishList([]);
       }
     } catch (error) {
       console.log(error);
@@ -92,50 +48,36 @@ export default function ProfileCard(props) {
   return (
     <Link
       className={styles.profileCard}
-      href={`/profile/${props.profile.uid}`}
+      href={`/profile/${user.uid}`}
       target='_blank'
     >
       <div className={styles.cover + " relative overflow-hidden"}>
         <Image
-          src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.coverPicture}`}
+          src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${user.coverPicture}`}
           alt='cover picture'
           fill={true}
-          style={{ objectPosition: position.coverPicture }}
           className='w-full h-24 absolute top-0 object-cover'
         />
-        {data.isLoggedIn &&
-          router.asPath.match(/explore/gi) &&
-          data.userType !== "freelancer" &&
-          (!wishListed ? (
-            <button
-              type='button'
-              onClick={addWishList}
-              className='text-xl md:text-3xl text-white absolute top-1 left-1 self-start group flex items-center gap-2'
-            >
-              <CiHeart />
-              <p className='hidden group-hover:block text-xs capitalize bg-black rounded-md p-2'>
-                add to wishList
-              </p>
-            </button>
-          ) : (
-            <button
-              type='button'
-              onClick={removeWishList}
-              className='text-xl md:text-3xl text-red-500 absolute top-1 left-1 self-start group flex items-center gap-2'
-            >
-              <FaHeart />
-            </button>
-          ))}
-        {props.profile.location && (
+        <button
+          type='button'
+          onClick={removeWishList}
+          className='text-lg md:text-2xl text-red-500 absolute top-1 left-1 self-start group flex items-center gap-2'
+        >
+          <IoTrashBinSharp />
+          <p className='hidden group-hover:block text-white text-xs capitalize bg-black rounded-md p-2'>
+            remove from wishList
+          </p>
+        </button>
+        {user.location && (
           <div className={styles.tag + " z-50"}>
             <IoLocationSharp style={{ color: "red" }} />
             &nbsp;
             <span className={styles.location + " mr-2 z-50"}>
-              {props.profile.location}
+              {user.location}
             </span>
           </div>
         )}
-        {props.profile.featured && (
+        {user.featured && (
           <div className={styles.tag + " z-50"}>
             <>
               <AiOutlineThunderbolt style={{ color: "yellow" }} />
@@ -146,7 +88,7 @@ export default function ProfileCard(props) {
       </div>
       <div className={styles.image + " overflow-hidden"}>
         <Image
-          src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${props.profile.profilePicture}`}
+          src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${user.profilePicture}`}
           alt='profile-dp'
           width={800}
           height={800}
@@ -155,11 +97,11 @@ export default function ProfileCard(props) {
       </div>
       <div className={styles.right}>
         <div className={styles.rating}>
-          <p>{props.profile.rating.toFixed(1)}</p>
+          <p>{user.rating.toFixed(1)}</p>
           <FaStar className={styles.star} />
         </div>
         <div className={styles.noOfReviews}>
-          <p className={styles.num}>({props.profile.reviewCount})</p>
+          <p className={styles.num}>({user.reviewCount})</p>
         </div>
       </div>
       <h3 className={styles.name}>
@@ -167,8 +109,7 @@ export default function ProfileCard(props) {
           className='w-22 truncate capitalize'
           style={{ maxWidth: "10rem", letterSpacing: "0" }}
         >
-          {props.profile.firstname.toLowerCase()}{" "}
-          {props.profile.lastname.toLowerCase()}
+          {user.firstname.toLowerCase()} {user.lastname.toLowerCase()}
         </span>
         <Image
           className={styles.blueTick}
@@ -179,7 +120,7 @@ export default function ProfileCard(props) {
           width='40'
           alt='verified-tick'
         />
-        {props.profile.featured && (
+        {user.verified && (
           <span className={styles.container}>
             <div className={styles.overTick} style={{ display: display }}>
               <span>Verified</span>
@@ -188,9 +129,7 @@ export default function ProfileCard(props) {
           </span>
         )}
       </h3>
-      <p className={`w-full ${styles.bio} break-words max-w-xs`}>
-        {props.profile.bio}
-      </p>
+      <p className={`w-full ${styles.bio} break-words max-w-xs`}>{user.bio}</p>
       <div className={styles.category + " px-2"}>
         {profession === "Photographer" && <ImCamera className={styles.logo} />}
         {profession === "Photo Editor" && (
@@ -401,7 +340,7 @@ export default function ProfileCard(props) {
         <h4 className='text-center'>{profession}</h4>
         <div className={styles.rate}>
           <p className='whitespace-nowrap'>
-            Rs.{props.profile.rate} /{" "}
+            Rs.{user.rate} /{" "}
             {(profession === "Actor" ||
               profession === "Actress" ||
               profession === "Model") &&
@@ -442,4 +381,6 @@ export default function ProfileCard(props) {
       </div>
     </Link>
   );
-}
+};
+
+export default WishlistCard;

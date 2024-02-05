@@ -18,6 +18,9 @@ const {
   updateUserPassword,
   googleLoginController,
   getChatRoomsOfUsers,
+  addFreelancerToWishlist,
+  removeFreelancerToWishlist,
+  getAllWishlistedFreelancers,
 } = require("./controllers/userController");
 
 const {
@@ -250,6 +253,17 @@ app.put(
 );
 app.post("/api/email/login/social", googleLoginController);
 app.get("/api/user/allchats", verifyToken, getChatRoomsOfUsers);
+app.put("/api/freelancer/wishlist/add", verifyToken, addFreelancerToWishlist);
+app.put(
+  "/api/freelancer/wishlist/remove",
+  verifyToken,
+  removeFreelancerToWishlist
+);
+app.get(
+  "/api/freelancer/wishlist/all",
+  verifyToken,
+  getAllWishlistedFreelancers
+);
 
 //Otpcontroller Routes
 app.post("/api/otp", otpController);

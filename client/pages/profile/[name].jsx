@@ -234,7 +234,8 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {!data.userDetails?.uid || data.userDetails?.companyname && (
+        {((data.userDetails && !data.userDetails?.uid) ||
+          data.userDetails?.companyname) && (
           <div className={styles.btnBox2}>
             {!loggedIn && (
               <Link href='/login' className={styles.btn} id={styles.hire}>
@@ -247,6 +248,12 @@ export default function Name(props) {
                   &nbsp;Hire Me <FaAngleDown />
                 </p>
                 <div className='absolute top-full bg-green-600 hidden group-hover:flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
+                  <Link
+                    href='/confirm_hiring_plans'
+                    className='absolute top-3 right-1'
+                  >
+                    <FaInfoCircle />
+                  </Link>
                   <button
                     type='button'
                     onClick={handleHireBox}
@@ -353,7 +360,8 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {!data.userDetails?.uid || data.userDetails?.companyname && (
+          {((data.userDetails && !data.userDetails?.uid) ||
+            data.userDetails?.companyname) && (
             <div className={styles.btnBox}>
               {!loggedIn && (
                 <Link href='/login' className={styles.btn} id={styles.hire}>
@@ -372,10 +380,13 @@ export default function Name(props) {
                     <div className='relative flex items-center gap-4'>
                       <Link
                         href='/confirm_hiring_plans'
-                        className='absolute top-3 right-1'
+                        className='absolute top-3 right-1 peer'
                       >
                         <FaInfoCircle />
                       </Link>
+                      <p className='hidden peer-hover:inline-block absolute top-2 left-full bg-black capitalize text-xs whitespace-nowrap p-2 rounded-md'>
+                        know more
+                      </p>
                       <button
                         type='button'
                         onClick={handleHireBox}

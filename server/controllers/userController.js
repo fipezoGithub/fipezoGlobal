@@ -583,6 +583,103 @@ async function getChatRoomsOfUsers(req, res) {
   }
 }
 
+//Add Wishlist
+async function addFreelancerToWishlist(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const thisUser = await userCollection.findById(authData.user._id);
+      const thisCompany = await companyCollection.findById(authData.user._id);
+      if (err || (!thisUser && !thisCompany)) {
+        return res.status(404).send("User not found");
+      }
+
+      let addToWishlist;
+      if (thisUser) {
+        addToWishlist = await userCollection.findByIdAndUpdate(thisUser._id, {
+          $push: { wishlist: req.body.freelancer },
+        });
+      } else if (thisCompany) {
+        addToWishlist = await companyCollection.findByIdAndUpdate(
+          thisCompany._id,
+          {
+            $push: { wishlist: req.body.freelancer },
+          }
+        );
+      }
+
+      res.status(200).json(addToWishlist);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+//Remove Wishlist
+async function removeFreelancerToWishlist(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const thisUser = await userCollection.findById(authData.user._id);
+      const thisCompany = await companyCollection.findById(authData.user._id);
+      if (err || (!thisUser && !thisCompany)) {
+        return res.status(404).send("User not found");
+      }
+
+      let addToWishlist;
+      if (thisUser) {
+        addToWishlist = await userCollection.findByIdAndUpdate(thisUser._id, {
+          $pull: { wishlist: req.body.freelancer },
+        });
+      } else if (thisCompany) {
+        addToWishlist = await companyCollection.findByIdAndUpdate(
+          thisCompany._id,
+          {
+            $pull: { wishlist: req.body.freelancer },
+          }
+        );
+      }
+
+      res.status(200).json(addToWishlist);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+//Get all wishlisted freelancers
+async function getAllWishlistedFreelancers(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const thisUser = await userCollection.findById(authData.user._id);
+      const thisCompany = await companyCollection.findById(authData.user._id);
+      if (err || (!thisUser && !thisCompany)) {
+        return res.status(404).send("User not found");
+      }
+
+      let wishlistedFreelancers;
+      if (thisUser) {
+        const addToWishlist = await userCollection
+          .findById(thisUser._id)
+          .populate("wishlist")
+          .exec();
+        wishlistedFreelancers = addToWishlist.wishlist;
+      } else if (thisCompany) {
+        const addToWishlist = await companyCollection
+          .findById(thisCompany._id)
+          .populate("wishlist")
+          .exec();
+        wishlistedFreelancers = addToWishlist.wishlist;
+      }
+
+      res.status(200).json(wishlistedFreelancers);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   signupController,
   loginController,
@@ -596,4 +693,7 @@ module.exports = {
   updateUserPassword,
   googleLoginController,
   getChatRoomsOfUsers,
+  addFreelancerToWishlist,
+  removeFreelancerToWishlist,
+  getAllWishlistedFreelancers,
 };

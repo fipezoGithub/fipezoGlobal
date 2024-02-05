@@ -93,6 +93,10 @@ const companySchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    wishlist: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "freelancercollection",
+    },
   },
   {
     timestamps: true,

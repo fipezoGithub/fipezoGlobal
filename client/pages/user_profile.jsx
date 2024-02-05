@@ -211,6 +211,9 @@ function User_profile(props) {
           )}
           {!editProfile && (
             <div className={style.options}>
+              <Link className={style.option} href='/my_wishlist'>
+                Wishlist
+              </Link>
               <Link className={style.option} href='/my_hires'>
                 Hire Requests
               </Link>
