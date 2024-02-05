@@ -1026,24 +1026,52 @@ async function getFollowedCompanies(req, res) {
 async function getFreelancerByName(req, res) {
   const { page, loc } = req.query;
   const limit = 12;
-  try {
-    const data = await freelancerCollection
-      .find({
-        firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
-        verified: true,
-        location: loc,
-      })
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
 
-    const count = await freelancerCollection.countDocuments({
-      $and: [
-        { firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" } },
-        { verified: true },
-        { location: loc },
-      ],
-    });
+  try {
+    let data, count;
+    if (req.query.profession) {
+      data = await freelancerCollection
+        .find({
+          firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+          verified: true,
+          location: loc,
+          profession: req.query.profession,
+        })
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+
+      count = await freelancerCollection.countDocuments({
+        $and: [
+          {
+            firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+          },
+          { verified: true },
+          { location: loc },
+          { profession: req.query.profession },
+        ],
+      });
+    } else {
+      data = await freelancerCollection
+        .find({
+          firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+          verified: true,
+          location: loc,
+        })
+        .limit(limit * 1)
+        .skip((page - 1) * limit)
+        .exec();
+
+      count = await freelancerCollection.countDocuments({
+        $and: [
+          {
+            firstname: { $regex: ".*" + req.body.query + ".*", $options: "i" },
+          },
+          { verified: true },
+          { location: loc },
+        ],
+      });
+    }
 
     res.status(200).json({
       data,
@@ -1052,7 +1080,7 @@ async function getFreelancerByName(req, res) {
     });
   } catch (error) {
     console.log(error);
-    res.status(500);
+    res.status(500).send("Internal Server Error");
   }
 }
 

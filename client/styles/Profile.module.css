@@ -149,4 +149,7 @@
   .profile_details {
     flex-direction: column;
   }
+  .btn {
+    text-align: end;
+  }
 }

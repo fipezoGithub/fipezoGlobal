@@ -234,7 +234,7 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {!data.userDetails?.uid && (
+        {!data.userDetails?.uid || data.userDetails?.companyname && (
           <div className={styles.btnBox2}>
             {!loggedIn && (
               <Link href='/login' className={styles.btn} id={styles.hire}>
@@ -286,7 +286,11 @@ export default function Name(props) {
               </button>
             )}
             {!loggedIn && (
-              <Link href='/login' className={styles.btn} id={styles.msg}>
+              <Link
+                href='/login'
+                className={styles.btn + " text-end"}
+                id={styles.msg}
+              >
                 Give Review
               </Link>
             )}
@@ -349,7 +353,7 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {!data.userDetails?.uid && (
+          {!data.userDetails?.uid || data.userDetails?.companyname && (
             <div className={styles.btnBox}>
               {!loggedIn && (
                 <Link href='/login' className={styles.btn} id={styles.hire}>
@@ -404,7 +408,7 @@ export default function Name(props) {
               )}
               {loggedIn && (
                 <button
-                  className={styles.btn}
+                  className={styles.btn + " text-end"}
                   id={styles.msg}
                   onClick={() => handleReviewBox(true)}
                 >
@@ -412,7 +416,11 @@ export default function Name(props) {
                 </button>
               )}
               {!loggedIn && (
-                <Link href='/login' className={styles.btn} id={styles.msg}>
+                <Link
+                  href='/login'
+                  className={styles.btn + " text-end"}
+                  id={styles.msg}
+                >
                   Give Review
                 </Link>
               )}

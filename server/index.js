@@ -474,27 +474,32 @@ app.get("/api", (req, res) => {
   res.send("Hello From Fipezo Server");
 });
 
-const job = nodeCron.schedule("01 1 00 * * *", async () => {
-  console.log(new Date().toLocaleString());
-  const paidLancers = await freelancerCollection
-    .find({})
-    .populate("paymentDetails")
-    .exec();
-  paidLancers.forEach(async (elm) => {
-    if (elm.paymentDetails) {
-      strtDate = new Date();
-      endDate = Date.parse(elm.paymentDetails.endDate);
-      const difference = Math.round((endDate - strtDate) / (1000 * 3600 * 24));
-      console.log(difference);
-      if (difference <= 0) {
-        freelancerCollection.findByIdAndUpdate(elm._id, {
-          featured: false,
-          premium: false,
-        });
+const job = nodeCron.schedule(
+  "1 0 * * *",
+  async () => {
+    console.log(new Date().toLocaleString());
+    const paidLancers = await freelancerCollection
+      .find({})
+      .populate("paymentDetails")
+      .exec();
+    paidLancers.forEach(async (elm) => {
+      if (elm.paymentDetails) {
+        strtDate = new Date();
+        endDate = Date.parse(elm.paymentDetails.endDate);
+        const difference = Math.round(
+          (endDate - strtDate) / (1000 * 3600 * 24)
+        );
+        if (difference <= 0) {
+          freelancerCollection.findByIdAndUpdate(elm._id, {
+            featured: false,
+            premium: false,
+          });
+        }
       }
-    }
-  });
-});
+    });
+  },
+  { scheduled: true, timezone: "Asia/Kolkata" }
+);
 
 job.start();
 

@@ -17,6 +17,7 @@ export default function Chats(props) {
   const [sidebarStyle, setSidebarStyle] = useState({
     transform: "translateX(0%)",
   });
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const chatBoxRef = useRef();
 
@@ -34,6 +35,7 @@ export default function Chats(props) {
     }
     props.socket.emit("all-messages", { messageId: router.query.roomId });
     props.socket.on("messages", (receivedData) => {
+      setLoading(true);
       if (
         receivedData.freelancer &&
         receivedData.freelancer._id !== data.userDetails._id
@@ -50,10 +52,14 @@ export default function Chats(props) {
         setChatHeaderUrl(`/profile/${receivedData.company.uid}`);
       }
       setMessages(receivedData.messages);
+      setLoading(false);
     });
   }, [data.isLoggedIn, data.userDetails]);
 
   useEffect(() => {
+    if (!chatBoxRef.current) {
+      return;
+    }
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
   }, [data.isLoggedIn, messages]);
 
@@ -105,71 +111,86 @@ export default function Chats(props) {
             style={sidebarStyle}
           />
         )}
-        <div className='flex flex-col w-full md:w-[30vw] mx-2 md:mx-8 gap-6'>
-          <div className='bg-neutral-300 py-2 rounded-md'>
-            <Link className='flex items-center gap-2 mx-2' href={chatHeaderUrl}>
-              <Image
-                src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${receiver?.profilePicture}`}
-                width={300}
-                height={300}
-                alt='Company profile'
-                className='w-8 md:w-16 h-8 md:h-16 rounded-full'
-              />
-              {receiver?.companyname ? (
-                <h1 className='text-lg md:text-2xl font-semibold'>
-                  {receiver.companyname}
-                </h1>
-              ) : (
-                <h1 className='text-2xl font-semibold'>
-                  {receiver?.firstname} {receiver?.lastname}
-                </h1>
-              )}
-            </Link>
-          </div>
-          <div
-            className='flex flex-col items-start max-h-[28rem] md:max-h-[30rem] overflow-hidden overflow-y-scroll gap-4 px-2'
-            ref={chatBoxRef}
-          >
-            {messages.length > 0 &&
-              messages.map((mes, i) => {
-                const det = JSON.parse(mes);
-                if (det.sender !== data.userType) {
-                  return (
-                    <div key={i} className='flex flex-col gap-1'>
-                      <p className='text-lg px-4 py-2 bg-neutral-200 rounded-lg rounded-bl-none'>
-                        {det.text}
-                      </p>
-                      <p className='text-xs text-neutral-500'>{det.time}</p>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={i} className='flex flex-col self-end gap-1'>
-                      <p className='text-lg px-4 py-2 bg-orange-500 text-white rounded-lg rounded-br-none'>
-                        {det.text}
-                      </p>
-                      <p className='text-xs text-neutral-500'>{det.time}</p>
-                    </div>
-                  );
-                }
-              })}
-          </div>
-          <form onSubmit={handleSendMessage} className='flex gap-2'>
-            <input
-              type='text'
-              placeholder='Write message...'
-              value={message}
-              className='border px-4 py-2 rounded-md w-full'
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button
-              type='submit'
-              className='bg-orange-500 text-white px-4 py-2 rounded-md text-lg'
+        {!loading ? (
+          <div className='flex flex-col w-full md:w-[30vw] mx-2 md:mx-8 gap-6'>
+            <div className='bg-neutral-300 py-2 rounded-md'>
+              <Link
+                className='flex items-center gap-2 mx-2'
+                href={chatHeaderUrl}
+              >
+                <Image
+                  src={`https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${receiver?.profilePicture}`}
+                  width={300}
+                  height={300}
+                  alt='Company profile'
+                  className='w-8 md:w-16 h-8 md:h-16 rounded-full'
+                />
+                {receiver?.companyname ? (
+                  <h1 className='text-lg md:text-2xl font-semibold'>
+                    {receiver.companyname}
+                  </h1>
+                ) : (
+                  <h1 className='text-2xl font-semibold'>
+                    {receiver?.firstname} {receiver?.lastname}
+                  </h1>
+                )}
+              </Link>
+            </div>
+            <div
+              className='flex flex-col items-start max-h-[28rem] md:max-h-[30rem] overflow-hidden overflow-y-scroll gap-4 px-2'
+              ref={chatBoxRef}
             >
-              <BsSendFill />
-            </button>
-          </form>
-        </div>
+              {messages.length > 0 &&
+                messages.map((mes, i) => {
+                  const det = JSON.parse(mes);
+                  if (det.sender !== data.userType) {
+                    return (
+                      <div key={i} className='flex flex-col gap-1'>
+                        <p className='text-lg px-4 py-2 bg-neutral-200 rounded-lg rounded-bl-none'>
+                          {det.text}
+                        </p>
+                        <p className='text-xs text-neutral-500'>{det.time}</p>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={i} className='flex flex-col self-end gap-1'>
+                        <p className='text-lg px-4 py-2 bg-orange-500 text-white rounded-lg rounded-br-none'>
+                          {det.text}
+                        </p>
+                        <p className='text-xs text-neutral-500'>{det.time}</p>
+                      </div>
+                    );
+                  }
+                })}
+            </div>
+            <form onSubmit={handleSendMessage} className='flex gap-2'>
+              <input
+                type='text'
+                placeholder='Write message...'
+                value={message}
+                className='border px-4 py-2 rounded-md w-full'
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <button
+                type='submit'
+                className='bg-orange-500 text-white px-4 py-2 rounded-md text-lg'
+              >
+                <BsSendFill />
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className='flex flex-col gap-4 items-center justify-center w-full md:w-[30vw]'>
+            <Image
+              src='/mini-loading.gif'
+              width={200}
+              height={100}
+              alt='loading'
+            />
+            <p className='text-lg'>Loading messages. Please wait ...</p>
+          </div>
+        )}
       </div>
     </>
   );

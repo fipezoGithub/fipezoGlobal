@@ -147,7 +147,7 @@ function Explore(props) {
     e.preventDefault();
     const location = localStorage.getItem("city");
     const response = await fetch(
-      `${process.env.SERVER_URL}/freelancer/search?loc=${location}&page=${currentPage}`,
+      `${process.env.SERVER_URL}/freelancer/search?loc=${location}&page=${currentPage}&profession=${router.query.profession}`,
       {
         method: "POST",
         headers: {
