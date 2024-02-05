@@ -29,14 +29,28 @@ export default function Chats(props) {
     });
   }, [props.socket]);
 
+  function asyncEmit(emitEventName, onEventName, socketData) {
+    return new Promise(function (resolve, reject) {
+      props.socket.emit(emitEventName, socketData);
+      props.socket.on(onEventName, (result) => {
+        resolve(result);
+      });
+      setTimeout(reject, 1000);
+    });
+  }
+
   useEffect(() => {
     if (!data.userDetails) {
       return;
     }
-    props.socket.emit("all-messages", { messageId: router.query.roomId });
-    props.socket.on("messages", async (receivedData) => {
-      setLoading(true);
+
+    async function getAllMessages() {
       try {
+        setLoading(true);
+        const receivedData = await asyncEmit("all-messages", "messages", {
+          messageId: router.query.roomId,
+        });
+        setMessages(receivedData.messages);
         if (
           receivedData.freelancer &&
           receivedData.freelancer._id !== data.userDetails._id
@@ -52,13 +66,14 @@ export default function Chats(props) {
           setReceiver(receivedData.company);
           setChatHeaderUrl(`/profile/${receivedData.company.uid}`);
         }
-        setMessages(receivedData.messages);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
+    }
 
-      setLoading(false);
-    });
+    getAllMessages();
   }, [data.isLoggedIn, data.userDetails]);
 
   useEffect(() => {
