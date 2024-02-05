@@ -34,24 +34,29 @@ export default function Chats(props) {
       return;
     }
     props.socket.emit("all-messages", { messageId: router.query.roomId });
-    props.socket.on("messages", (receivedData) => {
+    props.socket.on("messages", async (receivedData) => {
       setLoading(true);
-      if (
-        receivedData.freelancer &&
-        receivedData.freelancer._id !== data.userDetails._id
-      ) {
-        setReceiver(receivedData.freelancer);
-        setChatHeaderUrl(`/profile/${receivedData.freelancer.uid}`);
-      } else if (
-        receivedData.user &&
-        receivedData.user._id !== data.userDetails._id
-      ) {
-        setReceiver(receivedData.user);
-      } else {
-        setReceiver(receivedData.company);
-        setChatHeaderUrl(`/profile/${receivedData.company.uid}`);
+      try {
+        if (
+          receivedData.freelancer &&
+          receivedData.freelancer._id !== data.userDetails._id
+        ) {
+          setReceiver(receivedData.freelancer);
+          setChatHeaderUrl(`/profile/${receivedData.freelancer.uid}`);
+        } else if (
+          receivedData.user &&
+          receivedData.user._id !== data.userDetails._id
+        ) {
+          setReceiver(receivedData.user);
+        } else {
+          setReceiver(receivedData.company);
+          setChatHeaderUrl(`/profile/${receivedData.company.uid}`);
+        }
+        setMessages(receivedData.messages);
+      } catch (error) {
+        console.log(error);
       }
-      setMessages(receivedData.messages);
+
       setLoading(false);
     });
   }, [data.isLoggedIn, data.userDetails]);
