@@ -595,16 +595,15 @@ async function addFreelancerToWishlist(req, res) {
 
       let addToWishlist;
       if (thisUser) {
-        addToWishlist = await userCollection.findByIdAndUpdate(thisUser._id, {
+        await userCollection.findByIdAndUpdate(thisUser._id, {
           $push: { wishlist: req.body.freelancer },
         });
+        addToWishlist = await userCollection.findById(thisUser._id);
       } else if (thisCompany) {
-        addToWishlist = await companyCollection.findByIdAndUpdate(
-          thisCompany._id,
-          {
-            $push: { wishlist: req.body.freelancer },
-          }
-        );
+        await companyCollection.findByIdAndUpdate(thisCompany._id, {
+          $push: { wishlist: req.body.freelancer },
+        });
+        addToWishlist = await companyCollection.findById(thisCompany._id);
       }
 
       res.status(200).json(addToWishlist);
@@ -627,16 +626,15 @@ async function removeFreelancerToWishlist(req, res) {
 
       let addToWishlist;
       if (thisUser) {
-        addToWishlist = await userCollection.findByIdAndUpdate(thisUser._id, {
+        await userCollection.findByIdAndUpdate(thisUser._id, {
           $pull: { wishlist: req.body.freelancer },
         });
+        addToWishlist = await userCollection.findById(thisUser._id);
       } else if (thisCompany) {
-        addToWishlist = await companyCollection.findByIdAndUpdate(
-          thisCompany._id,
-          {
-            $pull: { wishlist: req.body.freelancer },
-          }
-        );
+        await companyCollection.findByIdAndUpdate(thisCompany._id, {
+          $pull: { wishlist: req.body.freelancer },
+        });
+        addToWishlist = await companyCollection.findById(thisCompany._id);
       }
 
       res.status(200).json(addToWishlist);

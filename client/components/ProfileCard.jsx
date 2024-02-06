@@ -24,16 +24,16 @@ export default function ProfileCard(props) {
   const router = useRouter();
   const position = JSON.parse(props.profile.pictureStyle);
 
-  const { data } = useContext(AuthContext);
+  const { data, dispatch } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!data.userDetails) {
+    if (data.userType === "freelancer" || !data.userDetails) {
       return;
     }
-    if (data.userDetails.wishlist?.includes(props.profile._id)) {
+    if (data.userDetails.wishlist.includes(props.profile._id)) {
       setWishListed(true);
     }
-  }, [data.userDetails, wishListed]);
+  }, [data.userDetails]);
 
   async function addWishList(e) {
     e.preventDefault();
@@ -55,6 +55,14 @@ export default function ProfileCard(props) {
       );
       const respData = await res.json();
       if (res.ok) {
+        dispatch({
+          type: "login",
+          payload: {
+            userDetails: respData,
+            userType: data.userType,
+            isLoggedIn: data.isLoggedIn,
+          },
+        });
         setWishListed(true);
       }
     } catch (error) {
@@ -82,6 +90,14 @@ export default function ProfileCard(props) {
       );
       const respData = await res.json();
       if (res.ok) {
+        dispatch({
+          type: "login",
+          payload: {
+            userDetails: respData,
+            userType: data.userType,
+            isLoggedIn: data.isLoggedIn,
+          },
+        });
         setWishListed(false);
       }
     } catch (error) {

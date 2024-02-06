@@ -8,6 +8,7 @@ import WishlistCard from "@/components/WishlistCard";
 
 export default function MyWishlist(props) {
   const [wishList, setWishList] = useState([]);
+  const [isWishListChange, setIsWishListChange] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).token
@@ -26,12 +27,13 @@ export default function MyWishlist(props) {
         );
         const respData = await res.json();
         setWishList(respData);
+        setIsWishListChange(false);
       } catch (error) {
         console.log(error);
       }
     }
     getWishList();
-  }, [wishList]);
+  }, [isWishListChange]);
 
   return (
     <>
@@ -46,7 +48,9 @@ export default function MyWishlist(props) {
         socket={props.socket}
       />
       <div className='mt-16 mb-8 flex items-center justify-center flex-col gap-8'>
-        <h1 className='capitalize font-bold text-4xl md:text-5xl'>my wishlist</h1>
+        <h1 className='capitalize font-bold text-4xl md:text-5xl'>
+          my wishlist
+        </h1>
         {wishList.length <= 0 ? (
           <div className='flex flex-col items-center justify-center gap-6'>
             <Image
@@ -69,7 +73,11 @@ export default function MyWishlist(props) {
         ) : (
           <div className='flex items-center justify-center gap-6 flex-wrap'>
             {wishList.map((user, i) => (
-              <WishlistCard key={i} user={user} setWishList={setWishList} />
+              <WishlistCard
+                key={i}
+                user={user}
+                setIsWishListChange={setIsWishListChange}
+              />
             ))}
           </div>
         )}

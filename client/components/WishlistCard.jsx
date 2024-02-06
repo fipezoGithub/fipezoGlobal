@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "../styles/ProfileCard.module.css";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { ImCamera } from "react-icons/im";
@@ -10,13 +10,16 @@ import { GiPaintBrush, GiTeacher } from "react-icons/gi";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { MdMovieEdit, MdOutlineQueueMusic, MdWebhook } from "react-icons/md";
 import { IoLocationSharp, IoTrashBinSharp } from "react-icons/io5";
+import { AuthContext } from "@/context/AuthContext";
 
-const WishlistCard = ({ user, setWishList }) => {
+const WishlistCard = ({ user, setIsWishListChange }) => {
   const profession = user.profession
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
   const [display, setDisplay] = useState("none");
+
+  const { data, dispatch } = useContext(AuthContext);
 
   async function removeWishList(e) {
     e.preventDefault();
@@ -38,7 +41,15 @@ const WishlistCard = ({ user, setWishList }) => {
       );
       const respData = await res.json();
       if (res.ok) {
-        setWishList([]);
+        dispatch({
+          type: "login",
+          payload: {
+            userDetails: respData,
+            userType: data.userType,
+            isLoggedIn: data.isLoggedIn,
+          },
+        });
+        setIsWishListChange(true);
       }
     } catch (error) {
       console.log(error);

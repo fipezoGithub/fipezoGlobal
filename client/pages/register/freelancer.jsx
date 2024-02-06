@@ -83,6 +83,7 @@ export default withRouter(
       };
       this.passwordRef = React.createRef();
     }
+
     componentDidUpdate(prevProps, prevState) {
       if (
         prevState.count === 0 &&
@@ -406,9 +407,9 @@ export default withRouter(
           const data = new FormData();
           data.append(
             "uid",
-            this.state.firstName.toLowerCase() +
+            this.state.firstName.split(" ").join("_").toLowerCase() +
               "." +
-              this.state.lastName.toLowerCase() +
+              this.state.lastName.split(" ").join("_").toLowerCase() +
               "_" +
               parseInt(this.state.phone).toString(16)
           );

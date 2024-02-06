@@ -496,7 +496,7 @@ const job = nodeCron.schedule(
       .find({})
       .populate("paymentDetails")
       .exec();
-    paidLancers.forEach(async (elm) => {
+    for (const elm of paidLancers) {
       if (elm.paymentDetails) {
         strtDate = new Date();
         endDate = Date.parse(elm.paymentDetails.endDate);
@@ -504,13 +504,13 @@ const job = nodeCron.schedule(
           (endDate - strtDate) / (1000 * 3600 * 24)
         );
         if (difference <= 0) {
-          freelancerCollection.findByIdAndUpdate(elm._id, {
+          await freelancerCollection.findByIdAndUpdate(elm._id, {
             featured: false,
             premium: false,
           });
         }
       }
-    });
+    }
   },
   { scheduled: true, timezone: "Asia/Kolkata" }
 );

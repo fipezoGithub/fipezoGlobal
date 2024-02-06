@@ -40,6 +40,7 @@ export default function Name(props) {
   const [copied, setCopied] = useState(false);
   const [showDialogBox, setShowDialogBox] = useState(false);
   const [showReviewDialogBox, setShowReviewDialogBox] = useState(false);
+  const [showHireDrop, setShowHireDrop] = useState(false);
 
   const { data } = useContext(AuthContext);
 
@@ -234,56 +235,62 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {((data.userDetails && !data.userDetails?.uid) ||
-          data.userDetails?.companyname) && (
+        {data.userType !== "freelancer" && (
           <div className={styles.btnBox2}>
-            {!loggedIn && (
+            {!data.isLoggedIn && (
               <Link href='/login' className={styles.btn} id={styles.hire}>
                 Hire Me
               </Link>
             )}
-            {loggedIn && (
-              <div className={styles.btn + " relative group"} id={styles.hire}>
-                <p className='cursor-pointer flex items-center gap-1'>
+            {((data.userDetails && !data.userDetails?.uid) ||
+              data.userDetails?.companyname) && (
+              <div className={styles.btn + " relative"} id={styles.hire}>
+                <p
+                  className='cursor-pointer flex items-center gap-1'
+                  onClick={() => setShowHireDrop(!showHireDrop)}
+                >
                   &nbsp;Hire Me <FaAngleDown />
                 </p>
-                <div className='absolute top-full bg-green-600 hidden group-hover:flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
-                  <Link
-                    href='/confirm_hiring_plans'
-                    className='absolute top-3 right-1'
-                  >
-                    <FaInfoCircle />
-                  </Link>
-                  <button
-                    type='button'
-                    onClick={handleHireBox}
-                    className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                  >
-                    normal hire
-                    <span className='text-sm normal-case'>
-                      Basic hiring process
-                    </span>
-                  </button>
-                  <hr className='w-full border' />
-                  <button
-                    type='button'
-                    onClick={() =>
-                      router.push({
-                        pathname: "/confirm_hiring",
-                        query: { freelancer: props.data.uid },
-                      })
-                    }
-                    className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                  >
-                    confirm hire
-                    <span className='text-sm normal-case'>
-                      Fipezo assured hiring
-                    </span>
-                  </button>
-                </div>
+                {showHireDrop && (
+                  <div className='absolute top-full bg-green-600 flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
+                    <Link
+                      href='/confirm_hiring_plans'
+                      className='absolute bottom-12 right-1'
+                    >
+                      <FaInfoCircle />
+                    </Link>
+                    <button
+                      type='button'
+                      onClick={handleHireBox}
+                      className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                    >
+                      normal hire
+                      <span className='text-sm normal-case'>
+                        Basic hiring process
+                      </span>
+                    </button>
+                    <hr className='w-full border' />
+                    <button
+                      type='button'
+                      onClick={() =>
+                        router.push({
+                          pathname: "/confirm_hiring",
+                          query: { freelancer: props.data.uid },
+                        })
+                      }
+                      className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
+                    >
+                      confirm hire
+                      <span className='text-sm normal-case'>
+                        Fipezo assured hiring
+                      </span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
-            {loggedIn && (
+            {((data.userDetails && !data.userDetails?.uid) ||
+              data.userDetails?.companyname) && (
               <button
                 className={styles.btn + " text-end"}
                 id={styles.msg}
@@ -292,7 +299,7 @@ export default function Name(props) {
                 Give Review
               </button>
             )}
-            {!loggedIn && (
+            {!data.isLoggedIn && (
               <Link
                 href='/login'
                 className={styles.btn + " text-end"}
@@ -360,15 +367,15 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {((data.userDetails && !data.userDetails?.uid) ||
-            data.userDetails?.companyname) && (
+          {data.userType !== "freelancer" && (
             <div className={styles.btnBox}>
-              {!loggedIn && (
+              {!data.isLoggedIn && (
                 <Link href='/login' className={styles.btn} id={styles.hire}>
                   Hire Me
                 </Link>
               )}
-              {loggedIn && (
+              {((data.userDetails && !data.userDetails?.uid) ||
+                data.userDetails?.companyname) && (
                 <div
                   className={styles.btn + " relative group"}
                   id={styles.hire}
@@ -417,7 +424,8 @@ export default function Name(props) {
                   </div>
                 </div>
               )}
-              {loggedIn && (
+              {((data.userDetails && !data.userDetails?.uid) ||
+                data.userDetails?.companyname) && (
                 <button
                   className={styles.btn + " text-end"}
                   id={styles.msg}
@@ -426,7 +434,7 @@ export default function Name(props) {
                   Give Review
                 </button>
               )}
-              {!loggedIn && (
+              {!data.isLoggedIn && (
                 <Link
                   href='/login'
                   className={styles.btn + " text-end"}

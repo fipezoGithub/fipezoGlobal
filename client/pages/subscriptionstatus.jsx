@@ -1,9 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
 import { FaPhotoVideo, FaRegEye } from "react-icons/fa";
 import { IoNotificationsCircle, IoWomanSharp } from "react-icons/io5";
 import { MdFeaturedVideo, MdLeaderboard } from "react-icons/md";
@@ -16,6 +18,7 @@ const Fipezopremium = (props) => {
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const initializeRazorpaySDK = () => {
     return new Promise((resolve) => {
@@ -34,8 +37,10 @@ const Fipezopremium = (props) => {
     });
   };
 
+  const { data } = useContext(AuthContext);
+
   const openPaymentWindow = async (price) => {
-    if (!props.user && !props.user?.uid) {
+    if (!data.isLoggedIn && !data.userDetails) {
       router.replace("/login");
       return;
     }
@@ -50,7 +55,7 @@ const Fipezopremium = (props) => {
     const d = new Date();
     const date = d.setDate(d.getDate() + 30);
     // Make API call to the serverless API
-    const data = await fetch(`${process.env.SERVER_URL}/pay/razorpay`, {
+    const razorPayData = await fetch(`${process.env.SERVER_URL}/pay/razorpay`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -72,9 +77,9 @@ const Fipezopremium = (props) => {
     var options = {
       key: process.env.RAZORPAY_KEY,
       name: "Fipezo",
-      currency: data.currency,
-      amount: data.amount,
-      order_id: data.id,
+      currency: razorPayData.currency,
+      amount: razorPayData.amount,
+      order_id: razorPayData.id,
       description: "Payment for Fipezo premium",
       image: "/favi.png", //put secure url of the logo you wish to display
       handler: async function (response) {
@@ -101,8 +106,8 @@ const Fipezopremium = (props) => {
       },
 
       prefill: {
-        name: props.user.firstname + props.user.lastname, //you can prefill Name of the Customer
-        contact: props.user.phone, //Mobile Number can also be prefilled to fetch available payment accounts.
+        name: data.userDetails.firstname + data.userDetails.lastname, //you can prefill Name of the Customer
+        contact: data.userDetails.phone, //Mobile Number can also be prefilled to fetch available payment accounts.
       },
       readonly: {
         contact: true, //edit this to allow editing of info
@@ -180,24 +185,24 @@ const Fipezopremium = (props) => {
         <title>Fipezo | Fipezo Premium</title>
       </Head>
       <Navbar
-        color="white"
+        color='white'
         user={props.user}
         company={props.company}
         setCompany={props.setCompany}
         setUser={props.setUser}
         socket={props.socket}
       />
-      <div className="pt-16 flex flex-col items-center justify-center bg-gradient-to-r from-blue-900 to-blue-400 text-white gap-4 py-6">
-        <h1 className="text-4xl font-bold [text-shadow:2px_4px_#000000]">
+      <div className='pt-16 flex flex-col items-center justify-center bg-gradient-to-r from-blue-900 to-blue-400 text-white gap-4 py-6'>
+        <h1 className='text-4xl font-bold [text-shadow:2px_4px_#000000]'>
           Congratulation!
         </h1>
-        <p className="text-xl drop-shadow-md text-center md:text-left">
+        <p className='text-xl drop-shadow-md text-center md:text-left'>
           You have unlocked fipezo premium for your account.
         </p>
       </div>
-      <div className="flex flex-col items-center justify-center gap-8 py-8 md:h-[50vh]">
-        <h1 className="text-3xl capitalize font-semibold">package details</h1>
-        <div className="flex items-center justify-center">
+      <div className='flex flex-col items-center justify-center gap-8 py-8 md:h-[50vh]'>
+        <h1 className='text-3xl capitalize font-semibold'>package details</h1>
+        <div className='flex items-center justify-center'>
           <table
             className={
               "w-full text-center rtl:text-right text-gray-600" +
@@ -206,65 +211,65 @@ const Fipezopremium = (props) => {
                 : " flex md:flex-col items-center justify-between")
             }
           >
-            <thead className="text-gray-700 uppercase bg-gray-50 align-top md:align-middle table-cell md:table-row-group">
-              <tr className="table-cell md:table-row">
+            <thead className='text-gray-700 uppercase bg-gray-50 align-top md:align-middle table-cell md:table-row-group'>
+              <tr className='table-cell md:table-row'>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   package name
                 </th>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   transaction id
                 </th>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   amount
                 </th>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   start date
                 </th>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   end date
                 </th>
                 <th
-                  scope="col"
-                  className="capitalize md:px-6 py-3 block md:table-cell"
+                  scope='col'
+                  className='capitalize md:px-6 py-3 block md:table-cell'
                 >
                   status
                 </th>
               </tr>
             </thead>
             {!loading ? (
-              <tbody className="align-top md:align-middle table-cell md:table-row-group">
-                <tr className="table-cell md:table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 font-bold">
+              <tbody className='align-top md:align-middle table-cell md:table-row-group'>
+                <tr className='table-cell md:table-row odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 font-bold'>
                   <td
-                    scope="row"
-                    className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell"
+                    scope='row'
+                    className='px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell'
                   >
                     {packageName}
                   </td>
-                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  <td className='px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell'>
                     {transacId}
                   </td>
-                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  <td className='px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell'>
                     {prize}
                   </td>
-                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  <td className='px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell'>
                     {startDate}
                   </td>
-                  <td className="px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell">
+                  <td className='px-2 md:px-4 h-[3.2rem] md:h-auto text-lg text-center block md:table-cell'>
                     {endDate}
                   </td>
                   <td
@@ -278,68 +283,68 @@ const Fipezopremium = (props) => {
                 </tr>
               </tbody>
             ) : (
-              <div className="flex items-center justify-center w-40 md:w-full">
+              <div className='flex items-center justify-center w-40 md:w-full'>
                 <Image
-                  src="/mini-loading.gif"
-                  alt="loading"
+                  src='/mini-loading.gif'
+                  alt='loading'
                   width={75}
                   height={50}
-                  className=""
+                  className=''
                 />
               </div>
             )}
           </table>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-8 py-8 bg-[#f6f7f8]">
-        <h1 className="text-4xl font-semibold">You have unlocked</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 items-center justify-center flex-wrap">
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
-            <FaPhotoVideo className="text-xl md:text-3xl" />
-            <h2 className="text-base md:text-lg font-semibold">
+      <div className='flex flex-col items-center justify-center gap-8 py-8 bg-[#f6f7f8]'>
+        <h1 className='text-4xl font-semibold'>You have unlocked</h1>
+        <div className='grid grid-cols-2 md:grid-cols-3 items-center justify-center flex-wrap'>
+          <div className='flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40'>
+            <FaPhotoVideo className='text-xl md:text-3xl' />
+            <h2 className='text-base md:text-lg font-semibold'>
               Unlimited photos or videos upload
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
-            <FaRegEye className="text-xl md:text-3xl" />
-            <h2 className="text-base md:text-xl font-semibold">
+          <div className='flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40'>
+            <FaRegEye className='text-xl md:text-3xl' />
+            <h2 className='text-base md:text-xl font-semibold'>
               Extra visibility all over website
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
-            <IoNotificationsCircle className="text-xl md:text-3xl" />
-            <h2 className="text-base md:text-xl font-semibold">
+          <div className='flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40'>
+            <IoNotificationsCircle className='text-xl md:text-3xl' />
+            <h2 className='text-base md:text-xl font-semibold'>
               Smart priority notification for all latest jobs
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
-            <MdFeaturedVideo className="text-xl md:text-3xl" />
-            <h2 className="text-base md:text-xl font-semibold">
+          <div className='flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40'>
+            <MdFeaturedVideo className='text-xl md:text-3xl' />
+            <h2 className='text-base md:text-xl font-semibold'>
               Featured tag, explore page top list
             </h2>
           </div>
-          <div className="flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40">
-            <IoWomanSharp className="text-xl md:text-3xl" />
-            <h2 className="text-base md:text-xl font-semibold">
+          <div className='flex items-start flex-col gap-4 bg-[#ea6e77] text-white p-4 w-40 md:w-80 h-40'>
+            <IoWomanSharp className='text-xl md:text-3xl' />
+            <h2 className='text-base md:text-xl font-semibold'>
               Dedicated Relationship Manager
             </h2>
           </div>
           {prize === 499 ? (
-            <div className="flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40">
-              <MdLeaderboard className="text-xl md:text-3xl" />
-              <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
+            <div className='flex items-start flex-col gap-4 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40'>
+              <MdLeaderboard className='text-xl md:text-3xl' />
+              <h2 className='text-base md:text-xl font-semibold'>5 leads</h2>
             </div>
           ) : (
-            <div className="flex items-start flex-col gap-2 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40 relative">
-              <MdLeaderboard className="text-xl md:text-3xl" />
-              <h2 className="text-base md:text-xl font-semibold">5 leads</h2>
-              <p className="text-sm font-semibold md:text-center">
+            <div className='flex items-start flex-col gap-2 bg-[#9f75a1] text-white p-4 w-40 md:w-80 h-40 relative'>
+              <MdLeaderboard className='text-xl md:text-3xl' />
+              <h2 className='text-base md:text-xl font-semibold'>5 leads</h2>
+              <p className='text-sm font-semibold md:text-center'>
                 For pack @499 only
               </p>
               <button
-                type="button"
+                type='button'
                 onClick={(e) => openPaymentWindow(499)}
-                className="md:text-base capitalize border rounded-xl px-2 py-1"
+                className='md:text-base capitalize border rounded-xl px-2 py-1'
               >
                 upgrade now
               </button>

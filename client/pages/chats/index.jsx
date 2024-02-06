@@ -66,7 +66,7 @@ export default function Chats(props) {
         <div className='flex flex-col w-full md:w-[30vw] mx-2 md:mx-8 gap-6 items-center '>
           <Image src={"/no-chat.png"} alt="no chat" width={600} height={400} />
           <h3 className='text-base md:text-lg'>
-            To send message select user from right side
+            To send message select user from left side
           </h3>
         </div>
       </div>
