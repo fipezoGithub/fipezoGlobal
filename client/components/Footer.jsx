@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AiTwotoneHeart } from "react-icons/ai";
 import { AuthContext } from "@/context/AuthContext";
+import { IoHeart } from "react-icons/io5";
 const Footer = (props) => {
   const [showBengaluru, setShowBengaluru] = useState(false);
   const [showChennai, setShowChennai] = useState(false);
@@ -568,7 +569,7 @@ const Footer = (props) => {
       </p>
       <div className='my-2'>
         <h1 className='flex items-center gap-1 font-bold justify-center'>
-          Made in India with <AiTwotoneHeart className='text-red-600 text-lg' />
+          Made in India with <IoHeart className='text-red-600 text-lg' />
         </h1>
       </div>
     </footer>
