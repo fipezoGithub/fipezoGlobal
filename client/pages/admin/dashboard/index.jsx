@@ -13,6 +13,7 @@ import { IoIosCreate } from "react-icons/io";
 import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
 import { FaCity, FaHireAHelper, FaRupeeSign, FaWpforms } from "react-icons/fa";
 import { AuthContext } from "@/context/AuthContext";
+import Hire249Card from "@/components/Hire249Card";
 
 const Dashboard = (props) => {
   const [freelancers, setFreelancers] = useState([]);
@@ -24,6 +25,7 @@ const Dashboard = (props) => {
   const [applicants, setApplicants] = useState([]);
   const [referWithdrawlRequests, setReferWithdrawlRequests] = useState([]);
   const [premiumHires, setPremiumHires] = useState([]);
+  const [hire249, setHire249] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
@@ -32,6 +34,7 @@ const Dashboard = (props) => {
   const [jobApplicationBox, setJobApplicationBox] = useState(false);
   const [referPaymentBox, setReferPaymentBox] = useState(false);
   const [premiumHiringBox, setPremiumHiringBox] = useState(false);
+  const [hire249Box, setHire249Box] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
   const [verificationCount, setVerificationCount] = useState(0);
   const [referPaymentCount, setReferPaymentCount] = useState(0);
@@ -208,11 +211,26 @@ const Dashboard = (props) => {
           }
         );
         const respData = await res.json();
-        console.log(respData);
         setPremiumHires(respData);
         if (respData.length > 0) {
           setPremiumHiringCount((prev) => prev + respData.length);
         }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function get249HireRequest() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/hire/premium-249`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const respData = await res.json();
+        console.log(respData);
+        setHire249(respData);
       } catch (error) {
         console.log(error);
       }
@@ -227,6 +245,7 @@ const Dashboard = (props) => {
     getJobApplications();
     getReferRequest();
     getPremiumHireRequest();
+    get249HireRequest();
   }, [data.isLoggedIn, data.userDetails, router]);
 
   const updateFreelancers = (id) => {
@@ -377,6 +396,7 @@ const Dashboard = (props) => {
                     setVerificationBox(true);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <MdVerified />
@@ -406,6 +426,7 @@ const Dashboard = (props) => {
                     setVerificationBox(false);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(true);
+                    setHire249Box(false);
                   }}
                 >
                   <FaHireAHelper />
@@ -416,6 +437,36 @@ const Dashboard = (props) => {
                     {premiumHiringCount}
                   </span>
                 )}
+              </li>
+              <li
+                className={`px-4 py-2 relative ${
+                  hire249Box === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
+                  onClick={() => {
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
+                    setReferPaymentBox(false);
+                    setVerificationBox(false);
+                    setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
+                    setHire249Box(true);
+                  }}
+                >
+                  <FaHireAHelper />
+                  249 hire request
+                </button>
+                {/* {premiumHiringCount > 0 && (
+                  <span className='absolute top-[22%] right-4 bg-red-500 rounded-full w-6 h-6 text-center font-medium text-sm'>
+                    {premiumHiringCount}
+                  </span>
+                )} */}
               </li>
               <li
                 className={`px-4 py-2 relative ${
@@ -435,6 +486,7 @@ const Dashboard = (props) => {
                     setVerificationBox(false);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <FaRupeeSign />
@@ -464,6 +516,7 @@ const Dashboard = (props) => {
                     setCallbackBox(true);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <IoCall />
@@ -488,6 +541,7 @@ const Dashboard = (props) => {
                     setContactRequestBox(true);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <MdContactPhone />
@@ -512,6 +566,7 @@ const Dashboard = (props) => {
                     setSubmittedCityBox(true);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <FaCity />
@@ -536,6 +591,7 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <MdReport />
@@ -560,6 +616,7 @@ const Dashboard = (props) => {
                     setReferPaymentBox(false);
                     setJobApplicationBox(true);
                     setPremiumHiringBox(false);
+                    setHire249Box(false);
                   }}
                 >
                   <FaWpforms />
@@ -740,6 +797,13 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+          {hire249Box === true && (
+            <div className='flex flex-col items-center justify-center gap-4'>
+              {hire249.map((hires, index) => {
+                return <Hire249Card hire={hires} key={index} />;
+              })}
             </div>
           )}
           {callbackBox === true && (

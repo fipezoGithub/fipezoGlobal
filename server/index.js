@@ -232,6 +232,10 @@ const {
   changeStatusOfRequest,
   getUserPremiumHires,
 } = require("./controllers/premiumHireController");
+const {
+  addNewHireRequest,
+  getAllHireRequests,
+} = require("./controllers/premiumHire249Controller");
 
 // Setting up the routes
 
@@ -472,6 +476,10 @@ app.post("/api/hire/premium", verifyToken, newPremiumHireRequest);
 app.get("/api/hire-request/premium", verifyToken, getAllPendingRequest);
 app.put("/api/hire/premium/:reqId", verifyToken, changeStatusOfRequest);
 app.get("/api/hire/premium/user", verifyToken, getUserPremiumHires);
+
+//Premium Hire 249 Routes
+app.post("/api/hire/premium-249", addNewHireRequest);
+app.get("/api/hire/premium-249", verifyToken, getAllHireRequests);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

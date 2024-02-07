@@ -10,6 +10,8 @@ import Head from "next/head";
 import Loading from "@/components/Loading";
 import { IoSearch } from "react-icons/io5";
 import { useRouter } from "next/router";
+import { FaArrowRightLong } from "react-icons/fa6";
+import Link from "next/link";
 
 function Explore(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -603,6 +605,28 @@ function Explore(props) {
               </nav>
             </>
           )}
+        </div>
+      </div>
+      <div className='flex items-center justify-evenly w-full bg-[#6e1af9] pt-4'>
+        <div className='flex flex-col items-start gap-4 ml-2 md:ml-0'>
+          <h1 className='md:text-4xl text-white font-semibold'>
+            Confused to find freelancer for your requirement?
+          </h1>
+          <Link
+            href='/hire_with_fipezo'
+            className='md:text-2xl text-white capitalize hover:font-medium flex items-center gap-2 group'
+          >
+            hire now with fipezo{" "}
+            <FaArrowRightLong className='group-hover:translate-x-2 transition duration-300' />
+          </Link>
+        </div>
+        <div>
+          <Image
+            src='/hiring-banner-pic.png'
+            width={350}
+            height={200}
+            className='w-48 md:w-96'
+          />
         </div>
       </div>
       <Footer premium={props.user?.premium} />
