@@ -444,25 +444,32 @@ async function getFeaturedFreelancerProfiles(req, res) {
 async function getFreelancerProfilesByProfession(req, res) {
   const { page, loc } = req.query;
   const limit = 12;
+  let requestQuery;
+  if (req.query.services[0] != "") {
+    requestQuery = [
+      { verified: true },
+      { profession: { $in: req.query.q } },
+      { services: { $all: req.query.services } },
+      { location: req.query.loc },
+    ];
+  } else {
+    requestQuery = [
+      { verified: true },
+      { profession: { $in: req.query.q } },
+      { location: req.query.loc },
+    ];
+  }
   try {
     const freelancers = await freelancerCollection
       .find({
-        $and: [
-          { verified: true },
-          { profession: { $in: req.query.q } },
-          { location: req.query.loc },
-        ],
+        $and: requestQuery,
       })
       .sort({ featured: -1, reviewCount: -1, _id: 1 })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
     const count = await freelancerCollection.countDocuments({
-      $and: [
-        { verified: true },
-        { profession: { $in: req.query.q } },
-        { location: loc },
-      ],
+      $and: requestQuery,
     });
 
     res.status(200).json({

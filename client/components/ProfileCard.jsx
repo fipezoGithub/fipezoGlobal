@@ -129,7 +129,7 @@ export default function ProfileCard(props) {
               className='text-xl md:text-3xl text-white absolute top-1 left-1 self-start group flex items-center gap-2'
             >
               <CiHeart />
-              <p className='hidden group-hover:block text-xs capitalize bg-black rounded-md p-2'>
+              <p className='hidden md:group-hover:block text-xs capitalize bg-black rounded-md p-2'>
                 add to wishList
               </p>
             </button>

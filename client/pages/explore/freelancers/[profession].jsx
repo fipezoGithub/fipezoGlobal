@@ -48,6 +48,8 @@ function Explore(props) {
   const [showMaid, setShowMaid] = useState(false);
   const [showInteriorDesigner, setShowInteriorDesigner] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [freelancerServices, setFreelancerServices] = useState([]);
+  const [serViceQuery, setServiceQuery] = useState("");
   const [rateSort, setRateSort] = useState("50000");
   const [fourStars, setFourStars] = useState(false);
   const [threeStars, setThreeStars] = useState(false);
@@ -164,9 +166,28 @@ function Explore(props) {
     setCurrentPage(1);
   };
 
+  const handelServices = async (e, val) => {
+    if (e.target.checked) {
+      setFreelancerServices((prev) => [...prev, val]);
+    } else {
+      const newServices = [...freelancerServices];
+      const index = newServices.indexOf(val);
+      newServices.splice(index, 1);
+      setFreelancerServices(newServices);
+    }
+  };
+
   useEffect(() => {
     async function fetchFreelancer() {
       const location = localStorage.getItem("city");
+      let que = "&services[]=";
+      freelancerServices.forEach((service, index) => {
+        if (index == 0) {
+          que += service;
+        } else {
+          que = que + "&services[]=" + service;
+        }
+      });
       try {
         setIsLoading(true);
         if (
@@ -203,10 +224,11 @@ function Explore(props) {
           !showInteriorDesigner
         ) {
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}&loc=${location}&page=${currentPage}`,
+            `${process.env.SERVER_URL}/freelancer/professions?q[]=${router.query.profession}&loc=${location}&page=${currentPage}${que}`,
             { cache: "no-store" }
           );
           const data = await response.json();
+          console.log(data);
           setFreelancers(data.freelancers);
           setNoOfPages(data.totalPages);
         } else {
@@ -302,7 +324,7 @@ function Explore(props) {
             queryStr = queryStr + "q[]=interior_designer&";
           }
           const response = await fetch(
-            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}loc=${location}&page=${currentPage}`,
+            `${process.env.SERVER_URL}/freelancer/professions?${queryStr}loc=${location}&page=${currentPage}${que}`,
             { cache: "no-store" }
           );
           const data = await response.json();
@@ -350,6 +372,7 @@ function Explore(props) {
     showInteriorDesigner,
     filterCity,
     currentPage,
+    freelancerServices,
   ]);
 
   const filtered = freelancers.filter((freelancer) => {
@@ -427,6 +450,9 @@ function Explore(props) {
           </div>
           {showSideBar === true && (
             <Sidebar
+              profession={router.query.profession}
+              freelancerServices={freelancerServices}
+              handelServices={handelServices}
               setShowSideBar={setShowSideBar}
               setFreelancers={setFreelancers}
               setShowPhotographers={setShowPhotographers}
@@ -625,6 +651,7 @@ function Explore(props) {
             src='/hiring-banner-pic.png'
             width={350}
             height={200}
+            alt='hiring-banner'
             className='w-48 md:w-96'
           />
         </div>

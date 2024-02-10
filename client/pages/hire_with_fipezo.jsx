@@ -622,6 +622,12 @@ export default function HireWithFipezo(props) {
                   pay &amp; submit
                 </button>
               </div>
+              <div>
+                <p className='md:text-xl'>
+                  The amount 249 is 100% refundable{" "}
+                  <span className="text-xs font-bold text-neutral-500">*condition apply</span>
+                </p>
+              </div>
             </div>
           )}
         </form>
