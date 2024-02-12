@@ -445,7 +445,7 @@ async function getFreelancerProfilesByProfession(req, res) {
   const { page, loc } = req.query;
   const limit = 12;
   let requestQuery;
-  if (req.query.services[0] != "") {
+  if (req.query.services && req.query.services[0] != "") {
     requestQuery = [
       { verified: true },
       { profession: { $in: req.query.q } },

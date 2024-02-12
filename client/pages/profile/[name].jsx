@@ -238,8 +238,12 @@ export default function Name(props) {
         {data.userType !== "freelancer" && (
           <div className={styles.btnBox2}>
             {!data.isLoggedIn && (
-              <Link href='/login' className={styles.btn} id={styles.hire}>
-                Hire Me
+              <Link
+                href='/login'
+                className={styles.btn + " [text-align:start!important]"}
+                id={styles.hire}
+              >
+                &nbsp;&nbsp;&nbsp;Hire Me
               </Link>
             )}
             {((data.userDetails && !data.userDetails?.uid) ||
