@@ -508,6 +508,38 @@ function Explore(props) {
                       {currentPage + 1}
                     </span>
                   )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 2
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 2)}
+                    >
+                      {currentPage + 2}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 3
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 3)}
+                    >
+                      {currentPage + 3}
+                    </span>
+                  )}
                   {/* </div> */}
                   {/* )).slice(0, 3)} */}
                   {currentPage < noOfPages - 1 && (
@@ -551,7 +583,12 @@ function Explore(props) {
           </Link>
         </div>
         <div>
-          <Image src='/hiring-banner-pic.png' width={350} height={200} className="w-48 md:w-96" />
+          <Image
+            src='/hiring-banner-pic.png'
+            width={350}
+            height={200}
+            className='w-48 md:w-96'
+          />
         </div>
       </div>
       <Footer premium={props.user?.premium} />

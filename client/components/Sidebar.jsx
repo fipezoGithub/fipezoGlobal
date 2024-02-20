@@ -738,12 +738,12 @@ export default withRouter(
                         this.props.setShowVocalist(e.target.checked);
                         this.props.setCurrentPage(1);
                       }}
-                      id='video_editor'
+                      id='vocalist'
                       checked={this.props.showVocalist}
                     />
                     <label
                       className={styles.label + " cursor-pointer"}
-                      htmlFor='video_editor'
+                      htmlFor='vocalist'
                     >
                       Vocalist
                     </label>
@@ -759,12 +759,12 @@ export default withRouter(
                         this.props.setShowVoiceOverArtist(e.target.checked);
                         this.props.setCurrentPage(1);
                       }}
-                      id='video_editor'
+                      id='voice_over_artist'
                       checked={this.props.showVoiceOverArtist}
                     />
                     <label
                       className={styles.label + " cursor-pointer"}
-                      htmlFor='video_editor'
+                      htmlFor='voice_over_artist'
                     >
                       Voice Over Artist
                     </label>

@@ -276,7 +276,7 @@ export default function ProfileCard(props) {
         {profession === "Actress" && (
           <Image
             src='/actress.png'
-            className={styles.logo + " w-[0.7rem] md:w-6"}
+            className={styles.logo + " w-8 md:w-6 invert"}
             alt='actress-logo'
             width={200}
             height={200}
