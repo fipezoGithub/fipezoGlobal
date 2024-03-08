@@ -326,6 +326,7 @@ export default function Name(props) {
               <div id={styles.boxContainer2}>
                 <HireBox
                   handleHireBox={handleHireBox}
+                  socket={props.socket}
                   freelancer={props.data}
                   user={user}
                   setShowDialogBox={setShowDialogBox}
@@ -461,6 +462,7 @@ export default function Name(props) {
                 <div id={styles.boxContainer2}>
                   <HireBox
                     handleHireBox={handleHireBox}
+                    socket={props.socket}
                     freelancer={props.data}
                     user={user}
                     setShowDialogBox={setShowDialogBox}

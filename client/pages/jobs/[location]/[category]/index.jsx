@@ -428,6 +428,7 @@ export default function Jobs(props) {
                   filteredFreelancers.map((job, index) => (
                     <Jobcard
                       job={job}
+                      socket={props.socket}
                       key={index}
                       company={props.company}
                       user={props.user}

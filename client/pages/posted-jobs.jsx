@@ -52,6 +52,7 @@ const PostedJobs = (props) => {
             jobs.map((it, index) => (
               <Jobcard
                 job={it}
+                socket={props.socket}
                 key={index}
                 setJobs={setJobs}
                 company={props.company}

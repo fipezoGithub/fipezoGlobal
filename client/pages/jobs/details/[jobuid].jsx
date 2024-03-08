@@ -67,23 +67,13 @@ const Jobuid = (props) => {
       if (respData) {
         setIsApplied(true);
         setLoading(false);
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/create`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "Job apply",
-              headline: `${data.userDetails.firstname} ${data.userDetails.lastname} applied to your posted job`,
-              acceptedCompany: props.pageData.createdCompany._id,
-              sentFreelancer: data.userDetails._id,
-              href: "/posted-jobs",
-            }),
-          }
-        );
-        const respData = await res.json();
+        props.socket.emit("send-notification", {
+          type: "Job apply",
+          headline: `${data.userDetails.firstname} ${data.userDetails.lastname} applied to your posted job`,
+          acceptedCompany: props.pageData.createdCompany._id,
+          sentFreelancer: data.userDetails._id,
+          href: "/posted-jobs",
+        });
       }
     } catch (error) {
       console.log(error);

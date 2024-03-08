@@ -49,41 +49,21 @@ function HireBox(props) {
           const respdata = await response.json();
           if (response.ok) {
             if (data.userType === "company") {
-              const res = await fetch(
-                `${process.env.SERVER_URL}/notification/create`,
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    type: "Hire",
-                    headline: `You have a hire request from ${fullName}`,
-                    acceptedFreelancer: props.freelancer._id,
-                    sentCompany: data.userDetails._id,
-                    href: "/my_requests",
-                  }),
-                }
-              );
-              const respdata = await res.json();
+              props.socket.emit("send-notification", {
+                type: "Hire",
+                headline: `You have a hire request from ${fullName}`,
+                acceptedFreelancer: props.freelancer._id,
+                sentCompany: data.userDetails._id,
+                href: "/my_requests",
+              });
             } else {
-              const res = await fetch(
-                `${process.env.SERVER_URL}/notification/create`,
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    type: "Hire",
-                    headline: `You have a hire request from ${fullName}`,
-                    acceptedFreelancer: props.freelancer._id,
-                    sentUser: data.userDetails._id,
-                    href: "/my_requests",
-                  }),
-                }
-              );
-              const respdata = await res.json();
+              props.socket.emit("send-notification", {
+                type: "Hire",
+                headline: `You have a hire request from ${fullName}`,
+                acceptedFreelancer: props.freelancer._id,
+                sentUser: data.userDetails._id,
+                href: "/my_requests",
+              });
             }
           }
         }

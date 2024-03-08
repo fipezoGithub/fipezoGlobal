@@ -539,6 +539,7 @@ const socketServer = socketIO.of("/api/socket");
 //Add this before the app.get() block
 socketServer.on("connection", (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
+
   socket.on("get-notifications", async (data) => {
     try {
       let notifications;
@@ -568,6 +569,63 @@ socketServer.on("connection", (socket) => {
         notifications = await notificationCollection
           .find({
             acceptedCompany: data.user,
+            seen: false,
+          })
+          .populate("acceptedCompany")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      }
+      socketServer.emit("notifications", notifications);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
+
+  socket.on("send-notification", async (data) => {
+    try {
+      const notification = new notificationCollection({
+        type: data.type,
+        headline: data.headline,
+        acceptedFreelancer: data.acceptedFreelancer || null,
+        acceptedUser: data.acceptedUser || null,
+        acceptedCompany: data.acceptedCompany || null,
+        sentFreelancer: data.sentFreelancer || null,
+        sentUser: data.sentUser || null,
+        sentCompany: data.sentCompany || null,
+        href: data.href,
+        seen: false,
+      });
+      const newNotification = await notification.save();
+      let notifications;
+      if (data.acceptedFreelancer) {
+        notifications = await notificationCollection
+          .find({
+            acceptedFreelancer: data.acceptedFreelancer,
+            seen: false,
+          })
+          .populate("acceptedFreelancer")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      } else if (data.acceptedUser) {
+        notifications = await notificationCollection
+          .find({
+            acceptedUser: data.acceptedUser,
+            seen: false,
+          })
+          .populate("acceptedUser")
+          .populate("sentFreelancer")
+          .populate("sentUser")
+          .populate("sentCompany")
+          .exec();
+      } else {
+        notifications = await notificationCollection
+          .find({
+            acceptedCompany: data.acceptedCompany,
             seen: false,
           })
           .populate("acceptedCompany")

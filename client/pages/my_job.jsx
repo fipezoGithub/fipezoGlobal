@@ -103,6 +103,7 @@ const MyJob = (props) => {
                 .map((it, index) => (
                   <Jobcard
                     status={false}
+                    socket={props.socket}
                     job={it}
                     key={index}
                     setJobs={setRecommendedJob}
@@ -130,6 +131,7 @@ const MyJob = (props) => {
                 .map((it, index) => (
                   <Jobcard
                     job={it}
+                    socket={props.socket}
                     key={index}
                     setJobs={setAppliedJob}
                     company={props.company}

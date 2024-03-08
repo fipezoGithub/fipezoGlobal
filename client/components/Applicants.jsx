@@ -14,6 +14,7 @@ const Applicants = ({
   jobId,
   companyname,
   companyId,
+  socket,
 }) => {
   const hireRef = useRef();
   const rejectRef = useRef();
@@ -41,23 +42,13 @@ const Applicants = ({
       });
       const data = await res.json();
       if (data) {
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/create`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "Job apply",
-              headline: `Your application is selected by ${companyname}`,
-              acceptedFreelancer: userid,
-              sentCompany: companyId,
-              href: "/my_job",
-            }),
-          }
-        );
-        const data = await res.json();
+        socket.emit("send-notification", {
+          type: "Job apply",
+          headline: `Your application is selected by ${companyname}`,
+          acceptedFreelancer: userid,
+          sentCompany: companyId,
+          href: "/my_job",
+        });
         e.target.disabled = true;
         e.target.innerText = "Hired";
         rejectRef.current.style.display = "none";
@@ -82,23 +73,13 @@ const Applicants = ({
       });
       const data = await res.json();
       if (data) {
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/create`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "Job apply",
-              headline: `Sorry! your application is rejected by ${companyname}`,
-              acceptedFreelancer: userid,
-              sentCompany: companyId,
-              href: "/my_job",
-            }),
-          }
-        );
-        const data = await res.json();
+        socket.emit("send-notification", {
+          type: "Job apply",
+          headline: `Sorry! your application is rejected by ${companyname}`,
+          acceptedFreelancer: userid,
+          sentCompany: companyId,
+          href: "/my_job",
+        });
         e.target.disabled = true;
         e.target.innerText = "Rejected";
         hireRef.current.style.display = "none";
@@ -119,7 +100,9 @@ const Applicants = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messageId: (data.userDetails.companyphone + freelancer.phone).toString(),
+          messageId: (
+            data.userDetails.companyphone + freelancer.phone
+          ).toString(),
           company: data.userDetails._id,
           freelancer: freelancer._id,
         }),

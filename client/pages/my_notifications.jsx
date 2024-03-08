@@ -23,10 +23,16 @@ const My_notifications = (props) => {
         }
       );
       const noti = await res.json();
-      setNotifications(noti.reverse());
+      setNotifications(noti);
     }
     getNotifications();
-  }, []);
+  }, [data.userDetails]);
+
+  useEffect(() => {
+    props.socket.on("notifications", (data) => {
+      setNotifications((prev) => [...prev, ...data]);
+    });
+  }, [props.socket]);
 
   const seenNotification = async (noti) => {
     if (noti.seen === true) {
@@ -93,7 +99,7 @@ const My_notifications = (props) => {
             </button>
           )}
           {notifications.length > 0 ? (
-            notifications.map((item, index) => (
+            notifications.reverse().map((item, index) => (
               <Link
                 href={item.href}
                 key={index}

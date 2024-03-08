@@ -306,23 +306,13 @@ const Dashboard = (props) => {
       );
       const data = await res.json();
       if (res.ok) {
-        const res = await fetch(
-          `${process.env.SERVER_URL}/notification/create`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: "UPI payment",
-              headline: `Ammount has been credited to your account`,
-              acceptedFreelancer: freelancerId,
-              sentUser: data.userDetails._id,
-              href: "/my_referral",
-            }),
-          }
-        );
-        const data = await res.json();
+        props.socket.emit("send-notification", {
+          type: "UPI payment",
+          headline: `Ammount has been credited to your account`,
+          acceptedFreelancer: freelancerId,
+          sentUser: data.userDetails._id,
+          href: "/my_referral",
+        });
         updateUPIRequest(id);
       }
     } catch (error) {
