@@ -91,7 +91,7 @@ function CompanyBioCard(props) {
       <h1 className={styles.name}>
         <span
           className='whitespace-nowrap capitalize'
-          style={{ maxWidth: "12.5rem", fontSize: "1.15rem" }}
+          style={{  fontSize: "1.15rem" }}
         >
           {props.company.companyname.toLowerCase()}
         </span>{" "}
@@ -112,9 +112,10 @@ function CompanyBioCard(props) {
             </div>
           )}
         </span>
-        <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
-        &nbsp;
-        <span className={styles.location + " mr-2"}>{city}</span>
+        <span className={styles.location + " mr-2"}>
+          <IoLocationSharp style={{ fontSize: 12, color: "red" }} />
+          {city}
+        </span>
       </h1>
       <div className='flex w-full justify-start pl-6 gap-4'>
         <p className='bg-red-500 p-2 text-sm text-white rounded-3xl px-3 mb-8 whitespace-nowrap'>

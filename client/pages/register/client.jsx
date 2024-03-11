@@ -59,24 +59,24 @@ function Signup(props) {
 
     async function postData() {
       setLoading(true);
+      const clientFormData = new FormData();
+      clientFormData.append("otp", formData.get("otp"));
+      clientFormData.append("phone", phone);
+      clientFormData.append("firstname", firstname);
+      clientFormData.append("lastname", lastname);
+      clientFormData.append("email", email);
+      clientFormData.append("password", password);
+      clientFormData.append("type", "user");
       try {
         const storedPhone = phone;
         const storedFirstname = firstname;
         const storedLastname = lastname;
         const response = await fetch(`${process.env.SERVER_URL}/otp/signup`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            otp: formData.get("otp"),
-            phone: storedPhone,
-            firstname: storedFirstname,
-            lastname: storedLastname,
-            email: email,
-            password: password,
-            type: "user",
-          }),
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+          body: clientFormData,
         });
         const data = await response.json();
         localStorage.setItem("user", JSON.stringify(data));
@@ -117,8 +117,6 @@ function Signup(props) {
           return;
         }
         setOtpForm(true);
-        localStorage.setItem("user", JSON.stringify(data));
-        dispatch({ type: "isLoggedIn" });
       } catch (error) {
         setSignupFailed(true);
         console.error(error);

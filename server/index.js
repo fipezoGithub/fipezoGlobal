@@ -272,7 +272,7 @@ app.get(
 //Otpcontroller Routes
 app.post("/api/otp", otpController);
 app.post("/api/verify/email", verifyEmail);
-app.post("/api/otp/signup", otpSignupController);
+app.post("/api/otp/signup", userProfilePic, otpSignupController);
 app.post("/api/verify/freelancer/phone", VerifyFreelancerPhone);
 app.post("/api/verify/company/phone", VerifyCompanyPhone);
 app.post("/api/forget-password/submitotp", forgetOTPController);

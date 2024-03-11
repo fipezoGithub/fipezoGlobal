@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
 const otpCollection = require("../models/otpModel");
 const referCollection = require("../models/referModel");
+const { uploadFile } = require("../middlewares/s3");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 
 // verify freelancer phone
 
@@ -123,6 +127,14 @@ async function otpSignupController(req, res) {
 
     const otpCode = otpData.otp;
 
+    let filePromises = [];
+    if (req.file) {
+      filePromises.push(uploadFile(req.file));
+      await Promise.all(filePromises);
+
+      await unlinkFile("uploads/" + req.file.filename);
+    }
+
     if (otpCode === parseInt(otp)) {
       const userData = new userCollection({
         firstname: req.body.firstname,
@@ -130,7 +142,7 @@ async function otpSignupController(req, res) {
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone,
-        profilePicture: null,
+        profilePicture: req.file?.filename || null,
         createdReferalId: null,
       });
 
@@ -153,7 +165,7 @@ async function otpSignupController(req, res) {
       });
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.stack);
     res.status(500).send("Internal server error");
   }
 }
