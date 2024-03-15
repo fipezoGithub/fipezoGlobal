@@ -203,12 +203,10 @@ async function verificationProfile(req, res) {
         freelancer.profession === "actress" ||
         freelancer.profession === "interior_designer"
       ) {
-        const droneWorksFromBody = [
-          req.body.works[0],
-          req.body.works[1],
-          req.body.works[2],
-          req.body.works[3],
-        ];
+        let droneWorksFromBody = [];
+        if (req.body.works) {
+          droneWorksFromBody = [...req.body.works];
+        }
         const droneWorksFromFiles = req.files["works[]"]?.map(
           (file) => file.filename
         );
