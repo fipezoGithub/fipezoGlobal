@@ -416,6 +416,7 @@ async function getFreelancerProfiles(req, res) {
       freelancers,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
+      freelancersNumber: count,
     });
   } catch (error) {
     console.error(error);
