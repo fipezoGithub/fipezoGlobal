@@ -7,30 +7,43 @@ const emailCollection = require("../models/emailModel");
 
 async function contactUs(req, res) {
   try {
-    axios({
-      url: `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_SECRET_KEY}&response=${req.body.captcha}`,
-      method: "post",
-    })
-      .then(async (response) => {
-        if (response.data.success === true) {
-          const contactData = new contactCollection({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            phone: req.body.phone,
-            email: req.body.email,
-            issue: req.body.issue,
-            message: req.body.message,
-          });
-          const postData = await contactData.save();
-          res.status(200).send({ message: "success" });
-        } else {
-          res.status(500).send("CAPTCHA verification failed");
-        }
+    if (req.body.captcha) {
+      axios({
+        url: `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_SECRET_KEY}&response=${req.body.captcha}`,
+        method: "post",
       })
-      .catch((error) => {
-        console.log(error);
-        res.status(500).send("Internal server error");
+        .then(async (response) => {
+          if (response.data.success === true) {
+            const contactData = new contactCollection({
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              phone: req.body.phone,
+              email: req.body.email,
+              issue: req.body.issue,
+              message: req.body.message,
+            });
+            const postData = await contactData.save();
+            res.status(200).send({ message: "success" });
+          } else {
+            res.status(500).send("CAPTCHA verification failed");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          res.status(500).send("Internal server error");
+        });
+    } else {
+      const contactData = new contactCollection({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phone: req.body.phone,
+        email: req.body.email,
+        issue: req.body.issue,
+        message: req.body.message,
       });
+      const postData = await contactData.save();
+      res.status(200).send({ message: "success" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");

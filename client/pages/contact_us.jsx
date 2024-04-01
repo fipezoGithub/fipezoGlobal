@@ -10,7 +10,7 @@ import Link from "next/link";
 
 function Contact(props) {
   const siteKey = process.env.CAPTCHA_SITE_KEY;
-  const [reCaptchaValue, setReCaptchaValue] = useState("");
+  const [reCaptchaValue, setReCaptchaValue] = useState(null);
   const captchaRef = useRef();
   const [contactError, setContactError] = useState(false);
   const [btnValue, setBtnValue] = useState("Submit");
@@ -23,11 +23,11 @@ function Contact(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (reCaptchaValue === "") {
-      alert("Please verify that you are a human!");
-      captchaRef.current.reset();
-      return;
-    }
+    // if (reCaptchaValue === null) {
+    //   alert("Please verify that you are a human!");
+    //   captchaRef.current.reset();
+    //   return;
+    // }
     const data = {
       firstName: e.target[0].value,
       lastName: e.target[1].value,
