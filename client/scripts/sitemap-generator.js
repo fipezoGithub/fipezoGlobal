@@ -1,5 +1,5 @@
-const fs = require("fs");
-const globby = require("globby");
+// const fs = require("fs");
+// const globby = require("globby");
 function addPage(page) {
   const path = page
     .replace("pages", "")
@@ -14,6 +14,8 @@ function addPage(page) {
   </url>`;
 }
 async function generateSitemap() {
+  const { globby } = await import("globby");
+  const fs = await import("fs/promises");
   const pages = await globby([
     "pages/**/*{.jsx,.mdx}",
     "!pages/_*.js",
@@ -23,6 +25,6 @@ async function generateSitemap() {
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${pages.map(addPage).join("\n")}
   </urlset>`;
-  fs.writeFileSync("public/sitemap.xml", sitemap);
+  await fs.writeFile("public/sitemap.xml", sitemap);
 }
 generateSitemap();

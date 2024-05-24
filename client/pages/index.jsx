@@ -12,9 +12,9 @@ import Signupguide from "@/components/Signupguide";
 import Footer from "@/components/Footer";
 import Simplified from "@/components/Simplified";
 import Newsletter from "@/components/Newsletter";
+import Image from "next/image";
 
 export default function Index(props) {
-
   return (
     <div className='app'>
       <Navbar

@@ -540,7 +540,11 @@ const Footer = (props) => {
           </div>
           <div className='grid grid-cols-2 gap-4 lg:gap-x-24'>
             <div className=''>
-              <Link href='/google_play'>
+              <Link
+                href='https://play.google.com/store/apps/details?id=com.fipezo&pcampaignid=web_share'
+                target='_blank'
+                referrerPolicy='no-referrer'
+              >
                 <Image
                   src='/google-play-btn.png'
                   alt='Google Play'
