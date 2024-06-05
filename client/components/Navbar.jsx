@@ -3,7 +3,7 @@ import Link from "next/link";
 import { RiMenu3Fill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { BiChevronDown } from "react-icons/bi";
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { FaBell } from "react-icons/fa";
