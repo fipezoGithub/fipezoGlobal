@@ -82,7 +82,9 @@ async function signupController(req, res) {
 
     sendTextMessage(
       phone,
-      `Hi ${code} is your one time password to Signup on Fipezo. Do not share this with anyone. -Team Fipezo`
+      `<#> Hi ${code} is your one time password to Signup on Fipezo. Do not share this with anyone. -Team Fipezo
+      +rGVCKNFWYy
+      `
     );
 
     otpTimer = setTimeout(async () => {
@@ -136,7 +138,10 @@ const loginController = async (req, res) => {
 
     sendTextMessage(
       phone,
-      `Hi ${code} is your one time password to login on Fipezo. Do not share this with anyone. -Team Fipezo`
+      `<#> Hi ${code} is your one time password to login on Fipezo. Do not share this with anyone. -Team Fipezo
+      
+      +rGVCKNFWYy
+      `
     );
 
     otpTimer = setTimeout(async () => {

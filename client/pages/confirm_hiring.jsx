@@ -138,7 +138,7 @@ const Urgenthiring = (props) => {
         });
         const message = await res.json();
         console.log(message);
-        // router.push(`/subscriptionstatus`);
+        router.push("/my_hires");
       },
       ondismiss: () => {
         /*handle payment window close or dismiss here */

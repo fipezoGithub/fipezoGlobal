@@ -157,7 +157,7 @@ export default function My_hires(props) {
       )}
       <div className={styles.requests}>
         <h1 className={styles.heading}>My Requests</h1>
-        <div className='my-8'>
+        {/* <div className='my-8'>
           <ul className='flex items-center justify-between gap-12'>
             <li
               className='capitalize text-3xl font-semibold cursor-pointer relative flex flex-col items-center gap-1 group'
@@ -182,8 +182,8 @@ export default function My_hires(props) {
               ></span>
             </li>
           </ul>
-        </div>
-        {hires.length === 0 ? (
+        </div> */}
+        {/* {hires.length === 0 ? (
           <div className={styles.noRequestsImage}>
             <Image
               src='/noRequests.webp'
@@ -227,6 +227,40 @@ export default function My_hires(props) {
                 />
               );
             })}
+          </div>
+        ) : (
+        )} */}
+        <div className="h-[5vh]"></div>
+        {premiumHires.length === 0 ? (
+          <div className={styles.noRequestsImage}>
+            <Image
+              src='/noRequests.webp'
+              alt='no-request'
+              width={500}
+              height={500}
+            />
+            <p
+              style={{
+                fontSize: "18px",
+                textAlign: "center",
+                marginTop: "1.5rem",
+              }}
+            >
+              You currently have No requests. To make a request, click on the
+              button below.
+            </p>
+            <Link
+              href='/explore/freelancers'
+              style={{
+                fontSize: "18px",
+                textAlign: "center",
+                marginTop: "1.5rem",
+                color: "#00aaff",
+                cursor: "pointer",
+              }}
+            >
+              Hire freelancers for your project.
+            </Link>
           </div>
         ) : (
           <div className='flex items-center justify-center gap-4 flex-wrap'>

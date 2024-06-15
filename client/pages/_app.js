@@ -80,6 +80,21 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
+  const openAppOrFallback = () => {
+    const userAgent = window.navigator.userAgent;
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent
+      );
+
+    if (isMobile) {
+      window.location.href = "fipezo://open";
+    } else {
+      // Fallback for non-mobile devices or if app is not installed
+      window.location.href = "https://fipezo.com/";
+    }
+  };
+
   return (
     <GoogleOAuthProvider clientId={`${process.env.GOOGLE_CLIENT_ID}`}>
       <AuthContextProvider>

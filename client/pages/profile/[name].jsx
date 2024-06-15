@@ -249,13 +249,19 @@ export default function Name(props) {
             {((data.userDetails && !data.userDetails?.uid) ||
               data.userDetails?.companyname) && (
               <div className={styles.btn + " relative"} id={styles.hire}>
-                <p
-                  className='cursor-pointer flex items-center gap-1'
-                  onClick={() => setShowHireDrop(!showHireDrop)}
+                <button
+                  type='button'
+                  onClick={() =>
+                    router.push({
+                      pathname: "/confirm_hiring",
+                      query: { freelancer: props.data.uid },
+                    })
+                  }
+                  className='cursor-pointer flex items-center gap-1 text-center'
                 >
-                  &nbsp;Hire Me <FaAngleDown />
-                </p>
-                {showHireDrop && (
+                  &nbsp;Hire Me
+                </button>
+                {/* {showHireDrop && (
                   <div className='absolute top-full bg-green-600 flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
                     <Link
                       href='/confirm_hiring_plans'
@@ -290,7 +296,7 @@ export default function Name(props) {
                       </span>
                     </button>
                   </div>
-                )}
+                )} */}
               </div>
             )}
             {((data.userDetails && !data.userDetails?.uid) ||
@@ -385,10 +391,19 @@ export default function Name(props) {
                   className={styles.btn + " relative group"}
                   id={styles.hire}
                 >
-                  <p className='cursor-pointer flex items-center justify-center gap-1'>
-                    Hire Me <FaAngleDown />
-                  </p>
-                  <div className='absolute top-full bg-green-600 hidden group-hover:block -right-3/4 rounded-md px-4'>
+                  <button
+                    type='button'
+                    onClick={() =>
+                      router.push({
+                        pathname: "/confirm_hiring",
+                        query: { freelancer: props.data.uid },
+                      })
+                    }
+                    className='cursor-pointer flex items-center text-center justify-center gap-1'
+                  >
+                    &nbsp;&nbsp;&nbsp;Hire Me
+                  </button>
+                  {/* <div className='absolute top-full bg-green-600 hidden group-hover:block -right-3/4 rounded-md px-4'>
                     <div className='relative flex items-center gap-4'>
                       <Link
                         href='/confirm_hiring_plans'
@@ -426,7 +441,7 @@ export default function Name(props) {
                         </span>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {((data.userDetails && !data.userDetails?.uid) ||
