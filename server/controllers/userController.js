@@ -288,7 +288,8 @@ async function forgetController(req, res) {
 
     sendTextMessage(
       phone,
-      `You are requesting for change your password.Your code is ${code} valid for 2mins. Do not share this with anyone. -Team Fipezo`
+      `You are requesting for change your password.Your code is ${code} valid for 2mins. Do not share this with anyone. -Team Fipezo
+      +rGVCKNFWYy`
     );
 
     otpTimer = setTimeout(async () => {
