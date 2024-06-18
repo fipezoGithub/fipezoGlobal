@@ -1,7 +1,6 @@
 import React from "react";
 
 const PremiumHireCard = (props) => {
-  console.log(props);
   return (
     <div className='flex flex-col items-start gap-4 border px-4 md:px-6 py-4 rounded-md shadow-lg'>
       <h1 className='self-start text-center w-full text-2xl capitalize font-semibold'>

@@ -157,79 +157,6 @@ export default function My_hires(props) {
       )}
       <div className={styles.requests}>
         <h1 className={styles.heading}>My Requests</h1>
-        {/* <div className='my-8'>
-          <ul className='flex items-center justify-between gap-12'>
-            <li
-              className='capitalize text-3xl font-semibold cursor-pointer relative flex flex-col items-center gap-1 group'
-              onClick={() => setHireBox(true)}
-            >
-              hire
-              <span
-                className={`h-0.5 group-hover:w-full bg-black transition-[width] duration-300 ${
-                  hireBox === true ? "w-full" : "w-0"
-                }`}
-              ></span>
-            </li>
-            <li
-              className='capitalize text-3xl font-semibold cursor-pointer relative flex flex-col items-center gap-1 group'
-              onClick={() => setHireBox(false)}
-            >
-              confirm hire
-              <span
-                className={`h-0.5 w-0 group-hover:w-full bg-black transition-[width] duration-300 ${
-                  hireBox === false ? "w-full" : "w-0"
-                }`}
-              ></span>
-            </li>
-          </ul>
-        </div> */}
-        {/* {hires.length === 0 ? (
-          <div className={styles.noRequestsImage}>
-            <Image
-              src='/noRequests.webp'
-              alt='no-request'
-              width={500}
-              height={500}
-            />
-            <p
-              style={{
-                fontSize: "18px",
-                textAlign: "center",
-                marginTop: "1.5rem",
-              }}
-            >
-              You currently have No requests. To make a request, click on the
-              button below.
-            </p>
-            <Link
-              href='/explore/freelancers'
-              style={{
-                fontSize: "18px",
-                textAlign: "center",
-                marginTop: "1.5rem",
-                color: "#00aaff",
-                cursor: "pointer",
-              }}
-            >
-              Hire freelancers for your project.
-            </Link>
-          </div>
-        ) : hireBox === true ? (
-          <div className={styles.requestsContainer}>
-            {hires.map((hire, i) => {
-              return (
-                <HireCard
-                  contactFreelancer={contactFreelancer}
-                  setReqId={setReqId}
-                  setShowDeleteBox={setShowDeleteBox}
-                  key={i}
-                  hire={hire}
-                />
-              );
-            })}
-          </div>
-        ) : (
-        )} */}
         <div className="h-[5vh]"></div>
         {premiumHires.length === 0 ? (
           <div className={styles.noRequestsImage}>
@@ -265,7 +192,7 @@ export default function My_hires(props) {
         ) : (
           <div className='flex items-center justify-center gap-4 flex-wrap'>
             {premiumHires.map((hire, i) => {
-              return <PremiumHireCard key={i} hire={hire} />;
+              return <HireCard key={i} hire={hire} />;
             })}
           </div>
         )}

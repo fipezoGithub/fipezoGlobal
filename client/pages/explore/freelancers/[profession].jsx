@@ -604,8 +604,6 @@ function Explore(props) {
                       {currentPage + 1}
                     </span>
                   )}
-                  {/* </div> */}
-                  {/* )).slice(0, 3)} */}
                   {currentPage < noOfPages - 1 && (
                     <>
                       {"..."}

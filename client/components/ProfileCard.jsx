@@ -195,7 +195,7 @@ export default function ProfileCard(props) {
           width='40'
           alt='verified-tick'
         />
-        {props.profile.featured && (
+        {props.profile.verified && (
           <span className={styles.container}>
             <div className={styles.overTick} style={{ display: display }}>
               <span>Verified</span>

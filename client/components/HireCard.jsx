@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styles from "../styles/RequestCard.module.css";
 import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function HireCard(props) {
   const router = useRouter();
@@ -30,10 +31,10 @@ function HireCard(props) {
           },
           body: JSON.stringify({
             messageId: (
-              data.userDetails.phone + props.hire.freelancerDetails.phone
+              data.userDetails.phone + props.hire.freelancer.phone
             ).toString(),
             user: data.userDetails._id,
-            freelancer: props.hire.freelancerDetails._id,
+            freelancer: props.hire.freelancer._id,
           }),
         });
       } else {
@@ -44,10 +45,10 @@ function HireCard(props) {
           },
           body: JSON.stringify({
             messageId: (
-              data.userDetails.companyphone + props.hire.freelancerDetails.phone
+              data.userDetails.companyphone + props.hire.freelancer.phone
             ).toString(),
             company: data.userDetails._id,
-            freelancer: props.hire.freelancerDetails._id,
+            freelancer: props.hire.freelancer._id,
           }),
         });
       }
@@ -57,11 +58,11 @@ function HireCard(props) {
           router.push(
             `/chats/${
               data.userDetails.firstname + "_" + data.userDetails.lastname
-            }+${props.hire.freelancerDetails?.uid}/${respData.messageId}`
+            }+${props.hire.freelancer?.uid}/${respData.messageId}`
           );
         } else {
           router.push(
-            `/chats/${data.userDetails.uid}+${props.hire.freelancerDetails?.uid}/${respData.messageId}`
+            `/chats/${data.userDetails.uid}+${props.hire.freelancer?.uid}/${respData.messageId}`
           );
         }
       }
@@ -73,9 +74,11 @@ function HireCard(props) {
   return (
     <div className={styles.requestCard}>
       <h2 className={styles.cardTitle}>
-        {props.hire.freelancerDetails.firstname}&nbsp;
-        {props.hire.freelancerDetails.lastname} - &nbsp;
-        {props.hire.freelancerDetails.profession
+        <span className='capitalize'>
+          {props.hire.freelancer.firstname}&nbsp;
+          {props.hire.freelancer.lastname} - &nbsp;
+        </span>
+        {props.hire.freelancer.profession
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ")}
@@ -87,7 +90,7 @@ function HireCard(props) {
           </span>
         </div>
       )}
-      {props.hire.status === "accepted" && (
+      {props.hire.status === "complete" && (
         <div className={styles.tag}>
           <span id={styles.accepted} className={styles.status}>
             Accepted
@@ -106,9 +109,9 @@ function HireCard(props) {
         Description: {props.hire.description}
       </p>
       <p className={styles.cardInfo}>Address: {props.hire.address}</p>
-      {props.hire.date && (
+      {props.hire.reuireDate && (
         <p className={styles.cardInfo}>
-          Date: {formatDate(props.hire.date?.slice(0, 10))}
+          Date: {new Date(props.hire.reuireDate).toDateString()}
         </p>
       )}
       {(props.hire.startTime !== "00:00" || props.hire.endTime !== "00:00") && (
@@ -118,19 +121,13 @@ function HireCard(props) {
       )}
       <p className={styles.cardInfo}>Budget: {props.hire.budget}</p>
       <div className={styles.btns}>
-        <button
+        <Link
           className={styles.btn}
-          type='button'
+          href={`tel:${props.hire.freelancer.phone}`}
           id={styles.accept}
-          onClick={() =>
-            props.contactFreelancer(
-              props.hire.status,
-              props.hire.freelancerDetails.phone
-            )
-          }
         >
           Contact
-        </button>
+        </Link>
         <button
           className={styles.btn}
           type='button'
@@ -141,16 +138,6 @@ function HireCard(props) {
           }}
         >
           Cancel
-        </button>
-        <button
-          className={
-            styles.btn +
-            " bg-blue-500 rounded-md text-white hover:bg-blue-700 capitalize"
-          }
-          type='button'
-          onClick={createChatRoom}
-        >
-          message
         </button>
       </div>
     </div>

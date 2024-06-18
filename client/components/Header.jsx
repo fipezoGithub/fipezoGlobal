@@ -22,11 +22,6 @@ class Header extends React.Component {
         "Babysitter",
         "Maid",
       ],
-      backgroundImages: [
-        "/photographer-header.png",
-        "/web-developer-header.png",
-        "/model-header.png",
-      ],
       index: 0,
     };
   }

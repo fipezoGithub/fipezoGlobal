@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -26,6 +26,12 @@ const Urgenthiring = (props) => {
   const router = useRouter();
 
   const { data } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log(data.userDetails);
+    setFullNmae(data.userDetails.firstname + " " + data.userDetails.lastname);
+    setPhone(data.userDetails.phone);
+  }, [data]);
 
   const initializeRazorpaySDK = () => {
     return new Promise((resolve) => {
@@ -192,6 +198,7 @@ const Urgenthiring = (props) => {
               <input
                 type='text'
                 id='fullName'
+                disabled
                 value={fullName}
                 onChange={(e) => {
                   setFullNmae(e.target.value);
@@ -227,6 +234,7 @@ const Urgenthiring = (props) => {
                   setPhone(e.target.value);
                   setFormError(false);
                 }}
+                disabled
                 className='focus:outline-none border-b px-2 py-1 drop-shadow-md'
                 placeholder='Enter your phone number'
               />
