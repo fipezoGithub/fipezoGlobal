@@ -14,7 +14,7 @@ export const getServerSideProps = async (ctx) => {
 };
 
 const Urgenthiring = (props) => {
-  const [fullName, setFullNmae] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [requiredDate, setRequiredDate] = useState("");
@@ -28,8 +28,7 @@ const Urgenthiring = (props) => {
   const { data } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(data.userDetails);
-    setFullNmae(data.userDetails.firstname + " " + data.userDetails.lastname);
+    setFullName(data.userDetails.firstname + " " + data.userDetails.lastname);
     setPhone(data.userDetails.phone);
   }, [data]);
 
@@ -108,7 +107,7 @@ const Urgenthiring = (props) => {
           bodyData = {
             company: data.userDetails._id,
             fullName: fullName,
-            freelancer: props.pageData._id,
+            hired_freelancer: props.pageData._id,
             address: address,
             phone: phone,
             reuireDate: requiredDate,
@@ -122,7 +121,7 @@ const Urgenthiring = (props) => {
           bodyData = {
             user: data.userDetails._id,
             fullName: fullName,
-            freelancer: props.pageData._id,
+            hired_freelancer: props.pageData._id,
             address: address,
             phone: phone,
             reuireDate: requiredDate,
@@ -143,7 +142,6 @@ const Urgenthiring = (props) => {
           body: JSON.stringify(bodyData),
         });
         const message = await res.json();
-        console.log(message);
         router.push("/my_hires");
       },
       ondismiss: () => {
@@ -201,7 +199,7 @@ const Urgenthiring = (props) => {
                 disabled
                 value={fullName}
                 onChange={(e) => {
-                  setFullNmae(e.target.value);
+                  setFullName(e.target.value);
                   setFormError(false);
                 }}
                 placeholder='Enter your full name'

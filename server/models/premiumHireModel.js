@@ -10,11 +10,15 @@ const premiumHireSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "companycollection",
     },
+    freelancer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "freelancercollection",
+    },
     fullName: {
       type: String,
       required: true,
     },
-    freelancer: {
+    hired_freelancer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "freelancercollection",
       required: true,
@@ -41,6 +45,9 @@ const premiumHireSchema = new mongoose.Schema(
     },
     status: { type: String, required: true },
     transactionId: { type: String, required: true },
+    freelancer_status: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

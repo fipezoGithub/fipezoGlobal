@@ -347,7 +347,7 @@ export default function Navbar(props) {
             {!user && (
               <li className='p-2'>
                 <Link
-                  href='/signup'
+                  href='/register/freelancer'
                   className='bg-blue-600 md:text-sm text-white px-5 py-3 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap'
                 >
                   Get started - It&apos;s free
@@ -678,7 +678,7 @@ export default function Navbar(props) {
             {!user && (
               <li className='p-2'>
                 <Link
-                  href='/signup'
+                  href='/register/freelancer'
                   className='bg-white text-black px-5 py-3 font-bold rounded-[7px] hover:bg-blue-800 shadow-md whitespace-nowrap'
                 >
                   Get started - It&apos;s free

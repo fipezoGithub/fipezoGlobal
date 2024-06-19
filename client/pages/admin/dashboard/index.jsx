@@ -724,7 +724,7 @@ const Dashboard = (props) => {
                   className='flex flex-col items-start gap-4 border px-6 py-4 rounded-md shadow-lg'
                 >
                   <h1 className='self-start text-center w-full text-2xl capitalize font-semibold'>
-                    task details
+                    task information
                   </h1>
                   <h2 className='capitalize text-lg'>
                     client name :{" "}
@@ -737,21 +737,21 @@ const Dashboard = (props) => {
                   <h2 className='capitalize text-lg'>
                     requested freelancer :{" "}
                     <span className='font-bold'>
-                      {list.freelancer.firstname +
+                      {list.hired_freelancer.firstname +
                         " " +
-                        list.freelancer.lastname}
+                        list.hired_freelancer.lastname}
                     </span>
                   </h2>
                   <h2 className='capitalize text-lg'>
                     requested freelancer profession:{" "}
                     <span className='font-bold'>
-                      {list.freelancer.profession.split("_").join(" ")}
+                      {list.hired_freelancer.profession.split("_").join(" ")}
                     </span>
                   </h2>
                   <h2 className='capitalize text-lg'>
                     requested freelancer location:{" "}
                     <span className='font-bold'>
-                      {list.freelancer.location}
+                      {list.hired_freelancer.location}
                     </span>
                   </h2>
                   <h2 className='capitalize text-lg'>
@@ -772,11 +772,18 @@ const Dashboard = (props) => {
                       call client
                     </a>
                     <a
-                      href={`tel:+91${list.freelancer.phone}`}
+                      href={`tel:+91${list.hired_freelancer.phone}`}
                       className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
                     >
                       call freelancer
                     </a>
+                    <button
+                      type='button'
+                      onClick={() => updatePremiumRequest(list._id)}
+                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
+                    >
+                      send to freelancer
+                    </button>
                     <button
                       type='button'
                       onClick={() => updatePremiumRequest(list._id)}

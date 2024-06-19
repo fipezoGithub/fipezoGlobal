@@ -216,7 +216,7 @@ const Footer = (props) => {
                 freelancing services
               </p>
             </nav>
-            <ul className='grid grid-cols-2 gap-x-4 lg:gap-x-24'>
+            <ul className='grid grid-cols-3 gap-x-4 lg:gap-x-24'>
               <li>
                 <Link
                   href='/explore/freelancers/actor'
@@ -459,17 +459,37 @@ const Footer = (props) => {
               </li>
             </ul>
           </div>
-          <div className='grid grid-cols-2 gap-4 lg:gap-x-24'>
+          <div className='grid grid-cols-3 gap-4 lg:gap-x-24'>
             <ul className='flex flex-col items-start gap-2'>
-              <p className='capitalize text-xl font-bold'>about</p>
+              <p className='capitalize text-xl font-bold'>useful links</p>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/about_us'>About Us</Link>
+                <Link
+                  href={
+                    data.userDetails?.premium
+                      ? "/subscriptionstatus"
+                      : "/freelancer-premium-plans"
+                  }
+                >
+                  Fipezo premium
+                </Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/careers'>Careers</Link>
+                <Link href='/register/company'>Register as Company</Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/guides_and_reviews'>Guides &amp; Reviews</Link>
+                <Link href='/register/client'>Register as Client</Link>
+              </li>
+              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
+                <Link href='/confirm_hiring_plans'>Fipezo Confirm hire</Link>
+              </li>
+              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
+                <Link href='/referandearn'>refer &amp; earn</Link>
+              </li>
+              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
+                <Link href='/sitemap'>sitemap</Link>
+              </li>
+              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
+                <Link href='/submit_your_city'>submit your city</Link>
               </li>
             </ul>
             <ul className='flex flex-col items-start gap-2'>
@@ -512,29 +532,15 @@ const Footer = (props) => {
               </li>
             </ul>
             <ul className='flex flex-col items-start gap-2'>
-              <p className='capitalize text-xl font-bold'>useful links</p>
+              <p className='capitalize text-xl font-bold'>about</p>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link
-                  href={
-                    data.userDetails?.premium
-                      ? "/subscriptionstatus"
-                      : "/freelancer-premium-plans"
-                  }
-                >
-                  Fipezo premium
-                </Link>
+                <Link href='/about_us'>About Us</Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/confirm_hiring_plans'>Fipezo Confirm hire</Link>
+                <Link href='/careers'>Careers</Link>
               </li>
               <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/referandearn'>refer &amp; earn</Link>
-              </li>
-              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/sitemap'>sitemap</Link>
-              </li>
-              <li className='text-base text-neutral-500 hover:text-yellow-400 capitalize'>
-                <Link href='/submit_your_city'>submit your city</Link>
+                <Link href='/guides_and_reviews'>Guides &amp; Reviews</Link>
               </li>
             </ul>
           </div>

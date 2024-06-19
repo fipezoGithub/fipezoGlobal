@@ -8,6 +8,8 @@ function HireCard(props) {
   const router = useRouter();
   const { data } = useContext(AuthContext);
 
+  console.log(props);
+
   // Function to format the date as "dd/mm/yyyy"
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -75,10 +77,10 @@ function HireCard(props) {
     <div className={styles.requestCard}>
       <h2 className={styles.cardTitle}>
         <span className='capitalize'>
-          {props.hire.freelancer.firstname}&nbsp;
-          {props.hire.freelancer.lastname} - &nbsp;
+          {props.hire.hired_freelancer.firstname}&nbsp;
+          {props.hire.hired_freelancer.lastname} - &nbsp;
         </span>
-        {props.hire.freelancer.profession
+        {props.hire.hired_freelancer.profession
           .split("_")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ")}
@@ -123,7 +125,7 @@ function HireCard(props) {
       <div className={styles.btns}>
         <Link
           className={styles.btn}
-          href={`tel:${props.hire.freelancer.phone}`}
+          href={`tel:${props.hire.hired_freelancer.phone}`}
           id={styles.accept}
         >
           Contact

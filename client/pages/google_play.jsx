@@ -15,6 +15,10 @@ function Mobile(props) {
   });
 
   useEffect(() => {
+    setDimensions({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
     const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
@@ -57,7 +61,8 @@ function Mobile(props) {
         />
         <div className='flex flex-col items-center gap-[4vmin]'>
           <h1 className='font-semibold text-[3vmax]'>
-            Voila! Fipezo is now on Play store
+            <span className='text-amber-500'>Voila!</span> Fipezo is now on Play
+            store
           </h1>
           <Link
             href='https://play.google.com/store/apps/details?id=com.fipezo&pcampaignid=web_share'

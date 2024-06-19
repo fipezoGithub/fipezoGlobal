@@ -4961,11 +4961,32 @@ export default withRouter(
                   {this.state.currentPage === 1 ||
                   this.state.currentPage === 2 ||
                   this.state.currentPage === 3 ? (
-                    <div className='mt-8'>
-                      Already have an account?{" "}
-                      <Link className='text-cyan-500 capitalize' href='/login'>
-                        log in!
-                      </Link>
+                    <div className='mt-8 flex flex-col gap-[1.5vmax]'>
+                      <div className='text-center text-[2.5vmin]'>
+                        <span>Register as a </span>{" "}
+                        <Link
+                          className='text-cyan-500 capitalize font-semibold text-[3vmin] hover:underline'
+                          href='/register/company'
+                        >
+                          company
+                        </Link>{" "}
+                        <span>or</span>{" "}
+                        <Link
+                          className='text-cyan-500 capitalize font-semibold text-[3vmin] hover:underline'
+                          href='/register/client'
+                        >
+                          client
+                        </Link>
+                      </div>
+                      <div className='text-center'>
+                        <span>Already have an account?</span>{" "}
+                        <Link
+                          className='text-cyan-500 capitalize'
+                          href='/login'
+                        >
+                          log in!
+                        </Link>
+                      </div>
                     </div>
                   ) : (
                     <div
