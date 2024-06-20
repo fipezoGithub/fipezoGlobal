@@ -66,79 +66,49 @@ const ConfirmHiringPlans = (props) => {
         </h2>
         <div className='flex items-center justify-center'>
           <table className='text-lg lg:text-2xl text-left border mx-4 lg:mx-0'>
-            <thead className='text-base'>
+            <thead className='text-xl'>
               <tr className='border-b'>
-                <th scope='col' className='uppercase px-4 lg:px-8 py-6'>
+                <th scope='col' className='uppercase px-4 lg:px-8 py-6 text-center'>
                   benefits
-                </th>
-                <th scope='col' className='uppercase lg:px-10 py-6'>
-                  hire
-                </th>
-                <th scope='col' className='uppercase lg:px-8 py-6 text-center'>
-                  confirm hire
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-center">
               <tr className='bg-white border-b'>
                 <th
                   scope='row'
-                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg w-1/2 lg:w-auto'
+                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg'
                 >
                   Hire Freelancers
                 </th>
-                <td className='px-6 lg:px-12 py-6'>
-                  <FaCheck color='#12c96b' />
-                </td>
-                <td className='px-8 lg:px-16 py-4'>
-                  <FaCheck color='#12c96b' />
-                </td>
               </tr>
               <tr className='bg-white border-b'>
                 <th
                   scope='row'
-                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg w-1/2 lg:w-auto'
+                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg'
                 >
                   No Delay in Hiring process
                 </th>
-                <td className='px-5 lg:px-10 py-6'>
-                  <IoClose color='#FF004D' size={"1.4em"} />
-                </td>
-                <td className='px-8 lg:px-16 py-4'>
-                  <FaCheck color='#12c96b' />
-                </td>
               </tr>
               <tr className='bg-white border-b'>
                 <th
                   scope='row'
-                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg break-words w-1/2 lg:w-auto'
+                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg break-words'
                 >
                   Dedicated Relationship Manager Based on Your project
                   requirement
                 </th>
-                <td className='px-5 lg:px-10 py-6'>
-                  <IoClose color='#FF004D' size={"1.4em"} />
-                </td>
-                <td className='px-8 lg:px-16 py-4 capitalize'>
-                  <FaCheck color='#12c96b' />
-                </td>
               </tr>
               <tr className='bg-white border-b'>
                 <th
                   scope='row'
-                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg w-1/2 lg:w-auto'
+                  className='px-4 lg:px-8 py-6 font-normal lg:whitespace-nowrap text-sm lg:text-lg'
                 >
                   Fipezo{" "}
                   <span className='text-orange-600 font-bold capitalize'>
                     assurence
                   </span>
                 </th>
-                <td className='px-5 lg:px-10 py-6'>
-                  <IoClose color='#FF004D' size={"1.4em"} />
-                </td>
-                <td className='px-8 lg:px-16 py-4 capitalize'>
-                  <FaCheck color='#12c96b' />
-                </td>
               </tr>
             </tbody>
           </table>

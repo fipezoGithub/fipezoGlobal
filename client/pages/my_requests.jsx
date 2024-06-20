@@ -47,7 +47,7 @@ export default function My_requests(props) {
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     if (token) {
-      fetch(`${process.env.SERVER_URL}/requests`, {
+      fetch(`${process.env.SERVER_URL}/hire/premium/request-freelancers`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,15 +68,25 @@ export default function My_requests(props) {
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     if (token) {
-      fetch(`${process.env.SERVER_URL}/cancel/request/${req._id}`, {
+      fetch(`${process.env.SERVER_URL}/hire/freelancer/action/${req._id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({ freelancer_status: "declined" }),
       })
         .then((res) => res.json())
         .then(async (data) => {
+          const oldRequest = [...requests];
+          oldRequest.forEach((elm) => {
+            if (elm._id === req._id) {
+              elm.freelancer_status = "declined";
+            }
+          });
+          setRequests(oldRequest);
           if (data.success) {
+            req.freelancer_status = "declined";
             props.socket.emit("send-notification", {
               type: "Hire Reject",
               headline: `Your hire request is rejected by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
@@ -100,16 +110,25 @@ export default function My_requests(props) {
       ? JSON.parse(localStorage.getItem("user")).token
       : null;
     if (token) {
-      fetch(`${process.env.SERVER_URL}/accept/request/${req._id}`, {
+      fetch(`${process.env.SERVER_URL}/hire/freelancer/action/${req._id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({ freelancer_status: "accepted" }),
       })
         .then((res) => res.json())
         .then(async (data) => {
           if (data.success) {
             setShowDeleteBox(false);
+            const oldRequest = [...requests];
+            oldRequest.forEach((elm) => {
+              if (elm._id === req._id) {
+                elm.freelancer_status = "accepted";
+              }
+            });
+            setRequests(oldRequest);
             props.socket.emit("send-notification", {
               type: "Hire Accept",
               headline: `Your hire request is accepted by ${req.freelancerDetails.firstname} ${req.freelancerDetails.lastname}`,
@@ -117,7 +136,6 @@ export default function My_requests(props) {
               sentFreelancer: req.freelancer,
               href: "/my_hires",
             });
-            setRequests([]);
           }
         })
         .catch((error) => {

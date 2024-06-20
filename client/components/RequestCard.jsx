@@ -18,55 +18,9 @@ function RequestCard(props) {
     return `${day}/${month}/${year}`;
   };
 
-  const createChatRoom = async () => {
-    if (!data.isLoggedIn) {
-      router.push("/login");
-    }
-    try {
-      let res;
-      if (!props.request.userDetails.uid) {
-        res = await fetch(`${process.env.SERVER_URL}/createmessagebox`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messageId: (
-              data.userDetails.phone + props.request.userDetails.phone
-            ).toString(),
-            user: props.request.userDetails._id,
-            freelancer: data.userDetails._id,
-          }),
-        });
-      } else {
-        res = await fetch(`${process.env.SERVER_URL}/createmessagebox`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            messageId: (
-              data.userDetails.phone + props.request.userDetails.companyphone
-            ).toString(),
-            company: props.request.userDetails._id,
-            freelancer: data.userDetails._id,
-          }),
-        });
-      }
-      const respData = await res.json();
-      if (res.ok) {
-        router.push(
-          `/chats/${data.userDetails.uid}+${props.request.userDetails?.uid}/${respData.messageId}`
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className={styles.requestCard}>
-      <h2 className={styles.cardTitle}>{props.request.fullname}</h2>
+      <h2 className={styles.cardTitle}>{props.request.fullName}</h2>
       <a className={styles.cardInfo} href={`tel:${props.request.phone}`}>
         Phone: {props.request.phone}
       </a>
@@ -77,7 +31,7 @@ function RequestCard(props) {
       <p className={styles.cardInfo}>
         Date:{" "}
         {formatDate(props.request.date?.slice(0, 10)) === undefined
-          ? "Non applicable"
+          ? "Not applicable"
           : formatDate(props.request.date.slice(0, 10))}
       </p>
       <p className={styles.cardInfo}>
@@ -88,7 +42,8 @@ function RequestCard(props) {
           : `${props.request.startTime} - ${props.request.endTime}`}
       </p>
       <p className={styles.cardInfo}>Budget: {props.request.budget}</p>
-      {props.request.status === "pending" && (
+      {(props.request.freelancer_status === "not_send" ||
+        props.request.freelancer_status === "sent") && (
         <div className={styles.btns}>
           <button
             className={styles.btn}
@@ -112,39 +67,29 @@ function RequestCard(props) {
           >
             Accept
           </button>
+        </div>
+      )}
+      {props.request.freelancer_status === "accepted" && (
+        <div className={styles.btns}>
           <button
-            className={
-              styles.btn +
-              " bg-blue-500 rounded-md text-white hover:bg-blue-700"
-            }
+            className={`${styles.btn} ${styles.accepted}`}
             type='button'
-            onClick={createChatRoom}
+            id={styles.accepted}
           >
-            Message
+            Accepted
           </button>
         </div>
       )}
-      {props.request.status !== "pending" &&
-        (props.request.status === "accepted" ? (
-          <div className={styles.btns}>
-            <button
-              className={`${styles.btn} ${styles.accepted}`}
-              type='button'
-              id={styles.accepted}
-            >
-              Accepted
-            </button>
-          </div>
-        ) : (
-          <div className={styles.btns}>
-            <button
-              className={`${styles.btn} ${styles.accepted} bg-red-600 text-white`}
-              type='button'
-            >
-              Declined
-            </button>
-          </div>
-        ))}
+      {props.request.freelancer_status === "declined" && (
+        <div className={styles.btns}>
+          <button
+            className={`${styles.btn} ${styles.accepted} bg-red-600 text-white`}
+            type='button'
+          >
+            Declined
+          </button>
+        </div>
+      )}
     </div>
   );
 }

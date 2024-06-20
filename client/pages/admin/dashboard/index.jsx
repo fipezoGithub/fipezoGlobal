@@ -332,12 +332,42 @@ const Dashboard = (props) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({ status: "completed" }),
       });
       const respData = await res.json();
       const requests = premiumHires.filter((freelancer) => {
         return freelancer._id !== id;
       });
       setPremiumHires(requests);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function requestToFreelancer(id) {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(
+        `${process.env.SERVER_URL}/hire/premium/freelancer/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ freelancer_status: "sent" }),
+        }
+      );
+      const data = await res.json();
+      let oldRequest = [...premiumHires];
+      oldRequest.forEach((elm) => {
+        if (elm._id === id) {
+          elm.freelancer_status = "sent";
+        }
+      });
+      setPremiumHires(oldRequest);
     } catch (error) {
       console.log(error);
     }
@@ -764,6 +794,12 @@ const Dashboard = (props) => {
                     event address:{" "}
                     <span className='font-bold'>{list.address}</span>
                   </h2>
+                  <h2 className='capitalize text-lg'>
+                    freelancer status:{" "}
+                    <span className='font-bold'>
+                      {list.freelancer_status.split("_").join(" ")}
+                    </span>
+                  </h2>
                   <div className='flex items-center gap-2'>
                     <a
                       href={`tel:+91${list.phone}`}
@@ -779,8 +815,9 @@ const Dashboard = (props) => {
                     </a>
                     <button
                       type='button'
-                      onClick={() => updatePremiumRequest(list._id)}
-                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium'
+                      onClick={() => requestToFreelancer(list._id)}
+                      className='bg-blue-500 text-white px-2 py-1 rounded-3xl capitalize font-medium disabled:bg-neutral-600'
+                      disabled={list.freelancer_status !== "not_send"}
                     >
                       send to freelancer
                     </button>

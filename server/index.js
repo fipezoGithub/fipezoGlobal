@@ -232,6 +232,8 @@ const {
   changeStatusOfRequest,
   getUserPremiumHires,
   initializeRequestToFreelancer,
+  getFreelancersRequest,
+  freelancerHandel,
 } = require("./controllers/premiumHireController");
 const {
   addNewHireRequest,
@@ -476,12 +478,18 @@ app.get("/api/allchatrooms/:userId", getChatRoomOfUser);
 app.post("/api/hire/premium", verifyToken, newPremiumHireRequest);
 app.get("/api/hire-request/premium", verifyToken, getAllPendingRequest);
 app.put("/api/hire/premium/:reqId", verifyToken, changeStatusOfRequest);
+app.put("/api/hire/freelancer/action/:reqId", verifyToken, freelancerHandel);
 app.put(
-  "/api/hire/premium/freelamcer/:reqId",
+  "/api/hire/premium/freelancer/:reqId",
   verifyToken,
   initializeRequestToFreelancer
 );
 app.get("/api/hire/premium/user", verifyToken, getUserPremiumHires);
+app.get(
+  "/api/hire/premium/request-freelancers",
+  verifyToken,
+  getFreelancersRequest
+);
 
 //Premium Hire 249 Routes
 app.post("/api/hire/premium-249", addNewHireRequest);

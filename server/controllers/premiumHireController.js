@@ -181,10 +181,70 @@ async function getUserPremiumHires(req, res) {
   }
 }
 
+async function getFreelancersRequest(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      let user;
+      if (authData.user.companyname) {
+        user = await companyCollection.findById(authData.user._id);
+      } else if (!authData.user.uid) {
+        user = await userCollection.findById(authData.user._id);
+      } else {
+        user = await freelancerCollection.findById(authData.user._id);
+      }
+
+      if (err || !user) {
+        return res.status(404).send("User not found");
+      }
+
+      let premiumHires = await premiumHireCollection
+        .find({
+          $and: [
+            {
+              hired_freelancer: authData.user._id,
+              freelancer_status: { $ne: "not_send" },
+            },
+          ],
+        })
+        .populate("hired_freelancer")
+        .populate("freelancer")
+        .populate("user")
+        .populate("company")
+        .exec();
+
+      res.status(200).json(premiumHires);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
+async function freelancerHandel(req, res) {
+  try {
+    jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+      const admin = await freelancerCollection.findById(authData.user._id);
+      if (err || !admin) {
+        return res.status(404).send("Admin not found");
+      }
+      const upDateRequest = await premiumHireCollection.findByIdAndUpdate(
+        req.params.reqId,
+        { freelancer_status: req.body.freelancer_status }
+      );
+      res.status(200).json(upDateRequest);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   newPremiumHireRequest,
   getAllPendingRequest,
   changeStatusOfRequest,
   getUserPremiumHires,
   initializeRequestToFreelancer,
+  getFreelancersRequest,
+  freelancerHandel,
 };

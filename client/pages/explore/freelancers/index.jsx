@@ -540,6 +540,102 @@ function Explore(props) {
                       {currentPage + 3}
                     </span>
                   )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 4
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 4)}
+                    >
+                      {currentPage + 4}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 5
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 5)}
+                    >
+                      {currentPage + 5}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 6
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 6)}
+                    >
+                      {currentPage + 6}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 7
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 7)}
+                    >
+                      {currentPage + 7}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 8
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 8)}
+                    >
+                      {currentPage + 8}
+                    </span>
+                  )}
+                  {currentPage < noOfPages && (
+                    <span
+                      className={
+                        styles.page +
+                        " [display:_none_!important] md:[display:_flex_!important]"
+                      }
+                      style={
+                        currentPage === currentPage + 9
+                          ? { backgroundColor: "black", color: "white" }
+                          : {}
+                      }
+                      onClick={() => setCurrentPage(currentPage + 9)}
+                    >
+                      {currentPage + 9}
+                    </span>
+                  )}
                   {currentPage < noOfPages - 1 && (
                     <>
                       {"..."}

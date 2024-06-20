@@ -15,7 +15,6 @@ import Modal from "@/components/Modal";
 import Head from "next/head";
 import SimilarFreelancer from "@/components/SimilarFreelancer";
 import { AuthContext } from "@/context/AuthContext";
-import { FaAngleDown, FaInfoCircle } from "react-icons/fa";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -240,10 +239,10 @@ export default function Name(props) {
             {!data.isLoggedIn && (
               <Link
                 href='/login'
-                className={styles.btn + " [text-align:start!important]"}
+                className={styles.btn + " [text-align:start!important] w-full"}
                 id={styles.hire}
               >
-                &nbsp;&nbsp;&nbsp;Hire Me
+                Hire Me
               </Link>
             )}
             {((data.userDetails && !data.userDetails?.uid) ||
@@ -257,46 +256,10 @@ export default function Name(props) {
                       query: { freelancer: props.data.uid },
                     })
                   }
-                  className='cursor-pointer flex items-center gap-1 text-center'
+                  className='cursor-pointer flex items-center gap-1 text-center w-full'
                 >
-                  &nbsp;Hire Me
+                  Hire Me
                 </button>
-                {/* {showHireDrop && (
-                  <div className='absolute top-full bg-green-600 flex flex-col items-center gap-2 left-1/2 rounded-md px-4 z-10'>
-                    <Link
-                      href='/confirm_hiring_plans'
-                      className='absolute bottom-12 right-1'
-                    >
-                      <FaInfoCircle />
-                    </Link>
-                    <button
-                      type='button'
-                      onClick={handleHireBox}
-                      className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                    >
-                      normal hire
-                      <span className='text-sm normal-case'>
-                        Basic hiring process
-                      </span>
-                    </button>
-                    <hr className='w-full border' />
-                    <button
-                      type='button'
-                      onClick={() =>
-                        router.push({
-                          pathname: "/confirm_hiring",
-                          query: { freelancer: props.data.uid },
-                        })
-                      }
-                      className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                    >
-                      confirm hire
-                      <span className='text-sm normal-case'>
-                        Fipezo assured hiring
-                      </span>
-                    </button>
-                  </div>
-                )} */}
               </div>
             )}
             {((data.userDetails && !data.userDetails?.uid) ||
@@ -399,9 +362,9 @@ export default function Name(props) {
                         query: { freelancer: props.data.uid },
                       })
                     }
-                    className='cursor-pointer flex items-center text-center justify-center gap-1'
+                    className='cursor-pointer flex items-center text-center justify-center gap-1 w-full'
                   >
-                    &nbsp;&nbsp;&nbsp;Hire Me
+                    Hire Me
                   </button>
                   {/* <div className='absolute top-full bg-green-600 hidden group-hover:block -right-3/4 rounded-md px-4'>
                     <div className='relative flex items-center gap-4'>
