@@ -15,6 +15,7 @@ import Modal from "@/components/Modal";
 import Head from "next/head";
 import SimilarFreelancer from "@/components/SimilarFreelancer";
 import { AuthContext } from "@/context/AuthContext";
+import LeadGenerateModal from "@/components/LeadGenerateModal";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -39,7 +40,7 @@ export default function Name(props) {
   const [copied, setCopied] = useState(false);
   const [showDialogBox, setShowDialogBox] = useState(false);
   const [showReviewDialogBox, setShowReviewDialogBox] = useState(false);
-  const [showHireDrop, setShowHireDrop] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
 
   const { data } = useContext(AuthContext);
 
@@ -234,76 +235,74 @@ export default function Name(props) {
           coverPicture={props.data.coverPicture}
           position={JSON.parse(props.data.pictureStyle)}
         />
-        {data.userType !== "freelancer" && (
-          <div className={styles.btnBox2}>
-            {!data.isLoggedIn && (
-              <Link
-                href='/login'
-                className={styles.btn + " [text-align:start!important] w-full"}
-                id={styles.hire}
+        <div className={styles.btnBox2}>
+          {!data.isLoggedIn && (
+            <button
+              href='/login'
+              onClick={() => setShowLeadModal(true)}
+              className={styles.btn + " [text-align:start!important]"}
+              id={styles.hire}
+            >
+              Hire Me
+            </button>
+          )}
+          {data.isLoggedIn && (
+            <div className={styles.btn + " relative"} id={styles.hire}>
+              <button
+                type='button'
+                onClick={() =>
+                  router.push({
+                    pathname: "/confirm_hiring",
+                    query: { freelancer: props.data.uid },
+                  })
+                }
+                className='cursor-pointer flex items-center gap-1 text-center w-full'
               >
                 Hire Me
-              </Link>
-            )}
-            {((data.userDetails && !data.userDetails?.uid) ||
-              data.userDetails?.companyname) && (
-              <div className={styles.btn + " relative"} id={styles.hire}>
-                <button
-                  type='button'
-                  onClick={() =>
-                    router.push({
-                      pathname: "/confirm_hiring",
-                      query: { freelancer: props.data.uid },
-                    })
-                  }
-                  className='cursor-pointer flex items-center gap-1 text-center w-full'
-                >
-                  Hire Me
-                </button>
-              </div>
-            )}
-            {((data.userDetails && !data.userDetails?.uid) ||
-              data.userDetails?.companyname) && (
-              <button
-                className={styles.btn + " text-end"}
-                id={styles.msg}
-                onClick={() => handleReviewBox(true)}
-              >
-                Give Review
               </button>
-            )}
-            {!data.isLoggedIn && (
-              <Link
-                href='/login'
-                className={styles.btn + " text-end"}
-                id={styles.msg}
-              >
-                Give Review
-              </Link>
-            )}
-            {reviewBox && (
-              <div id={styles.boxContainer}>
-                <ReviewBox
-                  handleReviewBox={handleReviewBox}
-                  appendReview={appendReview}
-                  freelancer={props.data}
-                  setShowReviewDialogBox={setShowReviewDialogBox}
-                />
-              </div>
-            )}
-            {hireBox && (
-              <div id={styles.boxContainer2}>
-                <HireBox
-                  handleHireBox={handleHireBox}
-                  socket={props.socket}
-                  freelancer={props.data}
-                  user={user}
-                  setShowDialogBox={setShowDialogBox}
-                />
-              </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+          {((data.userDetails && !data.userDetails?.uid) ||
+            data.userDetails?.companyname) && (
+            <button
+              className={styles.btn + " text-end"}
+              id={styles.msg}
+              onClick={() => handleReviewBox(true)}
+            >
+              Give Review
+            </button>
+          )}
+          {!data.isLoggedIn && (
+            <Link
+              href='/login'
+              className={styles.btn + " text-end"}
+              id={styles.msg}
+            >
+              Give Review
+            </Link>
+          )}
+          {reviewBox && (
+            <div id={styles.boxContainer}>
+              <ReviewBox
+                handleReviewBox={handleReviewBox}
+                appendReview={appendReview}
+                freelancer={props.data}
+                setShowReviewDialogBox={setShowReviewDialogBox}
+              />
+            </div>
+          )}
+          {hireBox && (
+            <div id={styles.boxContainer2}>
+              <HireBox
+                handleHireBox={handleHireBox}
+                socket={props.socket}
+                freelancer={props.data}
+                user={user}
+                setShowDialogBox={setShowDialogBox}
+              />
+            </div>
+          )}
+        </div>
         {showDialogBox && (
           <DialogBox
             title='Sent Successfully!'
@@ -341,114 +340,74 @@ export default function Name(props) {
               handleClick={handleClick}
             />
           )}
-          {data.userType !== "freelancer" && (
-            <div className={styles.btnBox}>
-              {!data.isLoggedIn && (
-                <Link href='/login' className={styles.btn} id={styles.hire}>
-                  Hire Me
-                </Link>
-              )}
-              {((data.userDetails && !data.userDetails?.uid) ||
-                data.userDetails?.companyname) && (
-                <div
-                  className={styles.btn + " relative group"}
-                  id={styles.hire}
-                >
-                  <button
-                    type='button'
-                    onClick={() =>
-                      router.push({
-                        pathname: "/confirm_hiring",
-                        query: { freelancer: props.data.uid },
-                      })
-                    }
-                    className='cursor-pointer flex items-center text-center justify-center gap-1 w-full'
-                  >
-                    Hire Me
-                  </button>
-                  {/* <div className='absolute top-full bg-green-600 hidden group-hover:block -right-3/4 rounded-md px-4'>
-                    <div className='relative flex items-center gap-4'>
-                      <Link
-                        href='/confirm_hiring_plans'
-                        className='absolute top-3 right-1 peer'
-                      >
-                        <FaInfoCircle />
-                      </Link>
-                      <p className='hidden peer-hover:inline-block absolute top-2 left-full bg-black capitalize text-xs whitespace-nowrap p-2 rounded-md'>
-                        know more
-                      </p>
-                      <button
-                        type='button'
-                        onClick={handleHireBox}
-                        className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                      >
-                        hire
-                        <span className='text-sm normal-case'>
-                          Basic hiring process
-                        </span>
-                      </button>
-                      <hr className='border-2 border-neutral-400 h-28 my-2' />
-                      <button
-                        type='button'
-                        className='px-4 py-2 whitespace-nowrap capitalize flex flex-col gap-2 hover:shadow-md hover:rounded-md'
-                        onClick={() =>
-                          router.push({
-                            pathname: "/confirm_hiring",
-                            query: { freelancer: props.data.uid },
-                          })
-                        }
-                      >
-                        confirm hire
-                        <span className='text-sm normal-case'>
-                          Fipezo assured hiring
-                        </span>
-                      </button>
-                    </div>
-                  </div> */}
-                </div>
-              )}
-              {((data.userDetails && !data.userDetails?.uid) ||
-                data.userDetails?.companyname) && (
+          <div className={styles.btnBox}>
+            {!data.isLoggedIn && (
+              <button
+                type='button'
+                className={styles.btn}
+                id={styles.hire}
+                onClick={() => setShowLeadModal(true)}
+              >
+                Hire Me
+              </button>
+            )}
+            {data.isLoggedIn && (
+              <div className={styles.btn + " relative group"} id={styles.hire}>
                 <button
-                  className={styles.btn + " text-end"}
-                  id={styles.msg}
-                  onClick={() => handleReviewBox(true)}
+                  type='button'
+                  onClick={() =>
+                    router.push({
+                      pathname: "/confirm_hiring",
+                      query: { freelancer: props.data.uid },
+                    })
+                  }
+                  className='cursor-pointer flex items-center text-center justify-center gap-1 w-full'
                 >
-                  Give Review
+                  Hire Me
                 </button>
-              )}
-              {!data.isLoggedIn && (
-                <Link
-                  href='/login'
-                  className={styles.btn + " text-end"}
-                  id={styles.msg}
-                >
-                  Give Review
-                </Link>
-              )}
-              {reviewBox && (
-                <div id={styles.boxContainer} className=''>
-                  <ReviewBox
-                    handleReviewBox={handleReviewBox}
-                    appendReview={appendReview}
-                    freelancer={props.data}
-                    setShowReviewDialogBox={setShowReviewDialogBox}
-                  />
-                </div>
-              )}
-              {hireBox && (
-                <div id={styles.boxContainer2}>
-                  <HireBox
-                    handleHireBox={handleHireBox}
-                    socket={props.socket}
-                    freelancer={props.data}
-                    user={user}
-                    setShowDialogBox={setShowDialogBox}
-                  />
-                </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+            {((data.userDetails && !data.userDetails?.uid) ||
+              data.userDetails?.companyname) && (
+              <button
+                className={styles.btn + " text-end"}
+                id={styles.msg}
+                onClick={() => handleReviewBox(true)}
+              >
+                Give Review
+              </button>
+            )}
+            {!data.isLoggedIn && (
+              <Link
+                href='/login'
+                className={styles.btn + " text-end"}
+                id={styles.msg}
+              >
+                Give Review
+              </Link>
+            )}
+            {reviewBox && (
+              <div id={styles.boxContainer} className=''>
+                <ReviewBox
+                  handleReviewBox={handleReviewBox}
+                  appendReview={appendReview}
+                  freelancer={props.data}
+                  setShowReviewDialogBox={setShowReviewDialogBox}
+                />
+              </div>
+            )}
+            {hireBox && (
+              <div id={styles.boxContainer2}>
+                <HireBox
+                  handleHireBox={handleHireBox}
+                  socket={props.socket}
+                  freelancer={props.data}
+                  user={user}
+                  setShowDialogBox={setShowDialogBox}
+                />
+              </div>
+            )}
+          </div>
         </div>
         <div className='flex flex-col relative'>
           <h1 className='py-6 px-5 md:px-9 capitalize md:pt-6 text-lg font-bold'>
@@ -474,6 +433,9 @@ export default function Name(props) {
               setClickedImg={setClickedImg}
               handelRotationLeft={handelRotationLeft}
             />
+          )}
+          {showLeadModal && (
+            <LeadGenerateModal setShowLeadModal={setShowLeadModal} />
           )}
         </div>
       </div>

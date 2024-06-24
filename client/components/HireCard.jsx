@@ -8,8 +8,6 @@ function HireCard(props) {
   const router = useRouter();
   const { data } = useContext(AuthContext);
 
-  console.log(props);
-
   // Function to format the date as "dd/mm/yyyy"
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);

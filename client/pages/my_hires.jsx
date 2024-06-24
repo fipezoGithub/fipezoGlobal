@@ -9,7 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import DialogBox from "@/components/DialogBox";
 import Head from "next/head";
-import PremiumHireCard from "@/components/PremiumHireCard";
 
 export default function My_hires(props) {
   const [user, setUser] = useState(null);
@@ -22,7 +21,6 @@ export default function My_hires(props) {
   const [declined, setDeclined] = useState(false);
   const [premiumHires, setPremiumHires] = useState([]);
   const [freelancerPhone, setFreelancerPhone] = useState(null);
-  const [hireBox, setHireBox] = useState(false);
   const router = useRouter();
 
   useEffect(() => {

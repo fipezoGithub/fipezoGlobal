@@ -6,9 +6,25 @@ const secret = process.env.JWT_SECRET;
 const otpCollection = require("../models/otpModel");
 const referCollection = require("../models/referModel");
 const { uploadFile } = require("../middlewares/s3");
+const twilio = require("twilio")(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
 const fs = require("fs");
 const util = require("util");
+const leadsCollection = require("../models/leadsModel");
 const unlinkFile = util.promisify(fs.unlink);
+
+async function sendTextMessage(phoneNumber, message) {
+  if (process.env.CLIENT_URL !== "http://localhost:3001") {
+    phoneNumber = "+91" + phoneNumber.toString();
+    twilio.messages.create({
+      body: message,
+      from: process.env.TWILIO_PHONE_NUMBER,
+      to: phoneNumber,
+    });
+  }
+}
 
 // verify freelancer phone
 
@@ -279,6 +295,60 @@ async function verifyEmail(req, res) {
   }
 }
 
+async function leadGenerateOTP(req, res) {
+  try {
+    let existingUser = await userCollection.findOne({ phone: req.body.phone });
+    let existingFreelancer = await freelancerCollection.findOne({
+      phone: req.body.phone,
+    });
+    let existingCompany = await companyCollection.findOne({
+      companyphone: req.body.phone,
+    });
+
+    const existingLead = await leadsCollection.findOne({
+      phone: req.body.phone,
+    });
+
+    if (existingUser || existingFreelancer || existingCompany || existingLead) {
+      return res.sendStatus(403);
+    }
+
+    const existingOtpData = await otpCollection.findOne({
+      phone: req.body.phone,
+    });
+
+    if (existingOtpData) {
+      await otpCollection.deleteOne({ phone: req.body.phone });
+    }
+    const code = Math.floor(100000 + Math.random() * 900000);
+
+    const otpData = new otpCollection({
+      phone: req.body.phone,
+      otp: code,
+      type: "lead",
+    });
+
+    await otpData.save();
+
+    await sendTextMessage(
+      req.body.phone,
+      `You are requesting for change your password.Your code is ${code} valid for 2 mins. Do not share this with anyone. -Team Fipezo
+      +rGVCKNFWYy`
+    );
+    let otpTimer = setTimeout(async () => {
+      try {
+        await otpCollection.deleteOne({ phone: req.body.phone });
+      } catch (error) {
+        console.error("Error deleting OTP:", error);
+      }
+    }, 300000);
+    res.status(200).json({ phone: req.body.phone, type: "lead" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+}
+
 module.exports = {
   otpController,
   otpSignupController,
@@ -286,4 +356,5 @@ module.exports = {
   VerifyCompanyPhone,
   forgetOTPController,
   verifyEmail,
+  leadGenerateOTP,
 };

@@ -30,6 +30,7 @@ const {
   VerifyCompanyPhone,
   forgetOTPController,
   verifyEmail,
+  leadGenerateOTP,
 } = require("./controllers/otpController");
 
 const {
@@ -239,6 +240,11 @@ const {
   addNewHireRequest,
   getAllHireRequests,
 } = require("./controllers/premiumHire249Controller");
+const {
+  generateNewLead,
+  getAllLeads,
+  deleteALead,
+} = require("./controllers/leadController");
 
 // Setting up the routes
 
@@ -279,6 +285,7 @@ app.post("/api/otp/signup", userProfilePic, otpSignupController);
 app.post("/api/verify/freelancer/phone", VerifyFreelancerPhone);
 app.post("/api/verify/company/phone", VerifyCompanyPhone);
 app.post("/api/forget-password/submitotp", forgetOTPController);
+app.post("/api/lead/otp", leadGenerateOTP);
 
 //CompanyController Routes
 app.post("/api/register/company", companyUpload, verifyToken, registerCompany);
@@ -494,6 +501,11 @@ app.get(
 //Premium Hire 249 Routes
 app.post("/api/hire/premium-249", addNewHireRequest);
 app.get("/api/hire/premium-249", verifyToken, getAllHireRequests);
+
+//Lead Routes
+app.post("/api/lead/new", generateNewLead);
+app.get("/api/lead/all", verifyToken, getAllLeads);
+app.delete("/api/lead/delete/:id", verifyToken, deleteALead);
 
 app.get("/api/images/:key", async (req, res) => {
   const key = req.params.key;

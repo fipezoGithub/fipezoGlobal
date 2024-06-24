@@ -158,10 +158,6 @@
     width: 10rem;
   }
 
-  .profile_bio_card {
-    width: 100%;
-  }
-
   .name {
     font-size: 0.8rem;
   }
@@ -172,6 +168,9 @@
 }
 
 @media (max-width: 738px) {
+  .profile_bio_card {
+    width: 100%;
+  }
   .profile_pic {
     height: 7.5rem;
     width: 7.5rem;

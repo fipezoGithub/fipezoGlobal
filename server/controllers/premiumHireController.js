@@ -146,8 +146,10 @@ async function getUserPremiumHires(req, res) {
       let user;
       if (authData.user.companyname) {
         user = await companyCollection.findById(authData.user._id);
-      } else {
+      } else if (!authData.user.uid) {
         user = await userCollection.findById(authData.user._id);
+      } else {
+        user = await freelancerCollection.findById(authData.user._id);
       }
 
       if (err || !user) {
@@ -161,12 +163,20 @@ async function getUserPremiumHires(req, res) {
             company: authData.user._id,
           })
           .populate("hired_freelancer")
-          .populate("freelancer")
+          .populate("company")
+          .exec();
+      } else if (!authData.user.uid) {
+        premiumHires = await premiumHireCollection
+          .find({
+            user: authData.user._id,
+          })
+          .populate("hired_freelancer")
+          .populate("user")
           .exec();
       } else {
         premiumHires = await premiumHireCollection
           .find({
-            user: authData.user._id,
+            freelancer: authData.user._id,
           })
           .populate("hired_freelancer")
           .populate("freelancer")

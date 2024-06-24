@@ -10,7 +10,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { IoIosCreate } from "react-icons/io";
-import { MdContactPhone, MdReport, MdVerified } from "react-icons/md";
+import {
+  MdContactPhone,
+  MdLeaderboard,
+  MdReport,
+  MdVerified,
+} from "react-icons/md";
 import { FaCity, FaHireAHelper, FaRupeeSign, FaWpforms } from "react-icons/fa";
 import { AuthContext } from "@/context/AuthContext";
 import Hire249Card from "@/components/Hire249Card";
@@ -26,6 +31,7 @@ const Dashboard = (props) => {
   const [referWithdrawlRequests, setReferWithdrawlRequests] = useState([]);
   const [premiumHires, setPremiumHires] = useState([]);
   const [hire249, setHire249] = useState([]);
+  const [newLeads, setNewLeads] = useState([]);
   const [verificationBox, setVerificationBox] = useState(true);
   const [callbackBox, setCallbackBox] = useState(false);
   const [contactRequestBox, setContactRequestBox] = useState(false);
@@ -35,6 +41,7 @@ const Dashboard = (props) => {
   const [referPaymentBox, setReferPaymentBox] = useState(false);
   const [premiumHiringBox, setPremiumHiringBox] = useState(false);
   const [hire249Box, setHire249Box] = useState(false);
+  const [leadGenerateBox, setLeadGenerateBox] = useState(false);
   const [optionBox, setOptionBox] = useState(false);
   const [verificationCount, setVerificationCount] = useState(0);
   const [referPaymentCount, setReferPaymentCount] = useState(0);
@@ -229,8 +236,23 @@ const Dashboard = (props) => {
           },
         });
         const respData = await res.json();
-        console.log(respData);
         setHire249(respData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function getLeads() {
+      try {
+        const res = await fetch(`${process.env.SERVER_URL}/lead/all`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const leads = await res.json();
+        console.log(leads);
+        setNewLeads(leads);
       } catch (error) {
         console.log(error);
       }
@@ -246,6 +268,7 @@ const Dashboard = (props) => {
     getReferRequest();
     getPremiumHireRequest();
     get249HireRequest();
+    getLeads();
   }, [data.isLoggedIn, data.userDetails, router]);
 
   const updateFreelancers = (id) => {
@@ -373,6 +396,26 @@ const Dashboard = (props) => {
     }
   }
 
+  async function deleteLead(id) {
+    const token = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).token
+      : null;
+    try {
+      const res = await fetch(`${process.env.SERVER_URL}/lead/delete/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      const updatedLeads = newLeads.filter((lead) => lead._id !== id);
+      setNewLeads(updatedLeads);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -417,6 +460,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <MdVerified />
@@ -447,6 +491,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(true);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <FaHireAHelper />
@@ -477,6 +522,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(true);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <FaHireAHelper />
@@ -487,6 +533,32 @@ const Dashboard = (props) => {
                     {premiumHiringCount}
                   </span>
                 )} */}
+              </li>
+              <li
+                className={`px-4 py-2 relative ${
+                  leadGenerateBox === true &&
+                  "bg-slate-500 text-white rounded-2xl shadow-lg"
+                }`}
+              >
+                <button
+                  type='button'
+                  className='capitalize whitespace-nowrap flex items-center gap-1 text-xl'
+                  onClick={() => {
+                    setCallbackBox(false);
+                    setContactRequestBox(false);
+                    setSubmittedCityBox(false);
+                    setReportBox(false);
+                    setReferPaymentBox(false);
+                    setVerificationBox(false);
+                    setJobApplicationBox(false);
+                    setPremiumHiringBox(false);
+                    setHire249Box(false);
+                    setLeadGenerateBox(true);
+                  }}
+                >
+                  <MdLeaderboard />
+                  Leads
+                </button>
               </li>
               <li
                 className={`px-4 py-2 relative ${
@@ -507,6 +579,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <FaRupeeSign />
@@ -537,6 +610,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <IoCall />
@@ -562,6 +636,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <MdContactPhone />
@@ -587,6 +662,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <FaCity />
@@ -612,6 +688,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(false);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <MdReport />
@@ -637,6 +714,7 @@ const Dashboard = (props) => {
                     setJobApplicationBox(true);
                     setPremiumHiringBox(false);
                     setHire249Box(false);
+                    setLeadGenerateBox(false);
                   }}
                 >
                   <FaWpforms />
@@ -838,6 +916,43 @@ const Dashboard = (props) => {
               {hire249.map((hires, index) => {
                 return <Hire249Card hire={hires} key={index} />;
               })}
+            </div>
+          )}
+          {leadGenerateBox === true && (
+            <div
+              id='callback'
+              className='flex items-center justify-center w-full'
+            >
+              <table className='w-full mt-8 border border-collapse'>
+                <thead className=''>
+                  <tr className='py-4'>
+                    <th className='capitalize text-sm lg:text-2xl'>name</th>
+                    <th className='capitalize text-sm lg:text-2xl'>phone</th>
+                    <th className='capitalize text-sm lg:text-2xl'>action</th>
+                  </tr>
+                </thead>
+                <tbody className=''>
+                  {newLeads.length > 0 &&
+                    newLeads.map((it, i) => (
+                      <tr key={i} className='border-b'>
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
+                          {it.fullname}
+                        </th>
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
+                          <a href={`tel:${it.phone}`}>{it.phone}</a>
+                        </th>
+                        <th className='capitalize text-sm lg:text-xl font-medium py-4'>
+                          <button
+                            type='button'
+                            onClick={() => deleteLead(it._id)}
+                          >
+                            Action
+                          </button>
+                        </th>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           )}
           {callbackBox === true && (
