@@ -14,7 +14,6 @@ const Profile = (props) => {
   const [phone, setPhone] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [logintype, setLoginType] = useState("");
   const [premium, setPremium] = useState(false);
   const router = useRouter();
 
@@ -75,7 +74,6 @@ const Profile = (props) => {
       <div className={style.body}>
         <div className={style.profileBox}>
           <div className={style.profileImage}>
-            {/* <Image className={style.dp} src={profilePicture === '' ? '/dp.png' : `https://fipezo-bucket.s3.ap-south-1.amazonaws.com/${profilePicture}`} alt="profile-pic" height='100' width='100' /> */}
             <div
               className={style.editProfileImage}
               style={{
@@ -134,14 +132,12 @@ const Profile = (props) => {
             )}
             {!data.userDetails?.companyphone && data.userDetails?.uid && (
               <Link className={style.option} href='/my_requests'>
-                Hire Requests
+                Hire Inbox
               </Link>
             )}
-            {data.userDetails?.companyphone && (
-              <Link className={style.option} href='/my_hires'>
-                Hire Requests
-              </Link>
-            )}
+            <Link className={style.option} href='/my_hires'>
+              Hire Requests
+            </Link>
             {!data.userDetails?.companyphone && data.userDetails?.uid && (
               <Link href='/edit-profile' className={style.option}>
                 Edit Profile

@@ -4,6 +4,7 @@ import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import freelancer from "./register/freelancer";
 
 export const getServerSideProps = async (ctx) => {
   const response = await fetch(
@@ -117,9 +118,23 @@ const Urgenthiring = (props) => {
             description: description,
             transactionId: response.razorpay_payment_id,
           };
-        } else {
+        } else if (data.userType === "user") {
           bodyData = {
             user: data.userDetails._id,
+            fullName: fullName,
+            hired_freelancer: props.pageData._id,
+            address: address,
+            phone: phone,
+            reuireDate: requiredDate,
+            budget: budget,
+            startTime: startTime,
+            endTime: endTime,
+            description: description,
+            transactionId: response.razorpay_payment_id,
+          };
+        } else {
+          bodyData = {
+            freelancer: data.userDetails._id,
             fullName: fullName,
             hired_freelancer: props.pageData._id,
             address: address,
